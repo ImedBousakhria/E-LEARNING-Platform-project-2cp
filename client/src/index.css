@@ -2,6 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* resets */
+
 * {
   font-family: Helvetica, sans-serif;
+}
+
+@layer base {
+  a {
+    @apply cursor-pointer ; 
+  }
+  h1 {
+    @apply text-[50px] font-bold; 
+  }
+  h2 {
+    @apply text-[2.5rem] font-bold ; 
+  }
+  p {
+    @apply text-[1.25rem] ; 
+  }
+}
+
+/* navbar style */
+
+@layer components {
+  .link {
+    @apply relative hover:after:content-[''] hover:after:block hover:after:w-full hover:after:h-[3px] hover:after:bg-black hover:after:absolute hover:after:top-[100%] hover:after:left-[0%] hover:-translate-y-[10%] duration-300 ease-in-out transition-transform ; 
+  }
+  .hovered {
+    @apply relative after:content-[''] text-accent after:block after:w-full after:h-[3px] after:bg-accent after:absolute after:top-[100%] after:left-[0%]  ; 
+  }
+  .box-shadow {
+    box-shadow: 0px -17px 72px #C2C2C2;
+  }
+}
+
+
+
+/* hero section */
+
+.yellow-gradient {
+  background: linear-gradient(180deg, #FFC558 0%, #EB8C57 100%);
+  border-radius: 208px 208px 0px 0px;
 }

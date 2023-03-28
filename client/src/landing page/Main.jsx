@@ -5,7 +5,7 @@ import Programs from "./src/Programs";
 import Footer from "./src/Footer";
 
 const Main = () => {
-  return <div>
+  return <div className="flex flex-col gap-[3rem] bg-primary">
     <Navbar />
     <Hero />
     <Programs />
