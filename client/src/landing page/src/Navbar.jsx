@@ -1,45 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "./../../assets/logos/logo.svg";
-import rightarrow from './../../assets/icons/rightarrow.svg' ; 
-
+import rightarrow from "./../../assets/icons/rightarrow.svg";
+import search from "./../../assets/icons/search.svg";
+import { links } from "../content/navbar";
+import GetStarted from "../../components/GetStarted";
 
 const Navbar = () => {
+  const [focused, setFocused] = useState([true, false, false]);
+
   return (
-    <header className="w-full bg-primary">
+    <header className="w-full  box-shadow">
       <nav className="mx-auto max-w-[1280px]">
-        <ul className="flex items-center justify-between">
+        <ul className="flex min-h-full items-center justify-between">
           <li>
             <a>
               <img src={logo} alt="elite school logo" />
             </a>
           </li>
-          <li>
-            <ul className="flex gap-6">
-              <li>
-                <a>Home</a>
-              </li>
-              <li>
-                <a>Programs</a>
-              </li>
-              <li>
-                <a>Contact</a>
-              </li>
+          <li className="min-h-full">
+            <ul className="flex min-h-full gap-6 font-bold">
+              {links.map((Element, index) =>
+                focused[index] ? (
+                  <a className="hovered  min-h-full px-4 py-3 text-center">
+                    <span>{Element}</span>
+                  </a>
+                ) : (
+                  <a
+                    className=" link min-h-full px-4 py-3 text-center"
+                    onClick={() => {
+                      setFocused(
+                        focused.map((Element, i) => {
+                          return i === index;
+                        })
+                      );
+                    }}
+                  >
+                    <span>{Element}</span>
+                  </a>
+                )
+              )}
             </ul>
           </li>
           <li>
             <ul className="flex gap-4">
               <li>
-                <form>
+                <form className="flex gap-2 rounded-[10px] border border-gray p-3 ">
+                  <img src={search} />
                   <label htmlFor="search">
-                    <input name="search" id="search" placeholder="search" />
+                    <input
+                      className="bg-transparant focus:outline-none "
+                      name="search"
+                      type="text"
+                      id="search"
+                      placeholder="search"
+                    />
                   </label>
                 </form>
               </li>
-              <li>
-                <span>
-                  <img src={rightarrow} />
-                </span>
-                <a>Get started</a>
+              <li className="">
+                <GetStarted text={"Get started"} />
               </li>
             </ul>
           </li>
