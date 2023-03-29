@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const crypto = require('crypto')
 
 const lessonSchema = new mongoose.Schema({
   title: {
@@ -9,14 +10,30 @@ const lessonSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  pdf: {
-    type:  Schema.Types.Mixed,
-    required: true,
-  },
-  date: [{
+  gallery: 
+  [
+    {
+  contentType: String,
+  data: Buffer,
+  created: { type: Date, default: Date.now },
+  postedBy: {type: mongoose.Schema.ObjectId, ref: 'User'}
+    }
+  ],
+  comments: [
+    {
+      text: String,
+      created: { type: Date, default: Date.now },
+      postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    }
+  ],
+  discussionForum: { type: mongoose.Schema.Types.ObjectId, ref: 'DiscussionForum' },
+  created: {
     type: Date,
-    // required: true,
-  }]
+    default: Date.now
+  },
+  updated: {
+    type: Date,
+  },
 }, {timestamps: true});
 
 const Lesson = mongoose.model("Lesson", lessonSchema);
