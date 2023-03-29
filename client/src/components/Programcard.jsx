@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 
-const Programcard = ({ name, icon, colors, type, time, path }) => {
+const Programcard = ({ name, icon, colors, type, time, id }) => {
 
 
-  const [clippath, setPath] = useState(path) ; 
+  function handleMouseEnter() {
+    document.querySelectorAll(".shape")[id].classList.remove("clippoly") ;
+  }
+
+  function handleMouseLeave() {
+    document.querySelectorAll('.shape')[id].classList.add('clippoly') ; 
+  }
+
 
   return (
     <div
-      className="relative -z-0 mx-auto max-h-[260px] w-[260px] overflow-hidden rounded-[10px] hover:bg-black"
+      className="relative hi -z-0 mx-auto max-h-[260px] w-[260px] overflow-hidden rounded-[10px] hover:bg-black"
       style={{ backgroundColor: colors[0] }}
     >
-      <div className="flex flex-col justify-center hover:-translate-y-[20%]">
+      <div className="flex flex-col justify-center gap-6 hover:gap-0 hover:-translate-y-[20%]" onMouseEnter={()=>handleMouseEnter()} onMouseLeave={()=>handleMouseLeave()}>
         <div className="flex flex-col items-center justify-center gap-8 p-5">
           <div className="flex flex-col items-center justify-center gap-8">
             <div
@@ -25,7 +32,7 @@ const Programcard = ({ name, icon, colors, type, time, path }) => {
           </div>
         </div>
 
-        <div className="flex justify-center gap-[2rem] text-center font-bold text-white">
+        <div className="flex  justify-center gap-[2rem] text-center font-bold text-white">
           <div
             className="aspect-square w-[79px]  rounded-[50%] text-center "
             style={{ backgroundColor: colors[0] }}
@@ -44,8 +51,8 @@ const Programcard = ({ name, icon, colors, type, time, path }) => {
       </div>
 
       <div
-        className={`  absolute -left-1 -bottom-10 -z-10 h-[150px] w-[150px]`}
-        style={{ backgroundColor: colors[1] }}
+        className={` shape clippoly absolute -z-10 top-0 bottom-0 left-0 right-0 `}
+        style={{backgroundColor:colors[1]}}
       ></div>
     </div>
   );
