@@ -6,10 +6,6 @@ const discussionSchema = new mongoose.Schema({
     ref: 'Lesson',
     required: true,
   },
-    description: {
-      type: String,
-      required: true,
-    },
     threads: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'thread',
