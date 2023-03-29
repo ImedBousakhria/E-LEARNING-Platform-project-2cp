@@ -12,7 +12,7 @@ import englend from '../../assets/flags/englend.png' ;
 
 const Hero = () => {
   return (
-    <div className="relative">
+    <div className="relative " id="Home">
       <div className="mx-auto mb-6 flex max-w-[1280px]  items-center ">
         <section className="flex basis-[70%] flex-col gap-4">
           <h1>Elites School E-learning platform</h1>
@@ -66,7 +66,7 @@ const Hero = () => {
           </div>
         </section>
       </div>
-      <div className="mx-auto mt-[6rem] max-w-[1280px]">
+      <div className="mx-auto mt-[4rem] max-w-[1280px]">
         <hr className="mx-auto max-w-[90%] border-blue"></hr>
       </div>
     </div>

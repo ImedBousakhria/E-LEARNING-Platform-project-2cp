@@ -6,10 +6,12 @@ import Footer from "./src/Footer";
 
 const Main = () => {
   return (
-    <div className="flex flex-col gap-[3rem] bg-primary">
+    <div className="flex flex-col gap-[5rem] bg-primary">
       <Navbar />
-      <Hero />
-      <Programs />
+      <main className="flex flex-col gap-[5rem]">
+        <Hero />
+        <Programs />
+      </main>
       <Footer />
     </div>
   );

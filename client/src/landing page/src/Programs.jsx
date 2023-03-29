@@ -13,7 +13,7 @@ import "swiper/css/navigation";
 
 const Programs = () => {
   return (
-    <div>
+    <div id="Programs">
       <div className=" flex  flex-col gap-8">
         <section className="flex items-center mx-auto w-full max-w-[1280px] justify-between">
           <h2>Our programs</h2>
@@ -28,10 +28,11 @@ const Programs = () => {
             slidesPerView={4}
             navigation
           >
-            {programs.map((Element) => {
+            {programs.map((Element, index) => {
               return (
                 <SwiperSlide>
                   <Programcard
+                    id={index}
                     name={Element.name}
                     icon={Element.icon}
                     colors={Element.colors}

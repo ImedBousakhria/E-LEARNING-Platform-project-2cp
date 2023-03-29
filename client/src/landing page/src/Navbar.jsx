@@ -9,7 +9,7 @@ const Navbar = () => {
   const [focused, setFocused] = useState([true, false, false]);
 
   return (
-    <header className="box-shadow sticky top-0 z-10 bg-primary  w-full">
+    <header className="box-shadow sticky top-0 z-10 w-full  bg-primary">
       <nav className="z-10 mx-auto max-w-[1280px]">
         <ul className="z-10 flex min-h-full items-center justify-between">
           <li>
@@ -21,11 +21,15 @@ const Navbar = () => {
             <ul className="flex min-h-full gap-6 font-bold">
               {links.map((Element, index) =>
                 focused[index] ? (
-                  <a className="hovered  min-h-full px-4 py-3 text-center">
+                  <a
+                    href={`#${Element}`}
+                    className="hovered  min-h-full px-4 py-3 text-center"
+                  >
                     <span>{Element}</span>
                   </a>
                 ) : (
                   <a
+                    href={`#${Element}`}
                     className=" link  min-h-full px-4 py-3 text-center"
                     onClick={() => {
                       setFocused(
