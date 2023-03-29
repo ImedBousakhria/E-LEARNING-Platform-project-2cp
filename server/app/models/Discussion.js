@@ -1,14 +1,19 @@
 const mongoose = require("mongoose");
 
 const discussionSchema = new mongoose.Schema({
-    title: {
-      type: String,
-      required: true,
-    },
+    lesson: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Lesson',
+    required: true,
+  },
     description: {
       type: String,
       required: true,
-    }
+    },
+    threads: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'thread',
+        required: false,
   }, {timestamps: true});
   
 const Discussion = mongoose.model("Discussion", discussionSchema);
