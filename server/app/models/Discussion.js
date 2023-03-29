@@ -14,6 +14,7 @@ const discussionSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'thread',
         required: false,
+    }]
   }, {timestamps: true});
   
 const Discussion = mongoose.model("Discussion", discussionSchema);
