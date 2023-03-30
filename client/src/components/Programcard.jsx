@@ -17,7 +17,7 @@ const Programcard = ({ name, icon, colors, type, time, id }) => {
       className="relative hi -z-0 mx-auto max-h-[260px] w-[260px] overflow-hidden rounded-[10px] hover:bg-black"
       style={{ backgroundColor: colors[0] }}
     >
-      <div className="flex flex-col justify-center gap-6 hover:gap-0 hover:-translate-y-[20%]" onMouseEnter={()=>handleMouseEnter()} onMouseLeave={()=>handleMouseLeave()}>
+      <div className="flex flex-col justify-center gap-6 hover:gap-0 hover:-translate-y-[20%]   " onMouseEnter={()=>handleMouseEnter()} onMouseLeave={()=>handleMouseLeave()}>
         <div className="flex flex-col items-center justify-center gap-8 p-5">
           <div className="flex flex-col items-center justify-center gap-8">
             <div

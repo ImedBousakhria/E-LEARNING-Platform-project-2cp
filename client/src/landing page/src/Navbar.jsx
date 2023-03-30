@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import logo from "./../../assets/logos/logo.svg";
 import rightarrow from "./../../assets/icons/rightarrow.svg";
-import search from "./../../assets/icons/search.svg";
 import { links } from "../content/navbar";
 import GetStarted from "../../components/GetStarted";
+import Search from "../../components/Search";
 
 const Navbar = () => {
   const [focused, setFocused] = useState([true, false, false]);
@@ -48,18 +48,7 @@ const Navbar = () => {
           <li>
             <ul className="flex gap-4">
               <li>
-                <form className="flex gap-2 rounded-[10px] border border-gray p-3 ">
-                  <img src={search} />
-                  <label htmlFor="search">
-                    <input
-                      className="bg-transparant focus:outline-none "
-                      name="search"
-                      type="text"
-                      id="search"
-                      placeholder="search"
-                    />
-                  </label>
-                </form>
+                <Search />
               </li>
               <li className="">
                 <GetStarted text={"Get started"} />
