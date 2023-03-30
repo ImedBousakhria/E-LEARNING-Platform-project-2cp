@@ -1,5 +1,5 @@
 import React from "react";
-import rightarrow from "./../../assets/icons/rightarrow.svg";
+import rightarrowblack from "./../../assets/icons/rightarrowblack.svg";
 import Programcard from "../../components/Programcard";
 import { programs } from "../content/pograms";
 // import function to register Swiper custom elements
@@ -19,7 +19,7 @@ const Programs = () => {
           <h2>Our programs</h2>
           <a className="flex gap-2">
             <span className="font-bold">See all</span>
-            <img src={rightarrow} />
+            <img src={rightarrowblack} />
           </a>
         </section>
         <section className="px-8">
