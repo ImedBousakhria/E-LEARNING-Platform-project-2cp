@@ -1,18 +1,28 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const discussionSchema = new mongoose.Schema({
-    lesson: {
+  lesson: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Lesson',
     required: true,
   },
-    threads: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'thread',
-        required: false,
-    }]
-  }, {timestamps: true});
-  
-const Discussion = mongoose.model("Discussion", discussionSchema);
+  messages: [
+    {
+      text: {
+        type: String,
+        required: true,
+      },
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+      },
+      timestamp: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+});
 
-module.exports = Discussion;
+module.exports = mongoose.model('Discussion', discussionSchema);
