@@ -2,5 +2,6 @@
 
 const { Router } = require('express');
 const discussionController = require('../controllers/discussionController');
+const router = Router();
 
 module.exports = router;

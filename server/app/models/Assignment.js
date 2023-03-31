@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const assegnmentSchema = new mongoose.Schema({
+const assignmentSchema = new mongoose.Schema({
     title: {
       type: String,
       required: true,
@@ -11,6 +11,6 @@ const assegnmentSchema = new mongoose.Schema({
     }
   }, {timestamps: true});
   
-const Assegnment = mongoose.model("Assegnment", assegnmentSchema);
+const Assignment = mongoose.model("Assegnment", assignmentSchema);
 
-module.exports = Assegnment;
+module.exports = Assignment;
