@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-const dbURI = 'mongodb+srv://saidilena:lena123@e-khdem.dsjn9yi.mongodb.net/?retryWrites=true&w=majority';
+const dbURI = 'mongodb+srv://saidilena:lena123@elite.2mfo0dl.mongodb.net/?retryWrites=true&w=majority';
 
 
 app.get("/", (req, res) => {

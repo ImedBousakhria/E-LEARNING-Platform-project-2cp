@@ -20,17 +20,17 @@ const courseSchema = new mongoose.Schema({
       contentType: String
     },
     students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    teacher: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    teachers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }],
     created: {
       type: Date,
       default: Date.now
     },
     lessons: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Lesson' }],
-    assignment : [{
+    assignments : [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Assigment'
     }],
-    announcement  : [{
+    announcements  : [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Announcement '
     }]

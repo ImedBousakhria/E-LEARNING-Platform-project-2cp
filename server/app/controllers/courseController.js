@@ -1,15 +1,15 @@
-const Course = require('../models/Activity') ;
+const Course = require('../models/Course') ;
 const User = require("../models/User");
 
 module.exports.get = async (req, res) =>{
     const _id = req.params.id;
     try{
-        const activity = await Activity.findById({_id})
-        .populate('mainManager managers teamLeaders organizers')
+        const course = await Course.findById({_id})
+        .populate('teachers', 'name')
 
-        if(activity){
-
-            res.status(200).json(activity);
+        if(course){
+            res.status(200).json(course);
+            console.log("Course found");
         }else{
             res.status(404).json("Not found");
         }
@@ -20,58 +20,64 @@ module.exports.get = async (req, res) =>{
 }
 
 module.exports.post = async (req, res) =>{
-    /*
-    req.body = {
-        name: string,
-        type: string,
-        description: string,
-        mainManager: objectID,
-        teamLeaders: [objectID],
-        organizers: [objectID],
-    }
-    */
+   
 
     try{
-        //create the activity document
+        //create the course document
         const activity = await Activity.create(req.body);
 
-        //add the activity to each member by their role + add automatic points
+        //add the activity to each member by their role   
+        
+        //add to main teacher (if there is only one)
 
-        //add to main manager
-        const mainManager = await User.findById(req.body.mainManager);
-        mainManager.contributions.push({activityID: activity._id, role: "main-manager"});
-        mainManager.save();
+        // const teacher = await User.findById(req.body.teacher);
+        // mainManager.course.push({courseID: course._id});
+        // // mainManager.course.push({courseID: course._id, role: "main-manager"});
+        // mainManager.save();
 
-        const mainManagerRank = await Rank.findById(mainManager.rank);
-        mainManagerRank.totalAddedPoints += 20;
-        mainManagerRank.generalPoints += 20;
-        mainManagerRank.save();
-
-        //add to leaders
-        req.body.teamLeaders.forEach(async teamLeaderID => {
-            const teamLeader = await User.findById(teamLeaderID);
-            teamLeader.contributions.push({activityID: activity._id, role: "team-leader"})
-            teamLeader.save();
-
-            const teamLeaderRank = await Rank.findById(teamLeader.rank);
-            teamLeaderRank.totalAddedPoints += 15;
-            teamLeaderRank.generalPoints += 15;
-            teamLeaderRank.save();
+        
+        // add to teachers
+        req.body.teachers.forEach(async teacherID => {
+            const teacher = await User.findById(teacherID);
+            teacher.courses.push({courseID: course._id});
+            // teacher.courses.push({courseID: course._id, role: "teacher"});
+            teacher.save();
         })
 
-        //add to organizers
-        req.body.organizers.forEach(async organizerID => {
-            const organizer = await User.findById(organizerID);
-            organizer.contributions.push({activityID: activity._id, role: "organizer"});
-            organizer.save();
 
-            const organizerRank = await Rank.findById(organizer.rank);
-            organizerRank.totalAddedPoints += 10;
-            organizerRank.generalPoints += 10;
-            organizerRank.save();
+        //add to students
+        req.body.students.forEach(async studentID => {
+            const student = await User.findById(studentID);
+            student.courses.push({courseID: course._id});
+            // student.courses.push({courseID: course._id, role: "student"});
+            student.save();
         })
 
-        res.status(200).json(activity);
+        //add to lessons
+        req.body.lessons.forEach(async lessonID => {
+            const lesson = await User.findById(lessonID);
+            lesson.course.push({lessonID: lesson._id});
+            lesson.save();
+
+        })
+
+        //add to assignments
+        req.body.assignments.forEach(async assignmentID => {
+            const assigment = await User.findById(assigmentID);
+            assigment.course.push({assigmentID: assigment._id});
+            assigment.save();
+
+        })
+
+        //add to annoucements
+        req.body.annoucements.forEach(async annoucementID => {
+            const annoucement = await User.findById(annoucementID);
+            annoucement.course.push({annoucementID: annoucement._id});
+            annoucement.save();
+
+        })
+
+        res.status(200).json(course);
     }catch(err){
         console.log("creation failed ");
         res.status(500).json({message: err.message});
@@ -82,28 +88,28 @@ module.exports.post = async (req, res) =>{
 module.exports.put = async (req, res) =>{
     const _id = req.params.id;
     try{
-        const activity=await Activity.findOneAndUpdate({_id}, req.body);
+        const course=await Course.findOneAndUpdate({_id}, req.body);
         
-        if(activity){
+        if(course){
                 
-            res.status(200).json(activity);
+            res.status(200).json(course);
         }else{
             res.status(404).json({message: "Activity not found"});
         }
 
     }catch(err){
-        console.log("Activity update succeed");
+        console.log("course update succeed");
         res.status(500).json({message: err.message});
     }
 }
 
 module.exports.delete = async (req, res) =>{
     try{
-        const activity=await Activity.findOneAndDelete({_id}, req.body);
-        if(activity){
-            res.status(200).json(activity);
+        const course=await Course.findOneAndDelete({_id}, req.body);
+        if(course){
+            res.status(200).json(course);
         }else{
-            res.status(401).send({message: "Activity not found"});
+            res.status(401).send({message: "course not found"});
         }
     }catch(err){
         console.log("suppression failed");
