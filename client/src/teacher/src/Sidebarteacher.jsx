@@ -6,7 +6,7 @@ import Help from './Help';
 
 const Sidebarteacher = () => {
   return (
-    <div className='bg-white basis-[20%] sticky left-0 top-0 p-4 max-h-[100vh] flex flex-col justify-between'>
+    <div className='bg-white basis-[17%] sticky left-0 top-0 p-4 max-h-[100vh] flex flex-col justify-between'>
       <div>
         <img src={logo} />
       </div>

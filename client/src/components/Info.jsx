@@ -4,7 +4,7 @@ const Info = ({ icon, number }) => {
   return (
     <a className="flex gap-1">
       <img src={icon} />
-      <span>{number}</span>
+      <span className="text-[0.8rem]">{number}</span>
     </a>
   );
 };
