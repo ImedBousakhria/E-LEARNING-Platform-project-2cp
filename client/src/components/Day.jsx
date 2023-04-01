@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Day = () => {
+const Day = ({date, text, handleclick}) => {
   return (
-    <button className='border rounded-[10xpx] border-darkgray px-1 py-3 text-center'>
-      <p>{date}</p>
-      <p>{text}</p>
+    <button onClick={handleclick} className='border min-w-[22%] day rounded-[10px]  border-darkgray px-1 py-3 text-center'>
+      <p className='font-bold'>{date}</p>
+      <p className=' capitalize '>{text}</p>
     </button>
   )
 }
