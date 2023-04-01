@@ -5,7 +5,7 @@ import Notification from './src/Notification'
 
 const Teacherhome = () => {
   return (
-    <div className='flex '>
+    <div className='flex w-full '>
       <Sidebarteacher />
       <Main />
       <Notification />

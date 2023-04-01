@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import info from "./../src/assets/icons/info.svg"
-import showpwd from "./../src/assets/icons/showpwd.svg";
-import hidepwd from "./../src/assets/icons/hidepwd.svg";
-import dropdown from "./../src/assets/icons/dropdown.svg";
+import info from "../../assets/icons/info.svg"
+import showpwd from "../../assets/icons/showpwd.svg";
+import hidepwd from "../../assets/icons/hidepwd.svg";
+import dropdown from "../../assets/icons/dropdown.svg";
 
 const Form = () => {
   const initValues = { email: "", password: "", user: "" };

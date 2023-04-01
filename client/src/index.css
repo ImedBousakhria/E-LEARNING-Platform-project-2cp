@@ -68,17 +68,23 @@
 
 /* Signin page*/
 .form-input {
-  @apply flex justify-between items-center bg-white py-2 px-2 rounded-md border align-middle mt-1 shadow border-gray-300;
+  @apply flex justify-between items-center bg-white py-2 px-2 rounded-md border align-middle mt-1 shadow border-gray;
 }
 
 .form-input-error {
-  @apply flex justify-between items-center bg-white py-2 px-2 rounded-md border align-middle mt-1 shadow border-red-500;
+  @apply flex justify-between items-center bg-white py-2 px-2 rounded-md border align-middle mt-1 shadow ;
 }
 
 .select-input {
-  @apply flex justify-between items-center bg-white h-full w-full rounded-md border align-middle mt-1 shadow border-gray-300;
+  @apply flex justify-between items-center bg-white h-full w-full rounded-md border align-middle mt-1 shadow border-gray;
 }
 
 .select-input-error {
-  @apply flex justify-between items-center bg-white h-2 w-2 rounded-md border align-middle mt-1 shadow border-red-500;
+  @apply flex justify-between items-center bg-white h-2 w-2 rounded-md border align-middle mt-1 shadow ;
+}
+
+
+/* schedule section */
+.btnday {
+  @apply bg-accent text-white border-none ; 
 }
