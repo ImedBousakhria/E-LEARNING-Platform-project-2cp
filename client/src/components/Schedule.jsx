@@ -15,6 +15,8 @@ const Schedule = () => {
       : (document.querySelector(".dayscontainer").scrollLeft -=
           document.querySelector(".day").clientWidth);
   }
+  const [selected, setSelected] = useState(0);
+
 
   return (
     <div className="flex basis-[40%]  flex-col gap-4 rounded-[10px] bg-white p-4">
@@ -33,7 +35,8 @@ const Schedule = () => {
                   key={index}
                   date={Element.date}
                   text={Element.short}
-                  handleclick={() => setIndex(index)}
+                  handleclick={() => {setIndex(index)}}
+                  
                 />
               );
             })}

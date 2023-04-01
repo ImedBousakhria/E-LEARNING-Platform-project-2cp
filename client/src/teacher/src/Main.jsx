@@ -33,7 +33,7 @@ const Main = () => {
       <div>
         <Lastsubmisstions />
       </div>
-      <div className="flex justify-between">
+      <div className="flex gap-[2%] justify-between">
         <Announcement />
         <Schedule />
       </div>

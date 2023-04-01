@@ -20,7 +20,6 @@ module.exports = {
       ered:"#DA2F43",
       bblue:"#5271FF",
       b2blue:"#37C6FF",
-      ...colors
     },
   },
   plugins:[], 

@@ -8,7 +8,7 @@ function Course({ groupe, description, time, module }) {
         <p>{groupe}</p>
       </div>
       <p className="text-darkgray">{description}</p>
-      <p className="text-blue">{time}</p>
+      <p className="text-blue ">{time}</p>
     </div>
   );
 }
