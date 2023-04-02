@@ -25,7 +25,7 @@ module.exports.post = async (req, res) =>{
 
     try{
         //create the course document
-        const activity = await Activity.create(req.body);
+        const course = await Course.create(req.body);
  
         
         //add to main teacher (if there is only one)
@@ -70,7 +70,7 @@ module.exports.post = async (req, res) =>{
         })
 
         //add to annoucements
-        req.body.annoucements.forEach(async annoucementID => {
+        req.body.announcements.forEach(async annoucementID => {
             const annoucement = await User.findById(annoucementID);
             annoucement.course.push({annoucementID: annoucement._id});
             annoucement.save();
@@ -104,6 +104,7 @@ module.exports.put = async (req, res) =>{
 }
 
 module.exports.delete = async (req, res) =>{
+    const _id = req.params.id;
     try{
         const course=await Course.findOneAndDelete({_id}, req.body);
         if(course){
