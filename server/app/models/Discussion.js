@@ -1,16 +1,28 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const discussionSchema = new mongoose.Schema({
-    title: {
-      type: String,
-      required: true,
+  lesson: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Lesson',
+    required: true,
+  },
+  messages: [
+    {
+      text: {
+        type: String,
+        required: true,
+      },
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+      },
+      timestamp: {
+        type: Date,
+        default: Date.now,
+      },
     },
-    description: {
-      type: String,
-      required: true,
-    }
-  }, {timestamps: true});
-  
-const Discussion = mongoose.model("Discussion", discussionSchema);
+  ],
+});
 
-module.exports = Discussion;
+module.exports = mongoose.model('Discussion', discussionSchema);

@@ -19,12 +19,24 @@ const quizzRoute = require('./app/routes/quizzRoute');
 const scheduleRoute = require('./app/routes/scheduleRoute');
 const lessonRoute = require('./app/routes/lessonRoute');
 
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+  console.log('A user connected');
+  socket.on('disconnect', () => {
+  console.log('A user disconnected');
+  });
+});
+
+app.set('io', io);
 
 app.use(express.json());
 app.use(cookieParser());
 
 
 const dbURI = 'mongodb+srv://saidilena:lena123@elite.2mfo0dl.mongodb.net/?retryWrites=true&w=majority';
+
 
 
 app.get("/", (req, res) => {
@@ -34,9 +46,7 @@ mongoose.set({strictQuery: true});
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
   .then(() =>{
     console.log('DataBase connected...');
-    app.listen(process.env.PORT, ()=> {
-      return console.log(`Server listening on PORT ${process.env.PORT}...`);
-    });
+    app.listen(3000);
   })
   .catch((err) => console.log(err));
 
@@ -46,11 +56,12 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
   app.use(discussionRoute);
   app.use(notificationRoute);
   app.use(assegnmentRoute);
-  app.use(submissionRoute);
+  // app.use(submissionRoute);
   app.use(commentRoute);
   app.use(quizzRoute);
   app.use(scheduleRoute);
   app.use(lessonRoute);
+
   
 
 
