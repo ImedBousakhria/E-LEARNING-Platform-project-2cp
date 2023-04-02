@@ -5,7 +5,8 @@ module.exports.get = async (req, res) =>{
     const _id = req.params.id;
     try{
         const course = await Course.findById({_id})
-        .populate('teachers', 'name')
+        .populate('teachers', 'firstName lastName')
+        .populate('students', 'firstName lastName')
 
         if(course){
             res.status(200).json(course);
@@ -25,8 +26,7 @@ module.exports.post = async (req, res) =>{
     try{
         //create the course document
         const activity = await Activity.create(req.body);
-
-        //add the activity to each member by their role   
+ 
         
         //add to main teacher (if there is only one)
 
