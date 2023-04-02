@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
   },
   isAdmin: {
     type: Boolean,
-    required: true,
+    // required: true,
     default: false,
   },
   isTeacher: {
@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
   },
   isGerant: {
     type: Boolean,
-    required: true,
+    // required: true,
     default: true,
   },
   isVerified: {

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const crypto = require('crypto')
+
 
 const lessonSchema = new mongoose.Schema({
   title: {
@@ -19,13 +19,7 @@ const lessonSchema = new mongoose.Schema({
   postedBy: {type: mongoose.Schema.ObjectId, ref: 'User'}
     }
   ],
-  comments: [
-    {
-      text: String,
-      created: { type: Date, default: Date.now },
-      postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
-    }
-  ],
+  course: { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },
   discussionForum: { type: mongoose.Schema.Types.ObjectId, ref: 'DiscussionForum' },
   created: {
     type: Date,

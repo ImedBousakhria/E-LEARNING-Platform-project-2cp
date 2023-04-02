@@ -12,8 +12,8 @@ const userRoute = require('./app/routes/userRoute');
 const courseRoute = require('./app/routes/courseRoute');
 const discussionRoute = require('./app/routes/discussionRoute');
 const notificationRoute = require('./app/routes/notificationRoute');
-const assegnmentRoute = require('./app/routes/assegnmentRoute');
-// const submissionRoute = require('./app/routes/submissionRoute');
+const assignmentRoute = require('./app/routes/assignmentRoute');
+const submissionRoute = require('./app/routes/submissionRoute');
 const commentRoute = require('./app/routes/commentRoute');
 const quizzRoute = require('./app/routes/quizzRoute');
 const scheduleRoute = require('./app/routes/scheduleRoute');
@@ -35,7 +35,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-const dbURI = 'mongodb+srv://saidilena:lena123@e-khdem.dsjn9yi.mongodb.net/?retryWrites=true&w=majority';
+const dbURI = 'mongodb+srv://saidilena:lena123@elite.2mfo0dl.mongodb.net/?retryWrites=true&w=majority';
+
 
 
 app.get("/", (req, res) => {

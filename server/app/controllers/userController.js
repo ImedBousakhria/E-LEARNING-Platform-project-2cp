@@ -1,130 +1,112 @@
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
 
-module.exports.insertUser = async (req, res) =>{
-    try{
-        //creat a new user
-        const user = await User.create(req.body);
+// handle errors
+const handleErrors = (err) => {
+  console.log(err.message, err.code);
+  let errors = { email: '', password: '' };
 
-        //creating the rank associated to the user
-        const _id = user._id;
-        const rank = await Rank.create({owner: _id});
+  // incorrect email
+  if (err.message === 'incorrect email') {
+    errors.email = 'That email is not registered';
+  }
 
-        //update the rank field of the user
-        user.rank = rank._id;
-        await user.save();
+  // incorrect password
+  if (err.message === 'incorrect password') {
+    errors.password = 'That password is incorrect';
+  }
 
-        res.status(200).json(user);
+  // duplicate email error
+  if (err.code === 11000) {
+    errors.email = 'that email is already registered';
+    return errors;
+  }
 
-    }catch(err){
+  // validation errors
+  if (err.message.includes('user validation failed')) {
+    // console.log(err);
+    Object.values(err.errors).forEach(({ properties }) => {
+      // console.log(val);
+      // console.log(properties);
+      errors[properties.path] = properties.message;
+    });
+  }
 
-        console.log("Creation failed");
-        res.status(500).json({message: err.message});
-    }
-
+  return errors;
 }
 
-module.exports.updateCredintials = async (req, res) =>{
+// create json web token
+const maxAge = 3 * 24 * 60 * 60;
+const createToken = (id) => {
+  return jwt.sign({ id }, 'net ninja secret', {
+    expiresIn: maxAge
+  });
+};
+
+// controller actions
+
+module.exports.getUser = async (req, res) =>{
     _id = req.params.id;
     try{
-        const user=await User.findOneAndUpdate({_id}, req.body, {new: true});
-        if(user){    
-            res.status(200).json(user);
+        const user = await User.findById(_id)
+            // .populate('notifications')
+            // .populate({path: 'contributions.activityID', select: 'name'})
+            // .populate('rank')
 
+        if(user){
+            res.status(200).send(user);
+        
         }else{
             res.status(404).json({message: "User not found"});
         }
-
+        
     }catch(err){
-        console.log("User update failed");
+        console.log("fetch failed");
         res.status(500).json({message: err.message});
     }
 }
 
-module.exports.deleteUser = async (req, res) =>{
-    _id = req.params.id;
-    try{
-        const user=await User.findOneAndDelete({_id});
+module.exports.updateProfile = async (req, res)=>{
+    try {
+        _id = req.params.id;
+        
+        const user = await User.findOneAndUpdate({_id}, req.body, {new: true});
+
         if(user){
             res.status(200).json(user);
 
         }else{
-            res.status(401).json({message: "User not found"});
+            res.status(400).json({message: 'User not found'})
         }
 
-    }catch(err){
-        console.log("Delete failed");
-        res.status(500).json({message: err.message});
+    } catch (error) {
+        res.status(400).json({message: error.message})
     }
-
 }
 
-module.exports.banUser = async (req, res) =>{
-    _id = req.params.id;
-    try{
-        const user=await User.findOneAndUpdate({_id}, {status: 'banned'}, {new: true});
-        if(user){
-            res.status(200).json(user);
-
-        }else{
-            res.status(401).json({message: "User not found"});
-        }
-
-    }catch(err){
-        console.log("bane failed");
-        res.status(500).json({message: err.message});
-    }
-
+module.exports.login_get = async (req, res) => {
+    res.status(200).send("this is the login page");
 }
 
-module.exports.unbanUser = async (req, res) =>{
-    _id = req.params.id;
-    try{
-        const user=await User.findOneAndUpdate({_id}, {status: 'confirmed'}, {new: true});
-        if(user){
-            res.status(200).json(user);
-
-        }else{
-            res.status(401).json({message: "User not found"});
-        }
-    }catch(err){
-        console.log("Unban failed");
-        res.status(500).json({message: err.message});
+module.exports.login_post = async (req, res) => {
+    const { email, password } = req.body;
+    // const maxAge = 1000 * 60 * 60 * 24;
+    try {
+      const user = await User.login(email, password);
+    //   const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin, role: user.role }, "GDG for once, GDG forever!", {expiresIn: maxAge});
+      const token = createToken(user._id);
+      res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+      res.status(200).json({ user: user._id });
+    } 
+    catch (err) {
+      const errors = handleErrors(err);
+      res.status(400).json({ errors });
     }
-
+  
+  }
+  
+  module.exports.logout_get = (req, res) => {
+    res.cookie('jwt', '', { maxAge: 1 });
+    res.redirect('/');
 }
 
-//simple user to admin
-module.exports.promoteUser = async (req, res) =>{
-    _id = req.params.id;
-    try{
-        const user=await User.findOneAndUpdate({_id}, {isAdmin: true}, {new: true});
-        if(user){
-            res.status(200).json(user);
-
-        }else{
-            res.status(401).json({message: "User not found"});
-        }
-    }catch(err){
-        console.log("Promotion to admin failed");
-        res.status(500).json({message: err.message});
-    }
-
-}
-
-//admin to simple user
-module.exports.demoteUser = async (req, res) =>{
-    _id = req.params.id;
-    try{
-        const user=await User.findOneAndUpdate({_id}, {isAdmin: false}, {new: true});
-        if(user){
-            res.status(200).json(user);
-
-        }else{
-            res.status(401).json({message: "User not found"});
-        }
-    }catch(err){
-        console.log("Demotion to normale member failed\n");
-        res.status(500).json({message: err.message});
-    }
-
-}
