@@ -10,7 +10,7 @@ const Main = () => {
         <h1 className="text-[25px]">Assignment</h1>
         <Search />
       </div>
-      <div>
+      <div className="flex flex-col gap-4">
         <Addnewassignment />
         <Teacherassignment />
       </div>

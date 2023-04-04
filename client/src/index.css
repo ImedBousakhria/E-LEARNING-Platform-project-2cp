@@ -28,6 +28,9 @@
     @apply text-[1.5625rem] font-bold  ;
     letter-spacing: 0.34rem; 
   }
+  input[type="checkbox"] {
+    @apply scale-150; 
+  }
 }
 
 /* navbar style */
@@ -87,4 +90,10 @@
 /* schedule section */
 .btnday {
   @apply bg-accent text-white border-none ; 
+}
+
+
+/* assignment teacher body element  */
+.seperator {
+ @apply before:content-[''] before:block before:h-[80%] pl-5 before:-left-1 before:w-[1px] text-darkgray  before:bg-darkgray before:absolute relative ; 
 }
