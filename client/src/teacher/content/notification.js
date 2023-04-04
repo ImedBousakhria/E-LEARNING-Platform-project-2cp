@@ -12,3 +12,18 @@ export const upcomings = [
     description: "Due Soon",
   },
 ];
+
+export const recent = [
+  {
+    type: "assignment",
+    date: "04 Jan, 09:20AM",
+  },
+  {
+    type: "lesson",
+    date: "04 Jan, 09:20AM",
+  },
+  {
+    type: "quiz",
+    date: "04 Jan, 09:20AM",
+  },
+];

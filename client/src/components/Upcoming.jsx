@@ -4,9 +4,9 @@ import { upcomings } from '../teacher/content/notification'
 
 const Upcoming = () => {
   return (
-    <div>
+    <div className='flex flex-col gap-8'>
       <h2 className="text-[1.25rem]">Upcoming</h2>
-      <div>
+      <div className='flex flex-col gap-4'>
         {upcomings.map((Element) => {
           return (
             <Upcomingelements
