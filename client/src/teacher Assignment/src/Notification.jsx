@@ -10,6 +10,7 @@ const Notification = () => {
       <div>
         <NotificationTeacher notificaiton={notificaiton} profile={profile} />
       </div>
+      
     </div>
   );
 }
