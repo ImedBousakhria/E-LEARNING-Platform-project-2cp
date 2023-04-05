@@ -4,6 +4,7 @@ import Assignmentbody from './Assignmentbody';
 
 const Teacherassignment = () => {
 
+
   const [checkall, setCheckall] = useState(false) ; 
 
   return (
@@ -13,7 +14,7 @@ const Teacherassignment = () => {
       </div>
       <div className='flex flex-col gap-4'>
         <Assignmentheader setCheckall={()=>checkall?setCheckall(false):setCheckall(true)} />
-        <Assignmentbody checkall={checkall}/>
+        <Assignmentbody checkall={checkall}  />
       </div>
     </div>
   );

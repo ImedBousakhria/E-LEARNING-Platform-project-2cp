@@ -13,6 +13,7 @@ module.exports = {
       transparant: "hsla(0,0%,0%,0)",
       gray: "hsla(0, 0%, 83%, 1)",
       darkgray:"hsla(0, 0%, 72%, 1)",
+      verydarkgray:"hsla(0, 0%, 83%, 1)", 
       black: "hsla(0, 0%, 0%, 1)",
       white: "white",
       assignmentbg:"hsla(210, 44%, 94%, 1)", 

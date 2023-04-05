@@ -1,3 +1,6 @@
+import imageholder from '../../assets/images/imageholder.svg' ; 
+import profileholder from '../../assets/profile/profileholder.png'
+
 export const headers = [
   {
     title: "Name",
@@ -12,23 +15,127 @@ export const headers = [
 
 export const assignmentteacher = [
   {
-    name: "your assignment",
+    name: "your assignment1",
     groupe: "EILTS groupe 1",
     date: "11/12/23,11:30AM",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. In orci posuere in vulputate accumsan odio. Tellus urna nisl dictum mollis et pharetra condimentum diam. Euismod sollicitudin duis tincidunt etiam ",
+    deadline: "29/03/23,11:00PM",
+    images: [imageholder, imageholder],
+    submissions: [
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+    ],
   },
   {
-    name: "your assignment",
+    name: "your assignment2",
     groupe: "EILTS groupe 1",
     date: "11/12/23,11:30AM",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. In orci posuere in vulputate accumsan odio. Tellus urna nisl dictum mollis et pharetra condimentum diam. Euismod sollicitudin duis tincidunt etiam ",
+    deadline: "29/03/23,11:00PM",
+    images: [imageholder, imageholder],
+    submissions: [
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+    ],
   },
   {
-    name: "your assignment",
+    name: "your assignment3",
     groupe: "EILTS groupe 1",
     date: "11/12/23,11:30AM",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. In orci posuere in vulputate accumsan odio. Tellus urna nisl dictum mollis et pharetra condimentum diam. Euismod sollicitudin duis tincidunt etiam ",
+    deadline: "29/03/23,11:00PM",
+    images: [imageholder, imageholder],
+    submissions: [
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+    ],
   },
   {
-    name: "your assignment",
+    name: "your assignment4",
     groupe: "EILTS groupe 1",
     date: "11/12/23,11:30AM",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. In orci posuere in vulputate accumsan odio. Tellus urna nisl dictum mollis et pharetra condimentum diam. Euismod sollicitudin duis tincidunt etiam ",
+    deadline: "29/03/23,11:00PM",
+    images: [imageholder, imageholder],
+    submissions: [
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+      {
+        name: "said nouasria",
+        profile: profileholder,
+      },
+    ],
   },
 ];
