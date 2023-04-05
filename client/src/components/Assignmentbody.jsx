@@ -2,13 +2,13 @@ import React from 'react'
 import { assignmentteacher } from '../teacher Assignment/content/main'
 import Assignmentbodyelement from './Assignmentbodyelement'
 
-const Assignmentbody = ({checkall}) => {
+const Assignmentbody = ({checkall, setSelected}) => {
   return (
     <div className='gap-2 flex flex-col'>
       {
-        assignmentteacher.map((Element) => {
+        assignmentteacher.map((Element, index) => {
           return(
-            <Assignmentbodyelement checkall={checkall} name={Element.name} groupe={Element.groupe} date={Element.date} />
+            <Assignmentbodyelement  index={index+1} checkall={checkall} name={Element.name} groupe={Element.groupe} date={Element.date} />
           )
         })
       }

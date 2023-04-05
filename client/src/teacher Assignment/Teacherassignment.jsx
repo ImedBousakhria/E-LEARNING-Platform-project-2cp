@@ -1,15 +1,22 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import Sidebarteacher from "../teacher/src/Sidebarteacher";
 import Main from "./src/Main";
 import Notification from "./src/Notification";
 
+export const IndexElementContext = createContext() ; 
 const Teacherassignment = () => {
+
+  const elementIndex = useState(null) ; 
+  console.log(elementIndex[0])
   return (
-    <div className="flex w-full ">
+    <IndexElementContext.Provider value={elementIndex}>
+      <div className="flex w-full ">
       <Sidebarteacher />
       <Main /> 
-      <Notification />
+      <Notification/>
     </div>
+    </IndexElementContext.Provider>
+    
   );
 };
 

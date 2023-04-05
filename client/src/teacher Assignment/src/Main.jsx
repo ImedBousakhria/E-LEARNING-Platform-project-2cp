@@ -12,7 +12,7 @@ const Main = () => {
       </div>
       <div className="flex flex-col gap-4">
         <Addnewassignment />
-        <Teacherassignment />
+        <Teacherassignment  />
       </div>
     </div>
   );
