@@ -3,7 +3,7 @@ import eye from '../assets/icons/eye.svg' ;
 
 const View = () => {
   return (
-    <button className='py-2 px-4 border border-accent rounded-[10px] text-accent'>
+    <button className='p-1 border border-accent rounded-[5px] h-full text-accent'>
       <img src={eye} />
     </button>
   )

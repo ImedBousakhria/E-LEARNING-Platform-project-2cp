@@ -5,6 +5,7 @@ import { notificaiton } from '../content/notification';
 import { IndexElementContext } from '../Teacherassignment';
 import Assignmentnotificationelement from '../../components/Assignmentnotificationelement';
 import { assignmentteacher } from '../content/main';
+import Selectassginment from '../../components/Selectassginment';
 
 const Notification = () => {
 
@@ -15,14 +16,16 @@ const Notification = () => {
       <div>
         <NotificationTeacher notificaiton={notificaiton} profile={profile} />
       </div>
-      
-      {
-        indexElement?(
-         <Assignmentnotificationelement element={assignmentteacher[indexElement-1]} />
-        ):(<p>hello</p>) 
-      }
-      
 
+      {indexElement ? (
+        <Assignmentnotificationelement
+          element={assignmentteacher[indexElement - 1]}
+        />
+      ) : (
+        <div className='h-full flex justify-center items-center'>
+          <Selectassginment />
+        </div>
+      )}
     </div>
   );
 }

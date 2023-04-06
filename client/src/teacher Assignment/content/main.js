@@ -121,19 +121,19 @@ export const assignmentteacher = [
         profile: profileholder,
       },
       {
-        name: "said nouasria",
+        name: "abdou deffaf",
         profile: profileholder,
       },
       {
-        name: "said nouasria",
+        name: "youcef larous",
         profile: profileholder,
       },
       {
-        name: "said nouasria",
+        name: "oussama yahiaoui",
         profile: profileholder,
       },
       {
-        name: "said nouasria",
+        name: "arzki abdou",
         profile: profileholder,
       },
     ],
