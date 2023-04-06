@@ -1,8 +1,8 @@
 import React from "react";
-import Info from "../../components/Info";
-import phone from "../../assets/icons/phonewhite.svg";
-import email from "../../assets/icons/emailwhite.svg";
-import help from "../../assets/sideicons/help.svg";
+import Info from "../../../components/Info";
+import phone from "../../../assets/icons/phonewhite.svg";
+import email from "../../../assets/icons/emailwhite.svg";
+import help from "../../../assets/sideicons/help.svg";
 
 const Help = () => {
   return (

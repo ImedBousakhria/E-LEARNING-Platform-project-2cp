@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { teacherschedule } from "../teacher/content/schedule";
+import { teacherschedule } from "../content page/Home/content/schedule";
 import Day from "./Day";
 import Course from "./Course";
 import slideleft from "../assets/icons/slideleft.svg";

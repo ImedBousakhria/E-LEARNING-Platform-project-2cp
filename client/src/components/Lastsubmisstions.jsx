@@ -1,6 +1,6 @@
 import React from "react";
 import Seemore from "./Seemore";
-import { assignment } from "../teacher/content/main";
+import { assignment } from "../content page/Home/content/main";
 import Assignment from "./Assignment";
 import Mark from "./Mark";
 import View from "./View";

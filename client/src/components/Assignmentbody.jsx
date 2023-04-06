@@ -1,5 +1,5 @@
 import React from 'react'
-import { assignmentteacher } from '../teacher Assignment/content/main'
+import { assignmentteacher } from '../content page/Assignment/content/main'
 import Assignmentbodyelement from './Assignmentbodyelement'
 
 const Assignmentbody = ({checkall, setSelected}) => {

@@ -1,10 +1,10 @@
 import React from "react";
-import Search from "../../components/Search";
+import Search from "../../../components/Search";
 import { adds } from "../content/main";
-import Add from "../../components/Add";
-import Lastsubmisstions from "../../components/Lastsubmisstions";
-import Announcement from "../../components/Announcement";
-import Schedule from "../../components/Schedule";
+import Add from "../../../components/Add";
+import Lastsubmisstions from "../../../components/Lastsubmisstions";
+import Announcement from "../../../components/Announcement";
+import Schedule from "../../../components/Schedule";
 
 const Main = () => {
   let user = "said";

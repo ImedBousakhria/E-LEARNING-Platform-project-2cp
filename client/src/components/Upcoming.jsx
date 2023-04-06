@@ -1,6 +1,6 @@
 import React from 'react'
 import Upcomingelements from './Upcomingelements'
-import { upcomings } from '../teacher/content/notification'
+import { upcomings } from "../content page/Home/content/notification";
 
 const Upcoming = () => {
   return (

@@ -1,5 +1,5 @@
-import profile from "../../assets/profile/profileholder.png";
-import imageholder from "../../assets/images/imageholder.svg";
+import profile from "../../../assets/profile/profileholder.png";
+import imageholder from "../../../assets/images/imageholder.svg";
 
 export const adds = [
   {
