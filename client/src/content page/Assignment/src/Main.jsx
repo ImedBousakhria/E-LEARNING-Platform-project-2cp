@@ -1,7 +1,7 @@
 import React from "react";
-import Search from "../../components/Search";
-import Addnewassignment from "../../components/Addnewassignment";
-import Teacherassignment from "../../components/Teacherassignment";
+import Search from "../../../components/Search";
+import Addnewassignment from "../../../components/Addnewassignment";
+import Teacherassignment from "../../../components/Teacherassignment";
 
 const Main = () => {
   return (

@@ -1,9 +1,9 @@
 import React from 'react'
-import profile from '../../assets/profile/profileholder.png'
-import { notificaiton } from '../content/notification';
-import Upcoming from '../../components/Upcoming';
-import Recent from '../../components/Recent';
-import NotificationTeacher from '../../components/NotificationTeacher';
+import profile from "../../../assets/profile/profileholder.png";
+import { notificaiton } from "../content/notification";
+import Upcoming from "../../../components/Upcoming";
+import Recent from "../../../components/Recent";
+import NotificationTeacher from "../../../components/NotificationTeacher";
 
 const Notification = () => {
   return (

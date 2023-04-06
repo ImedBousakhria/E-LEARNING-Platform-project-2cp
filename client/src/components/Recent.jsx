@@ -1,5 +1,5 @@
 import React from "react";
-import { recent } from "../teacher/content/notification";
+import { recent } from "../content page/Home/content/notification";
 import Recentelement from "./Recentelement";
 
 const Recent = () => {

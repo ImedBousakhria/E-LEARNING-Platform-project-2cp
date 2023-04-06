@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import submition from "../assets/icons/submition.svg";
 import Deleteassignment from "./Deleteassignment";
 import Editassignment from "./Editassignment";
-import { IndexElementContext } from "../teacher Assignment/Teacherassignment";
+import { IndexElementContext } from "../content page/Assignment/Assignment";
 
 const Assignmentbodyelement = ({ name, groupe, date, checkall,index,    }) => {
 

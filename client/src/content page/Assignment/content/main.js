@@ -1,5 +1,5 @@
-import imageholder from '../../assets/images/imageholder.svg' ; 
-import profileholder from '../../assets/profile/profileholder.png'
+import imageholder from '../../../assets/images/imageholder.svg' ; 
+import profileholder from '../../../assets/profile/profileholder.png'
 
 export const headers = [
   {

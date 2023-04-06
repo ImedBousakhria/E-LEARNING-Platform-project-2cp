@@ -1,6 +1,6 @@
 import React from 'react'
 import Seemore from './Seemore';
-import { announcement } from '../teacher/content/main';
+import { announcement } from "../content page/Home/content/main";
 import Announcementelement from './Announcementelement';
 
 const Announcement = () => {

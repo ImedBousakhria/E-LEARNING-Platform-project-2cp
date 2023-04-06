@@ -1,5 +1,5 @@
 import React from "react";
-import { headers } from "../teacher Assignment/content/main";
+import { headers } from "../content page/Assignment/content/main";
 import Assignmentheaderelement from "./Assignmentheaderelement";
 import Deleteassignment from "./Deleteassignment";
 
