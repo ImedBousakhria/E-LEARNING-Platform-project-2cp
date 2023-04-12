@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import Home from "./Home/Home";
-import Sidebarteacher from "./Home/src/Sidebarteacher";
+import Sidebar from '../components/Sidebar';
 import Assignment from "./Assignment/Assignment";
 import Quizzes from "./Quizzes/Quizzes";
 
@@ -12,7 +12,7 @@ const Mainapp = () => {
   return (
     <indexNavigation.Provider value={Indexhandle}>
       <div className="flex w-full">
-        <Sidebarteacher />
+        <Sidebar />
         <Home index={Indexhandle[0]} />
         <Assignment index={Indexhandle[0]} />
         <Quizzes index={Indexhandle[0]} />

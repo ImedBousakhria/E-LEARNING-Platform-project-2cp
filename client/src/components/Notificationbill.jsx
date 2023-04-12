@@ -1,24 +1,34 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import notification from "../assets/icons/notification.svg";
 import notificationemptyicon from "../assets/icons/notificationempty.svg";
 import notificationrecievedicon from "../assets/icons/notificationrecieved.svg";
+import { showNotification } from "../content page/Home/src/Notification";
 
 const Notificationbill = ({ isnotification }) => {
+
+  const [notificationreaded, setNotificationreaded] = useState(false) ; 
+
+  const [,setShownotificationcontent]  = useContext(showNotification) ; 
+
   const [notificationempty, setNotificationempty] = useState(
     notificationemptyicon
     );
   const [notificationrecieved, setNotificationrecieved] = useState(
     notificationrecievedicon
   );
-  if (isnotification) {
+  if (isnotification && !notificationreaded) {
     return (
       <button
         className=""
         onClick={() => {
           if (notificationrecieved === notification) {
             setNotificationrecieved(notificationrecievedicon);
+            setShownotificationcontent("hidden");
           } else {
             setNotificationrecieved(notification);
+            setShownotificationcontent("block")
+            setNotificationreaded(true) ; 
+            setNotificationempty(notification) ; 
           }
         }}
       >
@@ -30,10 +40,12 @@ const Notificationbill = ({ isnotification }) => {
       <button
         className=""
         onClick={() => {
-          if (notificationempty === notification) {
+          if (notificationempty === notification  ) {
             setNotificationempty(notificationemptyicon);
+            setShownotificationcontent("hidden");
           } else {
             setNotificationempty(notification);
+            setShownotificationcontent("block");
           }
         }}
       >

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import logo from "../../../assets/logos/logo.svg"; 
-import { sections } from "../content/sidebar";
-import Sectionside from "../../../components/Sectionside";
-import Help from "./Help";
-import { indexNavigation } from '../../Mainapp';
+import logo from "../assets/logos/logo.svg"; 
+import { sections } from "../content page/Home/content/sidebar";
+import Sectionside from "./Sectionside";
+import Help from "../content page/Home/src/Help";
+import { indexNavigation } from '../content page/Mainapp';
 
-const Sidebarteacher = () => {
+const Sidebar = () => {
 
   const [elementindex, setElementindex] = useContext(indexNavigation)  ; 
 
@@ -30,4 +30,4 @@ const Sidebarteacher = () => {
   )
 }
 
-export default Sidebarteacher
+export default Sidebar

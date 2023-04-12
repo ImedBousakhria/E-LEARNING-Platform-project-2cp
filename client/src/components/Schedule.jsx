@@ -32,11 +32,11 @@ const Schedule = () => {
             {teacherschedule.map((Element, index) => {
               return (
                 <Day
-                  key={index}
+                  index={index}
                   date={Element.date}
                   text={Element.short}
-                  handleclick={() => {setIndex(index)}}
-                  
+                  handleclick={() => {setIndex(index) ; setSelected(index)}}
+                  select={selected}
                 />
               );
             })}
