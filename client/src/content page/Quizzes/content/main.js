@@ -1,3 +1,5 @@
+import profileholder from '../../../assets/profile/profileholder.png' ; 
+
 export const teacherQuizzes = [
   {
     name: "your quize1",

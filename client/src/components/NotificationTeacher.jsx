@@ -5,7 +5,6 @@ import Profile from '../components/Profile';
 const NotificationTeacher = ({notificaiton, profile}) => {
   return (
     <div className="flex  justify-between ">
-      <Notificationbill isnotification={notificaiton} />
       <Profile profilepicture={profile} person={"said nouasria"} order={3} />
     </div>
   );

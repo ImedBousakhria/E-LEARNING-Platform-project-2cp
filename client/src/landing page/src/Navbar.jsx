@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import logo from "./../../assets/logos/logo.svg";
-import rightarrow from "./../../assets/icons/rightarrow.svg";
 import { links } from "../content/navbar";
-import GetStarted from "../../components/GetStarted";
-import Search from "../../components/Search";
+import GetStarted from "../../components/landing/GetStarted";
+import Search from "../../components/reusable/Search";
 
 const Navbar = () => {
   const [focused, setFocused] = useState([true, false, false]);
