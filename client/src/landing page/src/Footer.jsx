@@ -1,6 +1,6 @@
 import React from "react";
 import { wiliya } from "../content/footer";
-import Wiliya from "../../components/Wiliya";
+import Wiliya from "../../components/landing/Wiliya";
 import facebook from "../../assets/socials/facebook.svg"; 
 import instagram from "../../assets/socials/instagram.svg"; 
 import tik_tok from "../../assets/socials/tik_tok.svg" ; 

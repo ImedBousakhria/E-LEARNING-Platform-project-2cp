@@ -34,6 +34,12 @@
   input[type="checkbox"] {
     @apply scale-150; 
   }
+  input {
+    @apply w-full rounded-[10px] border focus:outline-none border-gray p-2 ; 
+  }
+  textarea {
+    @apply w-full resize-none rounded-[10px] border border-gray p-2 h-full ; 
+  }
 }
 
 /* navbar style */

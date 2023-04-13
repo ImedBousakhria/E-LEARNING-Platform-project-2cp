@@ -1,6 +1,6 @@
 import React from "react";
 import rightarrowblack from "./../../assets/icons/rightarrowblack.svg";
-import Programcard from "../../components/Programcard";
+import Programcard from "../../components/landing/Programcard";
 import { programs } from "../content/pograms";
 // import function to register Swiper custom elements
 import {  register } from 'swiper/element/bundle';

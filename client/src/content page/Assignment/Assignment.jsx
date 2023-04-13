@@ -5,17 +5,15 @@ import Notification from "./src/Notification";
 export const IndexElementContext = createContext();
 const Assignment = ({ index }) => {
   const elementIndex = useState(null);
-  if(index === 3) {
+  if (index === 3) {
     return (
       <IndexElementContext.Provider value={elementIndex}>
-        <>
-          <Main />
-          <Notification />
-        </>
+        <Main />
+        <Notification />
       </IndexElementContext.Provider>
     );
-  }else {
-    return null ; 
+  } else {
+    return null;
   }
 };
 

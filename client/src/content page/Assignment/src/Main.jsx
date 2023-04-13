@@ -1,7 +1,7 @@
 import React from "react";
-import Search from "../../../components/Search";
+import Search from "../../../components/reusable/Search";
 import Addnewassignment from "../../../components/Addnewassignment";
-import Teacherassignment from "../../../components/Teacherassignment";
+import Activities from "../../../components/super/Activities";
 
 const Main = () => {
   return (
@@ -12,7 +12,7 @@ const Main = () => {
       </div>
       <div className="flex flex-col gap-4">
         <Addnewassignment />
-        <Teacherassignment  />
+        <Activities type={"assignment"} />
       </div>
     </div>
   );

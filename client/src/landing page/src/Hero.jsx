@@ -1,6 +1,6 @@
 import React from "react";
 import Typewriter from "typewriter-effect";
-import GetStarted from "../../components/GetStarted";
+import GetStarted from "../../components/landing/GetStarted";
 import brunnetgirl from "../../assets/images/brunnetgirl.png";
 import bus from "../../assets/elements/bus.png";
 import clock from "../../assets/elements/clock.png";

@@ -18,15 +18,14 @@ const Addnewassignment = () => {
         <div className="flex basis-[49%] flex-col gap-4">
           <label htmlFor="title">
             <input
-              className="w-full rounded-[10px] border border-gray p-2"
               type="text"
               placeholder="Title"
             />
           </label>
           <label htmlFor="description">
             <textarea
-              className="w-full rounded-[10px] border border-gray p-2"
               placeholder="Description"
+              
             />
           </label>
         </div>
@@ -35,7 +34,6 @@ const Addnewassignment = () => {
             <label htmlFor="Deadline(Date and time input)">
               <input
                 type="text"
-                className="w-full rounded-[10px] border border-gray p-2"
                 placeholder="Deadline(Date and time input)"
               />
             </label>
