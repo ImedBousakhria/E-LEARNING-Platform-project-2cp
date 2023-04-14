@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import profile from "../../../assets/profile/profileholder.png";
 import { IndexElementContext } from "../Assignment";
-import Assignmentnotificationelement from "../../../components/super elements/Activitiesnotificationelement";
+import Activitiesnotificationelement from "../../../components/super elements/Activitiesnotificationelement";
 import { assignmentteacher } from "../content/main";
 import Selectactivities from "../../../components/super/Selectactivities";
 import Notificaitonhandling from "../../../components/super/Notificaitonhandling";
@@ -20,7 +20,7 @@ const Notification = () => {
       </div>
 
       {indexElement ? (
-        <Assignmentnotificationelement
+        <Activitiesnotificationelement
           element={assignmentteacher[indexElement - 1]}
         />
       ) : (

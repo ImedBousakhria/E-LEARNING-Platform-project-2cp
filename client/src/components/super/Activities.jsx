@@ -8,7 +8,7 @@ const Teacherassignment = ({ type }) => {
   return (
     <div className="flex flex-col gap-4 rounded-[10px] bg-white p-4">
       <div>
-        <h2 className="text-[1.25rem]">Your assignments</h2>
+        <h2 className="text-[1.25rem]">Your {type}</h2>
       </div>
       <div className="flex flex-col gap-4">
         <Activitiesheader

@@ -1,10 +1,10 @@
 import React from "react";
-import Deleteassignment from "../reusable/Deleteactivitieselemnt";
-import Editassignment from "../reusable/Editactivitieselement";
+import Deleteactivitieselemnt from "../reusable/Deleteactivitieselemnt";
+import Editactivitieselement from "../reusable/Editactivitieselement";
 import Submissionelement from "./Submissionelement";
 import profileholder from "../../assets/profile/profileholder.png";
 
-const Assignmentnotificationelement = ({ element }) => {
+const Activitiesnotificationelement = ({ element }) => {
   console.log(element);
   return (
     <div className="flex flex-col gap-6">
@@ -12,8 +12,8 @@ const Assignmentnotificationelement = ({ element }) => {
         <div className="flex items-center justify-between">
           <h2 className="text-[1rem]  font-semibold ">{element.name}</h2>
           <div className="flex gap-1">
-            <Editassignment text={"Edit"} />
-            <Deleteassignment text={"Delete"} />
+            <Editactivitieselement text={"Edit"} />
+            <Deleteactivitieselemnt text={"Delete"} />
           </div>
         </div>
         <div>
@@ -58,4 +58,4 @@ const Assignmentnotificationelement = ({ element }) => {
   );
 };
 
-export default Assignmentnotificationelement;
+export default Activitiesnotificationelement;

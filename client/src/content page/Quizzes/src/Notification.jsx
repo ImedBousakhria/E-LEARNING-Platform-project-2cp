@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import profile from "../../../assets/profile/profileholder.png";
 import { IndexElementContextquiz } from "../Quizzes";
-import Assignmentnotificationelement from "../../../components/super elements/Activitiesnotificationelement";
 import { teacherQuizzes } from "../content/main";
 import Selectactivities from "../../../components/super/Selectactivities";
 import Notificaitonhandling from "../../../components/super/Notificaitonhandling";
 import Profile from "../../../components/reusable/Profile";
 import { notificaiton } from "../../Home/content/notification";
+import QuizNotificationElement from "../../../components/quizzes/components/QuizNotificationElement";
 
 const Notification = () => {
   const [indexElement] = useContext(IndexElementContextquiz);
@@ -20,7 +20,7 @@ const Notification = () => {
       </div>
 
       {indexElement ? (
-        <Assignmentnotificationelement
+        <QuizNotificationElement
           element={teacherQuizzes[indexElement - 1]}
         />
       ) : (
