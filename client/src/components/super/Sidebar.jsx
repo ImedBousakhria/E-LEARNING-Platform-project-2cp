@@ -12,7 +12,7 @@ const Sidebar = () => {
 
   return (
     <div className='bg-white basis-[17%] sticky left-0 top-0 p-4 h-[100vh] flex flex-col justify-between'>
-      <div>
+      <div className='flex justify-center'>
         <img src={logo} />
       </div>
       <div className='flex flex-col gap-4'>

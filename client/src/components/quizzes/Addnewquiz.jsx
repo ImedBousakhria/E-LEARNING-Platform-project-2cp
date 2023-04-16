@@ -1,11 +1,24 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import add from "../../assets/icons/add.svg";
 import publish from "../../assets/icons/publish.svg";
 import Answerstate from "./components/Answerstate";
+import Questions from "./Questions";
 
-const Addnewquiz = () => {
+export const handleQuesitons = createContext() ;  
+
+const Addnewquiz = () => { 
+  const [questions, setQuestions] = useState([])
+  function clearInputs() {
+    document.getElementById("question").value = "";
+    document.getElementById("choiceone").value = "";
+    document.getElementById("choicetwo").value = "";
+    document.getElementById("choicethree").value = "";
+    document.getElementById("choicefour").value = ""; 
+  }
+
   return (
-    <div className="flex flex-col gap-4 rounded-[10px] bg-white p-4">
+    <handleQuesitons.Provider value={{questions,setQuestions}} >
+      <div className="flex flex-col gap-4 rounded-[10px] bg-white p-4">
       <div>
         <h2 className="text-[1.25rem]">Add new quiz</h2>
       </div>
@@ -41,7 +54,7 @@ const Addnewquiz = () => {
                   />
                 </label>
               </div>
-              <div className="col-start-1 border border-l-0 border-gray border-t-0 px-1 col-end-2 row-start-2 row-end-3 flex justify-between">
+              <div className="col-start-1 col-end-2 row-start-2 row-end-3 flex justify-between border border-l-0 border-t-0 border-gray px-1">
                 <label htmlFor="choiceone">
                   <input
                     type="text"
@@ -53,7 +66,7 @@ const Addnewquiz = () => {
                 </label>
                 <Answerstate />
               </div>
-              <div className="col-start-2 border-gray border border-x-0 border-t-0 px-1 col-end-3 row-start-2 row-end-3 flex justify-between">
+              <div className="col-start-2 col-end-3 row-start-2 row-end-3 flex justify-between border border-x-0 border-t-0 border-gray px-1">
                 <label htmlFor="choicetwo">
                   <input
                     className="border-none"
@@ -65,7 +78,7 @@ const Addnewquiz = () => {
                 </label>
                 <Answerstate />
               </div>
-              <div className="col-start-1 px-1 border border-y-0 border-gray border-l-0 col-end-2 row-start-3 row-end-4 flex justify-between">
+              <div className="col-start-1 col-end-2 row-start-3 row-end-4 flex justify-between border border-y-0 border-l-0 border-gray px-1">
                 <label htmlFor="choicethree">
                   <input
                     className="border-none"
@@ -77,7 +90,7 @@ const Addnewquiz = () => {
                 </label>
                 <Answerstate />
               </div>
-              <div className="col-start-2 col-end-3 px-1 row-start-3 row-end-4 flex justify-between">
+              <div className="col-start-2 col-end-3 row-start-3 row-end-4 flex justify-between px-1">
                 <label htmlFor="choicefour">
                   <input
                     type="text"
@@ -91,8 +104,36 @@ const Addnewquiz = () => {
               </div>
             </div>
           </div>
+          <Questions />
           <div className="flex justify-end gap-2 text-white">
-            <button className="flex items-center gap-2 rounded-[5px] bg-blue p-2">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                let obj = new Object();
+                obj = {
+                  question: document.getElementById("question").value,
+                  choiceone: [
+                    document.getElementById("choiceone").value,
+                    document.querySelectorAll(".questionState")[0].value,
+                  ],
+                  choictwo: [
+                    document.getElementById("choicetwo").value,
+                    document.querySelectorAll(".questionState")[1].value,
+                  ],
+                  choicethree: [
+                    document.getElementById("choicethree").value,
+                    document.querySelectorAll(".questionState")[2].value,
+                  ],
+                  choicefour: [
+                    document.getElementById("choicefour").value,
+                    document.querySelectorAll(".questionState")[3].value,
+                  ],
+                };
+                setQuestions([...questions,obj]) ; 
+                clearInputs();
+              }}
+              className="flex items-center gap-2 rounded-[5px] bg-blue p-2"
+            >
               Add <img src={add} />
             </button>
             <button
@@ -106,6 +147,8 @@ const Addnewquiz = () => {
         </div>
       </form>
     </div>
+    </handleQuesitons.Provider>
+    
   );
 };
 

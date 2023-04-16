@@ -21,14 +21,14 @@ const Activitiesbodyelement = ({
     contextElement = IndexElementContextquiz;
   }
   const [check, setCheck] = useState(false);
-  const [, setElementIndex] = useContext(contextElement);
+  const [elementIndex, setElementIndex] = useContext(contextElement);
 
   return (
     <div
       onClick={() => {
         setElementIndex(index);
       }}
-      className="flex items-center justify-between rounded-[10px]  bg-primary px-[15px] py-[9px] hover:bg-verydarkgray"
+      className={`flex cursor-pointer bg-primary items-center justify-between rounded-[10px]   px-[15px] py-[9px] hover:bg-verydarkgray`}
     >
       <div className="flex items-center justify-center">
         <input
