@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import publish from "../assets/icons/publish.svg";
 import attachfile from "../assets/icons/attachfile.svg";
+import fileholder from '../assets/images/fileholder.svg' ; 
+import { extractImageFromPdf } from "../utils/pdfToImage";
 
 const Addnewassignment = () => {
+  const [imageData, setImageData] = useState(null) ; 
+  function handleFileUpload(event) {
+    const file = event.target.files[0];
+    extractImageFromPdf(file).then((page)=> console.log(page)) ; 
+  }
   return (
     <div className="flex flex-col gap-4 rounded-[10px] bg-white p-4">
       <div>
@@ -10,8 +17,8 @@ const Addnewassignment = () => {
       </div>
       <form
         onSubmit={(e) => {
-          e.preventDefault;
-          alert("hello");
+          e.preventDefault();
+          
         }}
         className="flex gap-[2%]"
       >
@@ -31,6 +38,9 @@ const Addnewassignment = () => {
         </div>
         <div className="flex basis-[49%] flex-col gap-4">
           <div>
+            <div>
+              <img src={imageData?imageData:fileholder} />
+            </div>
             <label htmlFor="Deadline(Date and time input)">
               <input
                 type="text"
@@ -45,7 +55,7 @@ const Addnewassignment = () => {
             >
               Attach file
               <img src={attachfile} />
-              <input type="file" id="attach file" className="hidden" />
+              <input type="file" id="attach file" onChange={handleFileUpload} className="hidden" />
             </label>
             <button
               type="submit"
