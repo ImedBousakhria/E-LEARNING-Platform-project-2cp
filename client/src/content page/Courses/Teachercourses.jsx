@@ -5,15 +5,15 @@ import Coursemain from "./src/Coursemain";
 import Coursebar from "./src/Coursebar";
 
 export const CoursesContext = createContext();
-const Teachercourses = () => {
+const Teachercourses = ({index}) => {
   const [barContent, setBarContent] = useState(null);
   const [items, setItem] = useState(); // courses
   const [activeCardIndex, setActiveCardIndex] = useState();
   const [checkedLessons, setCheckedLessons] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [Acontent, setContent] = useState({});
-
-  return (
+  if(index== 2) {
+    return (
     <CoursesContext.Provider
       value={{
         checkedLessons,
@@ -30,12 +30,16 @@ const Teachercourses = () => {
         setEditMode,
       }}
     >
-      <div className="flex">
+      <>
         <Coursemain />
         <Coursebar />
-      </div>
+      </>
     </CoursesContext.Provider>
   );
+  }else {
+    return null ; 
+  }
+  
 };
 
 export default Teachercourses;
