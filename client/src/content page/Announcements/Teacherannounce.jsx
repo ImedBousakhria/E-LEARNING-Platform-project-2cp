@@ -28,10 +28,10 @@ const Teacherannounce = ({index}) => {
         setContent,
       }}
     >
-      <div className="flex">
+      <>
         <Announce/>
         <Announcebar/>
-      </div>
+      </>
     </AnnouncementContext.Provider>
   );
   }else {

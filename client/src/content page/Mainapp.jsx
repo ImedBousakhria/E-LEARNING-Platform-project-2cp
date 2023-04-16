@@ -18,7 +18,7 @@ const Mainapp = () => {
         <Sidebar />
         <Home index={Indexhandle[0]} />
         <Teacherannounce index={Indexhandle[0]} />
-        <Teachercourses />
+        <Teachercourses index={Indexhandle[0]} />
         <Assignment index={Indexhandle[0]} />
         <Quizzes index={Indexhandle[0]} />
         <Teacherstudents index={Indexhandle[0]} />

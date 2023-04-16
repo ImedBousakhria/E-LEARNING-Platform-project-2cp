@@ -9,8 +9,8 @@ const Teacherstudents = ({index}) => {
   const [barContent, setBarContent] = useState(null);
   const [items, setItem] = useState(); // students
   const [activeCardIndex, setActiveCardIndex] = useState();
-
-  return (
+  if(index == 5) {
+    return (
     <StudentsContext.Provider
       value={{
         barContent,
@@ -21,12 +21,16 @@ const Teacherstudents = ({index}) => {
         setActiveCardIndex,
       }}
     >
-      <div className="flex">
+      <>
         <Studentsmain />
         <Studentsbar />
-      </div>
+      </>
     </StudentsContext.Provider>
   );
+  }else {
+    return null ; 
+  }
+  
 };
 
 export default Teacherstudents;
