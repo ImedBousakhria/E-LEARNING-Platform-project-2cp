@@ -4,17 +4,15 @@ import Day from "./Day";
 import Course from "./Course";
 import slideleft from "../../../assets/icons/slideleft.svg";
 import slideright from "../../../assets/icons/slideright.svg";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { register } from "swiper/element/bundle";
+
+register();
+import "swiper/css";
+import "swiper/css/navigation";
 
 const Schedule = () => {
   const [index, setIndex] = useState(0);
-
-  function handleslide(direction) {
-    direction == "right"
-      ? (document.querySelector(".dayscontainer").scrollLeft +=
-          document.querySelector(".day").clientWidth)
-      : (document.querySelector(".dayscontainer").scrollLeft -=
-          document.querySelector(".day").clientWidth);
-  }
   const [selected, setSelected] = useState(0);
 
   return (
@@ -23,31 +21,27 @@ const Schedule = () => {
         <h2 className="text-[1.25rem]">Schedule</h2>
       </div>
       <div className="flex flex-col gap-4">
-        <div className="flex  gap-2 ">
-          <button onClick={() => handleslide("left")}>
-            <img src={slideleft} />
-          </button>
-          <div className="dayscontainer flex gap-[4%] overflow-hidden ">
+        <div className="max-w-[20rem]">
+          <Swiper spaceBetween={0} slidesPerView={4} navigation>
             {teacherschedule.map((Element, index) => {
               return (
-                <Day
-                  index={index}
-                  date={Element.date}
-                  text={Element.short}
-                  handleclick={() => {
-                    setIndex(index);
-                    setSelected(index);
-                  }}
-                  select={selected}
-                />
+                <SwiperSlide>
+                  <Day
+                    index={index}
+                    date={Element.date}
+                    text={Element.short}
+                    handleclick={() => {
+                      setIndex(index);
+                      setSelected(index);
+                    }}
+                    select={selected}
+                  />
+                </SwiperSlide>
               );
             })}
-          </div>
-
-          <button onClick={() => handleslide("right")}>
-            <img src={slideright} />
-          </button>
+          </Swiper>
         </div>
+
         <div className="flex flex-col gap-4">
           {teacherschedule[index].modules.map((Element) => {
             return (

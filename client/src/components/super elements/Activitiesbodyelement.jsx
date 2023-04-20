@@ -1,9 +1,10 @@
 import React, { useContext, useState } from "react";
 import submition from "../../assets/icons/submition.svg";
-import Deleteassignment from "../reusable/Deleteactivitieselemnt";
-import Editassignment from "../reusable/Editactivitieselement";
+import Deleteactivitieselemnt from "../reusable/Deleteactivitieselemnt";
+import Editactivitieselement from "../reusable/Editactivitieselement";
 import { IndexElementContext } from "../../content page/Assignment/Assignment";
 import { IndexElementContextquiz } from "../../content page/Quizzes/Quizzes";
+import Message from "../reusable/Message";
 
 const Activitiesbodyelement = ({
   name,
@@ -21,12 +22,12 @@ const Activitiesbodyelement = ({
     contextElement = IndexElementContextquiz;
   }
   const [check, setCheck] = useState(false);
-  const [elementIndex, setElementIndex] = useContext(contextElement);
+  const {elementIndex} = useContext(contextElement);
 
   return (
     <div
       onClick={() => {
-        setElementIndex(index);
+        elementIndex[1](index);
       }}
       className={`flex cursor-pointer bg-primary items-center justify-between rounded-[10px]   px-[15px] py-[9px] hover:bg-verydarkgray`}
     >
@@ -48,8 +49,9 @@ const Activitiesbodyelement = ({
         <div className="seperator">{date}</div>
       </div>
       <div className="flex basis-[15%] items-center justify-center gap-2 ">
-        <Deleteassignment text={null} />
-        <Editassignment text={null} />
+        <Message />
+        <Deleteactivitieselemnt text={null} />
+        <Editactivitieselement text={null} />
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ const Announcement = () => {
     <div className="flex basis-[58%] flex-col gap-4 rounded-[10px] bg-white p-4">
       <div className="flex justify-between">
         <h2 className="text-[1.25rem]">Announcements</h2>
-        <Seemore />
+        <Seemore index={1} />
       </div>
       <div className="flex flex-col gap-2">
         {announcement.map((Element) => {

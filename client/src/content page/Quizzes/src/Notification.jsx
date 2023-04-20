@@ -5,13 +5,13 @@ import { teacherQuizzes } from "../content/main";
 import Selectactivities from "../../../components/super/Selectactivities";
 import Notificaitonhandling from "../../../components/super/Notificaitonhandling";
 import Profile from "../../../components/reusable/Profile";
-import { notificaiton } from "../../Home/content/notification";
 import QuizNotificationElement from "../../../components/quizzes/components/QuizNotificationElement";
+import { propsContext } from "../../Mainapp";
 
 const Notification = () => {
   const [indexElement] = useContext(IndexElementContextquiz);
   console.log(indexElement);
-
+  const {notificaiton} = useContext(propsContext) ; 
   return (
     <div className="sticky right-0 top-0 flex max-h-[100vh] basis-[23%] flex-col gap-8 bg-white p-4">
       <div className="flex justify-between">
