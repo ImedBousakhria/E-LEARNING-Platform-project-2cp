@@ -6,6 +6,7 @@ import Quizzes from "./Quizzes/Quizzes";
 import Teacherannounce from "./Announcements/Teacherannounce";
 import Teachercourses from "./Courses/Teachercourses";
 import Teacherstudents from "./Students/Teacherstudents";
+import { notificaiton } from "./content/mainapp.";
 
 export const propsContext = createContext();
 
@@ -13,7 +14,7 @@ const Mainapp = () => {
   const Indexhandle = useState(0);
 
   return (
-    <propsContext.Provider value={{ Indexhandle }}>
+    <propsContext.Provider value={{ Indexhandle, notificaiton }}>
       <div className="flex w-full">
         <Sidebar />
         <Home index={Indexhandle[0]} />

@@ -1,15 +1,16 @@
 import React, { useContext } from "react";
 import profile from "../../../assets/profile/profileholder.png";
 import Profile from "../../../components/reusable/Profile";
-import { notificaiton } from "../../Home/content/notification";
 import Notificaitonhandling from "../../../components/super/Notificaitonhandling";
 import lesson from "../../../assets/icons/lesson.svg";
 import { CoursesContext } from "../Teachercourses";
 import Lessondisplayed from "../../../components/courses/Lessondisplayed";
+import { propsContext } from "../../Mainapp";
 
 const Coursebar = () => {
   const { barContent, setBarContent } = useContext(CoursesContext);
   const user = "said";
+  const {notificaiton} = useContext(propsContext)
   return (
     <div className="sticky right-0 top-0 flex max-h-[100vh] basis-[23%] flex-col gap-4 bg-white p-4">
       <div className="flex  justify-between ">

@@ -6,11 +6,11 @@ import { assignmentteacher } from "../content/main";
 import Selectactivities from "../../../components/super/Selectactivities";
 import Notificaitonhandling from "../../../components/super/Notificaitonhandling";
 import Profile from "../../../components/reusable/Profile";
-import { notificaiton } from "../../Home/content/notification";
+import { propsContext } from "../../Mainapp";
 
 const Notification = () => {
-  const [indexElement] = useContext(IndexElementContext);
-  console.log(indexElement);
+  const { elementIndex } = useContext(IndexElementContext);
+  const {notificaiton} = useContext(propsContext) ; 
 
   return (
     <div className="sticky right-0 top-0 flex max-h-[100vh] basis-[23%] flex-col gap-8 bg-white p-4">
@@ -19,9 +19,9 @@ const Notification = () => {
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>
 
-      {indexElement ? (
+      {elementIndex[0] ? (
         <Activitiesnotificationelement
-          element={assignmentteacher[indexElement - 1]}
+          element={assignmentteacher[elementIndex[0] - 1]}
         />
       ) : (
         <div className="flex h-full items-center justify-center">
