@@ -9,8 +9,8 @@ import { CoursesContext } from "../Teachercourses";
 const Coursemain = () => {
   const { editMode } = useContext(CoursesContext);
   return (
-    <div className="flex flex-shrink-0 basis-[60%] flex-col gap-6 bg-primary px-12 py-4">
-      <div className="mb-8 flex justify-between">
+    <div className="flex flex-shrink-0 basis-[60%] flex-col gap-6 bg-primary px-12 py-8">
+      <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-nightblue">Courses</h1>
         <div
           className={` ${

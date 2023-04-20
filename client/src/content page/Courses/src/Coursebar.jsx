@@ -11,7 +11,7 @@ const Coursebar = () => {
   const { barContent, setBarContent } = useContext(CoursesContext);
   const user = "said";
   return (
-    <div className="sticky right-0 top-0 flex max-h-[100vh] basis-[23%] flex-col gap-4 bg-white p-4 border-l border-gray">
+    <div className="sticky right-0 top-0 flex max-h-screen basis-[23%] flex-col gap-4 bg-white p-4 border-l border-gray">
       <div className="flex  justify-between ">
         <Notificaitonhandling isnotification={notificaiton} />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />

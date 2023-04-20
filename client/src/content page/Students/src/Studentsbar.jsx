@@ -8,10 +8,10 @@ import { StudentsContext } from "../Teacherstudents";
 import Displayedstudent from "../../../components/students/Displayedstudent";
 
 const Studentsbar = () => {
-  const {barContent} = useContext(StudentsContext)
-  const user = 'said'
+  const { barContent } = useContext(StudentsContext);
+  const user = "said";
   return (
-    <div className="sticky right-0 top-0 flex max-h-[100vh] basis-[23%] flex-col gap-4 bg-white p-4 border-l border-gray">
+    <div className="sticky right-0 top-0 flex max-h-screen basis-[23%] flex-col gap-4 border-l border-gray bg-white p-4">
       <div className="flex  justify-between ">
         <Notificaitonhandling isnotification={notificaiton} />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
@@ -26,10 +26,10 @@ const Studentsbar = () => {
       ) : (
         <div className="mt-8 w-full">
           <Displayedstudent
-              person={barContent.person}
-              group={barContent.group}
-              profilepicture={barContent.profilepicture}
-            />
+            person={barContent.person}
+            group={barContent.group}
+            profilepicture={barContent.profilepicture}
+          />
         </div>
       )}
     </div>

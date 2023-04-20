@@ -94,7 +94,7 @@ const Form = () => {
             <input
               id="email"
               placeholder="Elitesstudent@gmail.com"
-              className=" w-full pr-1 outline-none placeholder-gray"
+              className=" w-full pr-1 p-0 outline-none placeholder-gray border-0"
               type="text"
               name="email"
               value={values.email}
@@ -122,7 +122,7 @@ const Form = () => {
               type="password"
               name="password"
               value={values.password}
-              className="w-full pr-1 outline-none placeholder-gray"
+              className="w-full pr-1 p-0 border-0 outline-none placeholder-gray"
               onChange={handleChange}
             />
             <img src={showpwd} alt="info" className="w-5" />
@@ -150,8 +150,8 @@ const Form = () => {
               alt=""
               className={
                 isShown
-                  ? "rotate-180 w-5 transition-all ease-in-out duration-700"
-                  : "w-5 transition-all ease-in-out duration-300"
+                  ? "rotate-180 w-5 transition-all ease-in-out duration-500"
+                  : "w-5 transition-all ease-in-out duration-200"
               }
             />
           </div>
