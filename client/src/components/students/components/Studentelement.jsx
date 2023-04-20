@@ -19,11 +19,11 @@ const Studentelement = ({
         <Profile profilepicture={profilepicture} person={person} />
       </div>
       <p
-        className={`flex items-center gap-3 text-gray  ${
+        className={`flex items-center gap-3 text-gray seperator  ${
           isActive ? " text-white opacity-70" : ""
         }`}
       >
-        <span className=" text-3xl font-extralight">|</span>
+
         {group}
       </p>
     </div>

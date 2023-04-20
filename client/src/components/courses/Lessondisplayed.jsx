@@ -2,6 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import edit from "../../assets/icons/edit.svg";
 import bin from "../../assets/icons/bin.svg";
+import quitIcon from "../../assets/icons/quit.svg"
 import { CoursesContext } from "../../content page/Courses/Teachercourses";
 
 const Lessondisplayed = ({

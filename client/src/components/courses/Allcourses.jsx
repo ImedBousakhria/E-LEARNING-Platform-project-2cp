@@ -70,7 +70,7 @@ const Allcourses = () => {
               onChange={handleCheckAll}
               checked={
                 Object.keys(checkedLessons).length === lessons.length &&
-                Object.keys(checkedLessons).every((id) => checkedLessons[id])
+                Object.keys(checkedLessons).every((id) => checkedLessons[id]) 
               }
               className=" aspect-square h-3.5 w-3.5 max-w-max accent-accent"
             />
