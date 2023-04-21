@@ -7,6 +7,7 @@ import Teacherannounce from "./Announcements/Teacherannounce";
 import Teachercourses from "./Courses/Teachercourses";
 import Teacherstudents from "./Students/Teacherstudents";
 import { notificaiton } from "./content/mainapp.";
+import Schedule from "./Schedule/Schedule";
 
 export const propsContext = createContext();
 
@@ -23,6 +24,7 @@ const Mainapp = () => {
         <Assignment index={Indexhandle[0]} />
         <Quizzes index={Indexhandle[0]} />
         <Teacherstudents index={Indexhandle[0]} />
+        <Schedule index={Indexhandle[0]} />
       </div>
     </propsContext.Provider>
   );

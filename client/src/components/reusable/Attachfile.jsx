@@ -3,13 +3,14 @@ import attach from "../../assets/icons/attach.svg";
 
 const Attachfile = ({ onClick }) => {
   return (
-    <button
-      onClick={onClick}
-      className="flex w-auto items-center gap-2 rounded-[10px] bg-blue px-4 py-2.5 font-semibold text-white"
+    <label
+      htmlFor="attach file"
+      className="flex cursor-pointer gap-2 whitespace-nowrap rounded-[5px] bg-blue p-2"
     >
-      <span className=" min-w-max">Attach file</span>
+      Attach file
       <img src={attach} />
-    </button>
+      <input type="file" id="attach file" className="hidden" />
+    </label>
   );
 };
 

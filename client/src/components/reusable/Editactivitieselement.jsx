@@ -1,9 +1,17 @@
 import React, { useContext } from 'react'
 import edit from '../../assets/icons/edit.svg' ;
 import { IndexElementContext } from '../../content page/Assignment/Assignment'; 
+import { IndexElementContextquiz } from '../../content page/Quizzes/Quizzes';
 
-const Editactivitieselement = ({ text }) => {
-  const {editMode} = useContext(IndexElementContext) ; 
+const Editactivitieselement = ({ text,type }) => {
+  var contextElement= null ; 
+  if(type=="quiz") {
+    contextElement = IndexElementContextquiz ; 
+  }else if (type == "assignment") {
+    console.log("assinment")
+    contextElement = IndexElementContext;
+  }
+  const {editMode} = useContext(contextElement) ; 
   
   return (
     <button

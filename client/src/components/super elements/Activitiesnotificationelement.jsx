@@ -3,6 +3,7 @@ import Deleteactivitieselemnt from "../reusable/Deleteactivitieselemnt";
 import Editactivitieselement from "../reusable/Editactivitieselement";
 import Submissionelement from "./Submissionelement";
 import profileholder from "../../assets/profile/profileholder.png";
+import Filesdisplays from "../reusable/Filesdisplays";
 
 const Activitiesnotificationelement = ({ element }) => {
   console.log(element);
@@ -12,7 +13,7 @@ const Activitiesnotificationelement = ({ element }) => {
         <div className="flex items-center justify-between">
           <h2 className="text-[1rem]  font-semibold ">{element.name}</h2>
           <div className="flex gap-1">
-            <Editactivitieselement text={"Edit"} />
+            <Editactivitieselement type={"assignment"} text={"Edit"} />
             <Deleteactivitieselemnt text={"Delete"} />
           </div>
         </div>
@@ -30,11 +31,7 @@ const Activitiesnotificationelement = ({ element }) => {
               </p>
             </div>
             <div className="flex basis-[70%] gap-[2%]">
-              {element.images.map((Element) => (
-                <div className="basis-[49%]">
-                  <img className="w-full object-cover" src={Element} />
-                </div>
-              ))}
+              <Filesdisplays images={element.images} />
             </div>
           </div>
         </div>

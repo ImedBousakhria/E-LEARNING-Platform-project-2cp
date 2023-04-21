@@ -9,19 +9,18 @@ import QuizNotificationElement from "../../../components/quizzes/components/Quiz
 import { propsContext } from "../../Mainapp";
 
 const Notification = () => {
-  const [indexElement] = useContext(IndexElementContextquiz);
-  console.log(indexElement);
+  const {elementIndex} = useContext(IndexElementContextquiz);
   const {notificaiton} = useContext(propsContext) ; 
+
   return (
     <div className="sticky right-0 top-0 flex max-h-[100vh] basis-[23%] flex-col gap-8 bg-white p-4">
       <div className="flex justify-between">
         <Notificaitonhandling isnotification={notificaiton} />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>
-
-      {indexElement ? (
+      {elementIndex[0] ? (
         <QuizNotificationElement
-          element={teacherQuizzes[indexElement - 1]}
+          element={teacherQuizzes[elementIndex[0] - 1]}
         />
       ) : (
         <div className="flex h-full items-center justify-center">

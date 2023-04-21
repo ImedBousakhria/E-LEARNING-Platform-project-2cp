@@ -1,18 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Deleteactivitieselemnt from '../../reusable/Deleteactivitieselemnt';
 import Editactivitieselement from '../../reusable/Editactivitieselement';
 import Submissionelement from '../../super elements/Submissionelement';
 import QuizDisplay from './QuizDisplay';
+import Question from '../../reusable/Question';
 
 
 const QuizNotificationElement = ({element}) => {
+  const [questionIndex, setQuestionIndex] = useState(0);
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
           <h2 className="text-[1rem]  font-semibold ">{element.name}</h2>
           <div className="flex gap-1">
-            <Editactivitieselement text={"Edit"} />
+            <Editactivitieselement type={"quiz"} text={"Edit"} />
             <Deleteactivitieselemnt text={"Delete"} />
           </div>
         </div>
@@ -21,9 +24,14 @@ const QuizNotificationElement = ({element}) => {
             {element.description}
           </p>
         </div>
-        <div>
+        <div className="flex flex-col gap-2">
           <div className="flex justify-between gap-[2%]">
-            <QuizDisplay element={element.quiz} />
+            <QuizDisplay element={element.quiz} questionIndex={questionIndex} />
+          </div>
+          <div className="flex gap-2">
+            {element.quiz.map((element, index) => {
+              return <Question index={index} handleClick={()=>setQuestionIndex(index)} />;
+            })}
           </div>
         </div>
       </div>
