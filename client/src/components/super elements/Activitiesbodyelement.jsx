@@ -14,7 +14,6 @@ const Activitiesbodyelement = ({
   index,
   type,
 }) => {
-  console.log(type === "assignment");
   var contextElement = null;
   if (type == "assignment") {
     contextElement = IndexElementContext;
@@ -50,8 +49,8 @@ const Activitiesbodyelement = ({
       </div>
       <div className="flex basis-[15%] items-center justify-center gap-2 ">
         <Message />
-        <Deleteactivitieselemnt text={null} />
-        <Editactivitieselement text={null} />
+        <Deleteactivitieselemnt  text={null} />
+        <Editactivitieselement type={type} text={null} />
       </div>
     </div>
   );

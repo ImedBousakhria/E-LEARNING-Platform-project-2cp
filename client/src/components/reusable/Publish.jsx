@@ -5,8 +5,8 @@ const Publish = ({ onClick }) => {
   return (
     <div>
       <button
-        onClick={onClick}
-        className="flex items-center gap-2 rounded-[10px] bg-accent px-4 py-2.5 font-semibold text-white"
+        onClick={(e)=>e.preventDefault()}
+        className="flex items-center gap-2 rounded-[5px] bg-accent p-2"
       >
         <span>Publish</span>
         <img src={publish} />

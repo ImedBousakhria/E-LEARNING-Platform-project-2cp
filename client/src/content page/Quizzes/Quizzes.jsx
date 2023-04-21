@@ -4,11 +4,12 @@ import Notification from "./src/Notification";
 export const IndexElementContextquiz = createContext();
 
 const Quizzes = ({ index }) => {
-  const elementIndexquiz = useState(null);
+  const elementIndex = useState(null);
+  const editMode = useState(false) ; 
 
   if (index == 4) {
     return (
-      <IndexElementContextquiz.Provider value={elementIndexquiz}>
+      <IndexElementContextquiz.Provider value={{elementIndex, editMode}}>
           <Main />
           <Notification />
       </IndexElementContextquiz.Provider>
