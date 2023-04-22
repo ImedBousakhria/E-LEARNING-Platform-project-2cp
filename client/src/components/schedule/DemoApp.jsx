@@ -15,8 +15,16 @@ const  renderEventContent = function(eventInfo) {
 
 const DemoApp = () => {
   const [events, setEvents] = useState([
-    { title: "hello", date: "2023-04-20" },
-    { title: "hi", date: "2023-04-20" },
+    {
+      title: "Event 1",
+      start: "2023-04-21T10:00:00",
+      end: "2023-04-21T11:30:00",
+    },
+    {
+      title: "Event 2",
+      start: "2023-04-24T12:00:00",
+      end: "2023-04-24T14:00:00",
+    },
   ]);
   const handleDateClick = (arg) => {
     // bind with an arrow function
@@ -26,24 +34,15 @@ const DemoApp = () => {
     <div>
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
-        initialView="dayGridWeek"
+        initialView="timeGridWeek"
         headerToolbar={{
           left: "prev,next today",
           center: "title",
-          right: "dayGridMonth,dayGridWeek,dayGridDay",
+          right: "timeGridWeek,timeGridDay",
         }}
         events={events}
         dateClick={handleDateClick}
-        nowIndicator={true}
-        weekends={true}
-        slotDuration={"00:30:00"}
-        slotLabelInterval={"01:00"}
-        slotLabelFormat={{
-          hour: "numeric",
-          minute: "2-digit",
-          omitZeroMinute: false,
-          meridiem: "short",
-        }}
+        height="auto"
       />
     </div>
   );
