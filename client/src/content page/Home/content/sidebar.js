@@ -10,6 +10,10 @@ import courseswhite from "../../../assets/sideicons/courseswhite.svg";
 import homewhite from "../../../assets/sideicons/homewhite.svg";
 import quizzeswhite from "../../../assets/sideicons/quizzeswhite.svg";
 import studentwhite from "../../../assets/sideicons/studentwhite.svg"; 
+import schedules from "../../../assets/sideicons/schedules.svg"; 
+import scheduleswhite from "../../../assets/sideicons/scheduleswhite.svg"; 
+import teachers from "../../../assets/sideicons/teachers.svg"; 
+import teacherswhite from "../../../assets/sideicons/teacherswhite.svg"; 
 
 export const sections = [
   {
@@ -41,5 +45,15 @@ export const sections = [
     name: "Students",
     icon: student,
     iconwhite: studentwhite,
+  },
+  {
+    name: "Teachers",
+    icon: teachers,
+    iconwhite: teacherswhite,
+  },
+  {
+    name: "Schedule",
+    icon: schedules,
+    iconwhite: scheduleswhite,
   },
 ];

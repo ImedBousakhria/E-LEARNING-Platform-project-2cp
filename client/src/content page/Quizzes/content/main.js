@@ -48,16 +48,6 @@ export const teacherQuizzes = [
         profile: profileholder,
         score: 14,
       },
-      {
-        name: "said nouasria",
-        profile: profileholder,
-        score: 14,
-      },
-      {
-        name: "said nouasria",
-        profile: profileholder,
-        score: 14,
-      },
     ],
   },
   {
@@ -91,16 +81,6 @@ export const teacherQuizzes = [
       },
     ],
     submissions: [
-      {
-        name: "said nouasria",
-        profile: profileholder,
-        score: 14,
-      },
-      {
-        name: "said nouasria",
-        profile: profileholder,
-        score: 14,
-      },
       {
         name: "said nouasria",
         profile: profileholder,
