@@ -1,12 +1,16 @@
 import React from "react";
 import { useContext } from "react";
+import Profile from "../reusable/Profile";
+import quitIcon from "../../assets/icons/quit.svg";
 import edit from "../../assets/icons/edit.svg";
 import bin from "../../assets/icons/bin.svg";
-import quitIcon from "../../assets/icons/quit.svg"
-import { CoursesContext } from "../../content page/Courses/Teachercourses";
+import Chat from "../reusable/Chat";
+import { AnnouncementContext } from "../../content page/Announcements/Teacherannounce";
 
-const Lessondisplayed = ({
+const Announcemento = ({
   self,
+  profilepicture,
+  person,
   content,
   image,
   onClick,
@@ -14,7 +18,7 @@ const Lessondisplayed = ({
   isDisplayed,
 }) => {
   const { items, setItem, setBarContent, setEditMode, setContent } =
-    useContext(CoursesContext);
+    useContext(AnnouncementContext);
   return (
     <div
       className={`${!isDisplayed ? " cursor-pointer" : ""}
@@ -27,8 +31,11 @@ const Lessondisplayed = ({
       onClick={onClick}
     >
       <div className="flex items-center justify-between">
-        <div></div>
+        <Profile profilepicture={profilepicture} person={person} />
         <div className="flex items-center gap-1 justify-self-end">
+          <div>
+            <Chat />
+          </div>
           {isDisplayed ? (
             <img
               src={quitIcon}
@@ -47,7 +54,7 @@ const Lessondisplayed = ({
       </div>
       <div className="flex w-full items-end">
         <div style={{ flexBasis: image ? "70%" : "100%" }}>
-          <p>{content}</p>
+          <p className=" text-base">{content}</p>
         </div>
         <div style={{ flexBasis: image ? "30%" : "0%" }}>
           {image && !isDisplayed ? (
@@ -62,8 +69,15 @@ const Lessondisplayed = ({
       {self && isDisplayed ? (
         <div className="mt-6 flex justify-end gap-1">
           <div
-            onClick={() => setEditMode(true)}
-            className="flex min-w-max cursor-pointer items-center gap-1 rounded-[8px] border-2 border-accent px-1.5 py-1 font-semibold text-accent"
+            onClick={() => {
+              setEditMode(true);
+              setContent((prevContent) => ({
+                ...prevContent,
+                description: content,
+              }));
+              console.log(content);
+            }}
+            className="flex cursor-pointer items-center gap-1 rounded-[8px] border-2 border-accent px-1.5 py-1 font-semibold text-accent"
           >
             <span>Edit</span>
             <img src={edit} />
@@ -74,7 +88,7 @@ const Lessondisplayed = ({
               setItem(newArray);
               setBarContent(null);
             }}
-            className="flex min-w-max cursor-pointer items-center gap-1 rounded-[8px] border-2 border-red px-1.5 py-1 font-semibold text-red"
+            className="flex cursor-pointer items-center gap-1 rounded-[8px] border-2 border-red px-1.5 py-1 font-semibold text-red"
           >
             <span>Delete</span>
             <img src={bin} />
@@ -85,4 +99,4 @@ const Lessondisplayed = ({
   );
 };
 
-export default Lessondisplayed;
+export default Announcemento;

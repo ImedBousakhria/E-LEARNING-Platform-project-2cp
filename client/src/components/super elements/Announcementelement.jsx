@@ -1,5 +1,5 @@
-import React from "react";
-import Profile from "../reusable/Profile";
+import React from 'react'
+import Profile from '../reusable/Profile';
 
 const Announcementelement = ({ profilepicture, person, content, image }) => {
   return (

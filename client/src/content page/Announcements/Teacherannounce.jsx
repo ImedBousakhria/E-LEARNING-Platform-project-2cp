@@ -2,7 +2,7 @@ import React from "react";
 import Announce from "./src/Announcemain";
 import Announcebar from "./src/Announcebar";
 import { useState } from "react";
-import { announcement } from "./content/main";
+import { announcement } from "../Home/content/main"; 
 import { createContext } from "react";
 
 export const AnnouncementContext = createContext();

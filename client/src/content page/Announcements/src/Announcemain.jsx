@@ -1,18 +1,17 @@
 import React from "react";
 import Search from "../../../components/reusable/Search";
 import Newannounce from "../../../components/announcement/Newannounce";
-//import Allannouncements from "../../components/Allannouncements";
+import Allannouncements from "../../../components/announcement/Allannouncements";
 import { useState, useContext, useRef } from "react";
 import { AnnouncementContext } from "../Teacherannounce";
 
 const Announcemain = () => {
   const [activeCardIndex, setActiveCardIndex] = useState();
 
-  const { editMode} =
-    useContext(AnnouncementContext);
+  const { editMode } = useContext(AnnouncementContext);
   return (
-    <div className="flex basis-[60%] flex-col gap-6 bg-primary p-8">
-      <div className="flex justify-between">
+    <div className="flex flex-shrink-0 basis-[60%] flex-col gap-6 bg-primary px-12 py-8">
+      <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-nightblue">Announcements</h1>
         <div
           className={` ${
@@ -26,10 +25,10 @@ const Announcemain = () => {
         <Newannounce setActiveCardIndex={setActiveCardIndex} />
       </div>
       <div>
-        {/* <Allannouncements
+        <Allannouncements
           activeCardIndex={activeCardIndex}
           setActiveCardIndex={setActiveCardIndex}
-        /> */}
+        />
       </div>
     </div>
   );

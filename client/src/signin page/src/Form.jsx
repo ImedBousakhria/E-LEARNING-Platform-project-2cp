@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import info from "../../assets/icons/info.svg"
 import showpwd from "../../assets/icons/showpwd.svg";
-import hidepwd from "../../assets/icons/hidepwd.svg";
 import dropdown from "../../assets/icons/dropdown.svg";
 
 const Form = () => {
@@ -11,7 +10,7 @@ const Form = () => {
   const checkedInputs = { email: true, password: true, user: true };
   const [validInputs, setValidInput] = useState(checkedInputs);
   const [infoMsg, setInfoMsg] = useState("");
-  const [isShown, setIsshown] = useState(true);
+  const [isShown, setIsshown] = useState(false);
   const [userPicked, setUserPicked] = useState();
 
   const catchErrors = () => {
@@ -72,11 +71,8 @@ const Form = () => {
   const pickUser = (e) => {
     setValues({ ...values, user: e.target.innerHTML });
     setUserPicked(true);
+    toggle()
   };
-
-  useEffect(() => {
-    toggle();
-  }, [values.user]);
 
   useEffect(() => {
     catchErrors();
@@ -85,19 +81,20 @@ const Form = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-primary1 h-auto w-80 flex flex-col items-center"
+      className=" bg-transparant h-auto w-max flex flex-col items-center"
     >
-      <h1 className=" font-bold text-gray-800">Log in to your account</h1>
+      <h3 className=" font-bold text-nightblue tracking-wider">Log in to your account</h3>
 
-      <div className="flex flex-col w-64 text-sm mt-10 items-center">
+      <div className="flex flex-col w-90 text-sm mt-10 items-center">
         <div className="flex flex-col mb-6 w-full">
-          <label>Email</label>
+          <label htmlFor="email" className="pb-1">Email</label>
           <div
             className={validInputs.email ? "form-input" : "form-input-error"}
           >
             <input
+              id="email"
               placeholder="Elitesstudent@gmail.com"
-              className=" w-full pr-1 outline-none"
+              className=" w-full pr-1 p-0 outline-none placeholder-gray border-0"
               type="text"
               name="email"
               value={values.email}
@@ -110,30 +107,31 @@ const Form = () => {
               onClick={displayInfo}
             />
           </div>
-          <p className="text-gray-400 text-xs pl-1">{infoMsg}</p>
-          <p className="text-ered text-xs pl-1">{errors.email}</p>
+          <p className="text-darkgray text-xs pl-1 pt-1">{infoMsg}</p>
+          <p className="text-red text-xs pl-1 pt-0.5">{errors.email}</p>
         </div>
 
         <div className="flex flex-col mb-6 w-full">
-          <label>Password</label>
+          <label htmlFor="password" className="pb-1">Password</label>
           <div
             className={validInputs.password ? "form-input" : "form-input-error"}
           >
             <input
+              id="password"
               placeholder="Enter your password"
               type="password"
               name="password"
               value={values.password}
-              className="w-full pr-1 outline-none"
+              className="w-full pr-1 p-0 border-0 outline-none placeholder-gray"
               onChange={handleChange}
             />
             <img src={showpwd} alt="info" className="w-5" />
           </div>
-          <p className="text-ered text-xs pl-1">{errors.password}</p>
+          <p className="text-red text-xs pl-1 pt-0.5">{errors.password}</p>
         </div>
 
         <div className="flex flex-col mb-6 w-full">
-          <label>Sign in as</label>
+          <label className="pb-1">Sign in as</label>
           <div
             className={
               validInputs.user
@@ -145,57 +143,57 @@ const Form = () => {
             {userPicked ? (
               values.user
             ) : (
-              <span className=" text-gray-400">Select here</span>
+              <span className=" text-gray">Select here</span>
             )}
             <img
               src={dropdown}
               alt=""
               className={
                 isShown
-                  ? "rotate-180 w-5 transition-all ease-in-out duration-700"
-                  : "w-5 transition-all ease-in-out duration-300"
+                  ? "rotate-180 w-5 transition-all ease-in-out duration-500"
+                  : "w-5 transition-all ease-in-out duration-200"
               }
             />
           </div>
 
-          <div className="relative">
+          <div className="relative w-72">
             <ul
               className={
                 isShown
-                  ? "cursor-pointer px-0 bg-white rounded-sm absolute z-10 w-full visible"
-                  : "hidden"
+                  ? "cursor-pointer px-0 bg-white rounded-sm absolute z-10 w-full opacity-100"
+                  : "hidden opacity-0"
               }
             >
               <li
-                className="py-2 pl-2 border font-semibold border-x-0 "
+                className="py-2 pl-2 border font-semibold border-x-0 border-gray hover:bg-gray "
                 onClick={pickUser}
               >
                 Student
               </li>
               <li
-                className="py-2 pl-2 border font-semibold border-x-0 "
+                className="py-2 pl-2 border font-semibold border-x-0 border-gray hover:bg-gray "
                 onClick={pickUser}
               >
                 Teacher
               </li>
               <li
-                className="py-2 pl-2 border font-semibold border-x-0 "
+                className="py-2 pl-2 border font-semibold border-x-0 border-gray hover:bg-gray "
                 onClick={pickUser}
               >
                 Employee
               </li>
             </ul>
           </div>
-          <p className=" text-ered text-xs pl-1">{errors.user}</p>
+          <p className=" text-red text-xs pl-1 pt-0.5">{errors.user}</p>
         </div>
 
         <button
           type="submit"
-          className=" bg-bblue hover:bg-blue-600 hover:shadow-inner font-semibold text-white px-2 py-2.5 rounded-md mt-6 w-full"
+          className=" bg-accent hover:shadow-inner font-semibold text-white px-2 py-2.5 rounded-md mt-6 w-72"
         >
           Sign in
         </button>
-        <a href="#" className="text-b2blue cursor-pointer mt-3">
+        <a href="#" className=" text-blue cursor-pointer mt-3">
           Forgot your password?
         </a>
       </div>

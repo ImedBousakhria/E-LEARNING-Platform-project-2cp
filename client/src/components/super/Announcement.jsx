@@ -2,6 +2,7 @@ import React from "react";
 import Seemore from "../reusable/Seemore";
 import { announcement } from "../../content page/Home/content/main";
 import Announcementelement from "../super elements/Announcementelement";
+import { useContext } from "react";
 
 const Announcement = () => {
   return (

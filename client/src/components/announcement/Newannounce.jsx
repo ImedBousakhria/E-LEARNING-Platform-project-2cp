@@ -2,7 +2,7 @@ import React from "react";
 import Publish from "../reusable/Publish";
 import Attachfile from "./../reusable/Attachfile";
 import { useRef, useState } from "react";
-//import Uploadedfile from "./Uploadedfile";
+import Uploadedfile from "../../components/reusable/Uploadedfile";
 import pfp from "../../assets/profile/profileholder.png";
 import { useContext } from "react";
 import { AnnouncementContext } from "../../content page/Announcements/Teacherannounce";
@@ -70,8 +70,7 @@ const Newannounce = ({ setActiveCardIndex }) => {
           <div className=" basis-[80%] pb-4">
             <div className="flex flex-wrap items-center gap-2">
               {files.map((file) => (
-                //<Uploadedfile fileName={file.name} file={file} />
-                null
+                <Uploadedfile fileName={file.name} file={file} />
               ))}
             </div>
             <input

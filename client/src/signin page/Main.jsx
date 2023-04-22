@@ -1,8 +1,8 @@
 import Form from "./src/Form";
 import logo from "../assets/logos/logo.svg";
-import schoolboy from "../assets/images/Student.svg";
+import schoolboy from "../assets/images/schoolBoy.png";
 import buildings from "../assets/elements/buildings.png";
-import bling from "../assets/elements/bling.png"
+import bling from "../assets/elements/bling.png";
 import bbook from "../assets/elements/bbook.png";
 import ybook from "../assets/elements/ybook.png";
 import globe from "../assets/elements/globe.png";
@@ -10,7 +10,7 @@ import paper from "../assets/elements/paper.png";
 import cloud from "../assets/elements/cloud.png";
 import bird from "../assets/elements/bird.png";
 
-const Login = () => {
+const App = () => {
   return (
     <div className="bg-primary h-screen overflow-hidden">
       <div className="flex h-screen mx-auto max-w-[1400px] max-h-[900px] items-center">
@@ -63,5 +63,5 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default App;
 /*absolute bottom-0 left-[19%]*/
