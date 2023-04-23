@@ -31,13 +31,16 @@
     @apply text-[1rem] font-semibold;
   }
   input[type="checkbox"] {
-    @apply scale-150 ;
+    @apply scale-150;
   }
   input {
     @apply w-full rounded-[10px] border border-gray p-2 focus:outline-none;
   }
   textarea {
     @apply h-full w-full resize-none rounded-[10px] border border-gray p-2;
+  }
+  input[type="color"] {
+    @apply h-10 w-10 cursor-pointer appearance-none border-0 outline-none bg-transparant p-0;
   }
 }
 
@@ -94,8 +97,7 @@
 }
 
 
-  @apply flex justify-between bg-white py-3.5 px-2 rounded-md border shadow border-darkgray;
-}
+
 
 .form-input-error {
   @apply flex justify-between bg-white py-3.5 px-2 rounded-md border shadow border-red;
@@ -128,11 +130,25 @@
   @apply text-[2rem]  text-accent !important;
 }
 .swiper-button-prev {
-  @apply   !important ;
+  @apply !important;
 }
 
 .swiper {
-  @apply basis-full  !important ; 
+  @apply basis-full  !important;
 }
 .swiper-wrapper {
+}
+
+/* calendar style */
+#saturday0 {
+  @apply rounded-tl-[10px];
+}
+#thursday0 {
+  @apply rounded-tr-[10px];
+}
+#saturday20 {
+  @apply rounded-bl-[10px];
+}
+#thursday20 {
+  @apply rounded-br-[10px];
 }

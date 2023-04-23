@@ -25,7 +25,7 @@ const QuizNotificationElement = ({element}) => {
           </p>
         </div>
         <div className="flex flex-col gap-2">
-          <div className="flex justify-between gap-[2%]">
+          <div className="flex justify-between flex-wrap gap-[2%]">
             <QuizDisplay element={element.quiz} questionIndex={questionIndex} />
           </div>
           <div className="flex gap-2">
