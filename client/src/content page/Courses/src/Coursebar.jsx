@@ -11,7 +11,7 @@ import arrow from "../../../assets/icons/Annouarrow.svg";
 import { propsContext } from "../../Mainapp";
 
 const Coursebar = () => {
-  const { barContent, setBarContent } = useContext(CoursesContext);
+  const { barContent, setBarContent, activeProgIndex } = useContext(CoursesContext);
   const user = "said";
   const {notificaiton} = useContext(propsContext)
   return (
