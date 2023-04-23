@@ -1,14 +1,17 @@
 import React, { createContext, useState } from "react";
 import Main from "./src/Main";
 import Notification from "./src/Notification";
+import { assignmentteacher } from "./content/main";
+
 
 export const IndexElementContext = createContext();
 const Assignment = ({ index }) => {
   const elementIndex = useState(null);
-  const editMode = useState(false) ; 
+  const editMode = useState(false) ;
+  const firstContent = useState(assignmentteacher) ;  
   if (index === 3) {
     return (
-      <IndexElementContext.Provider value={{elementIndex,editMode}}>
+      <IndexElementContext.Provider value={{elementIndex,editMode,firstContent}}>
         <Main />
         <Notification />
       </IndexElementContext.Provider>

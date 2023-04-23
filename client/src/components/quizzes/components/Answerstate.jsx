@@ -11,7 +11,6 @@ const Answerstate = () => {
     <button className="questionState"
       value={questionstate}
       onClick={(e) => {
-        
         e.preventDefault() ; 
         if (stateicon === noanswer) {
           setStateicon(right);

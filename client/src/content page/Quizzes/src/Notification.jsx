@@ -9,7 +9,7 @@ import QuizNotificationElement from "../../../components/quizzes/components/Quiz
 import { propsContext } from "../../Mainapp";
 
 const Notification = () => {
-  const {elementIndex} = useContext(IndexElementContextquiz);
+  const {elementIndex,firstContent} = useContext(IndexElementContextquiz);
   const {notificaiton} = useContext(propsContext) ; 
 
   return (
@@ -20,7 +20,7 @@ const Notification = () => {
       </div>
       {elementIndex[0] ? (
         <QuizNotificationElement
-          element={teacherQuizzes[elementIndex[0] - 1]}
+          element={firstContent[0][elementIndex[0] - 1]}
         />
       ) : (
         <div className="flex h-full items-center justify-center">

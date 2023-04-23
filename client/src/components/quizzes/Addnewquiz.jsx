@@ -7,15 +7,21 @@ import { teacherQuizzes } from "../../content page/Quizzes/content/main";
 import { IndexElementContextquiz } from "../../content page/Quizzes/Quizzes";
 import Save from "../reusable/Save";
 import Cancel from "../reusable/Cancel";
+import { handleSubmit } from "./functions/HandleSubmit";
 
 export const handleQuesitons = createContext();
 
 const Addnewquiz = () => {
-  const { elementIndex, editMode } = useContext(IndexElementContextquiz);
+  const { elementIndex, editMode, firstContent } = useContext(
+    IndexElementContextquiz
+  );
   const [questions, setQuestions] = useState([]);
   const [title, setTitle] = useState(false);
-  const [description,setDescripiton] = useState(false) ; 
-  const [deadline,setDeadline] = useState(false) ; 
+  const [groupe, setGroupe] = useState(false);
+  const [description, setDescripiton] = useState(false);
+  const [deadline, setDeadline] = useState(false);
+  const [cancel, setCancel] = useState(false);
+  const [questionIndex,setQuestionIndex] = useState(0) ; 
   function clearInputs() {
     document.getElementById("question").value = "";
     document.getElementById("choiceone").value = "";
@@ -32,8 +38,19 @@ const Addnewquiz = () => {
         </div>
         <form
           onSubmit={(e) => {
-            e.preventDefault;
-            alert("hello");
+            e.preventDefault();
+            if (!cancel) {
+              handleSubmit(firstContent, questions);
+            }
+            setCancel(false);
+            if(editMode[0] ){
+              editMode[1](false) ; 
+            }
+            setTitle(null);
+            setGroupe(null);
+            setDescripiton(null);
+            setDeadline(null);
+            setQuestions([]);
           }}
           className="flex gap-[2%]"
         >
@@ -42,15 +59,36 @@ const Addnewquiz = () => {
               <input
                 value={
                   elementIndex[0] != null && editMode[0]
-                    ? title || teacherQuizzes[elementIndex[0] - 1].name
-                    : ""
+                    ? title || firstContent[0][elementIndex[0] - 1].name
+                    : title || ""
                 }
                 onChange={(e) => {
-                  teacherQuizzes[elementIndex[0] - 1].name = "";
+                  elementIndex[0] != null && editMode[0]
+                    ? (firstContent[0][elementIndex[0] - 1].name = "")
+                    : null;
                   setTitle(e.target.value);
                 }}
                 type="text"
                 placeholder="Title"
+                id="title"
+              />
+            </label>
+            <label htmlFor="groupe">
+              <input
+                value={
+                  elementIndex[0] != null && editMode[0]
+                    ? groupe || firstContent[0][elementIndex[0] - 1].name
+                    : groupe || ""
+                }
+                onChange={(e) => {
+                  elementIndex[0] != null && editMode[0]
+                    ? (firstContent[0][elementIndex[0] - 1].name = "")
+                    : null;
+                  setGroupe(e.target.value);
+                }}
+                type="text"
+                placeholder="groupe"
+                id="groupe"
               />
             </label>
             <label htmlFor="description">
@@ -58,29 +96,35 @@ const Addnewquiz = () => {
                 value={
                   elementIndex[0] != null && editMode[0]
                     ? description ||
-                      teacherQuizzes[elementIndex[0] - 1].description
-                    : ""
+                      firstContent[0][elementIndex[0] - 1].description
+                    : description || ""
                 }
                 onChange={(e) => {
-                  teacherQuizzes[elementIndex[0] - 1].description = "";
+                  elementIndex[0] != null && editMode[0]
+                    ? (firstContent[0][elementIndex[0] - 1].description = "")
+                    : null;
                   setDescripiton(e.target.value);
                 }}
                 placeholder="Description"
+                id="description"
               />
             </label>
             <label htmlFor="Deadline(Date and time input)">
               <input
                 value={
                   elementIndex[0] != null && editMode[0]
-                    ? deadline || teacherQuizzes[elementIndex[0] - 1].deadline
-                    : ""
+                    ? deadline || firstContent[0][elementIndex[0] - 1].deadline
+                    : deadline || ""
                 }
                 onChange={(e) => {
-                  teacherQuizzes[elementIndex[0] - 1].deadline = "";
+                  elementIndex[0] != null && editMode[0]
+                    ? (firstContent[0][elementIndex[0] - 1].deadline = "")
+                    : null;
                   setDeadline(e.target.value);
                 }}
                 type="text"
                 placeholder="Deadline(Date and time input)"
+                id="deadline"
               />
             </label>
           </div>
@@ -148,28 +192,32 @@ const Addnewquiz = () => {
                 </div>
               </div>
             </div>
-            <Questions />
+            <Questions questionIndex={questionIndex} setQuestionIndex={setQuestionIndex}  />
             <div className="flex justify-end gap-2 text-white">
-              {editMode[0] ? <Cancel setEditMode={editMode[1]} /> : null}
+              {editMode[0] ? (
+                <div onClick={() => setCancel(true)}>
+                  <Cancel />
+                </div>
+              ) : null}
               <button
                 onClick={(e) => {
                   e.preventDefault();
                   let obj = new Object();
                   obj = {
                     question: document.getElementById("question").value,
-                    choiceone: [
+                    answaer1: [
                       document.getElementById("choiceone").value,
                       document.querySelectorAll(".questionState")[0].value,
                     ],
-                    choictwo: [
+                    answaer2: [
                       document.getElementById("choicetwo").value,
                       document.querySelectorAll(".questionState")[1].value,
                     ],
-                    choicethree: [
+                    answaer3: [
                       document.getElementById("choicethree").value,
                       document.querySelectorAll(".questionState")[2].value,
                     ],
-                    choicefour: [
+                    answaer4: [
                       document.getElementById("choicefour").value,
                       document.querySelectorAll(".questionState")[3].value,
                     ],
@@ -181,7 +229,7 @@ const Addnewquiz = () => {
               >
                 Add <img src={add} />
               </button>
-              {editMode[0] ? <Save setEditMode={editMode[1]} /> : <Publish />}
+              {editMode[0] ? <Save /> : <Publish />}
             </div>
           </div>
         </form>
