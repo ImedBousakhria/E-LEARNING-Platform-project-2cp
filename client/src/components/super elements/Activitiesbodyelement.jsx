@@ -44,7 +44,7 @@ const Activitiesbodyelement = ({
           <img src={submition} />
           {name}
         </div>
-        <div className=" seperator">{groupe}</div>
+        <div className="seperator">{groupe}</div>
         <div className="seperator">{date}</div>
       </div>
       <div className="flex basis-[15%] items-center justify-center gap-2 ">

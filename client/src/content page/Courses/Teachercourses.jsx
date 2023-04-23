@@ -12,10 +12,14 @@ const Teachercourses = ({index}) => {
   const [checkedLessons, setCheckedLessons] = useState({});
   const [editMode, setEditMode] = useState(false);
   const [Acontent, setContent] = useState({});
+  const [activeProgIndex, setActiveProgIndex] = useState(null);
+
   if(index== 2) {
     return (
     <CoursesContext.Provider
       value={{
+        activeProgIndex,
+        setActiveProgIndex,
         checkedLessons,
         setCheckedLessons,
         barContent,

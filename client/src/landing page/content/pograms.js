@@ -9,6 +9,8 @@ let blue = "hsla(197, 100%, 61%, 1)" ;
 export const programs = [
   {
     name: "General program",
+    students: ['imed', 'Bousakhria'],
+    teachers: ['Snape', 'Dumbeldore', 'Remus', 'McGonagall'],
     icon: uk,
     type: 1,
     // bg , accent
@@ -19,6 +21,8 @@ export const programs = [
   },
   {
     name: "Intensive program",
+    students: ['Harry', 'Ron', 'Hermione'],
+    teachers: ['Snape', 'Dumbeldore', 'Remus', 'McGonagall'],
     icon: student,
     type: 2,
     colors: [blue, purple],
@@ -26,6 +30,8 @@ export const programs = [
   },
   {
     name: "Kids program",
+    students: ['Harry', 'Ron', 'Hermione'],
+    teachers: ['Snape', 'Dumbeldore', 'Remus', 'McGonagall'],
     icon: kid,
     type: 3,
     colors: [purple, blue],
@@ -33,6 +39,8 @@ export const programs = [
   },
   {
     name: "IELTS PREPARATION",
+    students: ['Harry', 'Ron', 'Hermione'],
+    teachers: ['Snape', 'Dumbeldore', 'Remus', 'McGonagall'],
     icon: master,
     type: 4,
     colors: [blue, purple],
@@ -40,6 +48,8 @@ export const programs = [
   },
   {
     name: "General program",
+    students: ['Harry', 'Ron', 'Hermione'],
+    teachers: ['Snape', 'Dumbeldore', 'Remus', 'McGonagall'],
     icon: uk,
     type: 1,
     colors: [purple, blue],
@@ -47,6 +57,8 @@ export const programs = [
   },
   {
     name: "General program",
+    students: ['Harry', 'Ron', 'Hermione'],
+    teachers: ['Snape', 'Dumbeldore', 'Remus', 'McGonagall'],
     icon: uk,
     type: 2,
     colors: [blue, purple],
@@ -54,6 +66,8 @@ export const programs = [
   },
   {
     name: "General program",
+    students: ['Harry', 'Ron', 'Hermione'],
+    teachers: ['Snape', 'Dumbeldore', 'Remus', 'McGonagall'],
     icon: uk,
     type: 3,
     colors: [purple, blue],
@@ -61,6 +75,8 @@ export const programs = [
   },
   {
     name: "General program",
+    students: ['Harry', 'Ron', 'Hermione'],
+    teachers: ['Snape', 'Dumbeldore', 'Remus', 'McGonagall'],
     icon: uk,
     type: 4,
     colors: [blue, purple],
@@ -68,6 +84,8 @@ export const programs = [
   },
   {
     name: "General program",
+    students: ['Harry', 'Ron', 'Hermione'],
+    teachers: ['Snape', 'Dumbeldore', 'Remus', 'McGonagall'],
     icon: uk,
     type: 1,
     colors: [purple, blue],
@@ -75,6 +93,8 @@ export const programs = [
   },
   {
     name: "General program",
+    students: ['Harry', 'Ron', 'Hermione'],
+    teachers: ['Snape', 'Dumbeldore', 'Remus', 'McGonagall'],
     icon: uk,
     type: 2,
     colors: [blue, purple],
@@ -82,6 +102,8 @@ export const programs = [
   },
   {
     name: "General program",
+    students: ['Harry', 'Ron', 'Hermione'],
+    teachers: ['Snape', 'Dumbeldore', 'Remus', 'McGonagall'],
     icon: uk,
     type: 3,
     colors: [purple, blue],

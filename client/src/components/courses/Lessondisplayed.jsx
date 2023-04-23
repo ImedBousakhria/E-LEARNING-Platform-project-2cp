@@ -27,7 +27,6 @@ const Lessondisplayed = ({
       onClick={onClick}
     >
       <div className="flex items-center justify-between">
-        <div></div>
         <div className="flex items-center gap-1 justify-self-end">
           {isDisplayed ? (
             <img
