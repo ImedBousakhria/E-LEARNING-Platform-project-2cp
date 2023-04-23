@@ -1,20 +1,14 @@
 import React from "react";
 import quit from "../../assets/icons/quit.svg";
 
-const Cancel = ({ setEditMode, setContent }) => {
+const Cancel = () => {
   return (
     <button
-      onClick={() => {
-        setEditMode(false);
-        setContent((prevContent) => ({
-          ...prevContent,
-          description: "",
-        }));
-      }}
-      className="flex w-auto items-center gap-2 rounded-[5px] border-[1.5px] border-darkgray p-2  text-darkgray"
+      type="submit"
+      className="flex items-center gap-2 rounded-[5px]  p-2 text-darkgray border border-darkgray"
     >
-      <span className=" min-w-max">Cancel</span>
-      <img className="w-5" src={quit} />
+      <span>Cancel</span>
+      <img src={quit} />
     </button>
   );
 };

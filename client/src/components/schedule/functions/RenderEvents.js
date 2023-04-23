@@ -1,11 +1,16 @@
-export function renderEvents(eventState) {    
-  console.log(eventState) ; 
-    eventState.map((element,index) => {
-      let content = `${element.groupe} ${element.teacherName}` ; 
-      let container = document.getElementById(element.day+element.index) ; 
-      container.textContent = content || " "  ; 
-      container.rowSpan = element.span +1 ; 
-      container.style.backgroundColor = element.color ; 
-      console.log(document.getElementById(element.day+element.index)) ; 
-    })
-  }
+import { deleteUselessTd } from "./DeleteUselessTd";
+
+var i = 0;
+export function renderEvents(eventState) {
+  eventState.map((element, index) => {
+    let content = `${element.groupe} ${element.teacherName}`;
+    let container = document.getElementById(element.day + element.index);
+    container.children[0].textContent = content || " ";
+    container.rowSpan = element.span ;
+    container.style.backgroundColor = element.color;
+    container.key = element.position ; 
+    if (eventState.length == 3) {
+      deleteUselessTd(element);
+    }
+  });
+}

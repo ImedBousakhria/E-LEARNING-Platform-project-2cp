@@ -1,20 +1,22 @@
 import React, { useContext, useState } from "react";
-import { IndexElementContext } from "../content page/Assignment/Assignment";
-import { assignmentteacher } from "../content page/Assignment/content/main";
-import Cancel from "./reusable/Cancel";
-import Save from "./reusable/Save";
-import Filesdisplays from "./reusable/Filesdisplays";
-import fileholder from "../assets/images/fileholder.svg";
-import Publish from "./reusable/Publish";
-import Attachfile from "./reusable/Attachfile";
+import { IndexElementContext } from "../../content page/Assignment/Assignment";
+import Cancel from "../reusable/Cancel";
+import Save from "../reusable/Save";
+import Filesdisplays from "../reusable/Filesdisplays";
+import fileholder from "../../assets/images/fileholder.svg";
+import Publish from "../reusable/Publish";
+import Attachfile from "../reusable/Attachfile";
+import { handleSubmit } from "./HandleSubmit";
 
 const Addnewassignment = () => {
-  const { elementIndex, editMode } = useContext(IndexElementContext);
+  const { elementIndex, editMode, firstContent } =
+    useContext(IndexElementContext);
   const [title, setTitle] = useState(false);
+  const [groupe, setGroupe] = useState(false);
   const [description, setDescripiton] = useState(false);
   const [deadline, setDeadline] = useState(false);
+  const [cancel, setCancel] = useState(false);
 
-  console.log(editMode[0]);
   /* function handleFileUpload(event) {
     const file = event.target.files[0];
     console.log(file) ; 
@@ -49,6 +51,18 @@ const Addnewassignment = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          console.log(cancel) ; 
+          if (!cancel) {
+            handleSubmit(firstContent, editMode[0], elementIndex[0]);
+          }
+          if (editMode[0]) {
+            editMode[1](false);
+          }
+          setCancel(false) ; 
+          setTitle(null);
+          setDeadline(null);
+          setDescripiton(null);
+          setGroupe(null);
         }}
         className="flex gap-[2%]"
       >
@@ -59,28 +73,51 @@ const Addnewassignment = () => {
               placeholder="Title"
               id="title"
               onChange={(e) => {
-                assignmentteacher[elementIndex[0] - 1].name = "";
+                elementIndex[0] != null && editMode[0]
+                  ? (firstContent[0][elementIndex[0] - 1].name = "")
+                  : null;
                 setTitle(e.target.value);
               }}
               value={
                 elementIndex[0] != null && editMode[0]
-                  ? title || assignmentteacher[elementIndex[0] - 1].name
-                  : ""
+                  ? title || firstContent[0][elementIndex[0] - 1].name
+                  : title || ""
+              }
+            />
+          </label>
+          <label htmlFor="groupe">
+            <input
+              type="text"
+              placeholder="groupe"
+              id="groupe"
+              onChange={(e) => {
+                elementIndex[0] != null && editMode[0]
+                  ? (firstContent[0][elementIndex[0] - 1].name = "")
+                  : null;
+                setGroupe(e.target.value);
+              }}
+              value={
+                elementIndex[0] != null && editMode[0]
+                  ? groupe || firstContent[0][elementIndex[0] - 1].name
+                  : groupe || ""
               }
             />
           </label>
           <label htmlFor="description">
             <textarea
               placeholder="Description"
+              id="description"
               onChange={(e) => {
-                assignmentteacher[elementIndex[0] - 1].description = "";
+                elementIndex[0] != null && editMode[0]
+                  ? (firstContent[0][elementIndex[0] - 1].description = "")
+                  : null;
                 setDescripiton(e.target.value);
               }}
               value={
                 elementIndex[0] != null && editMode[0]
                   ? description ||
-                    assignmentteacher[elementIndex[0] - 1].description
-                  : ""
+                    firstContent[0][elementIndex[0] - 1].description
+                  : description || ""
               }
             />
           </label>
@@ -90,7 +127,7 @@ const Addnewassignment = () => {
             <div className="flex gap-2">
               {editMode[0] ? (
                 <Filesdisplays
-                  images={assignmentteacher[elementIndex[0] - 1].images}
+                  images={firstContent[0][elementIndex[0] - 1].images}
                 />
               ) : (
                 <Filesdisplays images={[fileholder, fileholder, fileholder]} />
@@ -100,29 +137,30 @@ const Addnewassignment = () => {
             <label htmlFor="Deadline(Date and time input)">
               <input
                 onChange={(e) => {
-                  assignmentteacher[elementIndex[0] - 1].deadline = "";
+                  elementIndex[0] != null && editMode[0]
+                    ? (firstContent[0][elementIndex[0] - 1].deadline = "")
+                    : null;
                   setDeadline(e.target.value);
                 }}
                 value={
                   elementIndex[0] != null && editMode[0]
-                    ? deadline ||
-                      assignmentteacher[elementIndex[0] - 1].deadline
-                    : ""
+                    ? deadline || firstContent[0][elementIndex[0] - 1].deadline
+                    : deadline || ""
                 }
                 type="text"
+                id="deadline"
                 placeholder="Deadline(Date and time input)"
               />
             </label>
           </div>
           <div className="flex justify-end gap-2 text-white">
-            {editMode[0] ? <Cancel setEditMode={editMode[1]} /> : null}
-            <Attachfile />
             {editMode[0] ? (
-              <Save setEditMode={editMode[1]} />
-            ) : (
-              <Publish />
-              
-            )}
+              <div onClick={()=>setCancel(true)}>
+                <Cancel />
+              </div>
+            ) : null}
+            <Attachfile />
+            {editMode[0] ? <Save /> : <Publish />}
           </div>
         </div>
       </form>

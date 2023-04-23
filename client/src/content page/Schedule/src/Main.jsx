@@ -6,20 +6,17 @@ import Calendar from "../../../components/schedule/Calendar";
 export const calendarContext = createContext();
 
 const Main = () => {
-  const eventState = useState([]);
   return (
-    <calendarContext.Provider value={eventState}>
-      <div className="relative flex basis-[60%] flex-col gap-4 bg-primary  p-8">
-        <div className="flex justify-between">
-          <h1 className="text-[25px]">Schedule</h1>
-          <Search />
-        </div>
-        <div className="flex flex-col gap-4">
-          <Calendar />
-          <AddNewSession />
-        </div>
+    <div className="relative flex basis-[60%] flex-col gap-4 bg-primary  p-8">
+      <div className="flex justify-between">
+        <h1 className="text-[25px]">Schedule</h1>
+        <Search />
       </div>
-    </calendarContext.Provider>
+      <div className="flex flex-col gap-4">
+        <Calendar />
+        <AddNewSession />
+      </div>
+    </div>
   );
 };
 

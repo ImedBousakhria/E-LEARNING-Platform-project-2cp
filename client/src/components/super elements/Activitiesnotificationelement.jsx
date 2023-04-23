@@ -6,7 +6,6 @@ import profileholder from "../../assets/profile/profileholder.png";
 import Filesdisplays from "../reusable/Filesdisplays";
 
 const Activitiesnotificationelement = ({ element }) => {
-  console.log(element);
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">

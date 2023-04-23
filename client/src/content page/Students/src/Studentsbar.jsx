@@ -8,8 +8,7 @@ import Displayedstudent from "../../../components/students/Displayedstudent";
 import { propsContext } from "../../Mainapp";
 
 const Studentsbar = () => {
-  const {barContent} = useContext(StudentsContext)
-  const user = 'said' ; 
+
   const {notificaiton} = useContext(propsContext) ; 
   const { barContent } = useContext(StudentsContext);
   const user = "said";

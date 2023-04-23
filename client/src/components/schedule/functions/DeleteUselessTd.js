@@ -1,7 +1,6 @@
-export function deleteUselessTd(obj, indexindex) {
-  for(let i = 1 ; i<obj.span+1; i++) {
-    console.log( document.getElementById(obj.day+(indexindex+i))); 
-    document.getElementById(obj.day + (indexindex + i)).remove();
+export function deleteUselessTd(obj) {
+  for(let i = 1 ; i<obj.span; i++) {
+    document.getElementById(obj.day + (obj.index + i)).remove();
   }
 
 }
