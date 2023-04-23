@@ -94,9 +94,6 @@
 }
 
 
-  @apply flex justify-between bg-white py-3.5 px-2 rounded-md border shadow border-darkgray;
-}
-
 .form-input-error {
   @apply flex justify-between bg-white py-3.5 px-2 rounded-md border shadow border-red;
 }
