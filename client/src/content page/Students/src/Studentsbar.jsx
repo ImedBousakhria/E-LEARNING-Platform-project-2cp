@@ -8,8 +8,7 @@ import Displayedstudent from "../../../components/students/Displayedstudent";
 import { propsContext } from "../../Mainapp";
 
 const Studentsbar = () => {
-  const {barContent} = useContext(StudentsContext)
-  const user = 'said' ; 
+
   const {notificaiton} = useContext(propsContext) ; 
   return (
     <div className="sticky right-0 top-0 flex max-h-screen basis-[23%] flex-col gap-4 border-l border-gray bg-white p-4">

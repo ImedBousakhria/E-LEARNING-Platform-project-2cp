@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Search from "../../../components/reusable/Search";
-import Addnewassignment from "../../../components/Addnewassignment";
+import Addnewassignment from "../../../components/assignment/Addnewassignment";
 import Activities from "../../../components/super/Activities";
 import { IndexElementContext } from "../Assignment";
 import Bluredbg from "../../../components/reusable/Bluredbg";

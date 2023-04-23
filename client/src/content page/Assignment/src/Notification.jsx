@@ -9,7 +9,7 @@ import Profile from "../../../components/reusable/Profile";
 import { propsContext } from "../../Mainapp";
 
 const Notification = () => {
-  const { elementIndex } = useContext(IndexElementContext);
+  const { elementIndex, firstContent } = useContext(IndexElementContext);
   const {notificaiton} = useContext(propsContext) ; 
 
   return (
@@ -21,7 +21,7 @@ const Notification = () => {
 
       {elementIndex[0] ? (
         <Activitiesnotificationelement
-          element={assignmentteacher[elementIndex[0] - 1]}
+          element={firstContent[0][elementIndex[0] - 1]}
         />
       ) : (
         <div className="flex h-full items-center justify-center">

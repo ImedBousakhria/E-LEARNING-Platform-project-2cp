@@ -1,18 +1,19 @@
-import React from "react";
-import { assignmentteacher } from "../../content page/Assignment/content/main";
-import { teacherQuizzes } from "../../content page/Quizzes/content/main";
+import React, { useContext } from "react";
 import Activitiesbodyelement from "../super elements/Activitiesbodyelement";
+import { IndexElementContextquiz } from "../../content page/Quizzes/Quizzes";
+import { IndexElementContext } from "../../content page/Assignment/Assignment";
 
 const Activitiesbody = ({ checkall, setSelected, type }) => {
-  let Elements = []
+  var activitiesContext ; 
   if(type=="quiz") {
-    Elements= teacherQuizzes ; 
+    activitiesContext = IndexElementContextquiz ; 
   }else if(type=="assignment") {
-    Elements = assignmentteacher ; 
+    activitiesContext = IndexElementContext ; 
   }
+  const {firstContent} = useContext(activitiesContext)  ; 
   return (
     <div className="flex flex-col gap-2">
-      {Elements.map((Element, index) => {
+      {firstContent[0].map((Element, index) => {
         return (
           <Activitiesbodyelement
             type={type}
