@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import profile from "../../../assets/profile/profileholder.png";
 import Profile from "../../../components/reusable/Profile";
-import { notificaiton } from "../../Home/content/notification";
 import Notificaitonhandling from "../../../components/super/Notificaitonhandling";
 import speaker from "../../../assets/icons/announcemet.svg";
 import Announcementelement from "../../../components/super elements/Announcemento";
 import { AnnouncementContext } from "../Teacherannounce";
+import { propsContext } from "../../Mainapp";
 
 const Announcebar = () => {
+  const {notificaiton} = useContext(propsContext) ; 
   const user = "said";
   const { barContent, setBarContent } = useContext(AnnouncementContext);
   return (

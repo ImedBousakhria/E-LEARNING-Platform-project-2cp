@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Seemore from "../reusable/Seemore";
 import { assignment } from "../../content page/Home/content/main";
 import Lastsubmisstionselement from "./homeelements/Lastsubmisstionselement";
@@ -6,11 +6,13 @@ import Mark from "../reusable/Mark";
 import View from "../reusable/View";
 
 const Lastsubmisstions = () => {
+
+
   return (
     <div className="flex flex-col gap-4 rounded-[10px] bg-white p-4">
       <div className="flex justify-between">
         <h2 className="text-[1.25rem]">Last submissions</h2>
-        <Seemore />
+        <Seemore index={3} />
       </div>
       <div className="flex flex-col gap-2">
         {assignment.map((Element) => {

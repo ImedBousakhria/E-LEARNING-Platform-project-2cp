@@ -1,44 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 /* resets */
 
 * {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 @layer base {
   a {
-    @apply cursor-pointer ; 
+    @apply cursor-pointer;
   }
   h1 {
-    @apply text-[50px] font-bold; 
+    @apply text-[50px] font-bold;
   }
   h2 {
-    @apply text-[2.5rem] font-bold ; 
+    @apply text-[2.5rem] font-bold;
   }
   p {
-    @apply text-[1.25rem] ; 
+    @apply text-[1.25rem];
   }
   h3 {
-    @apply text-[1.5625rem] font-bold  ;
-    letter-spacing: 0.34rem; 
+    @apply text-[1.5625rem] font-bold;
+    letter-spacing: 0.34rem;
   }
   h4 {
-    @apply font-semibold text-[1rem] 
+    @apply text-[1rem] font-semibold;
   }
   input[type="checkbox"] {
-    @apply scale-150; 
+    @apply scale-150 ;
   }
   input {
-    @apply w-full rounded-[10px] border focus:outline-none border-gray p-2 ; 
+    @apply w-full rounded-[10px] border border-gray p-2 focus:outline-none;
   }
   textarea {
-    @apply w-full resize-none rounded-[10px] border border-gray p-2 h-full ; 
+    @apply h-full w-full resize-none rounded-[10px] border border-gray p-2;
   }
 }
 
@@ -46,42 +45,55 @@
 
 @layer components {
   .link {
-    @apply relative hover:after:content-[''] hover:after:block hover:after:w-full hover:after:h-[3px] hover:after:bg-black hover:after:absolute hover:after:top-[100%] hover:after:left-[0%] hover:-translate-y-[10%] duration-300 ease-in-out transition-transform ; 
+    @apply relative transition-transform duration-300 ease-in-out hover:-translate-y-[10%] hover:after:absolute hover:after:top-[100%] hover:after:left-[0%] hover:after:block hover:after:h-[3px] hover:after:w-full hover:after:bg-black hover:after:content-[''];
   }
   .hovered {
-    @apply relative after:content-[''] text-accent after:block after:w-full after:h-[3px] after:bg-accent after:absolute after:top-[100%] after:left-[0%]  ; 
+    @apply relative text-accent after:absolute after:top-[100%] after:left-[0%] after:block after:h-[3px] after:w-full after:bg-accent after:content-[''];
   }
   .box-shadow {
-    box-shadow: 0px -17px 72px #C2C2C2;
+    box-shadow: 0px -17px 72px #c2c2c2;
   }
 }
-
-
 
 /* hero section */
 
 .yellow-gradient {
-  background: linear-gradient(180deg, #FFC558 0%, #EB8C57 100%);
+  background: linear-gradient(180deg, #ffc558 0%, #eb8c57 100%);
   border-radius: 208px 208px 0px 0px;
 }
 
-
-
 /* programs section */
 .clippoly {
-  width: 175px; 
+  width: 175px;
   aspect-ratio: 1/1;
   bottom: -24%;
   top: unset;
-  right: unset; 
+  right: unset;
   left: -5%;
-  clip-path: path('M36.1909 6.66564C47.4065 -1.48297 62.5935 -1.48298 73.8091 6.66563L107.52 31.1581C118.736 39.3067 123.429 53.7505 119.145 66.9352L106.268 106.565C101.984 119.75 89.6978 128.676 75.8345 128.676H34.1655C20.3022 128.676 8.01564 119.75 3.73166 106.565L-9.14478 66.9352C-13.4288 53.7505 -8.73571 39.3067 2.47989 31.1581L36.1909 6.66564Z');
+  clip-path: path(
+    "M36.1909 6.66564C47.4065 -1.48297 62.5935 -1.48298 73.8091 6.66563L107.52 31.1581C118.736 39.3067 123.429 53.7505 119.145 66.9352L106.268 106.565C101.984 119.75 89.6978 128.676 75.8345 128.676H34.1655C20.3022 128.676 8.01564 119.75 3.73166 106.565L-9.14478 66.9352C-13.4288 53.7505 -8.73571 39.3067 2.47989 31.1581L36.1909 6.66564Z"
+  );
 }
-
 
 /* Signin page*/
 
 .form-input {
+  @apply mt-1 flex items-center justify-between rounded-md border border-gray bg-white py-2 px-2 align-middle shadow;
+}
+
+.form-input-error {
+  @apply mt-1 flex items-center justify-between rounded-md border bg-white py-2 px-2 align-middle shadow;
+}
+
+.select-input {
+  @apply mt-1 flex h-full w-full items-center justify-between rounded-md border border-gray bg-white align-middle shadow;
+}
+
+.select-input-error {
+  @apply mt-1 flex h-2 w-2 items-center justify-between rounded-md border bg-white align-middle shadow;
+}
+
+
   @apply flex justify-between bg-white py-3.5 px-2 rounded-md border shadow border-darkgray;
 }
 
@@ -98,10 +110,9 @@
 }
 /* schedule section */
 
-
 /* assignment teacher body element  */
 .seperator {
- @apply before:content-[''] before:block before:h-[80%] pl-5 before:-left-1 before:w-[1px] text-darkgray  before:bg-darkgray before:absolute relative ; 
+  @apply relative pl-5 text-darkgray before:absolute before:-left-1 before:block before:h-[80%]  before:w-[1px] before:bg-darkgray before:content-[''];
 }
 
 /* notification home page  */
@@ -113,4 +124,19 @@
 /* new student form */ 
 .student-input {
   @apply basis-[45%] rounded-md placeholder:text-sm placeholder:text-gray text-sm p-3 border-darkgray;
+}
+/* swiper style */
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  @apply text-[2rem]  text-accent !important;
+}
+.swiper-button-prev {
+  @apply   !important ;
+}
+
+.swiper {
+  @apply basis-full  !important ; 
+}
+.swiper-wrapper {
 }

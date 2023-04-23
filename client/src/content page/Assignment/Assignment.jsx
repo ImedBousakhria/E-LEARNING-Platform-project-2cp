@@ -5,9 +5,10 @@ import Notification from "./src/Notification";
 export const IndexElementContext = createContext();
 const Assignment = ({ index }) => {
   const elementIndex = useState(null);
+  const editMode = useState(false) ; 
   if (index === 3) {
     return (
-      <IndexElementContext.Provider value={elementIndex}>
+      <IndexElementContext.Provider value={{elementIndex,editMode}}>
         <Main />
         <Notification />
       </IndexElementContext.Provider>

@@ -2,7 +2,6 @@ import React from "react";
 import { assignmentteacher } from "../../content page/Assignment/content/main";
 import { teacherQuizzes } from "../../content page/Quizzes/content/main";
 import Activitiesbodyelement from "../super elements/Activitiesbodyelement";
-import Teacherassignment from "./Activities";
 
 const Activitiesbody = ({ checkall, setSelected, type }) => {
   let Elements = []

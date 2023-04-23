@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import wrong from "../../../assets/icons/wrong.svg";
 import right from "../../../assets/icons/right.svg";
 
-const QuizDisplay = ({ element }) => {
-  const [questionIndex, setQuestionIndex] = useState(0) ; 
+const QuizDisplay = ({ element,questionIndex }) => {
     return (
       <div className="grid w-full grid-cols-2 grid-rows-3 rounded-[10px] pt-2  text-darkgray outline outline-1 outline-gray">
         <div className="col-start-1 col-end-3 row-start-1 row-end-2 border border-x-0 border-t-0 border-gray px-2">

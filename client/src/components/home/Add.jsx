@@ -8,7 +8,7 @@ const Add = ({text, bg, index}) => {
     <button
       onClick={() => Indexhandle[1](index+1)}
       style={{ backgroundColor: bg }}
-      className="flex  items-center gap-1 rounded-[10px] px-[12px] py-[15px] text-white"
+      className="flex min-w-[20%] font-semibold  items-center gap-1 rounded-[10px] px-[12px] py-[15px] text-white"
     >
       <span>{text}</span>
       <img src={add} />

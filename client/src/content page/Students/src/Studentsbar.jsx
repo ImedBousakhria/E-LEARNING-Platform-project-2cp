@@ -1,13 +1,16 @@
 import React, { useContext } from "react";
 import profile from "../../../assets/profile/profileholder.png";
 import Profile from "../../../components/reusable/Profile";
-import { notificaiton } from "../../Home/content/notification";
 import Notificaitonhandling from "../../../components/super/Notificaitonhandling";
 import grad from "../../../assets/icons/grad.svg";
 import { StudentsContext } from "../Teacherstudents";
 import Displayedstudent from "../../../components/students/Displayedstudent";
+import { propsContext } from "../../Mainapp";
 
 const Studentsbar = () => {
+  const {barContent} = useContext(StudentsContext)
+  const user = 'said' ; 
+  const {notificaiton} = useContext(propsContext) ; 
   const { barContent } = useContext(StudentsContext);
   const user = "said";
   return (
