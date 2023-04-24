@@ -52,6 +52,9 @@ const Activitiesbodyelement = ({
           <img src={submition} />
           {name}
         </div>
+
+        <div className="seperator">{groupe}</div>
+
         {type != "students" ? <div className=" seperator">{groupe}</div> : null}
 
         <div className="seperator">{date}</div>

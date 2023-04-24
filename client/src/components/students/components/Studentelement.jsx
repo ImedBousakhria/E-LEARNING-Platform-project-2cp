@@ -1,7 +1,10 @@
 import React from "react";
 import Profile from "../../reusable/Profile";
+import Delete from "../../reusable/Delete";
+import Edit from "../../reusable/Edit";
 
 const Studentelement = ({
+  user,
   person,
   profilepicture,
   group,
@@ -11,21 +14,25 @@ const Studentelement = ({
   return (
     <div
       className={`
-    ${isActive ? " bg-darkgray" : " bg-assignmentbg"}
-    flex h-max cursor-pointer rounded-[10px] py-2 px-4 items-center`}
+    ${isActive ? " bg-gray" : " bg-assignmentbg"}
+    flex h-max cursor-pointer items-center justify-between rounded-[10px] p-2`}
       onClick={onClick}
     >
-      <div className=" w-[35%] flex">
-        <Profile profilepicture={profilepicture} person={person} />
-      </div>
+      <Profile profilepicture={profilepicture} person={person} />
+
       <p
-        className={`flex items-center gap-3 text-gray seperator  ${
-          isActive ? " text-white opacity-70" : ""
+        className={`seperator flex items-center gap-3  ${
+          isActive ? " text-white " : "text-gray "
         }`}
       >
-
         {group}
       </p>
+      {user === "admin" && (
+        <div className="flex gap-1 ">
+          <Delete />
+          <Edit />
+        </div>
+      )}
     </div>
   );
 };

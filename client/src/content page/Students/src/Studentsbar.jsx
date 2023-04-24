@@ -10,11 +10,9 @@ import { propsContext } from "../../Mainapp";
 const Studentsbar = () => {
 
   const {notificaiton} = useContext(propsContext) ; 
-  const { barContent } = useContext(StudentsContext);
-  const user = "said";
   return (
     <div className="sticky right-0 top-0 flex max-h-screen basis-[23%] flex-col gap-4 border-l border-gray bg-white p-4">
-      <div className="flex  justify-between ">
+      <div className="flex  justify-between items-center">
         <Notificaitonhandling isnotification={notificaiton} />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>
