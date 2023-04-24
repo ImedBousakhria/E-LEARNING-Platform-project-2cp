@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "socket.io": "^4.6.1"
+  }
+}

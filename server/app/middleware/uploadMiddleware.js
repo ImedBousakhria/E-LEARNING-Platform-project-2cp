@@ -1,13 +1,7 @@
-const Announcement = require('../models/announcement');
 const multer = require('multer');
 
-
 // Define storage for the files
-const storage = multer.memoryStorage({
-  destination: function(req, file, callback) {
-    callback(null, '');
-  }
-});
+const storage = multer.memoryStorage();
 
 // Filter for allowed file types
 const fileFilter = function(req, file, callback) {
@@ -19,6 +13,12 @@ const fileFilter = function(req, file, callback) {
 };
 
 // Initialize multer middleware
-const upload = multer({ storage: storage, fileFilter: fileFilter });
+const upload = multer({ 
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: {
+    fileSize: 1024 * 1024 * 10 * 100000 // 1000 MB file size limit
+  }
+});
 
 module.exports = upload;

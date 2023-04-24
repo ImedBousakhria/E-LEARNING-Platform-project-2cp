@@ -4,9 +4,15 @@ const express = require("express");
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
+const { json } = require('express');
 app.use(cors());
 
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+
+
+app.use(express.json({ limit: '1000mb' })); // Increase limit to 10 MB
+app.use(express.urlencoded({ limit: '1000mb', extended: true }));
 
 const userRoute = require('./app/routes/userRoute');
 const courseRoute = require('./app/routes/courseRoute');
@@ -18,6 +24,8 @@ const commentRoute = require('./app/routes/commentRoute');
 const quizzRoute = require('./app/routes/quizzRoute');
 const scheduleRoute = require('./app/routes/scheduleRoute');
 const lessonRoute = require('./app/routes/lessonRoute');
+const adminRoute = require('./app/routes/adminRoute.js');
+const announcementRoute = require('./app/routes/announcementRoute.js');
 
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -30,12 +38,13 @@ io.on('connection', (socket) => {
 });
 
 app.set('io', io);
-
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
 
-const dbURI = 'mongodb+srv://saidilena:lena123@elite.2mfo0dl.mongodb.net/?retryWrites=true&w=majority';
+ // "type": "module",
+ const dbURI = 'mongodb+srv://elite:elite@elite.2mfo0dl.mongodb.net/?retryWrites=true&w=majority';
 
 
 
@@ -61,8 +70,13 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
   app.use(quizzRoute);
   app.use(scheduleRoute);
   app.use(lessonRoute);
-
+  app.use(adminRoute);
+  app.use(announcementRoute);
   
+    // Set the maximum request body size to 10mb
+app.use(bodyParser.json({ limit: '1000mb' }));
+app.use(bodyParser.urlencoded({ limit: '1000mb', extended: true, parameterLimit:50000 }));
+
 
 
 
