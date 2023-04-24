@@ -13,6 +13,8 @@ export const headers = [
   },
 ];
 
+
+
 export const assignmentteacher = [
   {
     name: "your assignment1",
@@ -41,6 +43,28 @@ export const assignmentteacher = [
       },
       {
         name: "said nouasria",
+        profile: profileholder,
+      },
+    ],
+    discussions: [
+      {
+        text: "hellooo",
+        name: "saidd",
+        profile: profileholder,
+      },
+      {
+        text: "hello",
+        name: "said",
+        profile: profileholder,
+      },
+      {
+        text: "he",
+        name: "said",
+        profile: profileholder,
+      },
+      {
+        text: "hello",
+        name: "said",
         profile: profileholder,
       },
     ],
@@ -75,6 +99,28 @@ export const assignmentteacher = [
         profile: profileholder,
       },
     ],
+    discussions: [
+      {
+        text: "hello",
+        name: "said",
+        profile: profileholder,
+      },
+      {
+        text: "hello",
+        name: "said",
+        profile: profileholder,
+      },
+      {
+        text: "hello",
+        name: "said",
+        profile: profileholder,
+      },
+      {
+        text: "hello",
+        name: "said",
+        profile: profileholder,
+      },
+    ],
   },
   {
     name: "your assignment3",
@@ -106,6 +152,28 @@ export const assignmentteacher = [
         profile: profileholder,
       },
     ],
+    discussions: [
+      {
+        text: "hello",
+        name: "said",
+        profile: profileholder,
+      },
+      {
+        text: "hello",
+        name: "said",
+        profile: profileholder,
+      },
+      {
+        text: "hello",
+        name: "said",
+        profile: profileholder,
+      },
+      {
+        text: "hello",
+        name: "said",
+        profile: profileholder,
+      },
+    ],
   },
   {
     name: "your assignment4",
@@ -134,6 +202,28 @@ export const assignmentteacher = [
       },
       {
         name: "arzki abdou",
+        profile: profileholder,
+      },
+    ],
+    discussions: [
+      {
+        text: "hello",
+        name: "said",
+        profile: profileholder,
+      },
+      {
+        text: "hello",
+        name: "said",
+        profile: profileholder,
+      },
+      {
+        text: "hello",
+        name: "said",
+        profile: profileholder,
+      },
+      {
+        text: "hello",
+        name: "said",
         profile: profileholder,
       },
     ],
