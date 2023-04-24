@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
-import Deleteactivitieselemnt from '../../reusable/Deleteactivitieselemnt';
-import Editactivitieselement from '../../reusable/Editactivitieselement';
-import Submissionelement from '../../super elements/Submissionelement';
-import QuizDisplay from './QuizDisplay';
-import Question from '../../reusable/Question';
+import React, { useState } from "react";
+import Deleteactivitieselemnt from "../../reusable/Deleteactivitieselemnt";
+import Editactivitieselement from "../../reusable/Editactivitieselement";
+import Submissionelement from "../../super elements/Submissionelement";
+import QuizDisplay from "./QuizDisplay";
+import Question from "../../reusable/Question";
 
-
-const QuizNotificationElement = ({element}) => {
+const QuizNotificationElement = ({ element }) => {
   const [questionIndex, setQuestionIndex] = useState(0);
 
   return (
@@ -25,12 +24,17 @@ const QuizNotificationElement = ({element}) => {
           </p>
         </div>
         <div className="flex flex-col gap-2">
-          <div className="flex justify-between flex-wrap gap-[2%]">
+          <div className="flex flex-wrap justify-between gap-[2%]">
             <QuizDisplay element={element.quiz} questionIndex={questionIndex} />
           </div>
           <div className="flex gap-2">
             {element.quiz.map((element, index) => {
-              return <Question index={index} handleClick={()=>setQuestionIndex(index)} />;
+              return (
+                <Question
+                  index={index}
+                  handleClick={() => setQuestionIndex(index)}
+                />
+              );
             })}
           </div>
         </div>
@@ -53,6 +57,6 @@ const QuizNotificationElement = ({element}) => {
       </div>
     </div>
   );
-}
+};
 
-export default QuizNotificationElement
+export default QuizNotificationElement;
