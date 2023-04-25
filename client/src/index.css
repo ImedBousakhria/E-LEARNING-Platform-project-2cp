@@ -116,7 +116,6 @@
 .seperator {
   @apply relative pl-5 text-darkgray before:absolute before:-left-1 before:block before:h-[80%]  before:w-[1px] before:bg-darkgray before:content-[''];
 }
-
 /* notification home page  */
 .gridlayout {
   display: grid;

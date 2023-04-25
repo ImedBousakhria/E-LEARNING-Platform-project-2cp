@@ -18,10 +18,12 @@ const Studentelement = ({
     flex h-max cursor-pointer items-center justify-between rounded-[10px] p-2`}
       onClick={onClick}
     >
-      <Profile profilepicture={profilepicture} person={person} />
+      <div className="flex-shrink-0">
+        <Profile profilepicture={profilepicture} person={person} />
+      </div>
 
       <p
-        className={`seperator flex items-center gap-3  ${
+        className={`seperator flex basis-[60%] items-center gap-3 ${
           isActive ? " text-white " : "text-gray "
         }`}
       >

@@ -29,23 +29,21 @@ const Allstudents = () => {
 
         <div className="flex items-center gap-4">
           <img src={arrow} className=" rotate-180" alt="" />
-          <span className=" text-lg font-semibold text-accent">2CP</span> {/* iterate over groups */}
+          <span className=" text-lg font-semibold text-accent">2CP</span>{" "}
+          {/* iterate over groups */}
           <img src={arrow} alt="" />
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <header className="flex w-[46%] justify-between px-4 py-2">
+        <header className="flex basis-[100%] justify-between p-2">
           <div
-            className="flex cursor-pointer gap-1 pl-10"
+            className="flex cursor-pointer items-center gap-1 basis-[50%]"
             onClick={handleIconClick}
           >
             {" "}
             <img src={darkarrow} alt="" /> Name
           </div>
-          <div
-            className="flex cursor-pointer gap-1 pl-2"
-            onClick={handleIconClick}
-          >
+          <div className="flex cursor-pointer gap-1 basis-[50%]" onClick={handleIconClick}>
             <img src={darkarrow} alt="" /> Group
           </div>
         </header>
