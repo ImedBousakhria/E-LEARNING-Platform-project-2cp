@@ -70,8 +70,8 @@ const Allcourses = ({index}) => {
               onChange={handleCheckAll}
               checked={
                 Object.keys(checkedLessons).length === lessons.length &&
-                Object.keys(checkedLessons).every((id) => checkedLessons[id] )&& index === 2
-              }
+                Object.keys(checkedLessons).every((id) => checkedLessons[id] )
+                        }
               className=" aspect-square h-3.5 w-3.5 max-w-max accent-accent"
             /> 
           
