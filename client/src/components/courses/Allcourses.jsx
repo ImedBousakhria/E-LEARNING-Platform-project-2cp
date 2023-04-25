@@ -12,7 +12,7 @@ import Lesson from "./Lesson";
 import Delete from "../reusable/Delete";
 import { CoursesContext } from "../../content page/Courses/Teachercourses";
 
-const Allcourses = () => {
+const Allcourses = ({index}) => {
   const [iconRotation, setIconRotation] = useState(0);
 
   const {
@@ -70,7 +70,7 @@ const Allcourses = () => {
               onChange={handleCheckAll}
               checked={
                 Object.keys(checkedLessons).length === lessons.length &&
-                Object.keys(checkedLessons).every((id) => checkedLessons[id])
+                Object.keys(checkedLessons).every((id) => checkedLessons[id] )&& index === 2
               }
               className=" aspect-square h-3.5 w-3.5 max-w-max accent-accent"
             /> 

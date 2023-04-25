@@ -35,7 +35,7 @@ const Teachercourses = ({index}) => {
       }}
     >
       <>
-        <Coursemain />
+        <Coursemain index={index}/>
         <Coursebar />
       </>
     </CoursesContext.Provider>
