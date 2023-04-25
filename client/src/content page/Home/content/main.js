@@ -76,3 +76,13 @@ export const announcement = [
     image: imageholder,
   },
 ];
+
+
+export const studentHeader = [
+  {
+    title: "Name",
+  },
+  {
+    title: "Date modified",
+  },
+];

@@ -8,10 +8,11 @@ export const IndexElementContext = createContext();
 const Assignment = ({ index }) => {
   const elementIndex = useState(null);
   const editMode = useState(false) ;
-  const firstContent = useState(assignmentteacher) ;  
+  const firstContent = useState(assignmentteacher) ; 
+  const showDiscussion = useState("hidden") ;  
   if (index === 3) {
     return (
-      <IndexElementContext.Provider value={{elementIndex,editMode,firstContent}}>
+      <IndexElementContext.Provider value={{elementIndex,editMode,firstContent, showDiscussion}}>
         <Main />
         <Notification />
       </IndexElementContext.Provider>

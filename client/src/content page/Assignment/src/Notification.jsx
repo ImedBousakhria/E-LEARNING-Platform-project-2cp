@@ -7,15 +7,19 @@ import Selectactivities from "../../../components/super/Selectactivities";
 import Notificaitonhandling from "../../../components/super/Notificaitonhandling";
 import Profile from "../../../components/reusable/Profile";
 import { propsContext } from "../../Mainapp";
+import DiscussionForums from "../../../components/super/DiscussionForums";
 
 const Notification = () => {
   const { elementIndex, firstContent } = useContext(IndexElementContext);
   const {notificaiton} = useContext(propsContext) ; 
 
   return (
-    <div className="sticky right-0 top-0 flex max-h-[100vh] basis-[23%] flex-col gap-8 bg-white p-4 border-l border-gray">
+    <div className="sticky right-0 top-0 flex max-h-[100vh] basis-[23%] flex-col gap-8 border-l border-gray bg-white p-4">
       <div className="flex justify-between">
         <Notificaitonhandling isnotification={notificaiton} />
+        <DiscussionForums
+          discussions={elementIndex[0] != null ?firstContent[0][elementIndex[0]-1].discussions :[]}
+        />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>
 

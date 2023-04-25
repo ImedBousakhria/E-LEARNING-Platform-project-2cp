@@ -2,36 +2,16 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "gridfs-stream": "^1.1.1",
-    "helmet": "^6.0.1",
+    "helmet": "^6.1.5",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.0.1",
+    "mongoose": "^7.0.5",
     "morgan": "^1.10.0",
-    "multer-gridfs-storage": "^5.0.2"
+    "multer": "^1.4.5-lts.1",
+    "node-input-validator": "^4.5.1",
     "socket.io": "^4.6.1"
-
-  },
-  "name": "e-learning-platform-project-2cp",
-  "version": "1.0.0",
-  "main": "index.js",
-  "type":"module",
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LenaSaidi/E-LEARNING-Platform-project-2cp.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/LenaSaidi/E-LEARNING-Platform-project-2cp/issues"
-  },
-  "homepage": "https://github.com/LenaSaidi/E-LEARNING-Platform-project-2cp#readme",
-  "description": ""
+  }
 }

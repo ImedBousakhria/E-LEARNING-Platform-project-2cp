@@ -1,8 +1,13 @@
 const Course = require('../models/Course') ;
 const User = require("../models/User");
+// const Lesson = require("../models/Lesson"); // Import the Lesson model
 const multer = require('multer');
 const upload = require('../middleware/uploadMiddleware');
-
+const fs = require('fs');
+const path = require('path');
+const Lesson = require('../models/Lesson');
+const Discussion = require('../models/Discussion');
+const mongoose = require('mongoose');
 
 
 // GET all lessons
@@ -27,19 +32,37 @@ module.exports.getAllLessons = async (req, res) => {
       res.status(500).json({ error: err.message });
     }
   };
+
   
-
-
 // POST create a new lesson with files
 module.exports.createLesson = [
-  upload.array('gallery'),
   async (req, res) => {
     try {
+      // Check if the request body contains base64 encoded file data
+      if (req.body.file) {
+        // Decode the base64 data to a Buffer
+        const fileData = Buffer.from(req.body.file, 'base64');
+
+        // Create a temporary file to write the Buffer data
+        const tempFileName = 'temp_' + Date.now();
+        fs.writeFileSync(tempFileName, fileData);
+
+        // Create the file object for multer upload
+        const tempFile = {
+          originalname: 'lesson_file',
+          mimetype: req.body.mimetype,
+          buffer: fs.readFileSync(tempFileName)
+        };
+
+        // Add the file object to the request files array
+        req.files = [tempFile];
+      }
+
       // Extract the files from the request and add them to the gallery array
       const gallery = req.files.map(file => ({
         contentType: file.mimetype,
         data: file.buffer,
-        postedBy: req.user._id
+        // postedBy: req.user._id
       }));
 
       // Create the lesson object
@@ -47,81 +70,112 @@ module.exports.createLesson = [
         title: req.body.title,
         description: req.body.description,
         gallery: gallery,
-        course: req.body.courseId
+        course: req.body.course
       });
-      
-      // Create discussion forum associated with the lesson
-      const discussion = new Discussion({
-        lesson: lesson._id,
-        messages: []
-      });
-      await discussion.save();
-      
-      // Add the new lesson to the course
-      const course = await Course.findById(req.body.courseId);
-      course.lessons.push(lesson._id);
-      await course.save();
 
-      const savedLesson = await lesson.save();
-      res.json(savedLesson);
+      //  // Create discussion forum associated with the lesson
+      //  const discussion = new Discussion({
+      //   lesson: lesson._id,
+      //   messages: []
+      // });
+      // await discussion.save();
+
+       // Add the new lesson to the course
+       const course = await Course.findById(req.body.course);
+       course.lessons.push(lesson._id);
+       await course.save();
+
+
+      // Save the lesson object
+      await lesson.save();
+
+      res.json(lesson);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  }
+];
+  
+
+// PUT update a lesson with files
+module.exports.updateLesson = [
+  async (req, res) => {
+    try {
+
+      // Check if the request body contains base64 encoded file data
+      if (req.body.file) {
+        // Decode the base64 data to a Buffer
+        const fileData = Buffer.from(req.body.file, 'base64');
+
+        // Create a temporary file to write the Buffer data
+        const tempFileName = 'temp_' + Date.now();
+        fs.writeFileSync(tempFileName, fileData);
+
+        // Create the file object for multer upload
+        const tempFile = {
+          originalname: 'lesson_file',
+          mimetype: req.body.mimetype,
+          buffer: fs.readFileSync(tempFileName)
+        };
+
+        // Add the file object to the request files array
+        req.files = [tempFile];
+
+        
+      }
+      const lesson = await Lesson.findById(req.params.id);
+      // Extract the files from the request and add them to the gallery array
+      if (req.body.file) {
+        const gallery = req.files.map(file => ({
+          contentType: file.mimetype,
+          data: file.buffer,
+          postedBy: req.user._id
+        }));
+
+        lesson.gallery = gallery;
+      }
+
+
+      // Update the lesson object
+
+      if(req.body.title){
+        lesson.title = req.body.title;
+      }
+      if(req.body.description){
+        lesson.description = req.body.description;
+      }
+    
+    
+      await lesson.save();
+
+      res.json(lesson);
     } catch (err) {
       res.status(400).json({ error: err.message });
     }
   }
 ];
 
-  // PUT update a lesson by ID
-module.exports.updateLesson = async (req, res) => {
-    try {
-      const lessonId = req.params.id;
-      const lesson = await Lesson.findById(lessonId);
-  
-      // Check if the lesson exists
-      if (!lesson) {
-        return res.status(404).json({ error: 'Lesson not found' });
-      }
-  
-      // Update the lesson with the new data
-      lesson.title = req.body.title;
-      lesson.description = req.body.description;
-  
-      // If there are new files, add them to the gallery
-      if (req.files && req.files.length > 0) {
-        const newFiles = req.files.map(file => ({
-          contentType: file.mimetype,
-          data: file.buffer,
-          postedBy: req.user._id
-        }));
-        lesson.gallery.push(...newFiles);
-      }
-  
-      // Save the updated lesson
-      const savedLesson = await lesson.save();
-      res.json(savedLesson);
-    } catch (err) {
-      res.status(400).json({ error: err.message });
-    }
-  };
-  
+
   // DELETE a lesson by id
-  const Lesson = require('../models/Lesson');
-  const Discussion = require('../models/Discussion');
+ 
   
   module.exports.deleteLesson = async (req, res) => {
     try {
-      const { lessonId } = req.params;
+
+      const _id = req.params.id;
   
       // Delete the lesson and associated discussion forum
-      const deletedLesson = await Lesson.findByIdAndDelete(lessonId);
-      await Discussion.deleteOne({ lesson: lessonId });
-  
-      // Remove the lesson ID from the associated course
-      const course = await Course.findOneAndUpdate(
-        { lessons: lessonId },
-        { $pull: { lessons: lessonId } },
-        { new: true }
-      );
-  
+    
+      const deletedLesson = await Lesson.findByIdAndDelete(_id);
+      // await Discussion.deleteOne({ lesson: lessonId });
+
+       // Remove the lesson ID from the associated course
+    const course = await Course.findOneAndUpdate(
+      { lessons: _id }, // Find the course that has the lesson ID in its lessons array
+      { $pull: { lessons: _id } }, // Remove the lesson ID from the lessons array field
+      { new: true }
+    );
+      
       if (!deletedLesson) {
         return res.status(404).json({ message: 'Lesson not found' });
       }

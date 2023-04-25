@@ -4,21 +4,29 @@ const mongoose = require("mongoose");
 const lessonSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
+    // required: true,
   },
   description: {
     type: String,
-    required: true,
+    // required: true,
   },
-  gallery: 
-  [
+  gallery: [
     {
-  contentType: String,
-  data: Buffer,
-  created: { type: Date, default: Date.now },
-  postedBy: {type: mongoose.Schema.ObjectId, ref: 'User'}
+      contentType: String,
+      data: Buffer,
+      created: { type: Date, default: Date.now },
+      // postedBy: { type: mongoose.Schema.ObjectId, ref: 'User' }
     }
   ],
+  // gallery: 
+  // [
+  //   {
+  // contentType: String,
+  // data: Buffer,
+  // created: { type: Date, default: Date.now },
+  // postedBy: {type: mongoose.Schema.ObjectId, ref: 'User'}
+  //   }
+  // ],
   course: { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },
   discussionForum: { type: mongoose.Schema.Types.ObjectId, ref: 'DiscussionForum' },
   created: {

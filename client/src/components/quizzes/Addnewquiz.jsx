@@ -3,7 +3,6 @@ import add from "../../assets/icons/add.svg";
 import Answerstate from "./components/Answerstate";
 import Questions from "./Questions";
 import Publish from "../reusable/Publish";
-import { teacherQuizzes } from "../../content page/Quizzes/content/main";
 import { IndexElementContextquiz } from "../../content page/Quizzes/Quizzes";
 import Save from "../reusable/Save";
 import Cancel from "../reusable/Cancel";
@@ -21,7 +20,13 @@ const Addnewquiz = () => {
   const [description, setDescripiton] = useState(false);
   const [deadline, setDeadline] = useState(false);
   const [cancel, setCancel] = useState(false);
-  const [questionIndex,setQuestionIndex] = useState(0) ; 
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [question, setQuestion] = useState(false);
+  const [choiceone, setChoiceOne] = useState(false);
+  const [choicetwo, setChoiceTwo] = useState(false);
+  const [choicethree, setChoiceThree] = useState(false);
+  const [choicefour, setChoiceFour] = useState(false);
+
   function clearInputs() {
     document.getElementById("question").value = "";
     document.getElementById("choiceone").value = "";
@@ -39,17 +44,53 @@ const Addnewquiz = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            if(editMode[0]) {
+              let obj = new Object();
+              obj = {
+                question: document.getElementById("question").value,
+                answaer1: [
+                  document.getElementById("choiceone").value,
+                  document.querySelectorAll(".questionState")[0].value,
+                ],
+                answaer2: [
+                  document.getElementById("choicetwo").value,
+                  document.querySelectorAll(".questionState")[1].value,
+                ],
+                answaer3: [
+                  document.getElementById("choicethree").value,
+                  document.querySelectorAll(".questionState")[2].value,
+                ],
+                answaer4: [
+                  document.getElementById("choicefour").value,
+                  document.querySelectorAll(".questionState")[3].value,
+                ],
+              };
+              questions[questionIndex] = obj ;
+              console.log(questions) ; 
+              setQuestion(false) ; 
+              setChoiceOne(false) ; 
+              setChoiceTwo(false) ; 
+              setChoiceThree(false) ; 
+              setChoiceFour(false) ; 
+              
+            }
+            console.log(questions) ; 
             if (!cancel) {
-              handleSubmit(firstContent, questions);
+              handleSubmit(
+                firstContent,
+                questions,
+                editMode[0],
+                elementIndex[0]
+              );
             }
             setCancel(false);
-            if(editMode[0] ){
-              editMode[1](false) ; 
+            if (editMode[0]) {
+              editMode[1](false);
             }
-            setTitle(null);
-            setGroupe(null);
-            setDescripiton(null);
-            setDeadline(null);
+            setTitle(false);
+            setGroupe(false);
+            setDescripiton(false);
+            setDeadline(false);
             setQuestions([]);
           }}
           className="flex gap-[2%]"
@@ -139,6 +180,22 @@ const Addnewquiz = () => {
                       id="question"
                       name="question"
                       placeholder="Question"
+                      value={
+                        elementIndex[0] != null && editMode[0]
+                          ? question ||
+                            firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].question
+                          : question || ""
+                      }
+                      onChange={(e) => {
+                        elementIndex[0] != null && editMode[0]
+                          ? (firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].question = "")
+                          : null;
+                        setQuestion(e.target.value);
+                      }}
                     />
                   </label>
                 </div>
@@ -150,6 +207,22 @@ const Addnewquiz = () => {
                       name="choiceone"
                       id="choiceone"
                       placeholder="choice1"
+                      value={
+                        elementIndex[0] != null && editMode[0]
+                          ? choiceone ||
+                            firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].answaer1[0]
+                          : choiceone || ""
+                      }
+                      onChange={(e) => {
+                        elementIndex[0] != null && editMode[0]
+                          ? (firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].answaer1[0] = "")
+                          : null;
+                        setChoiceOne(e.target.value);
+                      }}
                     />
                   </label>
                   <Answerstate />
@@ -162,6 +235,22 @@ const Addnewquiz = () => {
                       name="choicetwo"
                       id="choicetwo"
                       placeholder="choice2"
+                      value={
+                        elementIndex[0] != null && editMode[0]
+                          ? choicetwo ||
+                            firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].answaer2[0]
+                          : choicetwo || ""
+                      }
+                      onChange={(e) => {
+                        elementIndex[0] != null && editMode[0]
+                          ? (firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].answaer2[0] = "")
+                          : null;
+                        setChoiceTwo(e.target.value);
+                      }}
                     />
                   </label>
                   <Answerstate />
@@ -174,6 +263,22 @@ const Addnewquiz = () => {
                       name="choicethree"
                       id="choicethree"
                       placeholder="choice3"
+                      value={
+                        elementIndex[0] != null && editMode[0]
+                          ? choicethree ||
+                            firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].answaer3[0]
+                          : choicethree || ""
+                      }
+                      onChange={(e) => {
+                        elementIndex[0] != null && editMode[0]
+                          ? (firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].answaer3[0] = "")
+                          : null;
+                        setChoiceThree(e.target.value);
+                      }}
                     />
                   </label>
                   <Answerstate />
@@ -186,16 +291,35 @@ const Addnewquiz = () => {
                       name="choicefour"
                       id="choicefour"
                       placeholder="choice4"
+                      value={
+                        elementIndex[0] != null && editMode[0]
+                          ? choicefour ||
+                            firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].answaer4[0]
+                          : choicefour || ""
+                      }
+                      onChange={(e) => {
+                        elementIndex[0] != null && editMode[0]
+                          ? (firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].answaer4[0] = "")
+                          : null;
+                        setChoiceFour(e.target.value);
+                      }}
                     />
                   </label>
                   <Answerstate />
                 </div>
               </div>
             </div>
-            <Questions questionIndex={questionIndex} setQuestionIndex={setQuestionIndex}  />
+            <Questions
+              questionIndex={questionIndex}
+              setQuestionIndex={setQuestionIndex}
+            />
             <div className="flex justify-end gap-2 text-white">
               {editMode[0] ? (
-                <div onClick={() => setCancel(true)}>
+                <div onClick={() => {setCancel(true) ; console.log(questions)}}>
                   <Cancel />
                 </div>
               ) : null}
@@ -222,8 +346,14 @@ const Addnewquiz = () => {
                       document.querySelectorAll(".questionState")[3].value,
                     ],
                   };
+
                   setQuestions([...questions, obj]);
-                  clearInputs();
+
+                  setQuestion(false);
+                  setChoiceOne(false);
+                  setChoiceTwo(false);
+                  setChoiceThree(false);
+                  setChoiceFour(false);
                 }}
                 className="flex items-center gap-2 rounded-[5px] bg-blue p-2"
               >
