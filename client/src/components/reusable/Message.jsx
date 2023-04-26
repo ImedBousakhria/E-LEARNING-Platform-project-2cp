@@ -4,7 +4,7 @@ import { IndexElementContext } from '../../content page/Assignment/Assignment';
 
 
 const Message = ({type}) => {
-  var contextProvider ; 
+  /* var contextProvider ; 
   if(type == "assignment") {
     contextProvider = IndexElementContext ; 
   }else {
@@ -17,7 +17,7 @@ const Message = ({type}) => {
     }else {
       showDiscussion[1]("hidden")
     }
-  }
+  } */
   return (
     <button onClick={(e)=> type=="assignment"? handleClick(e):null}>
       <img src={messages} />
