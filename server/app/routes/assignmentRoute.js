@@ -1,4 +1,4 @@
-//assignment and submission route
+// assignment and submission route
 
 // const { Router } = require('express');
 // const assignementController = require('../controllers/assignmentController');

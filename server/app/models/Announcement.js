@@ -24,7 +24,8 @@ const announcementSchema = new mongoose.Schema({
         // postedBy: { type: mongoose.Schema.ObjectId, ref: 'User' }
       }
     ],
-    // comments: [{type: mongoose.Schema.ObjectId, ref: 'Comment'}]
+    course:{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' },
+    comments: [{type: mongoose.Schema.ObjectId, ref: 'Comment'}]
   }, {timestamps: true});
   
 const Announcement = mongoose.model("Announcement", announcementSchema);

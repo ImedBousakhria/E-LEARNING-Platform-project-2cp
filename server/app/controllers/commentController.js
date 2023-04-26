@@ -1,92 +1,108 @@
-const Announcement=require('../models/Announcement');
-const AnnouncementComment=require('../models/Comment');
 const mongoose=require('mongoose');
-const { Validator } = require('node-input-validator');
+// const { Validator } = require('node-input-validator');
+const Announcement = require('../models/Announcement');
+const Comment = require('../models/Comment');
 
 
-module.exports.create=async (req,res)=>{
-	let announcement_id=req.params.announcement_id;
+// Get comments for an announcement
+exports.getComments = async (req, res) => {
+    try {
+      const announcementId = req.params.id;
+      // Fetch comments from the database based on the announcementId
+      const comments = await Comment.find({ announcement: announcementId });
+      res.status(200).json({ comments });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  };
 
-	if(!mongoose.Types.ObjectId.isValid(announcement_id)){
-		return res.status(400).send({
-	  		message:'Invalid announcement id',
-	  		data:{}
-	  	});
-	}
-	Announcement.findOne({_id:announcement_id}).then(async (announcement)=>{
-		if(!announcement){
-			return res.status(400).send({
-				message:'No announcement found',
-				data:{}
-			});	
-		}else{
+// POST create a comment for an announcement
+module.exports.createComment = async (req, res) => {
+  try {
+    // announcement = req.params.announcementId;
+    const { content } = req.body;
 
-			try{
-				const v = new Validator(req.body, {
-					comment:'required',
-				});
-				const matched = await v.check();
-				if (!matched) {
-					return res.status(422).send(v.errors);
-				}
+    // Find the announcement by ID
+    const announcement = await Announcement.findById(req.params.announcementId);
 
-				let newCommentDocument= new Comment({
-					comment:req.body.comment,
-					announcement:announcement_id,
-					user:req.user._id
-				});
+    if (!announcement) {
+      return res.status(404).json({ error: 'Announcement not found' });
+    }
 
-				let commentData=await newCommentDocument.save();
+    // Create a new comment
+    const comment = new Comment({
+      content,
+      user: req.user._id // Assuming that the user is authenticated and their ID is available in req.user._id
+    });
 
-				await Announcement.updateOne(
-					{_id:announcement},
-					{
-						$push: { comments :commentData._id  } 
-					}
-				)
+    // Add the comment to the announcement's comments array
+    announcement.comments.push(comment);
 
+    // Save the updated announcement and the new comment
+    await announcement.save();
+    await comment.save();
 
-				// let query=[
-				// 	{
-				// 		$lookup:
-				// 		{
-				// 		 from: "users",
-				// 		 localField: "user_id",
-				// 		 foreignField: "_id",
-				// 		 as: "user"
-				// 		}
-				// 	},
-				// 	{$unwind: '$user'},
-				// 	{
-				// 		$match:{
-				// 			'_id':mongoose.Types.ObjectId(commentData._id)
-				// 		}
-				// 	},
+    res.json(comment);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
 
-				// ];
+// PUT update a comment for an announcement
+module.exports.updateComment = async (req, res) => {
+  try {
+    const { commentId, content } = req.body;
 
-				// let comments=await AnnouncementComment.aggregate(query);
+    // Find the comment by ID
+    const comment = await Comment.findById(commentId);
 
-				return res.status(200).send({
-					message:'Comment successfully added',
-					data:comments[0]
-				});
+    if (!comment) {
+      return res.status(404).json({ error: 'Comment not found' });
+    }
 
+    // Update the comment content
+    comment.content = content;
 
-			}catch(err){
-				return res.status(400).send({
-			  		message:err.message,
-			  		data:err
-			  	});
-			}
+    // Save the updated comment
+    await comment.save();
 
-		
-		}
-	}).catch((err)=>{
-		return res.status(400).send({
-	  		message:err.message,
-	  		data:err
-	  	});
-	})
+    res.json(comment);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
 
-}
+// DELETE a comment for an announcement
+module.exports.deleteComment = async (req, res) => {
+  try {
+    const { commentId, announcementId } = req.params;
+
+    // Find the announcement by ID
+    const announcement = await Announcement.findById(announcementId);
+
+    if (!announcement) {
+      return res.status(404).json({ error: 'Announcement not found' });
+    }
+
+    // Find the comment by ID
+    const comment = await Comment.findById(commentId);
+
+    if (!comment) {
+      return res.status(404).json({ error: 'Comment not found' });
+    }
+
+    // Remove the comment from the announcement's comments array
+    announcement.comments = announcement.comments.filter(c => c.toString() !== commentId);
+
+    // Delete the comment
+    await comment.remove();
+
+    // Save the updated announcement
+    await announcement.save();
+
+    res.status(200).json({ message: 'Comment deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
