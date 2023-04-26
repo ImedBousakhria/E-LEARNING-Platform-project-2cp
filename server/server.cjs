@@ -16,11 +16,11 @@ app.use(express.urlencoded({ limit: '1000mb', extended: true }));
 
 const userRoute = require('./app/routes/userRoute');
 const courseRoute = require('./app/routes/courseRoute');
-const discussionRoute = require('./app/routes/discussionRoute');
-const notificationRoute = require('./app/routes/notificationRoute');
+// const discussionRoute = require('./app/routes/discussionRoute');
+// const notificationRoute = require('./app/routes/notificationRoute');
 // const assignmentRoute = require('./app/routes/assignmentRoute');
 // const submissionRoute = require('./app/routes/submissionRoute');
-const commentRoute = require('./app/routes/commentRoute');
+// const commentRoute = require('./app/routes/commentRoute');
 // const quizzRoute = require('./app/routes/quizzRoute');
 // const scheduleRoute = require('./app/routes/scheduleRoute');
 const lessonRoute = require('./app/routes/lessonRoute');
@@ -62,11 +62,11 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
 
   app.use(userRoute);
   app.use(courseRoute);
-  app.use(discussionRoute);
-  app.use(notificationRoute);
+  // app.use(discussionRoute);
+  // app.use(notificationRoute);
   // app.use(assignmentRoute);
   // app.use(submissionRoute);
-  app.use(commentRoute);
+  // app.use(commentRoute);
   // app.use(quizzRoute);
   // app.use(scheduleRoute);
   app.use(lessonRoute);

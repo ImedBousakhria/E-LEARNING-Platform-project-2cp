@@ -7,6 +7,9 @@ const adminController = require('../controllers/adminController');
 const router = Router();
 
 // router.ger('/user/getAll', requireAuth, requireAdmin, adminController.getAllUsers);
+// router.post('/user/createStudent',requireAuth, requireAdmin, adminController.insertStudent);
+// router.post('/user/createTeacher', requireAuth, requireAdmin,adminController.insertTeacher);
+// router.post('/user/createAdmin',requireAuth, requireAdmin, adminController.insertAdmin);
 // router.post('/user/create', requireAuth, requireAdmin ,adminController.insertUser);
 // router.put('/user/update-user/:id', requireAuth,adminController.updateUser); //email || password for users
 // router.delete('/user/delete/:id', requireAuth ,adminController.deleteUser);
@@ -16,7 +19,12 @@ const router = Router();
 
 
 router.get('/user/getAll', adminController.getAllUsers);
-router.post('/user/create', adminController.insertUser);
+router.get('/user/getStudents', adminController.getAllStudents);
+router.get('/user/getTeachers', adminController.getAllTeachers);
+router.post('/user/createStudent', adminController.insertStudent);
+router.post('/user/createTeacher', adminController.insertTeacher);
+router.post('/user/createAdmin', adminController.insertAdmin);
+router.post('/user/createUser', adminController.insertUser);
 router.put('/user/update-user/:id', adminController.updateUser); //email || password for users
 router.delete('/user/delete/:id', adminController.deleteUser);
 
