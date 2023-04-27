@@ -6,8 +6,10 @@ import Calendar from "../../../components/schedule/Calendar";
 export const calendarContext = createContext();
 
 const Main = () => {
+  const RenderTriger = useState(0) ; 
   return (
-    <div className="relative flex basis-[60%] flex-col gap-4 bg-primary  p-8">
+    <calendarContext.Provider value={{RenderTriger}}>
+      <div className="relative flex basis-[60%] flex-col gap-4 bg-primary  p-8">
       <div className="flex justify-between">
         <h1 className="text-[25px]">Schedule</h1>
         <Search />
@@ -17,6 +19,8 @@ const Main = () => {
         <AddNewSession />
       </div>
     </div>
+    </calendarContext.Provider>
+    
   );
 };
 

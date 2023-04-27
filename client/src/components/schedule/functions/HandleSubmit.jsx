@@ -10,12 +10,7 @@ export const handleSubmit = (e, eventState) => {
   let start = document.getElementById("starting time").value;
   let end = document.getElementById("ending time").value;
   obj.day = document.getElementById("daypicker").value;
-  document.getElementById("groupe").value = null ; 
-  document.getElementById("teacher name").value = null ; 
-  document.getElementById("pickColor").value = null ; 
-  document.getElementById("starting time").value = null ; 
-  document.getElementById("ending time").value = null ; 
-  
+
   var indexindex;
   var secondIndex;
   for (let ele of calendar) {
