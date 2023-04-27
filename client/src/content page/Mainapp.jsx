@@ -12,10 +12,11 @@ import Schedule from "./Schedule/Schedule";
 export const propsContext = createContext();
 
 const Mainapp = () => {
+  const notificationReaded = useState(false);
   const Indexhandle = useState(0);
 
   return (
-    <propsContext.Provider value={{ Indexhandle, notificaiton }}>
+    <propsContext.Provider value={{ Indexhandle, notificaiton, notificationReaded }}>
       <div className="flex w-full">
         <Sidebar />
         <Home index={Indexhandle[0]} />

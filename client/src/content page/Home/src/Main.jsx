@@ -11,8 +11,8 @@ import Activitiesbody from "../../../components/super/Activitiesbody";
 
 const Main = () => {
   let user = "said";
-  const { indexHandle } = useContext(propsContext);
-  console.log(indexHandle);
+  const { IndexHandle } = useContext(propsContext);
+  console.log(IndexHandle);
   return (
     <div className="flex basis-[60%] flex-col gap-4 bg-primary p-8">
       <div className="flex justify-between">

@@ -23,7 +23,7 @@ export const assignmentteacher = [
     description:
       "Lorem ipsum dolor sit amet consectetur. In orci posuere in vulputate accumsan odio. Tellus urna nisl dictum mollis et pharetra condimentum diam. Euismod sollicitudin duis tincidunt etiam ",
     deadline: "29/03/23,11:00PM",
-    images: [imageholder, imageholder],
+    files: [],
     submissions: [
       {
         name: "said nouasria",
@@ -76,7 +76,7 @@ export const assignmentteacher = [
     description:
       "Lorem ipsum dolor sit amet consectetur. In orci posuere in vulputate accumsan odio. Tellus urna nisl dictum mollis et pharetra condimentum diam. Euismod sollicitudin duis tincidunt etiam ",
     deadline: "29/03/23,11:00PM",
-    images: [imageholder, imageholder],
+    files: [],
     submissions: [
       {
         name: "said nouasria",
@@ -129,7 +129,7 @@ export const assignmentteacher = [
     description:
       "Lorem ipsum dolor sit amet consectetur. In orci posuere in vulputate accumsan odio. Tellus urna nisl dictum mollis et pharetra condimentum diam. Euismod sollicitudin duis tincidunt etiam ",
     deadline: "29/03/23,11:00PM",
-    images: [imageholder, imageholder],
+    files: [],
     submissions: [
       {
         name: "said nouasria",
@@ -182,7 +182,7 @@ export const assignmentteacher = [
     description:
       "Lorem ipsum dolor sit amet consectetur. In orci posuere in vulputate accumsan odio. Tellus urna nisl dictum mollis et pharetra condimentum diam. Euismod sollicitudin duis tincidunt etiam ",
     deadline: "29/03/23,11:00PM",
-    images: [imageholder, imageholder],
+    files: [],
     submissions: [
       {
         name: "said nouasria",

@@ -4,10 +4,11 @@ import notificationemptyicon from "../../assets/icons/notificationempty.svg";
 import notificationrecievedicon from "../../assets/icons/notificationrecieved.svg";
 import Notificationcontentelement from "../super elements/Notificationcontentelement";
 import close from "../../assets/icons/close.svg";
+import { propsContext } from "../../content page/Mainapp";
 
 const Notificaitonhandling = ({ isnotification }) => {
-  const [notificationreaded, setNotificationreaded] = useState(false);
-  if (isnotification && !notificationreaded) {
+  const { notificationReaded } = useContext(propsContext); ; 
+  if (isnotification && !notificationReaded[0]) {
     var notificationIcon = notificationrecievedicon;
   } else {
     var notificationIcon = notificationemptyicon;
@@ -28,7 +29,7 @@ const Notificaitonhandling = ({ isnotification }) => {
           } else {
             setNoficationState(notification);
             setShowNotificationcontent("block");
-            setNotificationreaded(true);
+            notificationReaded[1](true);
           }
         }}
       >

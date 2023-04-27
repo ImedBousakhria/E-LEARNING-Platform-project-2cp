@@ -49,6 +49,23 @@ export const teacherQuizzes = [
         score: 14,
       },
     ],
+    discussions: [
+      {
+        text: "hellooo",
+        name: "saidd",
+        profile: profileholder,
+      },
+      {
+        text: "hellooo",
+        name: "said ex",
+        profile: profileholder,
+      },
+      {
+        text: "hellooo",
+        name: "saidd",
+        profile: profileholder,
+      },
+    ],
   },
   {
     name: "your quize2",
@@ -95,6 +112,23 @@ export const teacherQuizzes = [
         name: "said nouasria",
         profile: profileholder,
         score: 14,
+      },
+    ],
+    discussions: [
+      {
+        text: "hellooo",
+        name: "saidd",
+        profile: profileholder,
+      },
+      {
+        text: "hellooo",
+        name: "said ex",
+        profile: profileholder,
+      },
+      {
+        text: "hellooo",
+        name: "saidd",
+        profile: profileholder,
       },
     ],
   },

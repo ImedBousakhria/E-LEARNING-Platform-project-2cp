@@ -30,7 +30,7 @@ const Activitiesnotificationelement = ({ element }) => {
               </p>
             </div>
             <div className="flex basis-[70%] gap-[2%]">
-              <Filesdisplays images={element.images} />
+              <Filesdisplays files={element.files} />
             </div>
           </div>
         </div>
