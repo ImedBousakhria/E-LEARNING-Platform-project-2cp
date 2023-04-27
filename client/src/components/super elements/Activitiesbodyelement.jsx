@@ -24,14 +24,24 @@ const Activitiesbodyelement = ({
     contextElement = homeContext ; 
   }
   const [check, setCheck] = useState(false);
-  const { elementIndex } = useContext(contextElement);
+  const { elementIndex, showDiscussion } = useContext(contextElement);
+
+  function handleClick() {
+    if(showDiscussion[0] == "hidden") {
+      showDiscussion[1]("block")
+    }else {
+      showDiscussion[1]("hidden") ; 
+    }
+  }
 
   return (
     <div
       onClick={() => {
+
         if (type == "students") {
           return;
         }
+
         elementIndex[1](index);
       }}
       className={`flex cursor-pointer items-center justify-between rounded-[10px] bg-primary   px-[15px] py-[9px] hover:bg-verydarkgray`}
@@ -52,15 +62,12 @@ const Activitiesbodyelement = ({
           <img src={submition} />
           {name}
         </div>
-
-        <div className="seperator">{groupe}</div>
-
         {type != "students" ? <div className=" seperator">{groupe}</div> : null}
 
         <div className="seperator">{date}</div>
       </div>
       <div className="flex basis-[15%] items-center justify-center gap-2 ">
-        <Message type={"assignment"} />
+        <Message handleClick={()=>{handleClick()}} />
         {type != "students" ? (
           <>
             <Deleteactivitieselemnt text={null} />

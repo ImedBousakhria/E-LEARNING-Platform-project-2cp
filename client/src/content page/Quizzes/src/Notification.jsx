@@ -7,6 +7,7 @@ import Notificaitonhandling from "../../../components/super/Notificaitonhandling
 import Profile from "../../../components/reusable/Profile";
 import QuizNotificationElement from "../../../components/quizzes/components/QuizNotificationElement";
 import { propsContext } from "../../Mainapp";
+import DiscussionForums from "../../../components/super/DiscussionForums";
 
 const Notification = () => {
   const {elementIndex,firstContent} = useContext(IndexElementContextquiz);
