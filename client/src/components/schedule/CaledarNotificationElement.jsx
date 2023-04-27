@@ -4,6 +4,7 @@ import Deleteactivitieselemnt from "../reusable/Deleteactivitieselemnt";
 
 const CaledarNotificationElement = ({ element }) => {
   console.log(element);
+  
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between">

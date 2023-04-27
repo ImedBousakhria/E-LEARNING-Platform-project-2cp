@@ -37,7 +37,6 @@ const Activitiesbodyelement = ({
   return (
     <div
       onClick={() => {
-
         if (type == "students") {
           return;
         }
@@ -67,7 +66,14 @@ const Activitiesbodyelement = ({
         <div className="seperator">{date}</div>
       </div>
       <div className="flex basis-[15%] items-center justify-center gap-2 ">
-        <Message handleClick={()=>{handleClick()}} />
+        {type == "quiz" ? null : (
+          <Message
+            handleClick={() => {
+              handleClick();
+            }}
+          />
+        )}
+
         {type != "students" ? (
           <>
             <Deleteactivitieselemnt text={null} />
