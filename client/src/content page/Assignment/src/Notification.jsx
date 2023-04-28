@@ -19,6 +19,7 @@ const Notification = () => {
         <Notificaitonhandling isnotification={notificaiton} />
         <DiscussionForums
           type={"assignment"}
+          firstContent={firstContent}
         />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>

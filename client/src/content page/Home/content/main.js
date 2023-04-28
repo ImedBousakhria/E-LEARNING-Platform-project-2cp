@@ -67,6 +67,29 @@ export const announcement = [
     person: "said",
     content:
       "Lorem ipsum dolor sit amet consectetur. Elit quisque diam diam amet ultricies at. Auctor aenean tellus pulvinar volutpat vestibulum orci tincidunt est.",
+    imageholder: null,
+    discussions: [
+      {
+        text: "hello",
+        name: "said",
+        profile: profile,
+      },
+      {
+        text: "hello",
+        name: "abdou",
+        profile: profile,
+      },
+      {
+        text: "hello",
+        name: "said",
+        profile: profile,
+      },
+      {
+        text: "hello",
+        name: "adbou",
+        profile: profile,
+      },
+    ],
   },
   {
     profilepicture: profile,
@@ -74,9 +97,30 @@ export const announcement = [
     content:
       "Lorem ipsum dolor sit amet consectetur. Elit quisque diam diam amet ultricies at. Auctor aenean tellus pulvinar volutpat vestibulum orci tincidunt est.",
     image: imageholder,
+    discussions: [
+      {
+        text: "hello",
+        name: "said",
+        profile: profile,
+      },
+      {
+        text: "hello",
+        name: "sadid",
+        profile: profile,
+      },
+      {
+        text: "hello",
+        name: "said",
+        profile: profile,
+      },
+      {
+        text: "hello",
+        name: "said",
+        profile: profile,
+      },
+    ],
   },
 ];
-
 
 export const studentHeader = [
   {
