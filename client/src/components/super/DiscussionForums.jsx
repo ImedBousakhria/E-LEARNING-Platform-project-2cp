@@ -6,8 +6,9 @@ import { IndexElementContext } from "../../content page/Assignment/Assignment";
 import { IndexElementContextquiz } from "../../content page/Quizzes/Quizzes";
 import profileHolder from "../../assets/profile/profileholder.png";
 import { useForm } from "react-hook-form";
+import { homeContext } from "../../content page/Home/Home";
 
-const DiscussionForums = ({ type }) => {
+const DiscussionForums = ({ type, firstContent }) => {
   const toScroll = useRef(null);
 
   const { register, handleSubmit, formState, reset } = useForm();
@@ -16,8 +17,10 @@ const DiscussionForums = ({ type }) => {
     contextProvider = IndexElementContextquiz;
   } else if (type == "assignment") {
     contextProvider = IndexElementContext;
+  } else if(type == "announcement") {
+    contextProvider = homeContext ; 
   }
-  const { showDiscussion, firstContent, elementIndex } =
+  const { showDiscussion, elementIndex } =
     useContext(contextProvider);
   function onSubmit(data) {
     console.log(data);
@@ -44,10 +47,10 @@ const DiscussionForums = ({ type }) => {
               <img src={close} />
             </button>
           </div>
-          <div onLoad={()=>toScroll.current.scrollIntoView()} className="flex max-h-[85%] flex-col gap-4 overflow-y-auto">
+          <div onLoad={()=>toScroll.current.scrollIntoView()} className="flex max-h-[85%] hideScrollBar flex-col gap-4 overflow-y-auto">
             {firstContent[0][elementIndex[0] - 1]?.discussions.map(
               (Element) => {
-                return <DiscusstionElement element={Element} />;
+                return <DiscusstionElement type={type} element={Element} />;
               }
             )}
             <div ref={toScroll}></div>

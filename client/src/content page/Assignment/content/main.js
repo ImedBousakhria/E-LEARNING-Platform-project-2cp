@@ -30,7 +30,7 @@ export const assignmentteacher = [
         profile: profileholder,
       },
       {
-        name: "said nouasria",
+        name: "abdou",
         profile: profileholder,
       },
       {
@@ -42,7 +42,7 @@ export const assignmentteacher = [
         profile: profileholder,
       },
       {
-        name: "said nouasria",
+        name: "abdou",
         profile: profileholder,
       },
     ],
@@ -54,12 +54,12 @@ export const assignmentteacher = [
       },
       {
         text: "hello",
-        name: "said",
+        name: "abdou",
         profile: profileholder,
       },
       {
         text: "he",
-        name: "said",
+        name: "abdou",
         profile: profileholder,
       },
       {
@@ -79,7 +79,7 @@ export const assignmentteacher = [
     files: [],
     submissions: [
       {
-        name: "said nouasria",
+        name: "abdou",
         profile: profileholder,
       },
       {
@@ -87,7 +87,7 @@ export const assignmentteacher = [
         profile: profileholder,
       },
       {
-        name: "said nouasria",
+        name: "abdou",
         profile: profileholder,
       },
       {
@@ -95,7 +95,7 @@ export const assignmentteacher = [
         profile: profileholder,
       },
       {
-        name: "said nouasria",
+        name: "abdou",
         profile: profileholder,
       },
     ],
@@ -132,7 +132,7 @@ export const assignmentteacher = [
     files: [],
     submissions: [
       {
-        name: "said nouasria",
+        name: "abdou",
         profile: profileholder,
       },
       {
@@ -140,7 +140,7 @@ export const assignmentteacher = [
         profile: profileholder,
       },
       {
-        name: "said nouasria",
+        name: "abdou",
         profile: profileholder,
       },
       {
