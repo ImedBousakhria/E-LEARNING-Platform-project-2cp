@@ -4,6 +4,7 @@ import { assignment } from "../../content page/Home/content/main";
 import Lastsubmisstionselement from "./homeelements/Lastsubmisstionselement";
 import Mark from "../reusable/Mark";
 import View from "../reusable/View";
+import GiveMark from "../reusable/GiveMark";
 
 const Lastsubmisstions = () => {
 

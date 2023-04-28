@@ -34,7 +34,7 @@ const DiscussionForums = ({ type, firstContent }) => {
   return (
     <>
       <div
-        className={`absolute ${showDiscussion[0]}  top-[5%] left-0 right-0 bottom-0  p-4`}
+        className={`absolute z-20 ${showDiscussion[0]}  top-[5%] left-0 right-0 bottom-0  p-4`}
       >
         <div className="relative flex h-full  flex-col gap-4 overflow-hidden rounded-[10px] bg-primary p-3 ">
           <div className="flex items-center justify-between">
