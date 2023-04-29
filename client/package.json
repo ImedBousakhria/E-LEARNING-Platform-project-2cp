@@ -30,6 +30,8 @@
     "@fullcalendar/interaction": "^6.1.5",
     "@fullcalendar/react": "^6.1.5",
     "@fullcalendar/timegrid": "^6.1.5",
+    "@tanstack/react-query": "^4.29.5",
+    "@tanstack/react-query-devtools": "^4.29.6",
     "axios": "^1.4.0",
     "pdfjs-dist": "^3.5.141",
     "react": "^18.2.0",

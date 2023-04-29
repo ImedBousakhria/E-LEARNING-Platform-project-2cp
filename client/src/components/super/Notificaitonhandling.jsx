@@ -17,7 +17,7 @@ const Notificaitonhandling = ({ isnotification }) => {
 
   const [showNotificationcontent, setShowNotificationcontent] =
     useState("hidden");
-
+  console.log(isnotification) ; 
   return (
     <>
       <button
@@ -51,11 +51,11 @@ const Notificaitonhandling = ({ isnotification }) => {
             </button>
           </div>
           <div className="flex flex-col gap-4">
-            {isnotification.map((Element) => {
+            {/* isnotification.map((Element) => {
               return (
                 <Notificationcontentelement notificationelement={Element} />
               );
-            })}
+            }) */}
           </div>
         </div>
       </div>

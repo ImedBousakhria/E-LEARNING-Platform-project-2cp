@@ -25,7 +25,7 @@ const Activitiesheader = ({ setCheckall, type }) => {
 
       <div className="grid-row-1 grid basis-[80%] grid-cols-3 gap-[2rem] ">
         {header.map((Element) => {
-          return <Activitiesheaderelement title={Element.title} />;
+          return <Activitiesheaderelement title={Element.title} type={type} />;
         })}
       </div>
       <div className="flex basis-[15%] justify-center">

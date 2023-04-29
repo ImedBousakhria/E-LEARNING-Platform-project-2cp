@@ -6,19 +6,33 @@ import Main from "./landing page/Main";
 import Mainapp from "./content page/Mainapp";
 import Login from "./signin page/Login";
 import Teacherassignment from "./content page/Assignment/Assignment";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+    },
+  },
+});
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path={"/"} element={<Main />}></Route>
-        <Route path={"/Home"} element={<Mainapp />}></Route>
-        <Route path={"/login"} element={<Login />}></Route>
-        <Route
-          path="/Teacher/assignment"
-          element={<Teacherassignment />}
-        ></Route>
-      </Routes>
+      <QueryClientProvider client={queryClient}>
+        <Routes>
+          <Route path={"/"} element={<Main />}></Route>
+          <Route path={"/Home"} element={<Mainapp />}></Route>
+          <Route path={"/login"} element={<Login />}></Route>
+          <Route
+            path="/Teacher/assignment"
+            element={<Teacherassignment />}
+          ></Route>
+        </Routes>
+        
+        <ReactQueryDevtools />
+      </QueryClientProvider>
     </BrowserRouter>
   );
 };
