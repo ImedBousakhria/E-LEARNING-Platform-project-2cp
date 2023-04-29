@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Activitiesheader from "./Activitiesheader";
 import Activitiesbody from "./Activitiesbody";
 
-const Teacherassignment = ({ type }) => {
+const Activities = ({ type }) => {
   const [checkall, setCheckall] = useState(false);
 
   return (
@@ -15,6 +15,7 @@ const Teacherassignment = ({ type }) => {
           setCheckall={() =>
             checkall ? setCheckall(false) : setCheckall(true)
           }
+          type={type}
         />
         <Activitiesbody type={type} checkall={checkall} />
       </div>
@@ -22,4 +23,4 @@ const Teacherassignment = ({ type }) => {
   );
 };
 
-export default Teacherassignment;
+export default Activities;

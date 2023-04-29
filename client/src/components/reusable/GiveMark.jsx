@@ -9,7 +9,7 @@ const GiveMark = ({showGiveMark}) => {
       <p className="text-black whitespace-nowrap">Give mark</p>
       <form className="flex gap-1">
         <label htmlFor="mark" className="basis-[50%]">
-          <input className="p-1"  type="number" name="mark" id="mark" {...register("mark")} />
+          <input className="p-1"  type="number" name="mark" max="20" min="00" id="mark" {...register("mark")} />
         </label>
         <button type="submit" className="bg-accent basis-[30%] flex justify-center items-center rounded-[5px]">
           <img className="" src={publish} />
