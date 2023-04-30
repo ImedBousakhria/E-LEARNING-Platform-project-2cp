@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Quizz = require("./Quizz");
 
 
 const courseSchema = new mongoose.Schema({
@@ -28,7 +29,8 @@ const courseSchema = new mongoose.Schema({
     announcements  : [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Announcement '
-    }]
+    }],
+    quizzes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Quizz' }]
   }, {timestamps: true});
   
 const Course = mongoose.model("Course", courseSchema);
