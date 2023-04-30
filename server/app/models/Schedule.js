@@ -15,11 +15,13 @@ const scheduleSchema = new mongoose.Schema({
     required: true,
   },
   startTime: {
-    type: Date,
+    // type: Date,
+    type: String,
     required: true,
   },
   endTime: {
-    type: Date,
+    // type: Date, 
+    type: String,
     required: true,
   },
   course: {

@@ -8,10 +8,12 @@ const router = Router();
 // router.put('/announcements/:announcementId/comments/:commentId', requireAuth, commentController.updateCommentForAnnouncement);
 // router.delete('/announcements/:announcementId/comments/:commentId', requireAuth, commentController.deleteCommentForAnnouncement);
 
-router.get('/announcement/:announcementId/comments', commentController.getComments);
-router.post('/announcement/:announcementId/createComment', commentController.createComment);
-router.put('/announcement/:announcementId/comments/:commentId', commentController.updateComment);
-router.delete('/announcement/:announcementId/comments/:commentId', commentController.deleteComment);
+router.get('/comments/get/:id', commentController.getComment);
+router.get('/comments/getAllForAnnouncement/:id', commentController.getAllCommentsForAnnouncement);
+router.get('/comments/getAll', commentController.getAllComments);
+router.post('/comments/create', commentController.createComment);
+router.put('/comments/update/:id', commentController.updateComment);
+router.delete('/comments/delete/:id', commentController.deleteComment);
 
 
 module.exports = router;
