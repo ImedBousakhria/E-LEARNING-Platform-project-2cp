@@ -1,6 +1,7 @@
 import React from "react";
 import quit from "../../assets/icons/quit.svg";
 
+const Cancel = ({text}) => {
 const Cancel = ({onClick
 }) => {
   return (
@@ -9,7 +10,8 @@ const Cancel = ({onClick
       onClick={onClick}
       className="flex items-center gap-2 rounded-[5px]  border border-darkgray p-2 text-darkgray"
     >
-      <span>Cancel</span>
+      {text ? <span>Cancel</span> : null}
+      
       <img src={quit} />
     </button>
   );

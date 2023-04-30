@@ -14,7 +14,6 @@ import { CoursesContext } from "../../content page/Courses/Teachercourses";
 
 const Allcourses = ({index}) => {
   const [iconRotation, setIconRotation] = useState(0);
-
   const {
     activeCardIndex,
     setActiveCardIndex,
@@ -46,6 +45,23 @@ const Allcourses = ({index}) => {
     setIconRotation(iconRotation + 90);
   };
 
+  const postsPerPage = 4;
+  const [currentPage, setCurrentPage] = useState(1);
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+
+  const currentPosts = lessons.slice(firstPostIndex, lastPostIndex);
+  const isPrevDisabled = currentPage === 1;
+  const isNextDisabled = lastPostIndex >= lessons.length;
+
+  const handleNextClick = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevClick = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
   return (
     <div
       className={`
@@ -58,8 +74,23 @@ const Allcourses = ({index}) => {
         </p>
 
         <div className="flex items-center gap-4">
-          <img src={arrow} className=" rotate-180" alt="" />
-          <img src={arrow} alt="" />
+        <button
+            className={`${
+              isPrevDisabled ? "opacity-50" : ""
+            } rotate-180 cursor-pointer`}
+            alt=""
+            onClick={handlePrevClick}
+            disabled={isPrevDisabled}
+          >
+            <img src={arrow} alt="" />
+          </button>
+          <button
+            className={`${isNextDisabled ? "opacity-50" : ""} cursor-pointer`}
+            onClick={handleNextClick}
+            disabled={isNextDisabled}
+          >
+            <img src={arrow} alt="" />
+          </button>
         </div>
       </div>
 
@@ -105,7 +136,7 @@ const Allcourses = ({index}) => {
           </div>
         </header>
 
-        {lessons.map((lesson, index) => {
+        {currentPosts.map((lesson, index) => {
           return (
             <Lesson
               id={index}

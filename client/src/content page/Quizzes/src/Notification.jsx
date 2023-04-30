@@ -7,6 +7,7 @@ import Notificaitonhandling from "../../../components/super/Notificaitonhandling
 import Profile from "../../../components/reusable/Profile";
 import QuizNotificationElement from "../../../components/quizzes/components/QuizNotificationElement";
 import { propsContext } from "../../Mainapp";
+import Quizzcontainer from "../../../components/quizzes/Quizzcontainer";
 import DiscussionForums from "../../../components/super/DiscussionForums";
 
 const Notification = () => {
@@ -19,6 +20,8 @@ const Notification = () => {
         <Notificaitonhandling isnotification={notificaiton} />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>
+      <Quizzcontainer name={'First'}/>
+
       {elementIndex[0] ? (
         <QuizNotificationElement
           element={firstContent[0][elementIndex[0] - 1]}
