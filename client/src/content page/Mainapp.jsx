@@ -21,14 +21,12 @@ const Mainapp = () => {
   const Indexhandle = useState(0);
   const searchMode = useState(false);
   const userType = "admin";
-  const { id } = useParams();
-  const data = useQuery(["notificaiton", id], fetchNotifications);
-  const notificaiton = data.data ; 
+  
   
 
   return (
       <propsContext.Provider
-        value={{ Indexhandle, notificaiton, notificationReaded, searchMode }}
+        value={{ Indexhandle, notificationReaded, searchMode }}
       >
         <div className="flex w-full">
           <Sidebar />
