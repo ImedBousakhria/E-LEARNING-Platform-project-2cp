@@ -73,13 +73,20 @@ module.exports.createLesson = [
         course: req.body.course
       });
 
-      //  // Create discussion forum associated with the lesson
-      //  const discussion = new Discussion({
-      //   lesson: lesson._id,
-      //   messages: []
-      // });
-      // await discussion.save();
-
+        // Create discussion forum associated with the lesson
+        const discussion = new Discussion({
+        lesson: lesson._id,
+        messages: []
+       });
+       await discussion.save();
+       
+       const notification = {
+        users: [course.students,course.teachers],
+        sender: req.user._id,
+        message: `New lesson "${lesson.title}" created in ${course.title}`
+      };
+      await addNotification(notification);
+      
        // Add the new lesson to the course
        const course = await Course.findById(req.body.course);
        course.lessons.push(lesson._id);

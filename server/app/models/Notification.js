@@ -1,16 +1,13 @@
 const mongoose = require('mongoose');
 
 const notificationSchema = new mongoose.Schema({
-  user: {
+  users: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  },
-  event: {
-    type: String,
-  },
-  eventTitle: {
-    type: String,
-    required: true
+  }],
+  sender: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
   message: {
     type: String,
@@ -19,6 +16,10 @@ const notificationSchema = new mongoose.Schema({
   read: {
     type: Boolean,
     default: false
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 }, {
   timestamps: true

@@ -1,8 +1,11 @@
-// assignment and submission route
+const express = require('express');
+const router = express.Router();
+const assignmentController = require('../controllers/assignmentController');
 
-// const { Router } = require('express');
-// const assignementController = require('../controllers/assignmentController');
+router.get('/assignments', assignmentController.getAllAssignments);
+router.get('/assignments/:id', assignmentController.getAssignment);
+router.post('/assignments/create', assignmentController.createAssignment);
+router.put('/assignments/update/:id',assignmentController.updateAssignment);
+router.delete('/assignments/delete/:id',assignmentController.deleteAssignment);
 
-// const router = Router();
-
-// module.exports = router;
+module.exports = router;
