@@ -18,9 +18,8 @@ const Quizzcontainer = ({ name }) => {
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [correctionShown, setCorrectionShown] = useState(false);
   const [timeUp, setTimeUp] = useState(false);
-
+  const [state, setState] = useState();
   const OptionsSelected = () => {
     // all selected are correct and all correct are selected
     let correctList = [];
@@ -33,8 +32,9 @@ const Quizzcontainer = ({ name }) => {
       wrongList.every((item) => !selectedAnswers.includes(item))
     ) {
       setScore((prev) => prev + 1);
+      setState(true)
     } else {
-      null;
+      setState(false);
     }
     console.log(
       correctList.every((item) => selectedAnswers.includes(item)) &&
@@ -153,6 +153,8 @@ const Quizzcontainer = ({ name }) => {
         >
           Next
         </button>
+
+      <small className={` ${state ? "text-green" : "text-wrong"} place-self-center`}> {state ? "Correct !" : "That was close !"} </small>
 
         {/* <button
         className=" min-w-max rounded-md bg-accent p-2.5 font-semibold text-white"

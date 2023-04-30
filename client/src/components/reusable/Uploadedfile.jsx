@@ -19,7 +19,7 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
           className=" aspect-square w-24 cursor-pointer rounded-xl object-contain"
         />
       ) : file.type.includes("pdf") ? (
-        <div className="relative mx-auto max-w-lg">
+        <div className="relative">
           <button
             className="absolute z-20 aspect-square h-8 rounded-full bg-gray p-2 text-darkgray "
             onClick={onRemove}
