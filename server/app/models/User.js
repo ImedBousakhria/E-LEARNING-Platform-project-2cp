@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const bcrypt = require('bcrypt');
+
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -10,7 +12,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   phoneNumber: {
-    type: Number,
+    type: String, //it should be a String
     default: null,
   },
   email: {
@@ -18,7 +20,7 @@ const userSchema = new mongoose.Schema({
     required: [true, 'No email address provided'],
     unique: true,
     lowercase: true,
-    validate: [isEmail, 'Invalid email address']
+    // validate: [isEmail, 'Invalid email address']
   },
   password: {
     type: String,
@@ -32,35 +34,35 @@ const userSchema = new mongoose.Schema({
   },
   isTeacher: {
     type: Boolean,
-    required: true,
+    // required: true,
     default: false,
   },
   isStudent: {
     type: Boolean,
-    required: true,
-    default: true,
-  },
-  isGerant: {
-    type: Boolean,
     // required: true,
-    default: true,
-  },
-  isVerified: {
-    type: Boolean,
-    required: true,
     default: false,
   },
+  // isGerant: {
+  //   type: Boolean,
+  //   // required: true,
+  //   default: true,
+  // },
+  // isVerified: {
+  //   type: Boolean,
+  //   // required: true,
+  //   default: false,
+  // },
   courses: [{
     courseID: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "courses"
     },
     //am not sure about this
-    name: {
-      type: String,
-      enum: ["general", "pro", "other"],
-      default: "general"
-    }
+    // name: {
+    //   type: String,
+    //   enum: ["general", "pro", "other"],
+    //   default: "general"
+    // }
   }]
 
   // notifications: [{

@@ -12,9 +12,8 @@ import Lesson from "./Lesson";
 import Delete from "../reusable/Delete";
 import { CoursesContext } from "../../content page/Courses/Teachercourses";
 
-const Allcourses = () => {
+const Allcourses = ({index}) => {
   const [iconRotation, setIconRotation] = useState(0);
-
   const {
     activeCardIndex,
     setActiveCardIndex,
@@ -46,6 +45,23 @@ const Allcourses = () => {
     setIconRotation(iconRotation + 90);
   };
 
+  const postsPerPage = 4;
+  const [currentPage, setCurrentPage] = useState(1);
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+
+  const currentPosts = lessons.slice(firstPostIndex, lastPostIndex);
+  const isPrevDisabled = currentPage === 1;
+  const isNextDisabled = lastPostIndex >= lessons.length;
+
+  const handleNextClick = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevClick = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
   return (
     <div
       className={`
@@ -58,63 +74,84 @@ const Allcourses = () => {
         </p>
 
         <div className="flex items-center gap-4">
-          <img src={arrow} className=" rotate-180" alt="" />
-          <img src={arrow} alt="" />
+        <button
+            className={`${
+              isPrevDisabled ? "opacity-50" : ""
+            } rotate-180 cursor-pointer`}
+            alt=""
+            onClick={handlePrevClick}
+            disabled={isPrevDisabled}
+          >
+            <img src={arrow} alt="" />
+          </button>
+          <button
+            className={`${isNextDisabled ? "opacity-50" : ""} cursor-pointer`}
+            onClick={handleNextClick}
+            disabled={isNextDisabled}
+          >
+            <img src={arrow} alt="" />
+          </button>
         </div>
       </div>
+
       <div className="flex flex-col gap-2">
-        <header className="flex items-center justify-between py-2 pl-4 pr-2">
-          <div className=" flex basis-[25%] items-center gap-3">
+        <header className="flex items-center gap-3 py-2 px-4">
             <input
               type="checkbox"
               onChange={handleCheckAll}
               checked={
                 Object.keys(checkedLessons).length === lessons.length &&
-                Object.keys(checkedLessons).every((id) => checkedLessons[id]) 
-              }
+                Object.keys(checkedLessons).every((id) => checkedLessons[id] )
+                        }
               className=" aspect-square h-3.5 w-3.5 max-w-max accent-accent"
-            />
+            /> 
+          
+          <div className="flex justify-between basis-[100%]">
             <div
-              className="flex cursor-pointer items-center gap-1 "
+              className="flex flex-shrink-0 cursor-pointer items-center gap-1 basis-[30%] "
               onClick={handleIconClick}
             >
-              <img src={darkarrow} alt="" /> Name
+              <img src={darkarrow} alt="" />
+              <small>Name</small>
             </div>
-          </div>
+            <div
+              className="flex cursor-pointer items-center gap-1 basis-[30%]"
+              onClick={handleIconClick}
+            >
+              <img src={darkarrow} alt="" />
+              <small>Group</small>
+            </div>
 
-          <div
-            className="flex cursor-pointer items-center gap-1"
-            onClick={handleIconClick}
-          >
-            <img src={darkarrow} alt="" /> Group
+            <div
+              className="flex cursor-pointer flex-shrink-0 items-center gap-1 basis-[30%]"
+              onClick={handleIconClick}
+            >
+              <img src={darkarrow} alt="" />
+              <small>Date modified</small>
+            </div>
+            <div className=" ">
+              <Delete text="Delete" />
+            </div>
+            
           </div>
-          <div
-            className="flex cursor-pointer flex-wrap items-center gap-1 "
-            onClick={handleIconClick}
-          >
-            <img src={darkarrow} alt="" /> Date modified
-          </div>
-          <Delete text="Delete" />
         </header>
 
-        <div className="flex flex-col gap-2">
-          {lessons.map((lesson, index) => {
-            return (
-              <Lesson
-                id={index}
-                name={lesson.name}
-                type={lesson.type}
-                course={lesson.course}
-                date={lesson.date}
-                onClick={() => {
-                  setActiveCardIndex(index);
-                  setBarContent(lesson);
-                }}
-                isActive={activeCardIndex === index && barContent !== null}
-              />
-            );
-          })}
-        </div>
+        {currentPosts.map((lesson, index) => {
+          return (
+            <Lesson
+              id={index}
+              name={lesson.name}
+              type={lesson.type}
+              course={lesson.course}
+              date={lesson.date}
+              onClick={() => {
+                setActiveCardIndex(index);
+                setBarContent(lesson);
+              }}
+              isActive={activeCardIndex === index && barContent !== null}
+            />
+          );
+        })}
       </div>
     </div>
   );

@@ -46,9 +46,6 @@ const Navbar = () => {
           </li>
           <li>
             <ul className="flex gap-4">
-              <li>
-                <Search />
-              </li>
               <li className="">
                 <GetStarted text={"Get started"} />
               </li>

@@ -20,6 +20,24 @@ const Allstudents = () => {
     setIconRotation(iconRotation + 90);
   };
 
+  const postsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+
+  const currentPosts = students.slice(firstPostIndex, lastPostIndex);
+  const isPrevDisabled = currentPage === 1;
+  const isNextDisabled = lastPostIndex >= students.length;
+
+  const handleNextClick = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevClick = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
   return (
     <div className={`flex flex-col gap-4 rounded-[10px] bg-white py-6 px-8`}>
       <div className="flex items-center justify-between">
@@ -28,28 +46,45 @@ const Allstudents = () => {
         </p>
 
         <div className="flex items-center gap-4">
-          <img src={arrow} className=" rotate-180" alt="" />
-          <span className=" text-lg font-semibold text-accent">2CP</span> {/* iterate over groups */}
-          <img src={arrow} alt="" />
+     
+          <button
+            className={`${
+              isPrevDisabled ? "opacity-50" : ""
+            } rotate-180 cursor-pointer`}
+            alt=""
+            onClick={handlePrevClick}
+            disabled={isPrevDisabled}
+          >
+            <img src={arrow} alt="" />
+          </button>
+
+          <span className=" text-lg font-semibold text-accent">2CP</span>
+
+          <button
+            className={`${isNextDisabled ? "opacity-50" : ""} cursor-pointer`}
+            onClick={handleNextClick}
+            disabled={isNextDisabled}
+          >
+            <img src={arrow} alt="" />
+          </button>
+          {/* iterate over groups */}
+          
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <header className="flex w-[46%] justify-between px-4 py-2">
+        <header className="flex basis-[100%] justify-between p-2">
           <div
-            className="flex cursor-pointer gap-1 pl-10"
+            className="flex cursor-pointer items-center gap-1 basis-[50%]"
             onClick={handleIconClick}
           >
             {" "}
             <img src={darkarrow} alt="" /> Name
           </div>
-          <div
-            className="flex cursor-pointer gap-1 pl-2"
-            onClick={handleIconClick}
-          >
+          <div className="flex cursor-pointer gap-1 basis-[50%]" onClick={handleIconClick}>
             <img src={darkarrow} alt="" /> Group
           </div>
         </header>
-        {students.map((student, index) => {
+        {currentPosts.map((student, index) => {
           return (
             <Studentelement
               person={student.person}

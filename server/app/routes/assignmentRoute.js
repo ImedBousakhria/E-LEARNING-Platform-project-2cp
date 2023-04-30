@@ -1,8 +1,8 @@
-//assignment and submission route
+// assignment and submission route
 
-const { Router } = require('express');
-const assignementController = require('../controllers/assegnimentController');
+// const { Router } = require('express');
+// const assignementController = require('../controllers/assignmentController');
 
-const router = Router();
+// const router = Router();
 
-module.exports = router;
+// module.exports = router;

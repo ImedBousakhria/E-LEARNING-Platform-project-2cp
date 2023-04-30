@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Activitiesbodyelement from "../super elements/Activitiesbodyelement";
 import { IndexElementContextquiz } from "../../content page/Quizzes/Quizzes";
 import { IndexElementContext } from "../../content page/Assignment/Assignment";
+import { homeContext } from "../../content page/Home/Home";
 
 const Activitiesbody = ({ checkall, setSelected, type }) => {
   var activitiesContext ; 
@@ -9,6 +10,8 @@ const Activitiesbody = ({ checkall, setSelected, type }) => {
     activitiesContext = IndexElementContextquiz ; 
   }else if(type=="assignment") {
     activitiesContext = IndexElementContext ; 
+  }else if(type == "students") {
+    activitiesContext = homeContext ; 
   }
   const {firstContent} = useContext(activitiesContext)  ; 
   return (

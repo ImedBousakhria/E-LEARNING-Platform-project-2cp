@@ -22,6 +22,11 @@ module.exports = {
       black: "hsla(0, 0%, 0%, 1)",
       red:"#DA2F43",
       green:"#5CE1E6",
+      correct:"#5CE6B4",
+      wrong:"#FF5858"
+
+      
+
     },
   },
   plugins: [],

@@ -3,32 +3,23 @@ import add from "../../assets/icons/add.svg";
 import Answerstate from "./components/Answerstate";
 import Questions from "./Questions";
 import Publish from "../reusable/Publish";
-import { teacherQuizzes } from "../../content page/Quizzes/content/main";
 import { IndexElementContextquiz } from "../../content page/Quizzes/Quizzes";
 import Save from "../reusable/Save";
 import Cancel from "../reusable/Cancel";
-import { handleSubmit } from "./functions/HandleSubmit";
+import { useForm } from "react-hook-form";
+import { getCurrentTime } from "../reusableFunc/getTime.js"; 
 
 export const handleQuesitons = createContext();
 
 const Addnewquiz = () => {
+  const { register, handleSubmit, reset } = useForm();
   const { elementIndex, editMode, firstContent } = useContext(
     IndexElementContextquiz
   );
   const [questions, setQuestions] = useState([]);
-  const [title, setTitle] = useState(false);
-  const [groupe, setGroupe] = useState(false);
-  const [description, setDescripiton] = useState(false);
-  const [deadline, setDeadline] = useState(false);
   const [cancel, setCancel] = useState(false);
-  const [questionIndex,setQuestionIndex] = useState(0) ; 
-  function clearInputs() {
-    document.getElementById("question").value = "";
-    document.getElementById("choiceone").value = "";
-    document.getElementById("choicetwo").value = "";
-    document.getElementById("choicethree").value = "";
-    document.getElementById("choicefour").value = "";
-  }
+  const [questionIndex, setQuestionIndex] = useState(0);
+
 
   return (
     <handleQuesitons.Provider value={{ questions, setQuestions }}>
@@ -37,94 +28,93 @@ const Addnewquiz = () => {
           <h2 className="text-[1.25rem]">Add new quiz</h2>
         </div>
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
+          onSubmit={handleSubmit((data) => {
+            console.log(data);
+            let obj = new Object();
+            obj.quiz = questions;
+            obj.name = data.name
+              ? data.name
+              : firstContent[0][elementIndex[0] - 1].name;
+            obj.groupe = data.groupe
+              ? data.groupe
+              : firstContent[0][elementIndex[0] - 1].groupe;
+            console.log(getCurrentTime()) ; 
+            obj.date = getCurrentTime();
+            obj.deadline = data.deadline
+              ? data.deadline
+              : firstContent[0][elementIndex[0] - 1].deadline;
+            obj.description = data.description
+              ? data.description
+              : firstContent[0][elementIndex[0] - 1].description;
+            obj.submissions = firstContent[0][elementIndex[0] - 1]?.submissions
+              ? firstContent[0][elementIndex[0] - 1].submissions
+              : [];
             if (!cancel) {
-              handleSubmit(firstContent, questions);
+              if (editMode[0]) {
+                firstContent[0][elementIndex[0] - 1] = obj;
+                console.log("ssave");
+              } else {
+                firstContent[1]([...firstContent[0], obj]);
+              }
             }
-            setCancel(false);
-            if(editMode[0] ){
-              editMode[1](false) ; 
+            if (editMode[0]) {
+              editMode[1](false);
             }
-            setTitle(null);
-            setGroupe(null);
-            setDescripiton(null);
-            setDeadline(null);
-            setQuestions([]);
-          }}
+            setQuestions([]) ; 
+            reset();
+          })}
           className="flex gap-[2%]"
         >
           <div className="flex basis-[49%] flex-col gap-4">
-            <label htmlFor="title">
+            <label htmlFor="name">
               <input
-                value={
-                  elementIndex[0] != null && editMode[0]
-                    ? title || firstContent[0][elementIndex[0] - 1].name
-                    : title || ""
-                }
-                onChange={(e) => {
-                  elementIndex[0] != null && editMode[0]
-                    ? (firstContent[0][elementIndex[0] - 1].name = "")
-                    : null;
-                  setTitle(e.target.value);
-                }}
                 type="text"
-                placeholder="Title"
-                id="title"
+                placeholder="name"
+                id="name"
+                {...register("name")}
+                defaultValue={
+                  elementIndex[0] != null && editMode[0]
+                    ? firstContent[0][elementIndex[0] - 1].name
+                    : null
+                }
               />
             </label>
             <label htmlFor="groupe">
               <input
-                value={
-                  elementIndex[0] != null && editMode[0]
-                    ? groupe || firstContent[0][elementIndex[0] - 1].name
-                    : groupe || ""
-                }
-                onChange={(e) => {
-                  elementIndex[0] != null && editMode[0]
-                    ? (firstContent[0][elementIndex[0] - 1].name = "")
-                    : null;
-                  setGroupe(e.target.value);
-                }}
                 type="text"
                 placeholder="groupe"
                 id="groupe"
+                {...register("groupe")}
+                defaultValue={
+                  elementIndex[0] != null && editMode[0]
+                    ? firstContent[0][elementIndex[0] - 1].groupe
+                    : null
+                }
               />
             </label>
             <label htmlFor="description">
-              <textarea
-                value={
-                  elementIndex[0] != null && editMode[0]
-                    ? description ||
-                      firstContent[0][elementIndex[0] - 1].description
-                    : description || ""
-                }
-                onChange={(e) => {
-                  elementIndex[0] != null && editMode[0]
-                    ? (firstContent[0][elementIndex[0] - 1].description = "")
-                    : null;
-                  setDescripiton(e.target.value);
-                }}
+              <input
                 placeholder="Description"
                 id="description"
+                {...register("description")}
+                defaultValue={
+                  elementIndex[0] != null && editMode[0]
+                    ? firstContent[0][elementIndex[0] - 1].description
+                    : null
+                }
               />
             </label>
             <label htmlFor="Deadline(Date and time input)">
               <input
-                value={
-                  elementIndex[0] != null && editMode[0]
-                    ? deadline || firstContent[0][elementIndex[0] - 1].deadline
-                    : deadline || ""
-                }
-                onChange={(e) => {
-                  elementIndex[0] != null && editMode[0]
-                    ? (firstContent[0][elementIndex[0] - 1].deadline = "")
-                    : null;
-                  setDeadline(e.target.value);
-                }}
                 type="text"
                 placeholder="Deadline(Date and time input)"
                 id="deadline"
+                {...register("deadline")}
+                defaultValue={
+                  elementIndex[0] != null && editMode[0]
+                    ? firstContent[0][elementIndex[0] - 1].deadline
+                    : null
+                }
               />
             </label>
           </div>
@@ -139,6 +129,14 @@ const Addnewquiz = () => {
                       id="question"
                       name="question"
                       placeholder="Question"
+                      {...register("question")}
+                      defaultValue={
+                        elementIndex[0] != null && editMode[0]
+                          ? firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].question
+                          : null
+                      }
                     />
                   </label>
                 </div>
@@ -150,6 +148,14 @@ const Addnewquiz = () => {
                       name="choiceone"
                       id="choiceone"
                       placeholder="choice1"
+                      {...register("choiceone")}
+                      defaultValue={
+                        elementIndex[0] != null && editMode[0]
+                          ? firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].answaer1[0]
+                          : null
+                      }
                     />
                   </label>
                   <Answerstate />
@@ -162,6 +168,14 @@ const Addnewquiz = () => {
                       name="choicetwo"
                       id="choicetwo"
                       placeholder="choice2"
+                      {...register("choicetwo")}
+                      defaultValue={
+                        elementIndex[0] != null && editMode[0]
+                          ? firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].answaer2[0]
+                          : null
+                      }
                     />
                   </label>
                   <Answerstate />
@@ -174,6 +188,14 @@ const Addnewquiz = () => {
                       name="choicethree"
                       id="choicethree"
                       placeholder="choice3"
+                      {...register("choicethree")}
+                      defaultValue={
+                        elementIndex[0] != null && editMode[0]
+                          ? firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].answaer3[0]
+                          : null
+                      }
                     />
                   </label>
                   <Answerstate />
@@ -186,45 +208,64 @@ const Addnewquiz = () => {
                       name="choicefour"
                       id="choicefour"
                       placeholder="choice4"
+                      {...register("choicefour")}
+                      defaultValue={
+                        elementIndex[0] != null && editMode[0]
+                          ? firstContent[0][elementIndex[0] - 1].quiz[
+                              questionIndex
+                            ].answaer4[0]
+                          : null
+                      }
                     />
                   </label>
                   <Answerstate />
                 </div>
               </div>
             </div>
-            <Questions questionIndex={questionIndex} setQuestionIndex={setQuestionIndex}  />
+            <Questions
+              questionIndex={questionIndex}
+              setQuestionIndex={setQuestionIndex}
+            />
             <div className="flex justify-end gap-2 text-white">
               {editMode[0] ? (
-                <div onClick={() => setCancel(true)}>
+                <div
+                  onClick={() => {
+                    setCancel(true);
+                  }}
+                >
                   <Cancel />
                 </div>
               ) : null}
               <button
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={handleSubmit((data) => {
+                  console.log(data);
                   let obj = new Object();
-                  obj = {
-                    question: document.getElementById("question").value,
-                    answaer1: [
-                      document.getElementById("choiceone").value,
-                      document.querySelectorAll(".questionState")[0].value,
-                    ],
-                    answaer2: [
-                      document.getElementById("choicetwo").value,
-                      document.querySelectorAll(".questionState")[1].value,
-                    ],
-                    answaer3: [
-                      document.getElementById("choicethree").value,
-                      document.querySelectorAll(".questionState")[2].value,
-                    ],
-                    answaer4: [
-                      document.getElementById("choicefour").value,
-                      document.querySelectorAll(".questionState")[3].value,
-                    ],
-                  };
+                  obj.question = data.question;
+                  obj.answaer1 = [
+                    data.choiceone,
+                    document.querySelectorAll(".questionState")[0].value,
+                  ];
+                  obj.answaer2 = [
+                    data.choicetwo,
+                    document.querySelectorAll(".questionState")[1].value,
+                  ];
+                  obj.answaer3 = [
+                    data.choicethree,
+                    document.querySelectorAll(".questionState")[2].value,
+                  ];
+                  obj.answaer4 = [
+                    data.choicefour,
+                    document.querySelectorAll(".questionState")[3].value,
+                  ];
                   setQuestions([...questions, obj]);
-                  clearInputs();
-                }}
+                  reset({
+                    question: "",
+                    choiceone: "",
+                    choicetwo: "",
+                    choicethree: "",
+                    choicefour: "",
+                  });
+                })}
                 className="flex items-center gap-2 rounded-[5px] bg-blue p-2"
               >
                 Add <img src={add} />

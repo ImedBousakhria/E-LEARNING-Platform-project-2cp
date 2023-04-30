@@ -6,8 +6,10 @@ import Newlesson from "../../../components/courses/Newlesson";
 import Courses from "../../../components/courses/Courses";
 import { CoursesContext } from "../Teachercourses";
 
-const Coursemain = () => {
+const Coursemain = ({index}) => {
   const { editMode } = useContext(CoursesContext);
+  const onTimeout = () => <div>Time's up</div>;
+
   return (
     <div className="flex flex-shrink-0 basis-[60%] flex-col gap-6 bg-primary px-12 py-8">
       <div className="flex justify-between items-center">
@@ -22,7 +24,7 @@ const Coursemain = () => {
       </div>
       <Courses />
       <Newlesson />
-      <Allcourses />
+      <Allcourses index = {index} />
     </div>
   );
 };

@@ -33,9 +33,6 @@ const Announcemento = ({
       <div className="flex items-center justify-between">
         <Profile profilepicture={profilepicture} person={person} />
         <div className="flex items-center gap-1 justify-self-end">
-          <div>
-            <Chat />
-          </div>
           {isDisplayed ? (
             <img
               src={quitIcon}

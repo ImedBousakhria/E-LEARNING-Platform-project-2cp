@@ -1,12 +1,12 @@
 import React from "react";
 import publish from "../../assets/icons/publish.svg";
 
-const Publish = ({ onClick }) => {
+const Publish = () => {
   return (
     <div>
       <button
         type="submit"
-        className="flex items-center text-white gap-2 rounded-[5px] bg-accent p-2"
+        className="flex items-center gap-2 rounded-[10px] bg-accent px-4 py-2.5 font-semibold text-white"
       >
         <span>Publish</span>
         <img src={publish} />

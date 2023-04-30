@@ -8,18 +8,21 @@ const Questions = ({ questionIndex, setQuestionIndex }) => {
     IndexElementContextquiz
   );
   const { questions, setQuestions } = useContext(handleQuesitons);
-  var quizzes;
-  if (editMode[0]) {
-    quizzes = firstContent[0][elementIndex[0] - 1].quiz;
-  } else {
-    quizzes = questions;
+  if(editMode[0]) {
+    setQuestions(firstContent[0][elementIndex[0]-1].quiz) ; 
   }
   console.log(questions);
   return (
     <div className="flex flex-wrap gap-2">
-      {quizzes.map((Element, index) => {
+      {questions.map((Element, index) => {
         return (
-          <div onClick={()=>{setQuestionIndex(index); console.log(questionIndex)}} className="flex w-fit gap-1 rounded-[17px] bg-lightgray p-1 font-thin text-black">
+          <div
+            onClick={() => {
+              setQuestionIndex(index);
+              console.log(questionIndex);
+            }}
+            className="flex w-fit gap-1 rounded-[17px] bg-lightgray p-1 font-thin text-black"
+          >
             <span>Question{index + 1}</span>
             <button
               onClick={(e) => {

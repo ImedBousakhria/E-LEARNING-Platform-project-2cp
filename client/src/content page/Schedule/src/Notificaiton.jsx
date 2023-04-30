@@ -7,6 +7,7 @@ import Selectactivities from "../../../components/super/Selectactivities";
 import CaledarNotificationElement from "../../../components/schedule/CaledarNotificationElement";
 import { scheduleContext } from "../Schedule";
 
+
 const Notificaiton = () => {
   const { notificaiton } = useContext(propsContext);
   const { eventState } = useContext(scheduleContext); ; 
@@ -17,7 +18,7 @@ const Notificaiton = () => {
         <Notificaitonhandling isnotification={notificaiton} />
         <Profile person={"said nousria"} profilepicture={profile} />
       </div>
-      {elementIndex[0] ? (
+      {elementIndex[0] !=null ? (
         <CaledarNotificationElement element={eventState[0][elementIndex[0]]} />
       ) : (
         <div className="flex h-full items-center justify-center">

@@ -1,4 +1,5 @@
-export function handleSubmit(firstConent,questions) {
+export function handleSubmit(firstConent,questions, editMode,elementIndex) {
+  console.log(questions) ; 
   let obj = new Object();
   obj.name = document.getElementById("title").value;
   obj.groupe = document.getElementById("groupe").value;
@@ -21,6 +22,11 @@ export function handleSubmit(firstConent,questions) {
   obj.date = formattedDate;
   obj.quiz = questions ; 
   obj.submissions = [];
-  firstConent[1]([...firstConent[0], obj]);
+  if(editMode) {
+    firstConent[0][elementIndex-1] = obj ; 
+    console.log("save") ; 
+  }else {
+    firstConent[1]([...firstConent[0], obj]);
+  }
   console.log(firstConent[0]);
 }
