@@ -3,8 +3,11 @@ import Seemore from "../reusable/Seemore";
 import { announcement } from "../../content page/Home/content/main";
 import Announcementelement from "../super elements/Announcementelement";
 import { useContext } from "react";
+import { homeContext } from "../../content page/Home/Home";
+
 
 const Announcement = () => {
+  const { announcementState } = useContext(homeContext); ; 
   return (
     <div className="flex basis-[58%] flex-col gap-4 rounded-[10px] bg-white p-4">
       <div className="flex justify-between">
@@ -12,13 +15,14 @@ const Announcement = () => {
         <Seemore index={1} />
       </div>
       <div className="flex flex-col gap-2">
-        {announcement.map((Element) => {
+        {announcementState[0].map((Element, index) => {
           return (
             <Announcementelement
               profilepicture={Element.profilepicture}
               person={Element.person}
               content={Element.content}
               image={Element.image}
+              index={index}
             />
           );
         })}

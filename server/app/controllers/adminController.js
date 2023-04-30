@@ -10,16 +10,82 @@ module.exports.getAllUsers = async (req, res) =>{
     }
 }
 
-module.exports.insertUser = async (req, res) =>{
+module.exports.getAllStudents = async (req, res) =>{
+    try{
+        const students = await User.find({isStudent: true})
+        res.status(200).send(students);
+    }catch(err){
+        console.log("fetch failed");
+        res.status(500).json({message: err.message});
+    }
+}
+
+module.exports.getAllTeachers = async (req, res) =>{
+    try{
+        const teachers = await User.find({isTeacher: true})
+        res.status(200).send(teachers);
+    }catch(err){
+        console.log("fetch failed");
+        res.status(500).json({message: err.message});
+    }
+}
+
+
+module.exports.insertStudent = async (req, res) =>{
     try{
         //creat a new user
-        const user = await User.create(req.body);
+        const user = await User.create({ ...req.body, isStudent: true });
         res.status(200).json(user);
         console.log("User created sucessfully");
 
     }catch(err){
 
         console.log("Creation failed");
+        res.status(500).json({message: err.message});
+    }
+
+}
+
+module.exports.insertTeacher = async (req, res) =>{
+    try{
+        //creat a new user
+        const user = await User.create({ ...req.body, isTeacher: true });
+        res.status(200).json(user);
+        console.log("User created sucessfully");
+
+    }catch(err){
+
+        console.log("Creation failed");
+        res.status(500).json({message: err.message});
+    }
+
+}
+
+module.exports.insertAdmin = async (req, res) =>{
+    try{
+        //creat a new user
+        const user = await User.create({ ...req.body, isAdmin: true });
+        res.status(200).json(user);
+        console.log("User created sucessfully");
+
+    }catch(err){
+
+        console.log("Creation failed");
+        res.status(500).json({message: err.message});
+    }
+
+}
+
+module.exports.insertUser = async (req, res) =>{
+    try{
+        //creat a new user
+        const user = await User.create(req.body);
+        res.status(200).json(user);
+        console.log("Student created sucessfully");
+
+    }catch(err){
+
+        console.log("Creation student failed");
         res.status(500).json({message: err.message});
     }
 

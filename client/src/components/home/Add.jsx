@@ -3,7 +3,7 @@ import add from "../../assets/icons/add.svg";
 import { propsContext} from '../../content page/Mainapp'
 
 const Add = ({text, bg, index}) => {
-  const {Indexhandle} = useContext(propsContext) ; 
+  const { Indexhandle } = useContext(propsContext); ; 
   return (
     <button
       onClick={() => Indexhandle[1](index+1)}

@@ -8,14 +8,22 @@ import Schedule from "../../../components/home/schedule/Schedule";
 import { propsContext } from "../../Mainapp";
 import Activitiesheader from "../../../components/super/Activitiesheader";
 import Activitiesbody from "../../../components/super/Activitiesbody";
+import Bluredbg from "../../../components/reusable/Bluredbg";
+import SearchForm from "../../../components/super/SearchForm";
 
 const Main = () => {
   let user = "said";
-  const { indexHandle } = useContext(propsContext);
-  console.log(indexHandle);
+  const { IndexHandle, searchMode } = useContext(propsContext);
+  console.log(IndexHandle);
+  function handleClick() {
+    searchMode[0] ? searchMode[1](false) : searchMode[1](true);
+  }
   return (
-    <div className="flex basis-[60%] flex-col gap-4 bg-primary p-8">
-      <div className="flex justify-between">
+    <div className="relative flex basis-[60%] flex-col gap-4 bg-primary p-8">
+      <div className="flex  justify-between">
+        {searchMode[0] ? <Bluredbg /> : null}
+        {searchMode[0] ? <SearchForm handleClick={handleClick} /> : null}
+
         <div>
           <h1 className="text-[25px]">Elites School E-learning platform</h1>
           <p className="text-darkgray">
@@ -23,7 +31,7 @@ const Main = () => {
           </p>
         </div>
         <div>
-          <Search />
+          <Search handleClick={handleClick} />
         </div>
       </div>
       <div className="flex flex-wrap justify-between gap-4">

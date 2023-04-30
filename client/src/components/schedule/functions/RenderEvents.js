@@ -9,8 +9,7 @@ export function renderEvents(eventState) {
     container.rowSpan = element.span ;
     container.style.backgroundColor = element.color;
     container.key = element.position ; 
-    if (eventState.length == 3) {
-      deleteUselessTd(element);
-    }
+    deleteUselessTd(element);
+    console.log(++i, "rerender") ; 
   });
 }

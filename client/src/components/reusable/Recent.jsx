@@ -1,6 +1,6 @@
 import React from "react";
 import { recent } from "../../content page/Home/content/notification";
-import Recentelement from "./homeelements/Recentelement";
+import Recentelement from "../home/homeelements/Recentelement";
 
 const Recent = () => {
   return (

@@ -8,12 +8,15 @@ const Quizzes = ({ index }) => {
   const elementIndex = useState(null);
   const editMode = useState(false) ;
   const firstContent = useState(teacherQuizzes) ;  
+  const showDiscussion = useState("hidden") ; 
 
   if (index == 4) {
     return (
-      <IndexElementContextquiz.Provider value={{elementIndex, editMode,firstContent}}>
-          <Main />
-          <Notification />
+      <IndexElementContextquiz.Provider
+        value={{ elementIndex, editMode, firstContent, showDiscussion }}
+      >
+        <Main />
+        <Notification />
       </IndexElementContextquiz.Provider>
     );
   } else {

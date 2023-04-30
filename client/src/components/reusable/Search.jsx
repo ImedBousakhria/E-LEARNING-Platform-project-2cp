@@ -2,20 +2,12 @@ import React from 'react'
 import search from "../../assets/icons/search.svg";
 
 
-const Search = () => {
+const Search = ({handleClick}) => {
   return (
-    <form className="flex gap-2 rounded-[10px] border border-gray p-3 ">
+    <button onClick={handleClick} className="flex items-center gap-2 rounded-[10px] border border-gray p-3 ">
       <img src={search} />
-      <label htmlFor="search">
-        <input
-          className="bg-transparant border-none p-0 focus:outline-none "
-          name="search"
-          type="text"
-          id="search"
-          placeholder="search"
-        />
-      </label>
-    </form>
+      <p className='text-gray w-[8rem] text-[1rem] text-left'>Search</p>
+    </button>
   );
 }
 

@@ -20,15 +20,17 @@ export const students = [
 
 export const recentLesson = [
   {
-    name: "hello",
-    date: "12/12/2021,11:30PM",
+    name: "aello",
+    date: "12/12/2022,11:30PM",
   },
   {
     name: "hello",
     date: "12/12/2021,11:30PM",
   },
   {
-    name: "hello",
-    date: "12/12/2021,11:30PM",
+    name: "bello",
+    date: "12/12/2022,10:30PM",
   },
 ];
+
+

@@ -18,7 +18,8 @@ const Notification = () => {
       <div className="flex justify-between">
         <Notificaitonhandling isnotification={notificaiton} />
         <DiscussionForums
-          discussions={elementIndex[0] != null ?firstContent[0][elementIndex[0]-1].discussions :[]}
+          type={"assignment"}
+          firstContent={firstContent}
         />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>

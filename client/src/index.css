@@ -43,6 +43,11 @@
     @apply h-10 w-10 cursor-pointer appearance-none border-0 outline-none bg-transparant p-0;
   }
 }
+.hideScrollBar::-webkit-scrollbar {
+  display: none;
+}
+
+
 
 /* navbar style */
 
@@ -146,3 +151,5 @@
 .profile-info {
   @apply bg-white py-2 px-4 text-darkgray border border-darkgray rounded-md;
 }
+/* home */
+

@@ -2,11 +2,17 @@ import React, { useContext, useEffect } from "react";
 import { calendar } from "../../content page/Schedule/content/main";
 import { scheduleContext } from "../../content page/Schedule/Schedule";
 import { renderEvents } from "./functions/RenderEvents";
+import { calendarContext } from "../../content page/Schedule/src/Main";
+
 
 const Calendar = () => {
   const {eventState} = useContext(scheduleContext) ; 
-  const {elementIndex} = useContext(scheduleContext) ; 
-  useEffect(()=> {renderEvents(eventState[0])},[eventState[0]]) ;  
+  const {elementIndex} = useContext(scheduleContext) ;
+  const {RenderTriger} = useContext(calendarContext)
+
+
+  useEffect(()=> {renderEvents(eventState[0]) ; console.log("hello")},[eventState[0], RenderTriger[0]]) ;  
+
   return (
     <div className="flex flex-col gap-4 rounded-[10px] bg-white p-4">
       <div>
@@ -40,9 +46,10 @@ const Calendar = () => {
                 </td>
                 <td className="bg-primary" id={"sunday" + index}>
                   <button
-                    onClick={() =>
-                      elementIndex[1](document.getElementById("sunday" + index).key)
-                    }
+                    onClick={() =>{
+                      console.log(document.getElementById("sunday"+index).key)
+                      elementIndex[1](document.getElementById("sunday"+index).key) ; 
+                    }}
                   ></button>
                 </td>
                 <td className="bg-primary" id={"monday" + index}>
