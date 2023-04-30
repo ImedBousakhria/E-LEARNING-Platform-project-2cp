@@ -12,6 +12,7 @@ router.get('/user/logout', userController.logout_get);
 
 // router.get('/user/get/:id', requireAuth, userController.getUser); //requireAuth
 router.get('/user/get/:id', userController.getUser);
+
 // router.put('/user/updateProfile/:id', requireAuth, userController.updateProfile);
 router.put('/user/updateProfile/:id', userController.updateProfile);
 

@@ -38,6 +38,24 @@ const Mainapp = () => {
         <Schedule index={Indexhandle[0]} />
       </div>
     </propsContext.Provider>
+  
+  
+
+  return (
+      <propsContext.Provider
+        value={{ Indexhandle, notificationReaded, searchMode }}
+      >
+        <div className="flex w-full">
+          <Sidebar />
+          <Home index={Indexhandle[0]} />
+          <Teacherannounce index={Indexhandle[0]} />
+          <Teachercourses index={Indexhandle[0]} />
+          <Assignment index={Indexhandle[0]} />
+          <Quizzes index={Indexhandle[0]} />
+          <Teacherstudents index={Indexhandle[0]} />
+          <Schedule index={Indexhandle[0]} />
+        </div>
+      </propsContext.Provider>
   );
 };
 

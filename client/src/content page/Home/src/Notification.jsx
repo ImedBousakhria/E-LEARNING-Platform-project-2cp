@@ -14,7 +14,7 @@ const Notification = () => {
   return (
     <div className="sticky right-0 top-0 flex h-[100vh] basis-[23%] flex-col gap-8 border-l border-gray bg-white p-4">
       <div className="flex justify-between">
-        <Notificaitonhandling isnotification={notificaiton} />
+        <Notificaitonhandling />
         <DiscussionForums
           type={"announcement"}
           firstContent={announcementState}

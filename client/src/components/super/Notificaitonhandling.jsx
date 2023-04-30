@@ -5,10 +5,18 @@ import notificationrecievedicon from "../../assets/icons/notificationrecieved.sv
 import Notificationcontentelement from "../super elements/Notificationcontentelement";
 import close from "../../assets/icons/close.svg";
 import { propsContext } from "../../content page/Mainapp";
+import { useQuery } from "@tanstack/react-query";
+import { fetchNotifications } from "../../content page/dataFetch";
+import { useParams } from "react-router-dom";
 
-const Notificaitonhandling = ({ isnotification }) => {
-  const { notificationReaded } = useContext(propsContext); ; 
-  if (isnotification && !notificationReaded[0]) {
+
+
+const Notificaitonhandling = () => {
+  const { id } = useParams();
+  const data = useQuery(["notificaiton", id], fetchNotifications);
+  const notificaiton = data.data;
+  const { notificationReaded } = useContext(propsContext);
+  if (notificaiton && !notificationReaded[0]) {
     var notificationIcon = notificationrecievedicon;
   } else {
     var notificationIcon = notificationemptyicon;
@@ -17,7 +25,7 @@ const Notificaitonhandling = ({ isnotification }) => {
 
   const [showNotificationcontent, setShowNotificationcontent] =
     useState("hidden");
-  console.log(isnotification) ; 
+  console.log(notificaiton);
   return (
     <>
       <button
@@ -51,7 +59,7 @@ const Notificaitonhandling = ({ isnotification }) => {
             </button>
           </div>
           <div className="flex flex-col gap-4">
-            {/* isnotification.map((Element) => {
+            {/* notificaiton.map((Element) => {
               return (
                 <Notificationcontentelement notificationelement={Element} />
               );
