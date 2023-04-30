@@ -36,6 +36,14 @@ const Newannounce = ({ setActiveCardIndex }) => {
   const handleFileSelected = (event) => {
     const selectedFiles = Array.from(event.target.files);
     setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+    console.log(files);
+  };
+
+  const handleRemoveFile = (index) => {
+    const newArray = files.filter((Element, i) => {
+      return index != i;
+    });
+    setFiles(newArray);
   };
 
   return (
@@ -69,8 +77,12 @@ const Newannounce = ({ setActiveCardIndex }) => {
         <div className="flex w-[45%] flex-col justify-between">
           <div className=" basis-[80%] pb-4">
             <div className="flex flex-wrap items-center gap-2">
-              {files.map((file) => (
-                <Uploadedfile fileName={file.name} file={file} />
+              {files.map((file, index) => (
+                <Uploadedfile
+                  fileName={file.name}
+                  file={file}
+                  onRemove={() => handleRemoveFile(index)}
+                />
               ))}
             </div>
             <input
@@ -85,7 +97,11 @@ const Newannounce = ({ setActiveCardIndex }) => {
           <div className="flex gap-4 place-self-end">
             {
               editMode ? (
-                <Cancel setEditMode={setEditMode} setContent={setContent} />
+                <Cancel
+                  setEditMode={setEditMode}
+                  setContent={setContent}
+                  text={Cancel}
+                />
               ) : null
               // no change on the content, Restore old data
             }

@@ -1,4 +1,4 @@
-import profileholder from '../../../assets/profile/profileholder.png' ; 
+import profileholder from "../../../assets/profile/profileholder.png";
 
 
 export const teacherQuizzes = [
@@ -11,21 +11,21 @@ export const teacherQuizzes = [
     deadline: "29/03/23,11:00PM",
     quiz: [
       {
-        question: "question1",
+        question: "What's the capital of the world ?",
         answaer1: ["option1", "false"],
         answaer2: ["option2", "false"],
         answaer3: ["option3", "true"],
         answaer4: ["option4", "false"],
       },
       {
-        question: "question2",
+        question: "Hi ? ",
         answaer1: ["option1", "false"],
         answaer2: ["option2", "false"],
         answaer3: ["option3", "true"],
         answaer4: ["option4", "false"],
       },
       {
-        question: "question3",
+        question: "HEY ",
         answaer1: ["option1", "false"],
         answaer2: ["option2", "false"],
         answaer3: ["option3", "true"],
@@ -95,6 +95,52 @@ export const teacherQuizzes = [
         name: "said nouasria",
         profile: profileholder,
         score: 14,
+      },
+    ],
+  },
+];
+
+export const quizz = [
+  {
+    question: "What's the capital of Algeria?",
+    options: [
+      {
+        text: "option1",
+        state: false,
+      },
+      {
+        text: "Algiers",
+        state: true,
+      },
+      {
+        text: "option3",
+        state: false,
+      },
+      {
+        text: "option4",
+        state: false,
+      },
+    ],
+  },
+
+  {
+    question: "What's the capital of Japan?",
+    options: [
+      {
+        text: "option1",
+        state: false,
+      },
+      {
+        text: "Tokyo",
+        state: true,
+      },
+      {
+        text: "option3",
+        state: false,
+      },
+      {
+        text: "option4",
+        state: false,
       },
     ],
   },

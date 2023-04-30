@@ -5,7 +5,6 @@ import Allcourses from "../../../components/courses/Allcourses";
 import Newlesson from "../../../components/courses/Newlesson";
 import Courses from "../../../components/courses/Courses";
 import { CoursesContext } from "../Teachercourses";
-import CountdownCircle from "../../../components/quizzes/test";
 
 const Coursemain = ({index}) => {
   const { editMode } = useContext(CoursesContext);
@@ -26,7 +25,6 @@ const Coursemain = ({index}) => {
       <Courses />
       <Newlesson />
       <Allcourses index = {index} />
-      <CountdownCircle seconds={10} onTimeout={onTimeout} />
     </div>
   );
 };

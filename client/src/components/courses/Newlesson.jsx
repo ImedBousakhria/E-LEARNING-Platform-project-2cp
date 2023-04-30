@@ -15,6 +15,20 @@ const Newlesson = () => {
   const [files, setFiles] = useState([]);
   const [type, setType] = useState("course");
 
+  const [students, setStudents] = useState([]);
+  const [newStudent, setNewStudent] = useState("");
+
+  const handleAddStudent = () => {
+    setStudents([...students, newStudent]);
+    setNewStudent("");
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleAddStudent();
+    }
+  };
+
   const { editMode, Acontent, setContent } = useContext(CoursesContext);
 
   const newItem = {
@@ -42,7 +56,7 @@ const Newlesson = () => {
     const selectedFiles = Array.from(event.target.files);
     setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
   };
-
+  
   return (
     <div
       className={` ${
@@ -147,7 +161,8 @@ const Newlesson = () => {
                 type="text"
                 name="students"
                 placeholder="Add students"
-                onChange={handleChange}
+                onChange={(event) => setNewStudent(event.target.value)}
+                onKeyDown={handleKeyDown}
                 className=" rounded-[10px] border border-darkgray px-3 py-3.5 outline-none"
               />
 

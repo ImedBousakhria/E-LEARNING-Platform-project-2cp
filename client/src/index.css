@@ -80,24 +80,10 @@
 
 /* Signin page*/
 
+
 .form-input {
-  @apply mt-1 flex items-center justify-between rounded-md border border-gray bg-white py-2 px-2 align-middle shadow;
+  @apply flex justify-between bg-white py-3.5 px-2 rounded-md border shadow border-darkgray;
 }
-
-.form-input-error {
-  @apply mt-1 flex items-center justify-between rounded-md border bg-white py-2 px-2 align-middle shadow;
-}
-
-.select-input {
-  @apply mt-1 flex h-full w-full items-center justify-between rounded-md border border-gray bg-white align-middle shadow;
-}
-
-.select-input-error {
-  @apply mt-1 flex h-2 w-2 items-center justify-between rounded-md border bg-white align-middle shadow;
-}
-
-
-
 
 .form-input-error {
   @apply flex justify-between bg-white py-3.5 px-2 rounded-md border shadow border-red;
@@ -154,4 +140,9 @@
 }
 #thursday20 {
   @apply rounded-br-[10px];
+}
+
+/* profile */
+.profile-info {
+  @apply bg-white py-2 px-4 text-darkgray border border-darkgray rounded-md;
 }

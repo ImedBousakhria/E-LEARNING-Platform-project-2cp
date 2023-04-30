@@ -9,6 +9,7 @@ import { programs } from "../../../landing page/content/pograms";
 import Studentelement from "../../../components/students/components/Studentelement";
 import arrow from "../../../assets/icons/Annouarrow.svg";
 import { propsContext } from "../../Mainapp";
+import Profilepage from "../../../components/super/Profilepage";
 
 const Coursebar = () => {
   const { barContent, setBarContent, activeProgIndex } = useContext(CoursesContext);
