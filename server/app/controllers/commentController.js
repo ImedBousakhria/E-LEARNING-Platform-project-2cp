@@ -2,11 +2,22 @@ const mongoose=require('mongoose');
 // const { Validator } = require('node-input-validator');
 const Announcement = require('../models/Announcement');
 const Comment = require('../models/Comment');
+const User = require('../models/User');
 
+//get all comments
+module.exports.getAllComments = async (req, res) => {
+  try {
+    const comments = await Comment.find();
+    res.json(comments);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 // Get comments for an announcement
-exports.getComments = async (req, res) => {
+exports.getAllCommentsForAnnouncement = async (req, res) => {
     try {
+      // const announcementId = req.params.announcementId;
       const announcementId = req.params.id;
       // Fetch comments from the database based on the announcementId
       const comments = await Comment.find({ announcement: announcementId });
@@ -16,14 +27,30 @@ exports.getComments = async (req, res) => {
     }
   };
 
+// Get a comment for an announcement
+module.exports.getComment = async (req, res) => {
+  try {
+    const comment = await Comment.findById(req.params.id);
+    if(comment){
+      res.status(200).json(comment);
+      console.log("comment found");
+    }else{
+      res.status(404).json({ error: 'Comment not found' });
+      console.log("comment not found");
+    }
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  };
+    
 // POST create a comment for an announcement
 module.exports.createComment = async (req, res) => {
   try {
     // announcement = req.params.announcementId;
-    const { content } = req.body;
+    // const { content, announcement, user } = req.body;
 
     // Find the announcement by ID
-    const announcement = await Announcement.findById(req.params.announcementId);
+    const announcement = await Announcement.findById(req.body.announcement);
 
     if (!announcement) {
       return res.status(404).json({ error: 'Announcement not found' });
@@ -31,12 +58,16 @@ module.exports.createComment = async (req, res) => {
 
     // Create a new comment
     const comment = new Comment({
-      content,
-      user: req.user._id // Assuming that the user is authenticated and their ID is available in req.user._id
+      // content,
+      // user: req.user.id // Assuming that the user is authenticated and their ID is available in req.user._id
+    
+    content: req.body.content,
+    announcement: req.body.announcement,
+    user: req.body.user
     });
 
     // Add the comment to the announcement's comments array
-    announcement.comments.push(comment);
+    announcement.comments.push(comment._id);
 
     // Save the updated announcement and the new comment
     await announcement.save();
@@ -48,61 +79,49 @@ module.exports.createComment = async (req, res) => {
   }
 };
 
-// PUT update a comment for an announcement
-module.exports.updateComment = async (req, res) => {
-  try {
-    const { commentId, content } = req.body;
 
-    // Find the comment by ID
-    const comment = await Comment.findById(commentId);
+module.exports.updateComment = async (req, res) =>{
+  _id = req.params.id;
+  try{
+      const comment =await Comment.findOneAndUpdate({_id}, req.body, {new: true});
+      if(comment){    
+          res.status(200).json(comment);
+          console.log("comment updated sucessfully");
+      }else{
+          res.status(404).json({message: "comment not found"});
+          console.log("comment not found");
+      }
 
-    if (!comment) {
-      return res.status(404).json({ error: 'Comment not found' });
-    }
-
-    // Update the comment content
-    comment.content = content;
-
-    // Save the updated comment
-    await comment.save();
-
-    res.json(comment);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+  }catch(err){
+      console.log("comment update failed");
+      res.status(500).json({message: err.message});
   }
-};
+}
 
-// DELETE a comment for an announcement
+
 module.exports.deleteComment = async (req, res) => {
   try {
-    const { commentId, announcementId } = req.params;
 
-    // Find the announcement by ID
-    const announcement = await Announcement.findById(announcementId);
+    const _id = req.params.id;
 
-    if (!announcement) {
-      return res.status(404).json({ error: 'Announcement not found' });
-    }
-
-    // Find the comment by ID
-    const comment = await Comment.findById(commentId);
-
+  
+  
+    const comment = await Comment.findByIdAndDelete(_id);
+    
+  const announcement = await Announcement.findOneAndUpdate(
+    { comment: _id }, 
+    { $pull: { comments: _id } }, 
+    { new: true }
+  );
+    
     if (!comment) {
-      return res.status(404).json({ error: 'Comment not found' });
+      return res.status(404).json({ message: 'comment not found' });
     }
 
-    // Remove the comment from the announcement's comments array
-    announcement.comments = announcement.comments.filter(c => c.toString() !== commentId);
-
-    // Delete the comment
-    await comment.remove();
-
-    // Save the updated announcement
-    await announcement.save();
-
-    res.status(200).json({ message: 'Comment deleted successfully' });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(200).json({ message: 'comment deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
+
 

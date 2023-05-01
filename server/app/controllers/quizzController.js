@@ -1,227 +1,116 @@
-//model
-import { RequestHandler } from "express";
+const Quizz = require('../models/Quizz');
+const Course = require('../models/Course');
 
-import Quiz from "../models/quiz";
-import ProjectError from "../helper/error";
-import { ReturnResponse } from "../utils/interfaces";
+// GET all quizzes
+module.exports.getAllQuizzes = async (req, res) => {
+    try {
+      const quizzes = await Quizz.find();
+      res.json(quizzes);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  };
 
-const createQuiz: RequestHandler = async (req, res, next) => {
-  try {
-
-    const created_by = req.userId;
-    const name = req.body.name;
-    const questions_list = req.body.questions_list;
-    const answers = req.body.answers;
-
-    const quiz = new Quiz({ name, questions_list, answers, created_by });
-    const result = await quiz.save();
-    const resp: ReturnResponse = {
-      status: "success",
-      message: "Quiz created successfully",
-      data: { quizId: result._id },
+// GET a single quiz by id
+module.exports.getQuizzById = async (req, res) => {
+    try {
+        const quizz = await Quizz.findById(req.params.id);
+        if (!quizz) {
+        return res.status(404).json({ error: "quiz not found" });
+        }
+        res.json(quizz);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
     };
-    res.status(201).send(resp);
-  } catch (error) {
-    next(error);
-  }
-};
 
-const getQuiz: RequestHandler = async (req, res, next) => {
-  try {
-    const quizId = req.params.quizId;
-    const quiz = await Quiz.findById(quizId, {
-      name: 1,
-      questions_list: 1,
-      answers: 1,
-      created_by: 1,
-    });
+// GET all quizzes for a course
+module.exports.getAllQuizzesForCourse = async (req, res) => {
+    try {
+        const quizzes = await Quizz.find({course: req.params.id});
+        res.json(quizzes);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+    };
 
+// POST create a new quiz
+module.exports.createQuizz = async (req, res) => {
+    try {
+        const newQuiz = new Quizz({
+            name: req.body.name,
+            course: req.body.course,
+            content: req.body.content
+            });
+
+          const course = await Course.findById(req.body.course);
+          course.quizzes.push(newQuiz._id);
+          await course.save();
+     
+        const savedQuiz = await newQuiz.save();
+        res.status(201).json(savedQuiz);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+    };
+
+// PATCH update a quiz
+module.exports.updateQuizz = async (req, res) => {
+  try{
+    const quiz = await Quizz.findById(req.params.id);
     if (!quiz) {
-      const err = new ProjectError("Quiz not found!");
-      err.statusCode = 404;
-      throw err;
+      return res.status(404).json({ error: "quiz not found" });
     }
-
-    if (req.userId !== quiz.created_by.toString()) {
-      const err = new ProjectError("You are not authorized!");
-      err.statusCode = 403;
-      throw err;
-    }
-
-    const resp: ReturnResponse = {
-      status: "success",
-      message: "Quiz",
-      data: quiz,
-    };
-    res.status(200).send(resp);
-  } catch (error) {
-    next(error);
+    const updatedQuizz = await Quizz.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(updatedQuizz);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
 };
 
-const updateQuiz: RequestHandler = async (req, res, next) => {
+// // DELETE a quiz
+// module.exports.deleteQuizz = async (req, res) => {
+//   try {
+//     const quizz = await Quizz.findById(req.params.id);
+//     if (!quizz) {
+//       return res.status(404).json({ error: "quiz not found" });
+//     }
+//     await quizz.remove();
+//     res.json({ message: "quiz deleted successfully" });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
+
+
+
+// DELETE a quiz
+module.exports.deleteQuizz = async (req, res) => {
   try {
 
-    const quizId = req.body._id;
-    const quiz = await Quiz.findById(quizId);
+    const _id = req.params.id;
 
-    if (!quiz) {
-      const err = new ProjectError("Quiz not found!");
-      err.statusCode = 404;
-      throw err;
-    }
+    // Delete the lesson and associated discussion forum
+  
+    const deletedQuizz = await Quizz.findByIdAndDelete(_id);
 
-    if (req.userId !== quiz.created_by.toString()) {
-      const err = new ProjectError("You are not authorized!");
-      err.statusCode = 403;
-      throw err;
-    }
-
-    if (quiz.is_published) {
-      const err = new ProjectError("You cannot update, published Quiz!");
-      err.statusCode = 405;
-      throw err;
-    }
-    if (quiz.name != req.body.name) {
-      let status = await isValidQuizName(req.body.name);
-      if (!status) {
-        const err = new ProjectError("Please enter an unique quiz name.");
-        err.statusCode = 422;
-        throw err;
-      }
-      quiz.name = req.body.name;
-    }
-    quiz.questions_list = req.body.questions_list;
-    quiz.answers = req.body.answers;
-
-    await quiz.save();
-
-    const resp: ReturnResponse = {
-      status: "success",
-      message: "Quiz updated successfully",
-      data: {},
-    };
-    res.status(200).send(resp);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const deleteQuiz: RequestHandler = async (req, res, next) => {
-  try {
-    const quizId = req.params.quizId;
-    const quiz = await Quiz.findById(quizId);
-
-    if (!quiz) {
-      const err = new ProjectError("Quiz not found!");
-      err.statusCode = 404;
-      throw err;
-    }
-
-    if (req.userId !== quiz.created_by.toString()) {
-      const err = new ProjectError("You are not authorized!");
-      err.statusCode = 403;
-      throw err;
-    }
-
-    if (quiz.is_published) {
-      const err = new ProjectError("You cannot delete, published Quiz!");
-      err.statusCode = 405;
-      throw err;
-    }
-
-    await Quiz.deleteOne({ _id: quizId });
-    const resp: ReturnResponse = {
-      status: "success",
-      message: "Quiz deleted successfully",
-      data: {},
-    };
-    res.status(200).send(resp);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const publishQuiz: RequestHandler = async (req, res, next) => {
-  try {
-    const quizId = req.body.quizId;
-    const quiz = await Quiz.findById(quizId);
-
-    if (!quiz) {
-      const err = new ProjectError("Quiz not found!");
-      err.statusCode = 404;
-      throw err;
-    }
-
-    if (req.userId !== quiz.created_by.toString()) {
-      const err = new ProjectError("You are not authorized!");
-      err.statusCode = 403;
-      throw err;
-    }
-
-    if (!!quiz.is_published) {
-      const err = new ProjectError("Quiz is already published!");
-      err.statusCode = 405;
-      throw err;
-    }
-
-    quiz.is_published = true;
-    await quiz.save();
-    const resp: ReturnResponse = {
-      status: "success",
-      message: "Quiz published!",
-      data: {},
-    };
-    res.status(200).send(resp);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const isValidQuiz = async (
-  questions_list: [{ question_number: Number; question: String; options: {} }],
-  answers: {}
-) => {
-  if (!questions_list.length) {
-    return false;
-  }
-  if (questions_list.length != Object.keys(answers).length) {
-    return false;
-  }
-  let flag = true;
-  questions_list.forEach(
-    (question: { question_number: Number; question: String; options: {} }) => {
-      let opt = Object.keys(question["options"]);
-      if (
-        opt.indexOf(
-          `${
-            Object.values(answers)[
-              Object.keys(answers).indexOf(question.question_number.toString())
-            ]
-          }`
-        ) == -1
-      ) {
-        flag = false;
-      }
-    }
+     // Remove the lesson ID from the associated course
+  const course = await Course.findOneAndUpdate(
+    { quizzes: _id }, // Find the course that has the lesson ID in its lessons array
+    { $pull: { quizzes: _id } }, // Remove the lesson ID from the lessons array field
+    { new: true }
   );
-  return flag;
-};
+    
+    if (!deletedQuizz) {
+      return res.status(404).json({ message: 'quizz not found' });
+    }
 
-const isValidQuizName = async (name: String) => {
-  const quiz = await Quiz.findOne({ name });
-  if (!quiz) {
-    return true;
+    res.status(200).json({ message: 'quizz deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-  return false;
-};
-
-export {
-  createQuiz,
-  getQuiz,
-  updateQuiz,
-  deleteQuiz,
-  publishQuiz,
-  isValidQuiz,
-  isValidQuizName,
 };

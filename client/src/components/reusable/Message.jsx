@@ -10,4 +10,4 @@ const Message = ({handleClick}) => {
   )
 }
 
-export default Message
+export default Message;

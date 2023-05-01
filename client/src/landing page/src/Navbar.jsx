@@ -8,7 +8,7 @@ const Navbar = () => {
   const [focused, setFocused] = useState([true, false, false]);
 
   return (
-    <header className="box-shadow sticky top-0 z-10 w-full  bg-primary">
+    <header className="box-shadow sticky top-0 z-10 w-full bg-primary">
       <nav className="z-10 mx-auto max-w-[1280px]">
         <ul className="z-10 flex min-h-full items-center justify-between">
           <li>

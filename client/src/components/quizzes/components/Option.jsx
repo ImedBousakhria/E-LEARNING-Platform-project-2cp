@@ -6,7 +6,7 @@ const Option = ({ text, onClick, isChosen, timeUp, isCorrect }) => {
       className={` ${
         timeUp && isChosen
           ? isCorrect
-            ? "bg-correct text-white"
+            ? "bg-green text-white"
             : "bg-wrong text-white"
           : null
       }
