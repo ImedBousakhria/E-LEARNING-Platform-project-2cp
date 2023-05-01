@@ -1,14 +1,17 @@
-import React from 'react'
-import search from "../../assets/icons/search.svg";
+import React from "react";
+import search from "../../assets/icons/searchTwo.svg";
+import { useForm } from "react-hook-form";
 
-
-const Search = ({handleClick}) => {
+const Search = ({  }) => {
+  const { register } = useForm();
   return (
-    <button onClick={handleClick} className="flex items-center gap-2 rounded-[10px] border border-gray p-3 ">
+    <form className="flex bg-white items-center gap-2 rounded-[10px] border border-gray p-1 ">
+      <label htmlFor="search">
+        <input className="bg-transparant border-0 outline-none focus:outline-none" placeholder="Search" id="search" type="text" {...register("search")} />
+      </label>
       <img src={search} />
-      <p className='text-gray w-[8rem] text-[1rem] text-left'>Search</p>
-    </button>
+    </form>
   );
-}
+};
 
-export default Search
+export default Search;

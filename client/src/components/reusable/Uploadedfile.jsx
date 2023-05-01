@@ -16,7 +16,7 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
       {file.type.startsWith("image/") ? (
         <img
           src={URL.createObjectURL(file)}
-          className=" aspect-square w-24 cursor-pointer rounded-xl object-contain"
+          className="h-[3.75rem] w-[24.1875rem] cursor-pointer rounded-xl object-contain"
         />
       ) : file.type.includes("pdf") ? (
         <div className="relative mx-auto max-w-lg">
@@ -26,9 +26,13 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
           >
             X
           </button>
-          <Document file={file} className="rounded-lg shadow-lg">
+          <div className="h-[3.75rem] w-[24.1857rem] object-contain overflow-hidden"> 
+            <Document file={file} className="rounded-lg shadow-lg">
             <Page pageNumber={1} scale={1} width={100} />
           </Document>
+          </div>
+
+          
         </div>
       ) : null}
       <p className=" w-24 truncate break-all text-xs ">{fileName}</p>

@@ -1,9 +1,7 @@
 import React from "react";
 import quit from "../../assets/icons/quit.svg";
 
-const Cancel = ({text}) => {
-const Cancel = ({onClick
-}) => {
+const Cancel = ({text ,onClick}) => {
   return (
     <button
       type="submit"

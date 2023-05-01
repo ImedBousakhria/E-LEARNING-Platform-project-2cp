@@ -5,6 +5,7 @@ import Allcourses from "../../../components/courses/Allcourses";
 import Newlesson from "../../../components/courses/Newlesson";
 import Courses from "../../../components/courses/Courses";
 import { CoursesContext } from "../Teachercourses";
+import StudentAssignment from "../../../components/courses/StudentAssignment";
 
 const Coursemain = ({index}) => {
   const { editMode } = useContext(CoursesContext);
@@ -25,6 +26,7 @@ const Coursemain = ({index}) => {
       <Courses />
       <Newlesson />
       <Allcourses index = {index} />
+      <StudentAssignment />
     </div>
   );
 };
