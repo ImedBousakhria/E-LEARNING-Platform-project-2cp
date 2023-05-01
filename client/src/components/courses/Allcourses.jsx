@@ -12,7 +12,7 @@ import Lesson from "./Lesson";
 import Delete from "../reusable/Delete";
 import { CoursesContext } from "../../content page/Courses/Teachercourses";
 
-const Allcourses = ({index}) => {
+const Allcourses = ({ index }) => {
   const [iconRotation, setIconRotation] = useState(0);
   const {
     activeCardIndex,
@@ -74,7 +74,7 @@ const Allcourses = ({index}) => {
         </p>
 
         <div className="flex items-center gap-4">
-        <button
+          <button
             className={`${
               isPrevDisabled ? "opacity-50" : ""
             } rotate-180 cursor-pointer`}
@@ -96,26 +96,26 @@ const Allcourses = ({index}) => {
 
       <div className="flex flex-col gap-2">
         <header className="flex items-center gap-3 py-2 px-4">
-            <input
-              type="checkbox"
-              onChange={handleCheckAll}
-              checked={
-                Object.keys(checkedLessons).length === lessons.length &&
-                Object.keys(checkedLessons).every((id) => checkedLessons[id] )
-                        }
-              className=" aspect-square h-3.5 w-3.5 max-w-max accent-accent"
-            /> 
-          
-          <div className="flex justify-between basis-[100%]">
+          <input
+            type="checkbox"
+            onChange={handleCheckAll}
+            checked={
+              Object.keys(checkedLessons).length === lessons.length &&
+              Object.keys(checkedLessons).every((id) => checkedLessons[id])
+            }
+            className=" aspect-square h-3.5 w-3.5 max-w-max accent-accent"
+          />
+
+          <div className="flex basis-[100%] justify-between">
             <div
-              className="flex flex-shrink-0 cursor-pointer items-center gap-1 basis-[30%] "
+              className="flex flex-shrink-0 basis-[30%] cursor-pointer items-center gap-1 "
               onClick={handleIconClick}
             >
               <img src={darkarrow} alt="" />
               <small>Name</small>
             </div>
             <div
-              className="flex cursor-pointer items-center gap-1 basis-[30%]"
+              className="flex basis-[30%] cursor-pointer items-center gap-1"
               onClick={handleIconClick}
             >
               <img src={darkarrow} alt="" />
@@ -123,7 +123,7 @@ const Allcourses = ({index}) => {
             </div>
 
             <div
-              className="flex cursor-pointer flex-shrink-0 items-center gap-1 basis-[30%]"
+              className="flex flex-shrink-0 basis-[30%] cursor-pointer items-center gap-1"
               onClick={handleIconClick}
             >
               <img src={darkarrow} alt="" />
@@ -132,7 +132,6 @@ const Allcourses = ({index}) => {
             <div className=" ">
               <Delete text="Delete" />
             </div>
-            
           </div>
         </header>
 

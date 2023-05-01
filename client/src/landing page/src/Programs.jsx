@@ -26,7 +26,7 @@ const Programs = () => {
           <Swiper
             spaceBetween={0}
             slidesPerView={4}
-            navigation
+           navigation
           >
             {programs.map((Element, index) => {
               return (

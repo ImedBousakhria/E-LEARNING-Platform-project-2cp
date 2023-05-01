@@ -11,7 +11,7 @@ const Day = ({ date, text, handleclick, select, index }) => {
         color: select === index ? "white" : "hsla(0, 0%, 72%, 1)",
         borderWidth:select === index ? "0" : "1px" , 
       }}
-      className="btndayclass day w-[70%]  rounded-[10px] border border-darkgray px-1  py-3 text-center hover:bg-accent hover:text-white"
+      className="btndayclass day w-[70%]  rounded-[10px] border border-darkgray p-1   text-center hover:bg-accent hover:text-white"
     >
       <p className="font-bold">{date}</p>
       <p className=" capitalize ">{text}</p>

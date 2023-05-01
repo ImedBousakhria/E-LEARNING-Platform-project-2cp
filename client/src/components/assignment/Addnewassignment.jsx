@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IndexElementContext } from "../../content page/Assignment/Assignment";
 import Cancel from "../reusable/Cancel";
@@ -6,8 +6,12 @@ import Save from "../reusable/Save";
 import Filesdisplays from "../reusable/Filesdisplays";
 import Publish from "../reusable/Publish";
 import ArrachFile from "../reusable/ArrachFile";
+import Attachfile from "../reusable/Attachfile";
+import Uploadedfile from "../reusable/Uploadedfile";
 
 const Addnewassignment = () => {
+    const inputRef = useRef(null);
+
   const { register, handleSubmit, reset } = useForm();
 
   const { elementIndex, editMode, firstContent } =
@@ -19,6 +23,22 @@ const Addnewassignment = () => {
   const handleAddedFile = (e) => {
     setFiles([...files, e.target.files[0]]);
     console.log(e.target.files[0]);
+  };
+
+  const handleFileUpload = () => {
+    inputRef.current.click();
+  };
+
+  const handleFileSelected = (event) => {
+    const selectedFiles = Array.from(event.target.files);
+    setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+    console.log(files);
+  };
+  const handleRemoveFile = (index) => {
+    const newArray = files.filter((Element, i) => {
+      return index != i;
+    });
+    setFiles(newArray);
   };
 
   /* function handleFileUpload(event) {
@@ -154,14 +174,33 @@ const Addnewassignment = () => {
         <div className="flex basis-[49%] flex-col gap-4">
           <div className="flex flex-col gap-4">
             <div className="flex gap-2">
-              <Filesdisplays
+              <div className=" basis-[80%] pb-4">
+                <div className="flex flex-wrap items-center gap-2">
+                  {files.map((file, index) => (
+                    <Uploadedfile
+                      fileName={file.name}
+                      file={file}
+                      onRemove={() => handleRemoveFile(index)}
+                    />
+                  ))}
+                </div>
+                <input
+                  type="file"
+                  accept=".pdf, image/*"
+                  multiple="true"
+                  ref={inputRef}
+                  style={{ display: "none" }}
+                  onChange={handleFileSelected}
+                />
+              </div>
+              {/* <Filesdisplays
                 files={
                   editMode[0]
                     ? firstContent[0][elementIndex[0] - 1].files
                     : files
                 }
                 handleDeleteFile={setFiles}
-              />
+              /> */}
             </div>
 
             <label htmlFor="Deadline(Date and time input)">
@@ -184,7 +223,8 @@ const Addnewassignment = () => {
                 <Cancel onClick={() => setCancel(true)} />
               </div>
             ) : null}
-            <ArrachFile handleChange={handleAddedFile} />
+            {/* <ArrachFile handleChange={handleAddedFile} /> */}
+            <Attachfile onClick={handleFileUpload} />
             {editMode[0] ? <Save /> : <Publish />}
           </div>
         </div>

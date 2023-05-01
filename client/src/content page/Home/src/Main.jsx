@@ -10,6 +10,7 @@ import Activitiesheader from "../../../components/super/Activitiesheader";
 import Activitiesbody from "../../../components/super/Activitiesbody";
 import Bluredbg from "../../../components/reusable/Bluredbg";
 import SearchForm from "../../../components/super/SearchForm";
+import PopUp from "../../../components/super/PopUp";
 
 const Main = () => {
   let user = "said";
@@ -21,9 +22,12 @@ const Main = () => {
   return (
     <div className="relative flex basis-[60%] flex-col gap-4 bg-primary p-8">
       <div className="flex  justify-between">
-        {searchMode[0] ? <Bluredbg /> : null}
-        {searchMode[0] ? <SearchForm handleClick={handleClick} /> : null}
-
+        {/* {searchMode[0] ? <Bluredbg /> : null} */}
+{/*         {searchMode[0] ? <SearchForm handleClick={handleClick} /> : null}
+ */}  
+        
+        {/* <Bluredbg />
+        <PopUp /> */}
         <div>
           <h1 className="text-[25px]">Elites School E-learning platform</h1>
           <p className="text-darkgray">
@@ -31,7 +35,7 @@ const Main = () => {
           </p>
         </div>
         <div>
-          <Search handleClick={handleClick} />
+          <Search />
         </div>
       </div>
       <div className="flex flex-wrap justify-between gap-4">
