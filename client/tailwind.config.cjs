@@ -7,7 +7,7 @@ module.exports = {
       primary: "hsla(210, 44%, 94%, 1)",
       accent: "hsla(229, 100%, 66%, 1)",
       blue: "hsla(197, 100%, 61%, 1)",
-      red: "hsla(0, 100%, 67%, 1)",
+      redone: "hsla(0, 100%, 67%, 1)",
       nightblue: "hsla(214, 84%, 15%, 1)",
       navy: "hsla(182, 73%, 63%, 1)",
       transparant: "hsla(0,0%,0%,0)",
