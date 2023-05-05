@@ -10,14 +10,24 @@ const lessonSchema = new mongoose.Schema({
     type: String,
     // required: true,
   },
-  gallery: [
-    {
-      contentType: String,
-      data: Buffer,
-      created: { type: Date, default: Date.now },
-      // postedBy: { type: mongoose.Schema.ObjectId, ref: 'User' }
+  // gallery: [
+  //   {
+  //     contentType: String,
+  //     data: Buffer,
+  //     created: { type: Date, default: Date.now },
+  //     // postedBy: { type: mongoose.Schema.ObjectId, ref: 'User' }
+  //   }
+  // ],
+  image: {
+    public_id: {
+        type: String,
+        required: true
+    },
+    url: {
+        type: String,
+        required: true
     }
-  ],
+},
   course: { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },
   discussionForum: { type: mongoose.Schema.Types.ObjectId, ref: 'DiscussionForum' },
   created: {

@@ -19,7 +19,7 @@ module.exports.getCourse = async (req, res)=>{
         const course = await Course.findById({_id})
         // .populate('teachers', 'firstName lastName')
         // .populate('students', 'firstName lastName')
-
+        .populate('quizzes', 'name content ') 
         if(course){
             res.status(200).json(course);
             console.log("Course found");

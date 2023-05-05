@@ -91,6 +91,7 @@ module.exports.insertUser = async (req, res) =>{
 
 }
 
+
 module.exports.updateUser = async (req, res) =>{
     _id = req.params.id;
     try{
