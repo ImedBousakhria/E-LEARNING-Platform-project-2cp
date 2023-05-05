@@ -63,12 +63,12 @@ const userSchema = new mongoose.Schema({
     //   enum: ["general", "pro", "other"],
     //   default: "general"
     // }
-  }]
+  }],
 
-  // notifications: [{
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Notification'
-  // }]
+  notifications: [{
+     type: mongoose.Schema.Types.ObjectId,
+     ref: 'Notification'
+   }]
 
   }, {timestamps: true});
   
