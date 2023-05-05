@@ -6,6 +6,8 @@ import { announcement } from "./content/main";
 export const homeContext = createContext() ;
 
 const Home = ({ index }) => {
+
+
   const firstContent = useState(recentLesson); 
   const elementIndex = useState(null) ; 
   const showDiscussion = useState("hidden") ;

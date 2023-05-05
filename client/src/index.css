@@ -121,17 +121,18 @@
 
 .swiper-button-next::after,
 .swiper-button-prev::after {
-  @apply text-[2rem]  text-accent !important;
-}
-.swiper-button-prev {
-  @apply !important;
+  @apply   text-accent !important;
 }
 
+
+.swiper-slide {
+  @apply flex justify-center items-center !important ; 
+}
 .swiper {
-  @apply basis-full  !important;
+  @apply basis-full relative  !important;
 }
-.swiper-wrapper {
-}
+
+
 
 /* calendar style */
 #saturday0 {

@@ -25,4 +25,15 @@ router.post("/upload", upload.array('image'), (req, res) => {
     res.send("it worked");
   })
 
+
+// router.post('/lesson/create', upload.array('files'), lessonsController.createLesson);
+
+// router.post("/upload", upload.array('files'), (upload.array('files')req, res) => {
+//     console.log(req.body, req.files);
+//     res.send("it worked");
+//   })
+
+// router.put('/lesson/update/:id', lessonController.updateLesson);
+// router.delete('/lesson/delete/:id', lessonController.deleteLesson);
+
 module.exports = router;
