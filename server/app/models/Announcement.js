@@ -9,13 +9,6 @@ const announcementSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
-    // gallery: 
-    // [{
-    // contentType: String,
-    // data: Buffer,
-    // created: { type: Date, default: Date.now },
-    // postedBy: {type: mongoose.Schema.ObjectId, ref: 'User'}
-    // }]
     gallery: [
       {
         contentType: String,
