@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 import example from "./example.pdf";
 const Uploadedfile = ({ fileName, file, onRemove }) => {
+  const [image, setImage] = useState(null) ; 
   if (file.type.startsWith("image/")) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      console.log(reader.result);
-
+      setImage(reader.result) ; 
       /* setImage(reader.result) ; 
       console.log(reader.result) */
     };
   } else if (file.type.includes("pdf")) {
+    console.log(file) ; 
     const reader = new FileReader();
     reader.readAsBinaryString(file);
     reader.onloadend = () => {
@@ -22,7 +23,6 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
         bytes[i] = reader.result.charCodeAt(i);
       } */
       var base64String = window.btoa(reader.result);
-      console.log(base64String); 
       // Encode the Uint8Array as a base64 string using TextEncoder
       /* console.log(bytes);
       var base64String = String.fromCharCode(...bytes);
@@ -41,10 +41,13 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
         X
       </button>
       {file.type.startsWith("image/") ? (
-        <img
-          src={URL.createObjectURL(file)}
-          className="h-[3.75rem] w-[24.1875rem] cursor-pointer rounded-xl object-contain"
+        <div className="basis-[25%]">
+          <img
+          src={image}
+          className="h-[3.75rem] w-full  rounded-xl object-contain"
         />
+          </div>
+        
       ) : file.type.includes("pdf") ? (
         <div className="relative">
           <button
@@ -53,7 +56,7 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
           >
             X
           </button>
-          <div className="h-[3.75rem] w-[24.1857rem] overflow-hidden object-contain">
+          <div className="h-[3.75rem] basis-[25%] overflow-hidden object-contain">
             <Document file={file} className="rounded-lg shadow-lg">
               <Page pageNumber={1} scale={1} width={100} />
             </Document>
