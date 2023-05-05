@@ -1,12 +1,8 @@
 const Course = require('../models/Course') ;
-const User = require("../models/User");
-const multer = require('multer');
-const upload = require('../middleware/uploadMiddleware');
 const fs = require('fs');
-const path = require('path');
 const Lesson = require('../models/Lesson');
 const Discussion = require('../models/Discussion');
-const mongoose = require('mongoose');
+
 
 
 
