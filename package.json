@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "cloudinary": "^1.36.4",
     "vite": "^4.3.3"
   }
 }

@@ -38,7 +38,7 @@ module.exports.getAllLessons = async (req, res) => {
 module.exports.createLesson = [
   async (req, res) => {
     try {
-      // Check if the request body contains base64 encoded file data
+       // Check if the request body contains base64 encoded file data
       if (req.body.file) {
         // Decode the base64 data to a Buffer
         const fileData = Buffer.from(req.body.file, 'base64');
@@ -63,36 +63,35 @@ module.exports.createLesson = [
         contentType: file.mimetype,
         data: file.buffer,
         // postedBy: req.user._id
-      }));
-
+      })); 
+       const course = await Course.findById(req.body.course);
       // Create the lesson object
       const lesson = new Lesson({
         title: req.body.title,
         description: req.body.description,
-        gallery: gallery,
+        // gallery: req.body.gallery,
         course: req.body.course
       });
 
         // Create discussion forum associated with the lesson
-        const discussion = new Discussion({
+         const discussion = new Discussion({
         lesson: lesson._id,
         messages: []
        });
-       await discussion.save();
+       await discussion.save(); 
        
-       const users = [...course.students, ...course.teachers];
+       //const users = [course.students, course.teachers];
 
-       for (const user of users) {
+       ////for (const user of users) {
           const notification = {
-          user: user,
+          user: "644150134334ed77cecc938e",
           sender: req.user._id,
           message: `New lesson "${lesson.title}" created in ${course.title}`
         };
       await addNotification(notification);
-      }
+      //}
       
        // Add the new lesson to the course
-       const course = await Course.findById(req.body.course);
        course.lessons.push(lesson._id);
        await course.save();
 

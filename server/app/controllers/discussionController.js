@@ -1,31 +1,67 @@
-const discussion = require('../models/Discussion');
+const Discussion = require('../models/Discussion');
 const Lesson = require('../models/Lesson');
 
-  exports.getMessages = async (req, res, next) => {
+exports.createDiscussion = async (req, res) => {
+  try {
+    const { lessonId } = req.body;
+    const lesson = await Lesson.findById(lessonId);
+    if (!lesson) {
+      return res.status(404).json({ message: 'Lesson not found' });
+    }
+    const newDiscussion = new Discussion({
+      lesson: lesson._id,
+    });
+    const savedDiscussion = await newDiscussion.save();
+    res.status(201).json(savedDiscussion);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+exports.getMessages = async (req, res, next) => {
   try {
     const { lessonId } = req.params;
-    const discussion = await Discussion.findOne({ lesson: lessonId }).populate('messages.user', 'name');
+    const discussion = await Discussion
+      .findOne({ lesson: lessonId })
+      .populate('messages.user', 'name');
     const io = req.app.get('io');
     io.emit(`discussion-${lessonId}`, discussion);
     res.status(200).json(discussion);
   } catch (error) {
-    res.status(500).json({message: error.message});
+    res.status(500).json({ message: error.message });
   }
 };
-  
-  exports.postMessage = async (req, res, next) => {
+
+exports.postMessage = async (req, res, next) => {
   try {
-    const { lessonId } = req.params;
-    const { text, userId } = req.body;
+    const { lessonId, text, userId } = req.body;
     const discussion = await Discussion.findOneAndUpdate(
       { lesson: lessonId },
       { $push: { messages: { text, userId } } },
       { new: true, upsert: true }
     ).populate('messages.user', 'name');
     const io = req.app.get('io');
-    io.emit(`discussion-${lessonId}`, discussion); 
+    io.emit(`discussion-${lessonId}`, discussion);
     res.status(200).json(discussion);
   } catch (error) {
-    res.status(500).json({message: error.message});
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.deleteDiscussion = async (req, res, next) => {
+  try {
+    const { lessonId, discussionId } = req.params;
+    const deletedDiscussion = await Discussion.findOneAndDelete({
+      _id: discussionId,
+      lesson: lessonId,
+    });
+    if (!deletedDiscussion) {
+      return res.status(404).json({ message: 'Discussion not found' });
+    }
+    const io = req.app.get('io');
+    io.emit(`discussion-${lessonId}`, { _id: discussionId });
+    res.status(200).json(deletedDiscussion);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

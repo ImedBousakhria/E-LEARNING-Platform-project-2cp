@@ -1,4 +1,6 @@
 const Assignment = require('../models/Assignment');
+const Notification = require('../models/Notification');
+const notificationRoute = require('../routes/notificationRoute');
 
 // Get all assignments
 exports.getAllAssignments = async (req, res) => {
@@ -28,12 +30,19 @@ exports.createAssignment = async (req, res) => {
   const assignment =  new Assignment({
     title: req.body.title,
     description: req.body.description,
-    dueDate: req.body.dueDate
+    dueDate: req.body.dueDate,
+    course: req.body.course
+  });
+   const notification = new Notification({
+    user: "644167a082161f42040c7c5f",
+    //sender: req.user._id,
+    message: `New assignment`
   });
 
   try {
     const newAssignment = await assignment.save();
-    res.status(201).json(newAssignment);
+    const newNotification= await notification.save(); // Save the new notification
+    res.status(201).json(newNotification);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

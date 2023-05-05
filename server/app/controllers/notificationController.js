@@ -5,6 +5,12 @@ exports.addNotification = async (req, res, next) => {
     const { user, sender, message } = req.body;
     const notification = new Notification({ user, sender, message });
     await notification.save();
+    // Find the user and update their notifications array
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: user },
+      { $push: { notifications: notification._id } },
+      { new: true }
+    );
     res.status(201).json(notification);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -13,9 +19,9 @@ exports.addNotification = async (req, res, next) => {
 
 exports.getNotifications = async (req, res, next) => {
   try {
-    const { user } = req;
-    const notifications = await Notification.find({ user }).sort({ createdAt: -1 });
-    array.forEach(notifications => {
+    const userId = "644167a082161f42040c7c5f";
+    const notifications = await Notification.find({user: userId}).sort({ createdAt: -1 });
+    notifications.forEach(notification => {
       notification.read = true
     });
     res.status(200).json(notifications);
