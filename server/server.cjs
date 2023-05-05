@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const { json } = require('express');
+const fileUpload = require('express-fileupload');
 app.use(cors());
 
 const cookieParser = require('cookie-parser');
@@ -13,6 +14,26 @@ const bodyParser = require('body-parser');
 
 app.use(express.json({ limit: '1000mb' })); // Increase limit to 10 MB
 app.use(express.urlencoded({ limit: '1000mb', extended: true }));
+
+// Middleware for parsing multipart/form-data
+app.use(fileUpload());
+
+// Route for handling file upload
+app.post('/upload', (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  // The name of the input field (i.e. "file") is used to retrieve the uploaded file
+  const file = req.files.file;
+
+  // Use the mv() method to place the file somewhere on your server
+  file.mv('/path/to/destination/filename.ext', (err) => {
+    if (err) return res.status(500).send(err);
+
+    res.send('File uploaded!');
+  });
+});
 
 const userRoute = require('./app/routes/userRoute');
 const courseRoute = require('./app/routes/courseRoute');
@@ -23,7 +44,8 @@ const courseRoute = require('./app/routes/courseRoute');
 const commentRoute = require('./app/routes/commentRoute');
 const quizzRoute = require('./app/routes/quizzRoute');
 const scheduleRoute = require('./app/routes/scheduleRoute');
-const lessonRoute = require('./app/routes/lessonRoute');
+// const lessonRoute = require('./app/routes/lessonRoute');
+const lessonRoute = require('./app/routes/lessonsRoute');
 const adminRoute = require('./app/routes/adminRoute.js');
 const announcementRoute = require('./app/routes/announcementRoute.js');
 

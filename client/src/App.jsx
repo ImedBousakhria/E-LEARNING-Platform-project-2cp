@@ -25,10 +25,6 @@ const App = () => {
           <Route path={"/"} element={<Main />}></Route>
           <Route path={"/Home"} element={<Mainapp />}></Route>
           <Route path={"/login"} element={<Login />}></Route>
-          <Route
-            path="/Teacher/assignment"
-            element={<Teacherassignment />}
-          ></Route>
         </Routes>
         
         <ReactQueryDevtools />
