@@ -80,12 +80,16 @@ module.exports.createLesson = [
        });
        await discussion.save();
        
-       const notification = {
-        users: [course.students,course.teachers],
-        sender: req.user._id,
-        message: `New lesson "${lesson.title}" created in ${course.title}`
-      };
+       const users = [...course.students, ...course.teachers];
+
+       for (const user of users) {
+          const notification = {
+          user: user,
+          sender: req.user._id,
+          message: `New lesson "${lesson.title}" created in ${course.title}`
+        };
       await addNotification(notification);
+      }
       
        // Add the new lesson to the course
        const course = await Course.findById(req.body.course);

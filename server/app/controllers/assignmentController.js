@@ -1,4 +1,4 @@
-const Assignment = require('../models/assignment');
+const Assignment = require('../models/Assignment');
 
 // Get all assignments
 exports.getAllAssignments = async (req, res) => {

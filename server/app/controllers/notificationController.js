@@ -2,8 +2,8 @@ const Notification = require('../models/Notification');
 
 exports.addNotification = async (req, res, next) => {
   try {
-    const { users, sender, message } = req.body;
-    const notification = new Notification({ users, sender, message });
+    const { user, sender, message } = req.body;
+    const notification = new Notification({ user, sender, message });
     await notification.save();
     res.status(201).json(notification);
   } catch (error) {
@@ -15,6 +15,9 @@ exports.getNotifications = async (req, res, next) => {
   try {
     const { user } = req;
     const notifications = await Notification.find({ user }).sort({ createdAt: -1 });
+    array.forEach(notifications => {
+      notification.read = true
+    });
     res.status(200).json(notifications);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -49,8 +52,8 @@ exports.markNotificationAsRead = async (req, res, next) => {
 
 exports.markAllNotificationsAsRead = async (req, res, next) => {
   try {
-    const { user } = req;
-    const notifications = await Notification.updateMany({ user }, { read: true });
+    const { users } = req;
+    const notifications = await Notification.updateMany({ users }, { read: true });
     res.status(200).json({ message: 'All notifications marked as read' });
   } catch (error) {
     res.status(500).json({ message: error.message });
