@@ -1,31 +1,33 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const assignmentSchema = new mongoose.Schema({
-    title: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    gallery: [
-      {
-        contentType: String,
-        data: Buffer,
-        created: { type: Date, default: Date.now },
-        // postedBy: { type: mongoose.Schema.ObjectId, ref: 'User' }
-      }
-    ],
-    deadline: {
-      type: Date,
-      required: true,
-    },
-    course: { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },
-    submissions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Submission' }]
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  dueDate: {
+    type: Date,
+    required: true
+  },
+  submissions: 
+  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Submission' }],
+  gallery: [
+    {
+      contentType: String,
+      data: Buffer,
+      created: { type: Date, default: Date.now },
+    }
+  ],
+  course: { 
+    type: mongoose.Schema.Types.ObjectId,
+     ref: 'Course'
+   },
+});
 
-  }, {timestamps: true});
-  
-const Assignment = mongoose.model("Assegnment", assignmentSchema);
+const Assignment = mongoose.model('Assignment', assignmentSchema);
 
 module.exports = Assignment;
