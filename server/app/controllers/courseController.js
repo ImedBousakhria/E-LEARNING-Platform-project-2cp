@@ -27,7 +27,7 @@ module.exports.getCourse = async (req, res)=>{
         .populate('teachers')
         .populate('students')
         // .populate('announcements')
-        // .populate('assignments')
+        //.populate('assignments')
 
         if(course){
             res.status(200).json(course);
