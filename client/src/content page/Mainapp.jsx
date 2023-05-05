@@ -28,7 +28,7 @@ const Mainapp = () => {
     async ({ queryKey }) => {
       const id = queryKey[1];
       try {
-        const res = await fetch(`http://localhost:3000/user/get/${id}`);
+        const res = await fetch(`http://localhost:3000/user/get/${id}`, {method:"GET"});
         const data = await res.json();
         console.log(data.firstName);
         console.log(data.notifications);
