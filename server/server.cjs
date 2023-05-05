@@ -44,11 +44,7 @@ const commentRoute = require('./app/routes/commentRoute');
 const quizzRoute = require('./app/routes/quizzRoute');
 const scheduleRoute = require('./app/routes/scheduleRoute');
 
-// const lessonRoute = require('./app/routes/lessonRoute');
-const lessonRoute = require('./app/routes/lessonsRoute');
-
 const lessonRoute = require('./app/routes/lessonRoute');
-// const lessonRoute = require('./app/routes/lessonsRoute');
 
 const adminRoute = require('./app/routes/adminRoute.js');
 const announcementRoute = require('./app/routes/announcementRoute.js');
@@ -57,8 +53,7 @@ const submissionRoute = require('./app/routes/submissionRoute.js');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
-const fileUpload = require('express-fileupload');
-const cloudinary = require('cloudinary').v2;
+
 
 // cloudinary.config({
 //   cloud_name: 'drm1plsya',

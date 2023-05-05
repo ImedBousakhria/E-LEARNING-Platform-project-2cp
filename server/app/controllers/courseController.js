@@ -67,16 +67,6 @@ module.exports.postCourse = async (req, res)=>{
         })
         }
 
-            req.body.teachers.forEach(async teacherID => {
-                const teacher = await User.findById(teacherID);
-                teacher.courses.push({courseID: course._id});
-                teacher.save();
-            })
-        }
-       
-
-
-
         //add to students
         if(req.body.students){
             req.body.students.forEach(async studentID => {
