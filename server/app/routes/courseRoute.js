@@ -12,6 +12,7 @@ const router = Router();
 // router.put('/course/update/:id',requireAuth, requireTeacherOrAdmin, putCourse);
 // router.delete('/course/delete/:id',requireAuth, requireTeacherOrAdmin, deleteCourse);
 
+
 router.get('/course/getAll', courseController.getAllCourses);
 router.get('/course/get/:id', courseController.getCourse);
 router.post('/course/create', courseController.postCourse);

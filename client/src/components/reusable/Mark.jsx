@@ -11,7 +11,7 @@ const Mark = () => {
             ? setShowGiveMark("block")
             : setShowGiveMark("hidden");
         }}
-        className=" rounded-[5px] z-0 border border-blue p-1 text-blue"
+        className=" rounded-[5px] z-0 border border-accent bg-white p-[5px] text-accent"
       >
         Mark
       </button>

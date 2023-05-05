@@ -23,12 +23,41 @@ const courseRoute = require('./app/routes/courseRoute');
 const commentRoute = require('./app/routes/commentRoute');
 const quizzRoute = require('./app/routes/quizzRoute');
 const scheduleRoute = require('./app/routes/scheduleRoute');
-const lessonRoute = require('./app/routes/lessonRoute');
+// const lessonRoute = require('./app/routes/lessonRoute');
+const lessonRoute = require('./app/routes/lessonsRoute');
 const adminRoute = require('./app/routes/adminRoute.js');
 const announcementRoute = require('./app/routes/announcementRoute.js');
 
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+
+const fileUpload = require('express-fileupload');
+const cloudinary = require('cloudinary').v2;
+
+// cloudinary.config({
+//   cloud_name: 'drm1plsya',
+//   api_key: '244718275158996',
+//   api_secret: 'BA0bj6Cf017emcbfnDfeXUUA3Sk'
+// })
+
+//middlware
+app.use(express.json());
+app.use(fileUpload({
+  useTempFiles: true,
+  limits: { fileSize: 50 * 1024 * 1024}
+
+}));
+
+// app.post('/upload', (req, res) => {
+//   const file = req.files.image;
+//   const result = cloudinary.uploader.upload(file.tempFilePath, {
+//     public_id: `${Date.now()}`,
+//     resource_type: 'auto',
+//     folder: ".\images"
+//   });
+//   res.json(result.url);
+// });
+
 
 io.on('connection', (socket) => {
   console.log('A user connected');
@@ -39,7 +68,6 @@ io.on('connection', (socket) => {
 
 app.set('io', io);
 app.use(cors());
-app.use(express.json());
 app.use(cookieParser());
 
 
@@ -73,9 +101,9 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
   app.use(adminRoute);
   app.use(announcementRoute);
   
-    // Set the maximum request body size to 10mb
-app.use(bodyParser.json({ limit: '1000mb' }));
-app.use(bodyParser.urlencoded({ limit: '1000mb', extended: true, parameterLimit:50000 }));
+//     // Set the maximum request body size to 10mb
+// app.use(bodyParser.json({ limit: '1000mb' }));
+// app.use(bodyParser.urlencoded({ limit: '1000mb', extended: true, parameterLimit:50000 }));
 
 
 

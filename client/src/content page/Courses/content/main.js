@@ -64,3 +64,30 @@ export const lessons = [
     content: "lesson",
   },
 ];
+
+export const studentAssignment = [
+  {
+    assignmentName : "assignment name", 
+    deadline:"12-03-23", 
+    missed:false , 
+    mark:"04/10", 
+  },
+  {
+    assignmentName : "assignment name", 
+    deadline:"12-03-23", 
+    missed:false , 
+    mark:null
+  },
+  {
+    assignmentName : "assignment name", 
+    deadline:"12-03-23", 
+    missed:true , 
+    mark:null
+  },
+  {
+    assignmentName : "assignment name", 
+    deadline:"12-03-23", 
+    missed:false , 
+    mark:"04/10"
+  }
+]

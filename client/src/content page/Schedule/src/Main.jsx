@@ -17,11 +17,11 @@ const Main = () => {
   return (
     <calendarContext.Provider value={{ RenderTriger }}>
       <div className="relative flex basis-[60%] flex-col gap-4 bg-primary  p-8">
-        {searchMode[0] ? <Bluredbg type={"search"} /> : null}
-        {searchMode[0] ? <SearchForm handleClick={handleClick} /> : null}
+        {/* {searchMode[0] ? <Bluredbg type={"search"} /> : null}
+        {searchMode[0] ? <SearchForm handleClick={handleClick} /> : null} */}
         <div className="flex justify-between">
           <h1 className="text-[25px]">Schedule</h1>
-          <Search handleClick={handleClick} />
+          <Search />
         </div>
         <div className="flex flex-col gap-4">
           <Calendar />

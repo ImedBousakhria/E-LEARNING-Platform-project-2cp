@@ -109,7 +109,7 @@ module.exports.deleteComment = async (req, res) => {
     const comment = await Comment.findByIdAndDelete(_id);
     
   const announcement = await Announcement.findOneAndUpdate(
-    { comment: _id }, 
+    { comments: _id }, 
     { $pull: { comments: _id } }, 
     { new: true }
   );
