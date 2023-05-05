@@ -8,8 +8,14 @@ import Publish from "../reusable/Publish";
 import ArrachFile from "../reusable/ArrachFile";
 import Attachfile from "../reusable/Attachfile";
 import Uploadedfile from "../reusable/Uploadedfile";
+import { useQuery } from "@tanstack/react-query";
+import { propsContext } from "../../content page/Mainapp";
 
 const Addnewassignment = () => {
+
+  const [secodeFiles, setSecondFiles] = useState([]) ; 
+
+
     const inputRef = useRef(null);
 
   const { register, handleSubmit, reset } = useForm();
@@ -31,11 +37,33 @@ const Addnewassignment = () => {
 
   const handleFileSelected = (event) => {
     const selectedFiles = Array.from(event.target.files);
-    setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+    setSecondFiles([...secodeFiles, ...selectedFiles]) ;
+    console.log(event.target.files) ; 
+
+    if (event.target.files[0].type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onloadend = () => {
+        //console.log(reader.result); 
+        setFiles([...files, reader.result]) ;
+        console.log(files) ;  
+      };
+    } else if (event.target.files[0].type.includes("pdf")) {
+      const reader = new FileReader();
+      reader.readAsBinaryString(event.target.files[0]);
+      reader.onloadend = () => {
+        var base64String = window.btoa(reader.result);
+        setFiles([...files, base64String]) 
+        //console.log(base64String);
+        console.log(files);  
+
+      };
+    }
+
     console.log(files);
   };
   const handleRemoveFile = (index) => {
-    const newArray = files.filter((Element, i) => {
+    const newArray = secodeFiles.filter((Element, i) => {
       return index != i;
     });
     setFiles(newArray);
@@ -78,9 +106,9 @@ const Addnewassignment = () => {
           obj.name = data.name
             ? data.name
             : firstContent[0][elementIndex[0] - 1].name;
-          obj.groupe = data.groupe
-            ? data.groupe
-            : firstContent[0][elementIndex[0] - 1].groupe;
+          obj.course = data.course
+            ? data.course
+            : firstContent[0][elementIndex[0] - 1].course;
           obj.description = data.description
             ? data.description
             : firstContent[0][elementIndex[0] - 1].description;
@@ -110,6 +138,7 @@ const Addnewassignment = () => {
           obj.discussions = firstContent[0][elementIndex[0] - 1]?.discussions
             ? firstContent[0][elementIndex[0] - 1]?.discussions
             : [];
+            console.log(files) ; 
           obj.files = files
             ? files
             : firstContent[0][elementIndex[0] - 1].files;
@@ -128,6 +157,8 @@ const Addnewassignment = () => {
           }
           reset();
           setFiles([]);
+          setSecondFiles([]); 
+
         })}
         className="flex gap-[2%]"
       >
@@ -145,15 +176,15 @@ const Addnewassignment = () => {
               }
             />
           </label>
-          <label htmlFor="groupe">
+          <label htmlFor="course">
             <input
               type="text"
-              placeholder="groupe"
-              id="groupe"
-              {...register("groupe")}
+              placeholder="course"
+              id="course"
+              {...register("course")}
               defaultValue={
                 elementIndex[0] != null && editMode[0]
-                  ? firstContent[0][elementIndex[0] - 1].groupe
+                  ? firstContent[0][elementIndex[0] - 1].course
                   : null
               }
             />
@@ -175,10 +206,10 @@ const Addnewassignment = () => {
           <div className="flex flex-col gap-4">
             <div className="flex gap-2">
               <div className=" basis-[80%] pb-4">
-                <div className="flex flex-wrap items-center gap-2">
-                  {files.map((file, index) => (
+                <div className="flex flex-wrap w-full items-center gap-2">
+                  {secodeFiles.map((file, index) => (
                     <Uploadedfile
-                      fileName={file.name}
+                      fileName={"file.name"}
                       file={file}
                       onRemove={() => handleRemoveFile(index)}
                     />

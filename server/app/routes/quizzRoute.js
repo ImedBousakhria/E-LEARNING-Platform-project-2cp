@@ -11,5 +11,4 @@ router.post('/quizz/create', quizzController.createQuizz);
 router.patch('/quizz/update/:id', quizzController.updateQuizz);
 router.delete('/quizz/delete/:id', quizzController.deleteQuizz);
 
-
 module.exports = router;

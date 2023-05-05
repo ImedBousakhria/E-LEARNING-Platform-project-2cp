@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cancel from "../reusable/Cancel";
 import Quizzprogress from "./components/Quizzprogress";
 import CountdownCircle from "./components/CountdownCircle";
@@ -11,36 +11,38 @@ import D from "../../assets/scores/D.png";
 import F from "../../assets/scores/F.png";
 
 const Quizzcontainer = ({ name }) => {
-  /*  const [progress, setProgress] = useState(0);
-  const [timer, setTimer] = useState(10); */
   const [showQuizzContainer, setShowQuizzContainer] = useState(true);
   const [selectedAnswers, setSelected] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [timeUp, setTimeUp] = useState(false);
-  const [state, setState] = useState();
+  const [state, setState] = useState(null); // modified with score increase or not
+
   const OptionsSelected = () => {
     // all selected are correct and all correct are selected
     let correctList = [];
     let wrongList = [];
     quizz[currentIndex].options.forEach((option, index) => {
-      option.state === true ? correctList.push(index) : wrongList.push(index);
+      option.state ? correctList.push(index) : wrongList.push(index);
     });
     if (
       correctList.every((item) => selectedAnswers.includes(item)) &&
       wrongList.every((item) => !selectedAnswers.includes(item))
     ) {
-      setScore((prev) => prev + 1);
-      setState(true)
+      setState(true);
     } else {
       setState(false);
     }
-    console.log(
-      correctList.every((item) => selectedAnswers.includes(item)) &&
-        wrongList.every((item) => !selectedAnswers.includes(item))
-    );
   };
+
+  useEffect(() => {
+    OptionsSelected();
+  }, [OptionsSelected]);
+
+  useEffect(() => {
+    state ? setScore((prev) => prev + 1) : null;
+  }, [state]);
 
   var scoreEmoji, note, Ncolor;
   if (score < 2) {
@@ -65,20 +67,6 @@ const Quizzcontainer = ({ name }) => {
     Ncolor = "#5CE6B4";
   }
 
-  /* const handlePercentage = (percentage) => {
-    if (percentage > 100) {
-      setProgress(100);
-    } else if (percentage < 0) {
-      setProgress(0);
-    } else {
-      setProgress(percentage);
-    }
-  }; */
-
-  /*   const handleIndex = (index) => {};
-  const refreshTimer = () => {};
-  const showResults = () => {};
- */
   const toggleSelection = (index) => {
     const newList = selectedAnswers.filter((item) => item !== index);
     selectedAnswers.includes(index)
@@ -89,27 +77,17 @@ const Quizzcontainer = ({ name }) => {
   return showQuizzContainer ? (
     !showResults ? (
       <div className="flex flex-col justify-between gap-10 rounded-[10px] bg-assignmentbg px-4 py-2">
-        {/* 
-      <button onClick={() => handlePercentage(progress + 100 / quizz.length)}>
-        Increase Progress
-      </button>
-      <div className="flex flex-col items-center gap-1">
-        <Quizzprogress percentage={progress} />
-        <small className=" font-semibold text-accent">
-          Question {(progress * quizz.length) / 100} out of {quizz.length}
-        </small>
-      </div> */}
-
         <div className=" flex items-center justify-between">
           <h4>{name}</h4>
-          <Cancel />
+          <Cancel
+            onClick={() => {
+              setShowQuizzContainer(false);
+              setScore(0);
+            }}
+          />
         </div>
         <div className=" place-self-center">
-          <CountdownCircle
-            duration={10}
-            setTimeUp={setTimeUp}
-            timeUp={timeUp}
-          />
+          <CountdownCircle duration={2} setTimeUp={setTimeUp} timeUp={timeUp} />
         </div>
         <div className="flex flex-col items-center gap-1">
           <Quizzprogress
@@ -119,7 +97,6 @@ const Quizzcontainer = ({ name }) => {
             Question {currentIndex + 1} out of {quizz.length}
           </small>
         </div>
-
         <div className=" flex flex-col gap-3">
           <p>{quizz[currentIndex].question}</p>
           <div className=" flex flex-col gap-2">
@@ -154,28 +131,35 @@ const Quizzcontainer = ({ name }) => {
           Next
         </button>
 
-      <small className={` ${state ? "text-green" : "text-wrong"} place-self-center`}> {state ? "Correct !" : "That was close !"} </small>
-
-        {/* <button
-        className=" min-w-max rounded-md bg-accent p-2.5 font-semibold text-white"
-        onClick={() => {
-          currentIndex < quizz.length 
-            ? (
-              setCurrentIndex((prev) => prev + 1),
-              handlePercentage(progress + 100 / quizz.length),
-              setSelected([]))
-            : (handlePercentage(100), setSelected([]));
-        }}
-      >
-        Next
-      </button> */}
+        {timeUp ? (
+          state ? (
+            <small
+              className="-translate-y-8
+         place-self-center text-green"
+            >
+              Correct !
+            </small>
+          ) : (
+            <small
+              className="-translate-y-8
+         place-self-center text-red"
+            >
+              That was close !
+            </small>
+          )
+        ) : null}
       </div>
     ) : (
       <div className="flex flex-col justify-between gap-20 rounded-[10px] bg-assignmentbg px-4 py-2">
         <div className="flex flex-col gap-3">
           <div className=" flex items-center justify-between">
             <h4>{name}</h4>
-            <Cancel />
+            <Cancel
+              onClick={() => {
+                setShowQuizzContainer(false);
+                setScore(0);
+              }}
+            />
           </div>
           <div className="flex flex-col items-center gap-1">
             <Quizzprogress percentage={100} />

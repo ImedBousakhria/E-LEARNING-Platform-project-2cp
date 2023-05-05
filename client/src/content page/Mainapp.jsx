@@ -5,6 +5,7 @@ import Assignment from "./Assignment/Assignment";
 import Quizzes from "./Quizzes/Quizzes";
 import Teacherannounce from "./Announcements/Teacherannounce";
 import Teachercourses from "./Courses/Teachercourses";
+import Teachers from './Teachers/Teachers'
 import Teacherstudents from "./Students/Teacherstudents";
 import { notificaiton } from "./content/mainapp.";
 import Schedule from "./Schedule/Schedule";
@@ -18,6 +19,30 @@ const Mainapp = () => {
   const notificationReaded = useState(false);
   const Indexhandle = useState(0);
   const searchMode = useState(false);
+
+  const userType = "admin";
+  const { id } = useParams();
+  const data = useQuery(["notificaiton", id], fetchNotifications);
+ const notificaiton = data.data; 
+ 
+  return (
+    <propsContext.Provider
+      value={{ Indexhandle, notificaiton, notificationReaded, searchMode }}
+    >
+      <div className="flex w-full">
+        <Sidebar />
+        <Home index={Indexhandle[0]} />
+        <Teacherannounce index={Indexhandle[0]} />
+        <Teachercourses index={Indexhandle[0]} />
+        <Assignment index={Indexhandle[0]} />
+        <Quizzes index={Indexhandle[0]} />
+        <Teacherstudents index={Indexhandle[0]} />
+        <Teachers index={Indexhandle[0]}/>
+        <Schedule index={Indexhandle[0]} />
+      </div>
+    </propsContext.Provider>
+  );
+
   const userType = { isAdmin: true, isTeacher: false, isStudent: false };
   const [notificaiton, setNotification] = useState([]) ; 
   
@@ -28,7 +53,7 @@ const Mainapp = () => {
     async ({ queryKey }) => {
       const id = queryKey[1];
       try {
-        const res = await fetch(`http://localhost:3000/user/get/${id}`);
+        const res = await fetch(`http://localhost:3000/user/get/${id}`, {method:"GET"});
         const data = await res.json();
         console.log(data.firstName);
         console.log(data.notifications);
@@ -79,6 +104,7 @@ const Mainapp = () => {
   //notificaiton = data.notifications;
 
   
+
 };
 
 export default Mainapp;

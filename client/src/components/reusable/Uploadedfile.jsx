@@ -1,19 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+import deletequestion from "../../assets/icons/deletequetion.svg"
+
+const Uploadedfile = ({ file, onRemove }) => {
+
 import example from "./example.pdf";
 const Uploadedfile = ({ fileName, file, onRemove }) => {
+  const [image, setImage] = useState(null) ; 
+
   if (file.type.startsWith("image/")) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
+
       console.log(reader.result);
+
+
+      setImage(reader.result) ; 
 
       /* setImage(reader.result) ; 
       console.log(reader.result) */
     };
   } else if (file.type.includes("pdf")) {
+
+    console.log(file) ; 
     const reader = new FileReader();
     reader.readAsBinaryString(file);
     reader.onloadend = () => {
@@ -22,7 +34,9 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
         bytes[i] = reader.result.charCodeAt(i);
       } */
       var base64String = window.btoa(reader.result);
+
       console.log(base64String); 
+
       // Encode the Uint8Array as a base64 string using TextEncoder
       /* console.log(bytes);
       var base64String = String.fromCharCode(...bytes);
@@ -34,18 +48,28 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
 
   return (
     <div className="relative">
-      <button
-        className="absolute z-20 aspect-square h-8 rounded-full bg-gray p-2 text-darkgray"
-        onClick={onRemove}
-      >
-        X
+      <button onClick={onRemove}>
+        <img src={deletequestion} />
       </button>
       {file.type.startsWith("image/") ? (
+
         <img
           src={URL.createObjectURL(file)}
-          className="h-[3.75rem] w-[24.1875rem] cursor-pointer rounded-xl object-contain"
+          className="aspect-square w-24 cursor-pointer rounded-xl object-contain"
+
+        <div className="basis-[25%]">
+          <img
+          src={image}
+          className="h-[3.75rem] w-full  rounded-xl object-contain"
+
         />
+          </div>
+        
       ) : file.type.includes("pdf") ? (
+
+        
+          <div className="h-[3.75rem] w-[24.1857rem] overflow-hidden object-contain">
+
         <div className="relative">
           <button
             className="absolute z-20 aspect-square h-8 rounded-full bg-gray p-2 text-darkgray "
@@ -53,14 +77,17 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
           >
             X
           </button>
-          <div className="h-[3.75rem] w-[24.1857rem] overflow-hidden object-contain">
+          <div className="h-[3.75rem] basis-[25%] overflow-hidden object-contain">
+
             <Document file={file} className="rounded-lg shadow-lg">
               <Page pageNumber={1} scale={1} width={100} />
             </Document>
           </div>
+
         </div>
+
       ) : null}
-      <p className=" w-24 truncate break-all text-xs ">{fileName}</p>
+      <p className=" w-24 truncate break-all text-xs ">{file.name}</p>
     </div>
   );
 };
