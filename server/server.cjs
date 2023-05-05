@@ -74,10 +74,6 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
   app.use(adminRoute);
   app.use(announcementRoute);
   
-//     // Set the maximum request body size to 10mb
-// app.use(bodyParser.json({ limit: '1000mb' }));
-// app.use(bodyParser.urlencoded({ limit: '1000mb', extended: true, parameterLimit:50000 }));
-
 
 
 

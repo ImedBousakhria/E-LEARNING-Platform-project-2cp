@@ -45,7 +45,7 @@ const Uploadedfile = ({ file, onRemove }) => {
         />
       ) : file.type.includes("pdf") ? (
         
-          <div className="h-[3.75rem] w-[24.1857rem] overflow-hidden object-contain">
+          <div className="h-[4rem] overflow-hidden object-contain">
             <Document file={file} className="rounded-lg shadow-lg">
               <Page pageNumber={1} scale={1} width={100} />
             </Document>
