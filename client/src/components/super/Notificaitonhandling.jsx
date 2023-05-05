@@ -6,25 +6,27 @@ import Notificationcontentelement from "../super elements/Notificationcontentele
 import close from "../../assets/icons/close.svg";
 import { propsContext } from "../../content page/Mainapp";
 import { useQuery } from "@tanstack/react-query";
-import { fetchNotifications } from "../../content page/dataFetch";
 import { useParams } from "react-router-dom";
 
 
 
 const Notificaitonhandling = () => {
-  const { id } = useParams();
-  const data = useQuery(["notificaiton", id], fetchNotifications);
-  const notificaiton = data.data;
+  const { user} = useContext(propsContext) ; 
+  const notificaiton = [] ; 
+  
+  console.log(notificaiton, user) ; 
   const { notificationReaded } = useContext(propsContext);
   if (notificaiton && !notificationReaded[0]) {
     var notificationIcon = notificationrecievedicon;
   } else {
     var notificationIcon = notificationemptyicon;
   }
+
   const [notificaitonState, setNoficationState] = useState(notificationIcon);
 
   const [showNotificationcontent, setShowNotificationcontent] =
     useState("hidden");
+
   console.log(notificaiton);
   return (
     <>

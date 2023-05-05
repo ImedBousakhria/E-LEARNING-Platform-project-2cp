@@ -7,16 +7,20 @@ export const adds = [
     bg: "hsla(225, 73%, 40%, 1)",
   },
   {
-    name: "New course",
-    bg: "hsla(229, 100%, 66%, 1)",
-  },
-  {
     name: "New assignment",
     bg: "hsla(197, 100%, 61%, 1)",
   },
   {
     name: "New quiz",
     bg: "hsla(182, 73%, 63%, 1)",
+  },
+  {
+    name: "New lesson",
+    bg: "hsla(229, 100%, 66%, 1)",
+  },
+  {
+    name: "New course",
+    bg: "hsla(229, 100%, 66%, 1)",
   },
   {
     name: "new student",
@@ -29,11 +33,6 @@ export const adds = [
   {
     name: "New Session",
     bg: "hsla(182, 73%, 63%, 1)",
-  },
-
-  {
-    name: "New lesson",
-    bg: "hsla(229, 100%, 66%, 1)",
   },
 ];
 
