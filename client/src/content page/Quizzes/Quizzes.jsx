@@ -25,8 +25,9 @@ const Quizzes = ({ index }) => {
       try {
         const res = await fetch(`http://localhost:3000/course/get/${id}`);
         const data = await res.json();
-        console.log(data.quizzes );
+        console.log(data.quizzes) ; 
         setQuizids(data.quizzes);
+        console.log(quizIds) ; 
         return data;
       } catch (e) {
         console.log(e);
@@ -35,29 +36,57 @@ const Quizzes = ({ index }) => {
     { enabled: index == 4 }
   );
 
-  useEffect(()=> {
-    if(quizIds.length>0) {
-      quizArray.map((Element, index)=> {
-        const {data,status,error} = useQuery(
-        [``]
-      )
-      })
-      
-    }else {
-      return ; 
+  /* useEffect(()=> {
+    if(status =="success") {
+      fetch(`http://localhost:3000/quizz/get/${data.quizzes[1]}`)
+    .then(res=>res.json())
+    .then(data => console.log(data))
+    .catch(e=>console.log(e))
     }
-  }, [quizIds])
+    
+  }, [data.quizzes]) */
+
+
+  /* function  fetchQuizzesById(ids) {
+    ids.forEach(element => {
+
+      useEffect(()=> {
+        const res = fetch(`http://localhost:3000/quizz/get/${element}`)
+    .then(res => {if(res.ok) {
+      return res.json();
+    }else {
+      throw new Error("no fetch data")
+    }})
+    .then(data => data )
+    .catch(e => {console.log(e)})
+      }, [])
+      console.log(element);
+    
+
+    res.then(data=> console.log(data))
+    
+  });
+    
+  } */
+  /* console.log(data) ;
+    setQuizArray([...quizArray, data]) ; */
+
+    /* const { data, status, error } = useQuery(
+      [`quiz${id}`, id],
+      async ({ queryKey }) => {
+        try {
+          const res = await fetch(`http://localhost:3000/quizz/get/${id}`);
+          const data = await res.json();
+          return data;
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    );
+    if(status =="success") {
+    } */
 
   if (index == 4 && status == "success") {
-    /* data.quizzes.map((Element, index) => {
-      const {data, status,error} = useQuery([`quiz${index}`,Element], fetchQuizzes) ;
-      if(status == "success") {
-        console.log(data) ; 
-      }else if(error) {
-        console.log(error) ; 
-      }
-
-    }) */
     console.log(data.quizzes);
     return (
       <IndexElementContextquiz.Provider
