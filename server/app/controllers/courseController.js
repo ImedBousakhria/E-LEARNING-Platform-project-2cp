@@ -22,8 +22,6 @@ module.exports.getCourse = async (req, res)=>{
     const _id = req.params.id;
     try{
         const course = await Course.findById({_id})
-        // .populate('teachers', 'firstName lastName')
-        // .populate('students', 'firstName lastName')
         .populate('quizzes') 
         .populate('lessons')
         .populate('teachers')

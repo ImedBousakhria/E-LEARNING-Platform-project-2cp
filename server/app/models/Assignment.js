@@ -9,8 +9,9 @@ const assignmentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  dueDate: {
-    type: Date,
+  deadline: {
+    // type: Date,
+    type: String,
     required: true
   },
   submissions: 

@@ -14,7 +14,8 @@ const router = Router();
 
 router.get('/lesson/getAll', lessonController.getAllLessons);
 router.get('/lesson/get/:id', lessonController.getLessonById);
-router.post('/lesson/create', upload.array('gallery'), lessonController.createLesson);
+// router.post('/lesson/create', upload.array('gallery'), lessonController.createLesson);
+router.post('/lesson/create', lessonController.createLesson);
 router.put('/lesson/update/:id', lessonController.updateLesson);
 router.delete('/lesson/delete/:id', lessonController.deleteLesson);
 

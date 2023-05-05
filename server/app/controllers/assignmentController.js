@@ -1,69 +1,246 @@
+const Course = require('../models/Course') ;
+const User = require("../models/User");
+const multer = require('multer');
+const upload = require('../middleware/uploadMiddleware');
+const fs = require('fs');
+const path = require('path');
 const Assignment = require('../models/Assignment');
+const Discussion = require('../models/Discussion');
+const mongoose = require('mongoose');
 
-// Get all assignments
-exports.getAllAssignments = async (req, res) => {
-  try {
-    const assignments = await Assignment.find();
-    res.status(200).json(assignments);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
 
-// Get one assignment
-exports.getAssignment = async (req, res, next) => {
+
+
+// GET all Assignments
+module.exports.getAllAssignments = async (req, res) => {
+    try {
+      const assignments = await Assignment.find();
+      res.json(assignments);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  };
+  
+  // GET a single Assignment by id
+  module.exports.getAssignmentById = async (req, res) => {
     try {
       const assignment = await Assignment.findById(req.params.id);
-      if (assignment == null) {
-        return res.status(404).json({ message: 'Assignment not found' });
+      if (!assignment) {
+        return res.status(404).json({ error: "Assignment not found" });
       }
-      res.status(200).json(assignment);
+      res.json(assignment);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      res.status(500).json({ error: err.message });
     }
   };
 
-// Create an assignment
-exports.createAssignment = async (req, res) => {
-  const assignment =  new Assignment({
-    title: req.body.title,
-    description: req.body.description,
-    dueDate: req.body.dueDate
-  });
+  
+// // POST create a new Assignment with files
+// module.exports.createAssignment = [
+//   async (req, res) => {
+//     try {
+//       // Check if the request body contains base64 encoded file data
+//       if (req.body.file) {
+//         // Decode the base64 data to a Buffer
+//         const fileData = Buffer.from(req.body.file, 'base64');
 
-  try {
-    const newAssignment = await assignment.save();
-    res.status(201).json(newAssignment);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-};
+//         // Create a temporary file to write the Buffer data
+//         const tempFileName = 'temp_' + Date.now();
+//         fs.writeFileSync(tempFileName, fileData);
 
-// Update an assignment
-exports.updateAssignment = async (req, res) => {
+//         // Create the file object for multer upload
+//         const tempFile = {
+//           originalname: 'Assignment_file',
+//           mimetype: req.body.mimetype,
+//           buffer: fs.readFileSync(tempFileName)
+//         };
+
+//         // Add the file object to the request files array
+//         req.files = [tempFile];
+//       }
+
+//       // Extract the files from the request and add them to the gallery array
+//       if (req.body.file) {
+//       const gallery = req.files.map(file => ({
+//         contentType: file.mimetype,
+//         data: file.buffer,
+//         // postedBy: req.user._id
+//       }))};
+
+
+//       // Create the Assignment object
+//       const assignment = new Assignment({
+//         title: req.body.title,
+//         description: req.body.description,
+//         gallery: gallery,
+//         course: req.body.course
+//       });
+
+//        // Add the new Assignment to the course
+//        const course = await Course.findById(req.body.course);
+//        course.assignment.push(assignment._id);
+//        await course.save();
+
+
+//       // Save the Assignment object
+//       await assignment.save();
+
+//       res.json(assignment);
+//     } catch (err) {
+//       res.status(400).json({ error: err.message });
+//     }
+//   }
+// ];
+
+// POST create a new Assignment with files
+module.exports.createAssignment = [
+  async (req, res) => {
     try {
-      const updatedAssignment = await Assignment.findOneAndUpdate({ _id: req.params.id },
-        {
-          title: req.body.title,
-          description: req.body.description,
-          dueDate: req.body.dueDate
-        },{ new: true }
-      );
-      if (updatedAssignment == null) {
+      // Check if the request body contains base64 encoded file data
+      if (req.body.file) {
+        // Decode the base64 data to a Buffer
+        const fileData = Buffer.from(req.body.file, 'base64');
+
+        // Create a temporary file to write the Buffer data
+        const tempFileName = 'temp_' + Date.now();
+        fs.writeFileSync(tempFileName, fileData);
+
+        // Create the file object for multer upload
+        const tempFile = {
+          originalname: 'Assignment_file',
+          mimetype: req.body.mimetype,
+          buffer: fs.readFileSync(tempFileName)
+        };
+
+        // Add the file object to the request files array
+        req.files = [tempFile];
+      }
+
+      // Extract the files from the request and add them to the gallery array
+      const gallery = req.body.file ? req.files.map(file => ({
+        contentType: file.mimetype,
+        data: file.buffer,
+        // postedBy: req.user._id
+      })) : [];
+
+      // Create the Assignment object
+      const assignment = new Assignment({
+        title: req.body.title,
+        description: req.body.description,
+        deadline: req.body.deadline,
+        gallery: gallery,
+        course: req.body.course || null // Set course to null if not provided
+      });
+
+      // Add the new Assignment to the course if course is provided
+      if (req.body.course) {
+        const course = await Course.findById(req.body.course);
+        if (course) {
+          course.assignments.push(assignment._id);
+          await course.save();
+        }
+      }
+
+      // Save the Assignment object
+      await assignment.save();
+
+      res.json(assignment);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  }
+];
+
+  
+
+// PUT update a Assignment with files
+module.exports.updateAssignment = [
+  async (req, res) => {
+    try {
+
+      // Check if the request body contains base64 encoded file data
+      if (req.body.file) {
+        // Decode the base64 data to a Buffer
+        const fileData = Buffer.from(req.body.file, 'base64');
+
+        // Create a temporary file to write the Buffer data
+        const tempFileName = 'temp_' + Date.now();
+        fs.writeFileSync(tempFileName, fileData);
+
+        // Create the file object for multer upload
+        const tempFile = {
+          originalname: 'Assignment_file',
+          mimetype: req.body.mimetype,
+          buffer: fs.readFileSync(tempFileName)
+        };
+
+        // Add the file object to the request files array
+        req.files = [tempFile];
+
+        
+      }
+      const assignment = await Assignment.findById(req.params.id);
+      // Extract the files from the request and add them to the gallery array
+      if (req.body.file) {
+        const gallery = req.files.map(file => ({
+          contentType: file.mimetype,
+          data: file.buffer,
+          postedBy: req.user._id
+        }));
+
+        assignment.gallery = gallery;
+      }
+
+
+      // Update the Assignment object
+
+      if(req.body.title){
+        assignment.title = req.body.title;
+      }
+      if(req.body.description){
+        assignment.description = req.body.description;
+      }
+      if(req.body.deadline){
+        assignment.deadline = req.body.deadline;
+      }
+      
+    
+      await assignment.save();
+
+      res.json(assignment);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  }
+];
+
+
+  // DELETE a Assignment by id
+ 
+  
+  module.exports.deleteAssignment = async (req, res) => {
+    try {
+
+      const _id = req.params.id;
+  
+      // Delete the Assignment and associated discussion forum
+    
+      const deletedAssignment = await Assignment.findByIdAndDelete(_id);
+    
+       // Remove the Assignment ID from the associated course
+    const course = await Course.findOneAndUpdate(
+      { assignments: _id }, // Find the course that has the Assignment ID in its Assignments array
+      { $pull: { assignments: _id } }, // Remove the Assignment ID from the Assignments array field
+      { new: true }
+    );
+      
+      if (!deletedAssignment) {
         return res.status(404).json({ message: 'Assignment not found' });
       }
-      res.json({ message: 'Assignment updated successfully', assignment: updatedAssignment });
-    } catch (err) {
-      res.status(500).json({ message: err.message });
+  
+      res.status(200).json({ message: 'Assignment deleted successfully' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
   };
-
-// Delete an assignment
-exports.deleteAssignment = async (req, res) => {
-  try {
-    await Assignment.findOneAndDelete({ _id: req.params.id });
-    res.json({ message: 'Assignment deleted successfully' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+  
