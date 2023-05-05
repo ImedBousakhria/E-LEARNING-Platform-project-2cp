@@ -36,7 +36,7 @@ module.exports.insertStudent = async (req, res) =>{
         //creat a new user
         const user = await User.create({ ...req.body, isStudent: true });
         res.status(200).json(user);
-        console.log("User created sucessfully");
+        console.log("student created sucessfully");
 
     }catch(err){
 
@@ -51,7 +51,7 @@ module.exports.insertTeacher = async (req, res) =>{
         //creat a new user
         const user = await User.create({ ...req.body, isTeacher: true });
         res.status(200).json(user);
-        console.log("User created sucessfully");
+        console.log("teacher created sucessfully");
 
     }catch(err){
 
@@ -66,7 +66,7 @@ module.exports.insertAdmin = async (req, res) =>{
         //creat a new user
         const user = await User.create({ ...req.body, isAdmin: true });
         res.status(200).json(user);
-        console.log("User created sucessfully");
+        console.log("admin created sucessfully");
 
     }catch(err){
 
@@ -81,7 +81,7 @@ module.exports.insertUser = async (req, res) =>{
         //creat a new user
         const user = await User.create(req.body);
         res.status(200).json(user);
-        console.log("Student created sucessfully");
+        console.log("user created sucessfully");
 
     }catch(err){
 

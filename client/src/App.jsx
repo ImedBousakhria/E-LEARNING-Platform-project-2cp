@@ -8,6 +8,7 @@ import Login from "./signin page/Login";
 import Teacherassignment from "./content page/Assignment/Assignment";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import PrivateRoutes from "./PrivateRoutes";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -23,14 +24,12 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <Routes>
           <Route path={"/"} element={<Main />}></Route>
-          <Route path={"/Home"} element={<Mainapp />}></Route>
           <Route path={"/login"} element={<Login />}></Route>
-          <Route
-            path="/Teacher/assignment"
-            element={<Teacherassignment />}
-          ></Route>
+          <Route element={<PrivateRoutes/>}>
+            <Route path={"/Home"} element={<Mainapp />}></Route>
+          </Route>
         </Routes>
-        
+
         <ReactQueryDevtools />
       </QueryClientProvider>
     </BrowserRouter>
