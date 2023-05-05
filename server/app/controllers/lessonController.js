@@ -1,16 +1,12 @@
 const Course = require('../models/Course') ;
-const User = require("../models/User");
-// const Lesson = require("../models/Lesson"); // Import the Lesson model
-const multer = require('multer');
-const upload = require('../middleware/uploadMiddleware');
 const fs = require('fs');
-const path = require('path');
 const Lesson = require('../models/Lesson');
 const Discussion = require('../models/Discussion');
-const mongoose = require('mongoose');
 
 
-// GET all lessons
+
+
+// GET all Lessons
 module.exports.getAllLessons = async (req, res) => {
     try {
       const lessons = await Lesson.find();
@@ -20,7 +16,7 @@ module.exports.getAllLessons = async (req, res) => {
     }
   };
   
-  // GET a single lesson by id
+  // GET a single Lesson by id
   module.exports.getLessonById = async (req, res) => {
     try {
       const lesson = await Lesson.findById(req.params.id);
@@ -33,8 +29,8 @@ module.exports.getAllLessons = async (req, res) => {
     }
   };
 
-  
-// POST create a new lesson with files
+
+// POST create a new Lesson with files
 module.exports.createLesson = [
   async (req, res) => {
     try {
@@ -49,7 +45,7 @@ module.exports.createLesson = [
 
         // Create the file object for multer upload
         const tempFile = {
-          originalname: 'lesson_file',
+          originalname: 'Lesson_file',
           mimetype: req.body.mimetype,
           buffer: fs.readFileSync(tempFileName)
         };
@@ -59,34 +55,30 @@ module.exports.createLesson = [
       }
 
       // Extract the files from the request and add them to the gallery array
-      const gallery = req.files.map(file => ({
+      const gallery = req.body.file ? req.files.map(file => ({
         contentType: file.mimetype,
         data: file.buffer,
         // postedBy: req.user._id
-      }));
+      })) : [];
 
-      // Create the lesson object
+      // Create the Lesson object
       const lesson = new Lesson({
         title: req.body.title,
         description: req.body.description,
         gallery: gallery,
-        course: req.body.course
+        course: req.body.course || null // Set course to null if not provided
       });
 
-      //  // Create discussion forum associated with the lesson
-      //  const discussion = new Discussion({
-      //   lesson: lesson._id,
-      //   messages: []
-      // });
-      // await discussion.save();
+      // Add the new Lesson to the course if course is provided
+      if (req.body.course) {
+        const course = await Course.findById(req.body.course);
+        if (course) {
+          course.lessons.push(lesson._id);
+          await course.save();
+        }
+      }
 
-       // Add the new lesson to the course
-       const course = await Course.findById(req.body.course);
-       course.lessons.push(lesson._id);
-       await course.save();
-
-
-      // Save the lesson object
+      // Save the Lesson object
       await lesson.save();
 
       res.json(lesson);
@@ -95,9 +87,10 @@ module.exports.createLesson = [
     }
   }
 ];
+
   
 
-// PUT update a lesson with files
+// PUT update a Lesson with files
 module.exports.updateLesson = [
   async (req, res) => {
     try {
@@ -113,7 +106,7 @@ module.exports.updateLesson = [
 
         // Create the file object for multer upload
         const tempFile = {
-          originalname: 'lesson_file',
+          originalname: 'Lesson_file',
           mimetype: req.body.mimetype,
           buffer: fs.readFileSync(tempFileName)
         };
@@ -136,7 +129,7 @@ module.exports.updateLesson = [
       }
 
 
-      // Update the lesson object
+      // Update the Lesson object
 
       if(req.body.title){
         lesson.title = req.body.title;
@@ -144,7 +137,7 @@ module.exports.updateLesson = [
       if(req.body.description){
         lesson.description = req.body.description;
       }
-    
+      
     
       await lesson.save();
 
@@ -156,7 +149,7 @@ module.exports.updateLesson = [
 ];
 
 
-  // DELETE a lesson by id
+  // DELETE a Lesson by id
  
   
   module.exports.deleteLesson = async (req, res) => {
@@ -164,15 +157,14 @@ module.exports.updateLesson = [
 
       const _id = req.params.id;
   
-      // Delete the lesson and associated discussion forum
+      // Delete the Lesson and associated discussion forum
     
       const deletedLesson = await Lesson.findByIdAndDelete(_id);
-      // await Discussion.deleteOne({ lesson: lessonId });
-
-       // Remove the lesson ID from the associated course
+    
+       // Remove the Lesson ID from the associated course
     const course = await Course.findOneAndUpdate(
-      { lessons: _id }, // Find the course that has the lesson ID in its lessons array
-      { $pull: { lessons: _id } }, // Remove the lesson ID from the lessons array field
+      { lessons: _id }, // Find the course that has the Lesson ID in its Lessons array
+      { $pull: { lessons: _id } }, // Remove the Lesson ID from the Lessons array field
       { new: true }
     );
       

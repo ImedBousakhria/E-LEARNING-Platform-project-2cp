@@ -25,6 +25,7 @@ module.exports.getAllLessons = async (req, res) => {
     }
     };
 
+<<<<<<< HEAD
     module.exports.createLesson = async (req, res) =>{
       try{
          // Extract the files from the request and add them to the gallery array
@@ -64,6 +65,8 @@ module.exports.getAllLessons = async (req, res) => {
   
   };
   
+=======
+>>>>>>> 6e4b890a5ed883f01d4293abc8bf050a43649123
 // // POST create a new lesson with files
 // module.exports.createLesson = [
 //     upload.array('gallery'),
@@ -75,7 +78,11 @@ module.exports.getAllLessons = async (req, res) => {
 //           data: file.buffer,
 //           postedBy: req.user._id
 //         }));
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 6e4b890a5ed883f01d4293abc8bf050a43649123
 //         // Create the lesson object
 //         const lesson = new Lesson({
 //           title: req.body.title,
@@ -83,12 +90,20 @@ module.exports.getAllLessons = async (req, res) => {
 //           gallery: gallery,
 //           course: req.body.course
 //         })
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 6e4b890a5ed883f01d4293abc8bf050a43649123
 //         // Add the new lesson to the course
 //         const course = await Course.findById(req.body.courseId);
 //         course.lessons.push(lesson._id);
 //         await course.save();
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 6e4b890a5ed883f01d4293abc8bf050a43649123
 //         const savedLesson = await lesson.save();
 //         res.json(savedLesson);
 //       } catch (err) {
@@ -96,6 +111,7 @@ module.exports.getAllLessons = async (req, res) => {
 //       }
 //     }
 //   ];
+<<<<<<< HEAD
 
   
 // // POST create a new lesson with files
@@ -129,3 +145,78 @@ module.exports.getAllLessons = async (req, res) => {
 //     res.status(400).json({ error: err.message });
 //   }
 // };
+=======
+  
+
+exports.createLesson = async (req, res, next) => {
+
+  const { title, description, image, course } = req.body;
+
+
+  try {
+      const result = await cloudinary.uploader.upload(image, {
+          folder: "lessons",
+          // width: 300,
+          // crop: "scale"
+      })
+      const product = await Lesson.create({
+          title,
+          description,
+          image: {
+              public_id: result.public_id,
+              url: result.secure_url
+          },
+          course
+      });
+      res.status(201).json({
+          success: true,
+          lesson
+      })
+
+  } catch (error) {
+      console.log(error);
+      next(error);
+
+  }
+
+}
+
+// module.exports.createLesson = async (req, res) => {
+//     try {
+//       // Extract the lesson details from the JSON body
+//       const { title, description, course } = req.body;
+  
+//       // Check if the request contains a file
+//       if (!req.files || Object.keys(req.files).length === 0) {
+//         return res.status(400).json({ error: 'No file uploaded' });
+//       }
+  
+//       // Get the file from the request
+//       const { file } = req.files;
+  
+//       // Create a new lesson object with the details and file data
+//       const lesson = new Lesson({
+//         title,
+//         description,
+//         gallery: [{
+//           contentType: file.mimetype,
+//           data: file.data,
+//           created: Date.now(),
+//         }],
+//         course,
+//       });
+  
+//       // Add the new lesson to the course
+//       const savedLesson = await lesson.save();
+//       const courseToUpdate = await Course.findById(course);
+//       courseToUpdate.lessons.push(savedLesson._id);
+//       await courseToUpdate.save();
+  
+//       res.json(savedLesson);
+//     } catch (err) {
+//       res.status(400).json({ error: err.message });
+//     }
+//   };
+  
+
+>>>>>>> 6e4b890a5ed883f01d4293abc8bf050a43649123

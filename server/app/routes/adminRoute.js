@@ -14,6 +14,7 @@ const router = Router();
 // router.put('/user/update-user/:id', requireAuth,adminController.updateUser); //email || password for users
 // router.delete('/user/delete/:id', requireAuth ,adminController.deleteUser);
 
+
 // router.put('/user/promoteAdmin/:id', requireAuth, requireAdmin ,adminController.promoteAdminUser);
 // router.put('/user/demoteAdmin/:id', requireAuth, requireAdmin ,adminController.demoteAdminUser);
 

@@ -3,6 +3,7 @@ const router = express.Router();
 const quizzController = require('../controllers/quizzController');
 
 
+
 router.get('/quizz/getAll', quizzController.getAllQuizzes);
 router.get('/quizz/get/:id', quizzController.getQuizzById);
 router.get('/quizz/getAllForCourse/:id', quizzController.getAllQuizzesForCourse);

@@ -15,6 +15,7 @@ const router = Router();
 router.get('/lesson/getAll', lessonsController.getAllLessons);
 router.get('/lesson/get/:id', lessonsController.getLesson);
 // router.post('/lesson/create', upload.array('gallery'), lessonsController.createLesson);
+<<<<<<< HEAD
 router.post('/lesson/create', lessonsController.createLesson);
 // router.post('/lesson/create', upload.fields([{ name: 'gallery', maxCount: 10 }]), lessonsController.createLesson);
 // router.put('/lesson/update/:id', lessonController.updateLesson);
@@ -25,4 +26,16 @@ router.post("/upload", upload.array('image'), (req, res) => {
     res.send("it worked");
   })
 
+=======
+// router.post('/lesson/create', upload.array('files'), lessonsController.createLesson);
+
+// router.post("/upload", upload.array('files'), (upload.array('files')req, res) => {
+//     console.log(req.body, req.files);
+//     res.send("it worked");
+//   })
+
+// router.put('/lesson/update/:id', lessonController.updateLesson);
+// router.delete('/lesson/delete/:id', lessonController.deleteLesson);
+
+>>>>>>> 6e4b890a5ed883f01d4293abc8bf050a43649123
 module.exports = router;

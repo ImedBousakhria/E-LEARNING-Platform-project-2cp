@@ -1,6 +1,6 @@
 const Course = require('../models/Course') ;
 const User = require("../models/User");
-const Schedule = require('../models/schedule');
+const Schedule = require('../models/Schedule');
 const mongoose = require('mongoose');
 
 // GET all schedules

@@ -13,7 +13,6 @@ const router = Router();
 
 router.get('/announcement/getAll',announcementController.getAllAnnouncements);
 router.get('/announcement/get/:id',announcementController.getAnnouncementById);
-// // router.post('/announcement/create', upload.array('gallery'), announcementController.createAnnouncement);
 router.post('/announcement/create',announcementController.createAnnouncement);
 router.put('/announcement/update/:id',announcementController.updateAnnouncement);
 router.delete('/announcement/delete/:id',announcementController.deleteAnnouncement);

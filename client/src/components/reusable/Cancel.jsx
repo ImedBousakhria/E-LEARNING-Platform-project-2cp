@@ -1,6 +1,7 @@
 import React from "react";
 import quit from "../../assets/icons/quit.svg";
 
+
 const Cancel = ({ onClick, text }) => {
   return (
     <button
