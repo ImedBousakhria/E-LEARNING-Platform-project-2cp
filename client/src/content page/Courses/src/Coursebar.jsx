@@ -66,7 +66,7 @@ const Coursebar = () => {
         <div className="mt-6 w-full">
           <Lessondisplayed
             self={user === barContent.person}
-            content={barContent.content}
+            content={barContent.description}
             isDisplayed={true}
             setBarContent={setBarContent}
           />

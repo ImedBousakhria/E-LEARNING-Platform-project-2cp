@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import publish from "../../assets/icons/publish.svg";
 import axios from "axios";
 
-const Newstudent = () => {
-  const [student, setStudent] = useState({});
+const Newteacher = () => {
+  const [teacher, setTeacher] = useState({});
+  const [ready, setReady] = useState(false);
+  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setStudent((prevContent) => ({ ...prevContent, [name]: value }));
+    setTeacher((prevContent) => ({ ...prevContent, [name]: value }));
   };
 
-  const addStudent = async (user) => {
+  const addTeacher = async (user) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/user/createStudent",
+        "http://localhost:3000/user/createTeacher",
         user
       );
       return response.data;
@@ -24,13 +26,13 @@ const Newstudent = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(await addStudent(student));
+    console.log(await addTeacher(teacher));
   };
 
   return (
     <div className="mb-7 flex flex-col rounded-[10px] bg-white px-8 py-6 shadow-md">
       <p className="mb-3 text-lg font-semibold text-nightblue">
-        Add a new student
+        Add a new teacher
       </p>
 
       <form
@@ -73,15 +75,18 @@ const Newstudent = () => {
           className="student-input"
           onChange={handleChange}
         />
-        <button
-          className=" mt-4 flex w-max items-center gap-2 place-self-end rounded-md bg-accent p-2 "
-          type="submit"
-        >
-          <p className=" text-sm font-semibold text-white">Done</p>
-          <img src={publish} alt="" />
-        </button>
+
+        {ready ? (
+          <button
+            className=" mt-4 flex w-max items-center gap-2 place-self-end rounded-md bg-accent p-2 "
+            type="submit"
+          >
+            <p className=" text-sm font-semibold text-white">Done</p>
+            <img src={publish} alt="" />
+          </button>
+        ) : null}
       </form>
     </div>
   );
 };
-export default Newstudent;
+export default Newteacher;

@@ -8,9 +8,33 @@ import { CoursesContext } from "../../content page/Courses/Teachercourses";
 import Save from "../reusable/Save";
 import Cancel from "../reusable/Cancel";
 import publish from "../../assets/icons/publish.svg";
+import axios from "axios";
 
 const Newlesson = () => {
-  let user = "admin";
+
+  const addLesson = async (testCourse) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/lesson/create",
+        testCourse
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCreation = async () => {
+    const toAdd = {
+      title : Acontent.title,
+      description : Acontent.description,
+      gallery : files
+    }
+
+    const newLesson = await addLesson(toAdd);
+    console.log(newLesson);
+  };
+
   const inputRef = useRef(null);
   const [files, setFiles] = useState([]);
   const [type, setType] = useState("course");
@@ -43,9 +67,7 @@ const Newlesson = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
-    setContent((prevContent) => ({ ...prevContent, description: value }));
-    console.log(Acontent);
+    setContent((prevContent) => ({ ...prevContent, [name]: value }));
   };
 
   const handleFileUpload = () => {
@@ -56,7 +78,7 @@ const Newlesson = () => {
     const selectedFiles = Array.from(event.target.files);
     setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
   };
-  
+
   return (
     <div
       className={` ${
@@ -105,8 +127,8 @@ const Newlesson = () => {
             </div>
 
             <div className="flex w-[45%] flex-col justify-between">
-              <div className=" basis-[80%] ">
-                <div className="flex flex-col">
+              <div className="flex basis-[80%] ">
+                <div className="flex">
                   {files.map((file) => (
                     <Uploadedfile fileName={file.name} file={file} />
                   ))}
@@ -127,7 +149,7 @@ const Newlesson = () => {
                 }
                 <Attachfile onClick={handleFileUpload} />
                 {!editMode ? (
-                  <Publish onClick={() => {}} />
+                  <Publish onClick={() => {handleCreation() , console.log(files)}} />
                 ) : (
                   <Save /> // set the content to the edited one;
                 )}
