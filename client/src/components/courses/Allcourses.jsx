@@ -40,8 +40,7 @@ const Allcourses = ({ index }) => {
     };
 
     getLessons();
-    
-  }, [My]);
+  }, []);
 
   const handleCheckAll = (event) => {
     const { checked } = event.target;

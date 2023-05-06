@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import info from "../../assets/icons/info.svg";
 import showpwd from "../../assets/icons/showpwd.svg";
 import dropdown from "../../assets/icons/dropdown.svg";
 import axios from "axios";
+import { authContext } from "../../App";
+import { useNavigate } from "react-router-dom";
+import { loginContext } from "../Login";
 
-const Form = () => {
+const Form = ({ setToken, setUser }) => {
+  const {setShowLoginForm} = useContext(loginContext)
+
+
   const initValues = { email: "", password: "", user: "" };
   const [values, setValues] = useState(initValues);
   const [errors, setErrors] = useState({});
@@ -13,7 +19,9 @@ const Form = () => {
   const [infoMsg, setInfoMsg] = useState("");
   const [isShown, setIsshown] = useState(false);
   const [userPicked, setUserPicked] = useState();
+  const navigate = useNavigate();
 
+  
   const loginUser = async (email, password) => {
     try {
       const response = await axios.post("http://localhost:3000/user/login", {
@@ -21,6 +29,10 @@ const Form = () => {
         password: password,
       });
       const { token, user } = response.data;
+      setToken(token);
+      setUser(user)
+      localStorage.setItem("token", token);
+      navigate("/Home");
       // store token and user in local storage or state
       return { token, user };
     } catch (error) {
@@ -130,7 +142,7 @@ const Form = () => {
             <input
               id="email"
               placeholder="Elitesstudent@gmail.com"
-              className=" w-full border-0 p-0 pr-1 placeholder-gray outline-none"
+              className=" w-full border-0 p-0 pr-1 placeholder-gray outline-none rounded-none"
               type="text"
               name="email"
               value={values.email}
@@ -160,7 +172,7 @@ const Form = () => {
               type="password"
               name="password"
               value={values.password}
-              className="w-full border-0 p-0 pr-1 placeholder-gray outline-none"
+              className="w-full border-0 p-0 pr-1 placeholder-gray outline-none rounded-none"
               onChange={handleChange}
             />
             <img src={showpwd} alt="info" className="w-5" />
@@ -231,7 +243,7 @@ const Form = () => {
         >
           Sign in
         </button>
-        <a href="#" className=" mt-3 cursor-pointer text-blue">
+        <a href="#" className=" mt-3 cursor-pointer text-blue" onClick={() => setShowLoginForm(false) }>
           Forgot your password?
         </a>
       </div>

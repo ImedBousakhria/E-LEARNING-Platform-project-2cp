@@ -4,31 +4,44 @@ import "swiper/swiper-bundle.css";
 import "swiper/css";
 import arrow from "../../assets/icons/annouarrow.svg";
 import "swiper/css/navigation";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AnnouncementContext } from "../../content page/Announcements/Teacherannounce";
+import axios from "axios";
 
 const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
+// GET announcements
+const [announcements, setAnnouncements] = useState([]);
+useEffect(() => {
+  const getAnnouncements = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/announcement/getAll");
+      setAnnouncements(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  getAnnouncements();
+}, []);
+
+
+
+
+
+
   const { setContentToEdit, editMode, items, setBarContent, barContent } =
     useContext(AnnouncementContext);
   const user = "said";
   const postsPerPage = 4;
   const [currentPage, setCurrentPage] = useState(1);
 
-  const splitIntoFours = (array) => {
-    const result = [];
-    for (let i = 0; i < array.length; i += 4) {
-      const group = array.slice(i, i + 4);
-      result.push(group);
-    }
-    return result;
-  };
-  const announcements = splitIntoFours(items);
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
 
-  const currentPosts = items.slice(firstPostIndex, lastPostIndex);
+  const currentPosts = announcements.slice(firstPostIndex, lastPostIndex);
   const isPrevDisabled = currentPage === 1;
-  const isNextDisabled = lastPostIndex >= items.length;
+  const isNextDisabled = lastPostIndex >= announcements.length;
 
   const handleNextClick = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -82,9 +95,9 @@ const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
                   }}
                   isActive={activeCardIndex === index && barContent !== null}
                   profilepicture={Element.profilepicture}
-                  person={Element.person}
-                  content={Element.content}
-                  image={Element.image}
+                  person={Element.user.firstName + ' ' + Element.user.lastName}
+                  content={Element.description}
+                  /* image={Element.image} */
                 />
             );
           })}

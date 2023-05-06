@@ -24,7 +24,8 @@ const commentRoute = require('./app/routes/commentRoute');
 const quizzRoute = require('./app/routes/quizzRoute');
 const scheduleRoute = require('./app/routes/scheduleRoute');
 const lessonRoute = require('./app/routes/lessonRoute');
-// const lessonRoute = require('./app/routes/lessonsRoute');
+
+
 const adminRoute = require('./app/routes/adminRoute.js');
 const announcementRoute = require('./app/routes/announcementRoute.js');
 const submissionRoute = require('./app/routes/submissionRoute.js');

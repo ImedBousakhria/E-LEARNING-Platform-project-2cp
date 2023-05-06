@@ -11,7 +11,6 @@ const Courses = () => {
       try {
         const response = await axios.get("http://localhost:3000/course/getAll");
         setCourses(response.data);
-        console.log(response.data)
       } catch (error) {
         console.error(error);
       }
@@ -21,7 +20,8 @@ const Courses = () => {
 
   return (
     <div className="grid grid-flow-row grid-cols-4 grid-rows-2 gap-x-4 gap-y-2">
-      {courses.map((element, index) => (
+      {
+      courses.map((element, index) => (
         <div
           onClick={() => setActiveProgIndex(index)}
           className={`${

@@ -12,44 +12,55 @@ import { propsContext } from "../../Mainapp";
 import Profilepage from "../../../components/super/Profilepage";
 
 const Coursebar = () => {
-  const { barContent, setBarContent, activeProgIndex } = useContext(CoursesContext);
+  const { barContent, setBarContent, activeProgIndex } =
+    useContext(CoursesContext);
   const user = "said";
-  const {notificaiton} = useContext(propsContext)
+  const { notificaiton, profileShown } = useContext(propsContext);
   return (
     <div className="sticky right-0 top-0 flex max-h-screen basis-[23%] flex-col gap-4 border-l border-gray bg-white p-4">
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <Notificaitonhandling isnotification={notificaiton} />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>
-      {barContent === null ? (
+      {profileShown ? (
+        <Profilepage name={"imed"} />
+      ) : barContent === null ? (
         user === "said" && activeProgIndex !== null ? (
           <div className="flex flex-col gap-4">
             <div>
-              <div className="flex items-center justify-between pl-2 mb-2">
+              <div className="mb-2 flex items-center justify-between pl-2">
                 <h4>Teachers</h4>
                 <div className="flex gap-4">
-                  <img src={arrow} alt="" className=" rotate-180 -z-10" />
+                  <img src={arrow} alt="" className=" -z-10 rotate-180" />
                   <img src={arrow} alt="" />
                 </div>
               </div>
               <div className="mb-4 flex flex-col gap-2">
                 {programs[activeProgIndex].teachers.map((e, index) => (
-                  <Studentelement profilepicture={profile} person={e} user={'admin'}/>
+                  <Studentelement
+                    profilepicture={profile}
+                    person={e}
+                    user={"admin"}
+                  />
                 ))}
               </div>
             </div>
 
             <div>
-              <div className="flex items-center justify-between pl-2 mb-2">
+              <div className="mb-2 flex items-center justify-between pl-2">
                 <h4>Students</h4>
                 <div className="flex gap-4">
-                  <img src={arrow} alt="" className=" rotate-180 -z-10" />
+                  <img src={arrow} alt="" className=" -z-10 rotate-180" />
                   <img src={arrow} alt="" />
                 </div>
               </div>
               <div className="mb-4 flex flex-col gap-2">
                 {programs[activeProgIndex].students.map((e, index) => (
-                  <Studentelement profilepicture={profile} person={e} user={'admin'}/>
+                  <Studentelement
+                    profilepicture={profile}
+                    person={e}
+                    user={"admin"}
+                  />
                 ))}
               </div>
             </div>

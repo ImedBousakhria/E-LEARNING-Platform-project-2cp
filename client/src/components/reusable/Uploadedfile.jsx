@@ -2,7 +2,7 @@ import React from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
-import deletequestion from "../../assets/icons/deletequetion.svg"
+import deletequestion from "../../assets/icons/deletequetion.svg";
 
 const Uploadedfile = ({ file, onRemove }) => {
   if (file.type.startsWith("image/")) {
@@ -23,7 +23,7 @@ const Uploadedfile = ({ file, onRemove }) => {
         bytes[i] = reader.result.charCodeAt(i);
       } */
       var base64String = window.btoa(reader.result);
-      console.log(base64String); 
+      console.log(base64String);
       // Encode the Uint8Array as a base64 string using TextEncoder
       /* console.log(bytes);
       var base64String = String.fromCharCode(...bytes);
@@ -44,13 +44,11 @@ const Uploadedfile = ({ file, onRemove }) => {
           className="aspect-square w-24 cursor-pointer rounded-xl object-contain"
         />
       ) : file.type.includes("pdf") ? (
-        
-          <div className="h-[4rem] overflow-hidden object-contain">
-            <Document file={file} className="rounded-lg shadow-lg">
-              <Page pageNumber={1} scale={1} width={100} />
-            </Document>
-          </div>
-    
+        <div className="h-[3.75rem] overflow-hidden object-contain">
+          <Document file={file} className="rounded-lg shadow-lg">
+            <Page pageNumber={1} scale={1} width={100} />
+          </Document>
+        </div>
       ) : null}
       <p className=" w-24 truncate break-all text-xs ">{file.name}</p>
     </div>

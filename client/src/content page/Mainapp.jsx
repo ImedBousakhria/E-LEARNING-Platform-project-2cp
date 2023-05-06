@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 export const propsContext = createContext();
+export const profileContext = createContext()
 
 const Mainapp = () => {
   const notificationReaded = useState(false);
@@ -21,7 +22,7 @@ const Mainapp = () => {
   const searchMode = useState(false);
   const userType = { isAdmin: true, isTeacher: false, isStudent: false };
   const [notificaiton, setNotification] = useState([]) ; 
-  
+  const [profileShown, setProfileShown] = useState(false);
   const [courses, setCourses] = useState([]);
 
   const { data, status } = useQuery(
@@ -29,7 +30,7 @@ const Mainapp = () => {
     async ({ queryKey }) => {
       const id = queryKey[1];
       try {
-        const res = await fetch(`http://localhost:3000/user/get/${id}`);
+        const res = await fetch(`http://localhost:3000/user/get/${id}`, {method:"GET"});
         const data = await res.json();
         console.log(data.firstName);
         console.log(data.notifications);
@@ -51,12 +52,15 @@ const Mainapp = () => {
     return (
       <propsContext.Provider
         value={{
+          data,
           Indexhandle,
           notificationReaded,
           userType,
           searchMode,
           notificaiton,
           courses,
+          profileShown,
+          setProfileShown
         }}
       >
         <div className="flex w-full">
