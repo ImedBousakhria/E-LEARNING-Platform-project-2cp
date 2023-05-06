@@ -9,12 +9,28 @@ import { useForm } from "react-hook-form";
 import { deleteUselessTd } from "./functions/DeleteUselessTd";
 import { calendarContext } from "../../content page/Schedule/src/Main";
 import { propsContext } from "../../content page/Mainapp";
+import axios from "axios";
 
 const AddNewSession = () => {
 
   const {courses} = useContext(propsContext) ; 
 
   const { register, handleSubmit, reset } = useForm();
+
+    async function postData(data) {
+      console.log(data);
+      try {
+        const response = await axios.post(
+          `http://localhost:3000/schedules/create`,
+          data
+        );
+        console.log(response);
+        /* const result = await response.json();
+      console.log("Success:", result); */
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
 
   const { eventState, editMode, elementIndex } = useContext(scheduleContext);
   const [cancel, setCancel] = useState(false) ; 
@@ -29,7 +45,7 @@ const AddNewSession = () => {
         onSubmit={handleSubmit((data) => {
           let obj = new Object();
 
-          obj.course = data.selectCourse ; 
+          obj.course = data.selectCourse;
           obj.group = data.group
             ? data.group
             : eventState[0][elementIndex[0]].group;
@@ -79,6 +95,7 @@ const AddNewSession = () => {
             editMode[1](false);
           }
           console.log(eventState[0]);
+          postData(data);
           reset();
         })}
         className="flex flex-col gap-2"
@@ -113,7 +130,7 @@ const AddNewSession = () => {
                 }
               />
             </label>
-            <label htmlFor="pickColor">
+            <label className="w-fit" htmlFor="pickColor">
               <input
                 type="color"
                 placeholder="pick color"
@@ -128,40 +145,41 @@ const AddNewSession = () => {
               />
             </label>
           </div>
-          <div className="flex basis-[49%] gap-4">
-            <div>
-              <DayPicker />
+          <div className="flex basis-[49%] flex-col gap-4">
+            <div className="flex w-full gap-4">
+              <div>
+                <DayPicker />
+              </div>
+              <label htmlFor="startTime">
+                <input
+                  className=""
+                  type="time"
+                  name="startTime"
+                  id="startTime"
+                  {...register("startTime")}
+                  defaultValue={
+                    elementIndex[0] != null && editMode[0]
+                      ? eventState[0][elementIndex[0]].time.startTime
+                      : null
+                  }
+                />
+              </label>
+              <label htmlFor="endTime">
+                <input
+                  type="time"
+                  name="endTime"
+                  id="endTime"
+                  placeholder="endTime"
+                  {...register("endTime")}
+                  defaultValue={
+                    elementIndex[0] != null && editMode[0]
+                      ? eventState[0][elementIndex[0]].time.endTime
+                      : null
+                  }
+                />
+              </label>
             </div>
-            <label htmlFor="startTime">
-              <input
-                className=""
-                type="time"
-                name="startTime"
-                id="startTime"
-                {...register("startTime")}
-                defaultValue={
-                  elementIndex[0] != null && editMode[0]
-                    ? eventState[0][elementIndex[0]].time.startTime
-                    : null
-                }
-              />
-            </label>
-            <label htmlFor="endTime">
-              <input
-                type="time"
-                name="endTime"
-                id="endTime"
-                placeholder="endTime"
-                {...register("endTime")}
-                defaultValue={
-                  elementIndex[0] != null && editMode[0]
-                    ? eventState[0][elementIndex[0]].time.endTime
-                    : null
-                }
-              />
-            </label>
-          </div>
-          <select id="selectCourse" {...register("selectCourse")}>
+            <select id="selectCourse" {...register("selectCourse")}>
             <option disabled selected>
               Choose a Course
             </option>
@@ -173,6 +191,8 @@ const AddNewSession = () => {
               );
             })}
           </select>
+          </div>
+          
         </div>
         <div className="flex justify-end gap-4">
           {editMode[0] ? <Cancel onClick={() => setCancel(true)} /> : null}
