@@ -7,7 +7,7 @@ import close from "../../assets/icons/close.svg";
 import { propsContext } from "../../content page/Mainapp";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { fetchNotificationItems } from "../../content page/dataFetch";
+import { fetchNotificationIetm, fetchNotificationItems } from "../../content page/dataFetch";
 
 
 
@@ -15,7 +15,7 @@ const Notificaitonhandling = () => {
   const { notificaiton} = useContext(propsContext) ; 
   const { data, status, error } = useQuery(
     ["notifications"],
-    () => fetchNotificationItems(notificaiton),
+    () => fetchNotificationIetm("643fec0ca811facc77cea1e2"),
   );
 
   const { notificationReaded } = useContext(propsContext);
@@ -66,7 +66,7 @@ const Notificaitonhandling = () => {
             </button>
           </div>
           <div className="flex flex-col gap-4 overflow-scroll">
-            {data[0].map((Element) => {
+            {data.map((Element) => {
               console.log(Element.message);
               return (
                 <Notificationcontentelement notificationelement={Element} />

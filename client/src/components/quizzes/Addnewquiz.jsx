@@ -13,9 +13,11 @@ export const handleQuesitons = createContext();
 
 const Addnewquiz = () => {
   const { register, handleSubmit, reset } = useForm();
+
   const { elementIndex, editMode, firstContent } = useContext(
     IndexElementContextquiz
   );
+
   const [questions, setQuestions] = useState([]);
   const [cancel, setCancel] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -31,24 +33,29 @@ const Addnewquiz = () => {
           onSubmit={handleSubmit((data) => {
             console.log(data);
             let obj = new Object();
-            obj.quiz = questions;
+            obj.content = questions;
+
             obj.name = data.name
               ? data.name
               : firstContent[0][elementIndex[0] - 1].name;
-            obj.groupe = data.groupe
+            
+              /* obj.groupe = data.groupe
               ? data.groupe
-              : firstContent[0][elementIndex[0] - 1].groupe;
-            console.log(getCurrentTime()) ; 
-            obj.date = getCurrentTime();
+              : firstContent[0][elementIndex[0] - 1].groupe; */
+            //console.log(getCurrentTime());
+            //obj.date = getCurrentTime();
             obj.deadline = data.deadline
               ? data.deadline
               : firstContent[0][elementIndex[0] - 1].deadline;
             obj.description = data.description
               ? data.description
               : firstContent[0][elementIndex[0] - 1].description;
-            obj.submissions = firstContent[0][elementIndex[0] - 1]?.submissions
+            
+              /* obj.submissions = firstContent[0][elementIndex[0] - 1]?.submissions
               ? firstContent[0][elementIndex[0] - 1].submissions
-              : [];
+              : []; */
+              
+              console.log(obj);
             if (!cancel) {
               if (editMode[0]) {
                 firstContent[0][elementIndex[0] - 1] = obj;
@@ -60,7 +67,10 @@ const Addnewquiz = () => {
             if (editMode[0]) {
               editMode[1](false);
             }
-            setQuestions([]) ; 
+/*             document.querySelectorAll(".questionState").forEach((Element) => {
+              Element.value = null ; 
+            }); */
+            setQuestions([]);
             reset();
           })}
           className="flex gap-[2%]"
@@ -79,7 +89,7 @@ const Addnewquiz = () => {
                 }
               />
             </label>
-            <label htmlFor="groupe">
+            {/* <label htmlFor="groupe">
               <input
                 type="text"
                 placeholder="groupe"
@@ -91,9 +101,9 @@ const Addnewquiz = () => {
                     : null
                 }
               />
-            </label>
+            </label> */}
             <label htmlFor="description">
-              <input
+              <textarea
                 placeholder="Description"
                 id="description"
                 {...register("description")}
@@ -106,7 +116,7 @@ const Addnewquiz = () => {
             </label>
             <label htmlFor="Deadline(Date and time input)">
               <input
-                type="text"
+                type="date"
                 placeholder="Deadline(Date and time input)"
                 id="deadline"
                 {...register("deadline")}
@@ -240,8 +250,44 @@ const Addnewquiz = () => {
                 onClick={handleSubmit((data) => {
                   console.log(data);
                   let obj = new Object();
-                  obj.question = data.question;
-                  obj.answaer1 = [
+                  //let optionsArray = new Object() ;
+                  obj.question = data.question
+                  obj.options = [
+                    {
+                      text: data.choiceone,
+                      state:
+                        document.querySelectorAll(".questionState")[0].value ==
+                        "true"
+                          ? true
+                          : false,
+                    },
+                    {
+                      text: data.choicetwo,
+                      state:
+                        document.querySelectorAll(".questionState")[1].value ==
+                        "true"
+                          ? true
+                          : false,
+                    },
+                    {
+                      text: data.choicethree,
+                      state:
+                        document.querySelectorAll(".questionState")[2].value ==
+                        "true"
+                          ? true
+                          : false,
+                    },
+                    {
+                      text: data.choicefour,
+                      state:
+                        document.querySelectorAll(".questionState")[3].value ==
+                        "true"
+                          ? true
+                          : false,
+                    },
+                  ];
+                  
+                  /* obj.answaer1 = [
                     data.choiceone,
                     document.querySelectorAll(".questionState")[0].value,
                   ];
@@ -256,8 +302,9 @@ const Addnewquiz = () => {
                   obj.answaer4 = [
                     data.choicefour,
                     document.querySelectorAll(".questionState")[3].value,
-                  ];
+                  ]; */
                   setQuestions([...questions, obj]);
+                  console.log(questions)
                   reset({
                     question: "",
                     choiceone: "",

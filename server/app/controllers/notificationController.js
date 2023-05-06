@@ -21,7 +21,7 @@ exports.addNotification = async (req, res, next) => {
 exports.getNotifications = async (req, res, next) => {
   try {
     const userId = req.params.id;
-    const notifications = await Notification.find({user: userId}).sort({ createdAt: -1 });
+    const notifications = await Notification.find({user: userId}).sort({ createdAt: -1 }).populate('sender');
      notifications.forEach(notification => {
       notification.read = true
     }); 

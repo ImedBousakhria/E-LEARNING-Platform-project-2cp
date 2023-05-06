@@ -53,12 +53,12 @@ async function fetchItem(id) {
 }
 
 export async function fetchItems(courses) {
-  const promises = courses.map((element) => fetchItem(element.courseID));
+  const promises = courses.map((element) => fetchItem(element.courseID._id));
   const responses = await Promise.all(promises);
   return responses;
 }
 
-async function fetchNotificationIetm(id) {
+export async function fetchNotificationIetm(id) {
   const response = await fetch(
     `http://localhost:3000/notifications/get/${id}`
   );
