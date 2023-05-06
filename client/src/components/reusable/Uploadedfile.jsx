@@ -53,9 +53,6 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
       </button>
       {file.type.startsWith("image/") ? (
 
-        <img
-          src={URL.createObjectURL(file)}
-          className="aspect-square w-24 cursor-pointer rounded-xl object-contain"
 
         <div className="basis-[25%]">
           <img
