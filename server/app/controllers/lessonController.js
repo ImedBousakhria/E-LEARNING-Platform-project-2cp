@@ -2,6 +2,7 @@ const Course = require('../models/Course') ;
 const fs = require('fs');
 const Lesson = require('../models/Lesson');
 const Discussion = require('../models/Discussion');
+const Notification = require('../models/Notification');
 
 
 
@@ -71,10 +72,36 @@ module.exports.createLesson = [
 
       // Add the new Lesson to the course if course is provided
       if (req.body.course) {
-        const course = await Course.findById(req.body.course);
+        const course = await Course.findById(req.body.course).populate('teachers').populate('students');
         if (course) {
           course.lessons.push(lesson._id);
           await course.save();
+  
+          
+  
+          // send notification to teachers
+          course.teachers.forEach(async teacher => {
+            const notification = new Notification({
+              user: teacher._id,
+              sender: "64406327b871d94ddb7bfd77",
+              message: `New lesson ${lesson.title} created in ${course.title}`,
+            });
+            await notification.save();
+            teacher.notifications.push(notification);
+            teacher.save();
+          });
+  
+          // send notification to students
+          course.students.forEach(async student => {
+            const notification = new Notification({
+              user: student._id,
+              sender: "64406327b871d94ddb7bfd77",
+              message: `New lesson ${lesson.title} created in ${course.title}`,
+            });
+            await notification.save();
+            student.notifications.push(notification);
+            student.save();
+          });
         }
       }
 
@@ -89,17 +116,10 @@ module.exports.createLesson = [
        //const users = [course.students, course.teachers];
 
        ////for (const user of users) {
-          const notification = {
-          user: "644150134334ed77cecc938e",
-          sender: req.user._id,
-          message: `New lesson "${lesson.title}" created in ${course.title}`
-        };
-      await addNotification(notification);
+          
       //}
       
-       // Add the new lesson to the course
-       course.lessons.push(lesson._id);
-       await course.save();
+       
 
 
       // Save the lesson object

@@ -91,3 +91,35 @@ export const studentAssignment = [
     mark:"04/10"
   }
 ]
+
+export const studentQuizzes = [
+  {
+    quizName : "quizName", 
+    deadline:"12-03-23", 
+    played : false,
+    score : '06/10'
+    
+  
+  },
+  {
+    quizName : "quizName", 
+    deadline:"12-03-23", 
+    played : true,
+    score : '03/10'
+  
+  },
+  {
+    quizName : "quizName", 
+    deadline:"12-03-23", 
+    played : false,
+    score : '08/10'
+  
+  },
+  {
+    quizName : "quizName", 
+    deadline:"12-03-23", 
+    played : true,
+    score : '04/10'
+    
+  }
+]

@@ -12,6 +12,7 @@ import axios from "axios";
 
 const Newlesson = () => {
 
+  // post lesson
   const addLesson = async (testCourse) => {
     try {
       const response = await axios.post(
@@ -34,6 +35,10 @@ const Newlesson = () => {
     const newLesson = await addLesson(toAdd);
     console.log(newLesson);
   };
+
+
+
+
 
   const inputRef = useRef(null);
   const [files, setFiles] = useState([]);

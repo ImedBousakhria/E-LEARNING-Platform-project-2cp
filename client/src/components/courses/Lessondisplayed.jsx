@@ -4,6 +4,8 @@ import edit from "../../assets/icons/edit.svg";
 import bin from "../../assets/icons/bin.svg";
 import quitIcon from "../../assets/icons/quit.svg"
 import { CoursesContext } from "../../content page/Courses/Teachercourses";
+import Download from "../reusable/Download";
+import file from '../reusable/example.pdf'
 
 const Lessondisplayed = ({
   self,
@@ -43,6 +45,7 @@ const Lessondisplayed = ({
             />
           ) : null}
         </div>
+        <Download />
       </div>
       <div className="flex w-full items-end">
         <div style={{ flexBasis: image ? "70%" : "100%" }}>

@@ -7,13 +7,14 @@ const path = require('path');
 const Announcement = require('../models/Announcement');
 const Discussion = require('../models/Discussion');
 const mongoose = require('mongoose');
+const Notification = require('../models/Notification');
 
 
 
 // GET all Announcements
 module.exports.getAllAnnouncements = async (req, res) => {
     try {
-      const announcements = await Announcement.find();
+      const announcements = await Announcement.find().populate('sender');
       res.json(announcements);
     } catch (err) {
       res.status(500).json({ error: err.message });
@@ -23,7 +24,7 @@ module.exports.getAllAnnouncements = async (req, res) => {
   // GET a single Announcement by id
   module.exports.getAnnouncementById = async (req, res) => {
     try {
-      const announcement = await Announcement.findById(req.params.id);
+      const announcement = await Announcement.findById(req.params.id).populate('sender');
       if (!announcement) {
         return res.status(404).json({ error: "Announcement not found" });
       }
@@ -127,7 +128,9 @@ module.exports.createAnnouncement = [
         title: req.body.title,
         description: req.body.description,
         gallery: gallery,
+        sender: "64406327b871d94ddb7bfd77",
         course: req.body.course || null // Set course to null if not provided
+        
       });
 
       // Add the new Announcement to the course if course is provided
@@ -136,6 +139,32 @@ module.exports.createAnnouncement = [
         if (course) {
           course.announcements.push(announcement._id);
           await course.save();
+          
+          // Send notifications to teachers and students in the course
+          course.teachers.forEach(async teacherId => {
+            const teacher = await User.findById(teacherId);
+            const notification = new Notification({
+              user: teacher._id,
+              sender: "64406327b871d94ddb7bfd77",
+              message: `New announcement "${announcement.title}" created in "${course.title}"`,
+            });
+            await notification.save();
+            teacher.notifications.push(notification);
+            teacher.save();
+          });
+          
+          // send notification to students
+          course.students.forEach(async studentId => {
+            const student = await User.findById(studentId);
+            const notification = new Notification({
+              user: student._id,
+              sender: "64406327b871d94ddb7bfd77",
+              message: `New announcement "${announcement.title}" created in "${course.title}"`,
+            });
+            await notification.save();
+            student.notifications.push(notification);
+            student.save();
+          });
         }
       }
 
