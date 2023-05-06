@@ -3,6 +3,11 @@
 // const { findById: _findById } = require("../models/User");
 const Course = require('../models/Course');
 const User = require('../models/User');
+const Lesson = require('../models/Lesson');
+const Quizz = require('../models/Quizz');
+const Announcement = require('../models/Announcement');
+const Assignment = require('../models/Assignment');
+
 
 module.exports.getAllCourses = async (req, res)=>{
     try{
@@ -17,8 +22,12 @@ module.exports.getCourse = async (req, res)=>{
     const _id = req.params.id;
     try{
         const course = await Course.findById({_id})
-        // .populate('teachers', 'firstName lastName')
-        // .populate('students', 'firstName lastName')
+        .populate('quizzes') 
+        .populate('lessons')
+        .populate('teachers')
+        .populate('students')
+        // .populate('announcements')
+        // .populate('assignments')
 
         if(course){
             res.status(200).json(course);

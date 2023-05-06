@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const submissionSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
   description: {
     type: String,
     required: true,
@@ -28,7 +24,8 @@ const submissionSchema = new mongoose.Schema({
     {
       contentType: String,
       data: Buffer,
-      created: { type: Date, default: Date.now }
+      created: { type: Date, default: Date.now },
+      // postedBy: { type: mongoose.Schema.ObjectId, ref: 'User' }
     }
   ]
 });

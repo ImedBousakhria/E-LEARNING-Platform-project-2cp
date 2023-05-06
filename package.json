@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "cloudinary": "^1.36.4",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
     "vite": "^4.3.3"
   }
 }

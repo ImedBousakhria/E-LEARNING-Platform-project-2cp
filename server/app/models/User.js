@@ -65,7 +65,7 @@ const userSchema = new mongoose.Schema({
     // }
   }],
 
-   notifications: [{
+  notifications: [{
      type: mongoose.Schema.Types.ObjectId,
      ref: 'Notification'
    }]

@@ -7,10 +7,12 @@ const Add = ({text, bg, index}) => {
   return (
     <button
       onClick={() => {
-        if(index = 7) {
-          Indexhandle[1](2) ; 
-        }else {
+        if(index == 4) {
+          Indexhandle[1](4) ; 
+        }else if(index<4) {
           Indexhandle[1](index+1)
+        }else if(index >4) {
+          Indexhandle[1](index)
         }
       }}
       style={{ backgroundColor: bg }}

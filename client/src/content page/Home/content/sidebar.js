@@ -26,11 +26,7 @@ export const sections = [
     icon: announcement,
     iconwhite: announcementwhite,
   },
-  {
-    name: "Courses",
-    icon: courses,
-    iconwhite: courseswhite,
-  },
+
   {
     name: "Assignments",
     icon: assignment,
@@ -40,6 +36,11 @@ export const sections = [
     name: "Quizzes",
     icon: quizzes,
     iconwhite: quizzeswhite,
+  },
+  {
+    name: "Courses",
+    icon: courses,
+    iconwhite: courseswhite,
   },
   {
     name: "Students",
