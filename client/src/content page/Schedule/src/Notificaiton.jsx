@@ -10,7 +10,7 @@ import { scheduleContext } from "../Schedule";
 
 const Notificaiton = () => {
   const { notificaiton } = useContext(propsContext);
-  const { eventState } = useContext(scheduleContext); ; 
+  const { schedules } = useContext(scheduleContext); ; 
   const {elementIndex} = useContext(scheduleContext) ; 
   return (
     <div className="sticky right-0 top-0 flex max-h-[100vh] basis-[23%] flex-col gap-8 bg-white p-4">
@@ -18,8 +18,8 @@ const Notificaiton = () => {
         <Notificaitonhandling isnotification={notificaiton} />
         <Profile person={"said nousria"} profilepicture={profile} />
       </div>
-      {elementIndex[0] !=null ? (
-        <CaledarNotificationElement element={eventState[0][elementIndex[0]]} />
+      {elementIndex[0] != null ? (
+        <CaledarNotificationElement element={schedules[elementIndex[0]]} />
       ) : (
         <div className="flex h-full items-center justify-center">
           <Selectactivities type={"calendar"} />

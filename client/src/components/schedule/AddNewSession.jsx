@@ -31,7 +31,80 @@ const AddNewSession = () => {
     }
   }
 
-  const { eventState, editMode, elementIndex } = useContext(scheduleContext);
+  async function updateData(data, id) {
+    console.log(data);
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/schedules/update/${id}`,
+        data
+      );
+      console.log(response);
+      /* const result = await response.json();
+      console.log("Success:", result); */
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+
+
+
+
+  function onSubmit(data) {
+
+    let obj = new Object();
+    obj.course = data.selectCourse;
+    obj.group = data.group ? data.group : schedules[elementIndex[0]].group;
+    obj.color = data.color ? data.color : schedules[elementIndex[0]].color;
+    obj.day = document.getElementById("daypicker").value;
+
+    var indexindex;
+    var secondIndex;
+    let startTime = data.startTime
+      ? data.startTime
+      : schedules[elementIndex[0]].startTime;
+    let endTime = data.endTime
+      ? data.endTime
+      : schedules[elementIndex[0]].endTime;
+    for (let ele of calendar) {
+      if (ele == startTime) {
+        indexindex = calendar.indexOf(ele);
+      }
+      if (ele == endTime) {
+        secondIndex = calendar.indexOf(ele);
+      }
+    }
+    console.log(secondIndex, indexindex);
+    obj.span = secondIndex - indexindex + 1;
+    obj.startTime = startTime;
+    obj.endTime = endTime;
+    obj.index = indexindex;
+    obj.position = editMode[0]?schedules[elementIndex[0]].position: schedules.length;
+    console.log(obj);
+    if (!cancel) {
+      if (editMode[0]) {
+        // update funciton schedules[elementIndex[0]] = obj;
+        //eventState[1](eventState[0]);
+        updateData(obj, schedules[elementIndex[0]]._id);
+        location.reload() ; 
+        //RenderTriger[1](RenderTriger[0]++);
+      } else {
+        //eventState[1]([...eventState[0], obj]);
+        postData(obj);
+        location.reload();
+        //deleteUselessTd(obj);
+        RenderTriger[1](RenderTriger[0]++);
+      }
+    }
+    if (editMode[0]) {
+      editMode[1](false);
+    }
+    console.log(schedules);
+    reset();
+  }
+
+  const { schedules, editMode, elementIndex, handleDelete } =
+    useContext(scheduleContext);
   const [cancel, setCancel] = useState(false);
   const { RenderTriger } = useContext(calendarContext);
 
@@ -40,61 +113,7 @@ const AddNewSession = () => {
       <div>
         <h2 className="text-[1.25rem]">Add new Session</h2>
       </div>
-      <form
-        onSubmit={handleSubmit((data) => {
-          let obj = new Object();
-          obj.course = data.selectCourse;
-          obj.group = data.group
-            ? data.group
-            : eventState[0][elementIndex[0]].group;
-          obj.color = data.color
-            ? data.color
-            : eventState[0][elementIndex[0]].color;
-          obj.day = document.getElementById("daypicker").value;
-
-          var indexindex;
-          var secondIndex;
-          let startTime = data.startTime
-            ? data.startTime
-            : eventState[0][elementIndex[0]].time.startTime;
-          let endTime = data.endTime
-            ? data.endTime
-            : eventState[0][elementIndex[0]].time.endTime;
-          for (let ele of calendar) {
-            if (ele == startTime) {
-              indexindex = calendar.indexOf(ele);
-            }
-            if (ele == endTime) {
-              secondIndex = calendar.indexOf(ele);
-            }
-          }
-          console.log(secondIndex, indexindex);
-          obj.span = secondIndex - indexindex + 1;
-          obj.startTime = startTime;
-          obj.endTime = endTime;
-          obj.index = indexindex;
-          obj.position = eventState[0].length;
-          console.log(obj);
-          if (!cancel) {
-            if (editMode[0]) {
-              eventState[0][elementIndex[0]] = obj;
-              eventState[1](eventState[0]);
-              RenderTriger[1](RenderTriger[0]++);
-            } else {
-              eventState[1]([...eventState[0], obj]);
-              deleteUselessTd(obj);
-              RenderTriger[1](RenderTriger[0]++);
-            }
-          }
-          if (editMode[0]) {
-            editMode[1](false);
-          }
-          console.log(eventState[0]);
-          postData(obj);
-          reset();
-        })}
-        className="flex flex-col gap-2"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
         <div className="flex justify-between gap-[2%]">
           <div className=" flex basis-[49%] flex-col gap-4">
             <label htmlFor="group">
@@ -106,7 +125,7 @@ const AddNewSession = () => {
                 {...register("group")}
                 defaultValue={
                   elementIndex[0] != null && editMode[0]
-                    ? eventState[0][elementIndex[0]].group
+                    ? schedules[elementIndex[0]].group
                     : null
                 }
               />
@@ -132,7 +151,7 @@ const AddNewSession = () => {
                 {...register("color")}
                 defaultValue={
                   elementIndex[0] != null && editMode[0]
-                    ? eventState[0][elementIndex[0]].color
+                    ? schedules[elementIndex[0]].color
                     : null
                 }
               />
@@ -152,7 +171,7 @@ const AddNewSession = () => {
                   {...register("startTime")}
                   defaultValue={
                     elementIndex[0] != null && editMode[0]
-                      ? eventState[0][elementIndex[0]].time.startTime
+                      ? schedules[elementIndex[0]].startTime
                       : null
                   }
                 />
@@ -166,7 +185,7 @@ const AddNewSession = () => {
                   {...register("endTime")}
                   defaultValue={
                     elementIndex[0] != null && editMode[0]
-                      ? eventState[0][elementIndex[0]].time.endTime
+                      ? schedules[elementIndex[0]].endTime
                       : null
                   }
                 />

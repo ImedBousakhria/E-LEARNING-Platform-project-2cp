@@ -6,7 +6,7 @@ const Deleteactivitieselemnt = ({ text }) => {
   const [confirmDelete, setConfirmDelete] = useState("hidden") ; 
   return (
     <div className='relative'>
-      <button
+      <div
         onClick={() => {
           confirmDelete == "hidden"
             ? setConfirmDelete("block")
@@ -16,8 +16,8 @@ const Deleteactivitieselemnt = ({ text }) => {
       >
         {text}
         <img src={delet} />
-      </button>
-      <ConfirmDelete confirmDelete={confirmDelete} setConfirmDelete={setConfirmDelete}/>
+      </div>
+      <ConfirmDelete  confirmDelete={confirmDelete} setConfirmDelete={setConfirmDelete}/>
     </div>
   );
 };

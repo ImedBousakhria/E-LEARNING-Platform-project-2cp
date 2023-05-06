@@ -3,15 +3,20 @@ import { calendar } from "../../content page/Schedule/content/main";
 import { scheduleContext } from "../../content page/Schedule/Schedule";
 import { renderEvents } from "./functions/RenderEvents";
 import { calendarContext } from "../../content page/Schedule/src/Main";
+import { propsContext } from "../../content page/Mainapp";
 
 
 const Calendar = () => {
-  const {eventState} = useContext(scheduleContext) ; 
+  const {courses} = useContext(propsContext) ; 
+  const { schedules } = useContext(scheduleContext); ; 
   const {elementIndex} = useContext(scheduleContext) ;
   const {RenderTriger} = useContext(calendarContext)
 
 
-  useEffect(()=> {renderEvents(eventState[0]) ; console.log("hello")},[eventState[0], RenderTriger[0]]) ;  
+  useEffect(() => {
+    renderEvents(schedules);
+    console.log("hello");
+  }, [courses, RenderTriger[0]]);  
 
   return (
     <div className="flex flex-col gap-4 rounded-[10px] bg-white p-4">
@@ -36,55 +41,55 @@ const Calendar = () => {
               <tr className="text-center">
                 <td>{element}</td>
                 <td className="bg-primary" id={"saturday" + index}>
-                  <button
+                  <div
                     onClick={() =>
                       elementIndex[1](
                         document.getElementById("saturday" + index).key
                       )
                     }
-                  ></button>
+                  ></div>
                 </td>
                 <td className="bg-primary" id={"sunday" + index}>
-                  <button
+                  <div
                     onClick={() =>{
                       console.log(document.getElementById("sunday"+index).key)
                       elementIndex[1](document.getElementById("sunday"+index).key) ; 
                     }}
-                  ></button>
+                  ></div>
                 </td>
                 <td className="bg-primary" id={"monday" + index}>
-                  <button
+                  <div
                     onClick={() =>
                       elementIndex[1](document.getElementById("monday" + index).key)
                     }
-                  ></button>
+                  ></div>
                 </td>
                 <td className="bg-primary" id={"tuesday" + index}>
-                  <button
+                  <div
                     onClick={() =>
                       elementIndex[1](
                         document.getElementById("tuesday" + index).key
                       )
                     }
-                  ></button>
+                  ></div>
                 </td>
                 <td className="bg-primary" id={"wednesday" + index}>
-                  <button
+                  <div
                     onClick={() =>
                       elementIndex[1](
                         document.getElementById("wednesday" + index).key
                       )
                     }
-                  ></button>
+                  ></div>
                 </td>
                 <td className="bg-primary" id={"thursday" + index}>
-                  <button
+                  <div
                     onClick={() =>
                       elementIndex[1](
                         document.getElementById("thursday" + index).key
                       )
                     }
-                  ></button>
+                  ></div>
                 </td>
               </tr>
             );
