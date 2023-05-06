@@ -22,6 +22,7 @@ const router = Router();
 router.get('/user/getAll', adminController.getAllUsers);
 router.get('/user/getStudents', adminController.getAllStudents);
 router.get('/user/getTeachers', adminController.getAllTeachers);
+// router.post('/user/createStudent', requireAuth, requireAdmin, adminController.insertStudent);
 router.post('/user/createStudent', adminController.insertStudent);
 router.post('/user/createTeacher', adminController.insertTeacher);
 router.post('/user/createAdmin', adminController.insertAdmin);

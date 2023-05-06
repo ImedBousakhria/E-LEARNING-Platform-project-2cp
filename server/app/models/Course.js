@@ -30,7 +30,8 @@ const courseSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Announcement'
     }],
-    quizzes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Quizz' }]
+    quizzes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Quizz' }],
+    schedules: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Schedule' }]
   }, {timestamps: true});
   
 const Course = mongoose.model("Course", courseSchema);
