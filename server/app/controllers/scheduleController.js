@@ -40,17 +40,17 @@ module.exports.getAllSchedulesForCourse = async (req, res) => {
 // POST create a new schedule
 module.exports.createSchedule = async (req, res) => {
     try {
-        const newSchedule = new Schedule({
-            day: req.body.day,
-            course: req.body.course,
-            teacher: req.body.teacher,
-            startTime: req.body.startTime,
-            endTime: req.body.endTime,
-            duration: req.body.duration,
-            group: req.body.group
-            });
-        const savedSchedule = await newSchedule.save();
-        res.status(201).json(savedSchedule);
+        const schedule = await Schedule.create(req.body);
+
+        if (req.body.course) {
+            const course = await Course.findById(req.body.course);
+            if (course) {
+                course.schedules.push(schedule._id);
+                await course.save();
+            }
+        }
+        res.status(201).json(schedule);
+        console.log("schedule created sucessfully");
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

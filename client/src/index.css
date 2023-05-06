@@ -42,6 +42,9 @@
   input[type="color"] {
     @apply h-10 w-10 cursor-pointer appearance-none border-0 outline-none bg-transparant p-0;
   }
+  select {
+    @apply w-full rounded-[10px] border border-gray p-2 focus:outline-none
+  }
 }
 .hideScrollBar::-webkit-scrollbar {
   display: none;

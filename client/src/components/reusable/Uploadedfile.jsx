@@ -50,11 +50,8 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
         <img src={deletequestion} />
       </button>
       {file.type.startsWith("image/") ? (
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 5207852af0d7c214755f3bfa097344c951480761
         <div className="basis-[25%]">
           <img
           src={image}

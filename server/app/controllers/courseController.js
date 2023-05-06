@@ -7,7 +7,7 @@ const Lesson = require('../models/Lesson');
 const Quizz = require('../models/Quizz');
 const Announcement = require('../models/Announcement');
 const Assignment = require('../models/Assignment');
-
+const Notification = require('../models/Notification');
 
 module.exports.getAllCourses = async (req, res)=>{
     try{
@@ -24,8 +24,8 @@ module.exports.getCourse = async (req, res)=>{
         const course = await Course.findById({_id})
         .populate('quizzes') 
         .populate('lessons')
-        .populate('teachers')
-        .populate('students')
+        // .populate('teachers')
+        // .populate('students')
         .populate('announcements')
         .populate('assignments')
 
@@ -58,23 +58,35 @@ module.exports.postCourse = async (req, res)=>{
 
         
         // add to teachers
-        if(req.body.teachers){
-
-             req.body.teachers.forEach(async teacherID => {
-            const teacher = await User.findById(teacherID);
-            teacher.courses.push({courseID: course._id});
-            teacher.save();
-        })
-        }
-
-        //add to students
-        if(req.body.students){
-            req.body.students.forEach(async studentID => {
-            const student = await User.findById(studentID);
-            student.courses.push({courseID: course._id});
-            student.save();
-        })
-        }
+        if (req.body.teachers) {
+            req.body.teachers.forEach(async (teacherID) => {
+              const teacher = await User.findById(teacherID);
+              teacher.courses.push({ courseID: course._id });
+              const notification = new Notification({
+                user: teacher._id,
+                sender: "64406327b871d94ddb7bfd77",
+                message: `New ${course.title} created`
+              });
+              await notification.save();
+              teacher.notifications.push(notification._id);
+              teacher.save();
+            });
+          }
+          
+          if (req.body.students) {
+            req.body.students.forEach(async (studentID) => {
+              const student = await User.findById(studentID);
+              student.courses.push({ courseID: course._id });
+              const notification = new Notification({
+                user: student._id,
+                sender: "64406327b871d94ddb7bfd77",
+                message: `New ${course.title} created`
+              });
+              await notification.save();
+              student.notifications.push(notification._id);
+              student.save();
+            });
+          }
 
         // //add to lessons
         // req.body.lessons.forEach(async lessonID => {

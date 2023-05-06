@@ -6,7 +6,7 @@ import noanswer from "../../../assets/icons/noanswer.svg";
 const Answerstate = () => {
   const  [questionstate, setQuestionstate] = useState(null);
   const [stateicon, setStateicon] = useState(noanswer);
-  
+  console.log(questionstate) ; 
   return (
     <button className="questionState"
       value={questionstate}
