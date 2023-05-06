@@ -4,7 +4,6 @@ const express = require("express");
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
-const { json } = require('express');
 const fileUpload = require('express-fileupload');
 app.use(cors());
 
@@ -32,12 +31,10 @@ const submissionRoute = require('./app/routes/submissionRoute.js');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
-
-// const userMiddleware = require('./app/middleware/userMiddleware.js');
-// const adminMiddleware = require('./app/middleware/adminMiddleware.js');
-
-//middlware
+// middleware
+app.use(express.static('public'));
 app.use(express.json());
+app.use(cookieParser());
 app.use(fileUpload({
   useTempFiles: true,
   limits: { fileSize: 50 * 1024 * 1024}

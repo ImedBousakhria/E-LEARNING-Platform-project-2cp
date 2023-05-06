@@ -74,6 +74,7 @@ module.exports.createSubmission = [
         if (assignment) {
           assignment.submissions.push(submission._id);
           await assignment.save();
+          
         }
       }
 
