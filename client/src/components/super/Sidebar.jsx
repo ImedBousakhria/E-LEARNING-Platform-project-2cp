@@ -17,16 +17,58 @@ const Sidebar = () => {
       </div>
       <div className="flex flex-col gap-4">
         {sections.map((Element, index) => {
-          return (
-            <Sectionside
-              setIndex={() => {Indexhandle[1](index)}}
-              iconwhite={Element.iconwhite}
-              id={index}
-              elementindex={Indexhandle[0]}
-              name={Element.name}
-              icon={Element.icon}
-            />
-          );
+          if (userType.isAdmin) {
+            return (
+              <Sectionside
+                key={index}
+                setIndex={() => {
+                  Indexhandle[1](index);
+                }}
+                iconwhite={Element.iconwhite}
+                id={index}
+                elementindex={Indexhandle[0]}
+                name={Element.name}
+                icon={Element.icon}
+              />
+            );
+          } else if (userType.isTeacher) {
+            if(index <=5) {
+              return(
+                <Sectionside
+                key={index}
+                setIndex={() => {
+                  Indexhandle[1](index);
+                }}
+                iconwhite={Element.iconwhite}
+                id={index}
+                elementindex={Indexhandle[0]}
+                name={Element.name}
+                icon={Element.icon}
+              />
+              )
+            }else {
+              return null ; 
+            }
+          } else if (userType.isStudent) {
+            console.log("strudent");
+            if (index <= 2) {
+              return (
+                <Sectionside
+                  key={index}
+                  setIndex={() => {
+                    Indexhandle[1](index);
+                  }}
+                  iconwhite={Element.iconwhite}
+                  id={index}
+                  elementindex={Indexhandle[0]}
+                  name={Element.name}
+                  icon={Element.icon}
+                />
+              );
+            } else {
+              return null;
+            }
+          }
         })}
       </div>
 

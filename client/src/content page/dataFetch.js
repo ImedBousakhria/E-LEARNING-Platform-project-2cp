@@ -45,3 +45,15 @@ export const fetchQuizzes = ({queryKey}) => {
     console.log(e) ; 
   }
 }
+
+async function fetchItem(id) {
+  const response = await fetch(`http://localhost:3000/course/get/${id}`);
+  const data = await response.json();
+  return data;
+}
+
+export async function fetchItems(courses) {
+  const promises = courses.map((element) => fetchItem(element.courseID));
+  const responses = await Promise.all(promises);
+  return responses;
+}

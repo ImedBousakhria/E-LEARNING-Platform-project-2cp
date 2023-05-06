@@ -4,8 +4,6 @@ import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 import deletequestion from "../../assets/icons/deletequetion.svg"
 
-const Uploadedfile = ({ file, onRemove }) => {
-
 import example from "./example.pdf";
 const Uploadedfile = ({ fileName, file, onRemove }) => {
   const [image, setImage] = useState(null) ; 
@@ -52,28 +50,19 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
         <img src={deletequestion} />
       </button>
       {file.type.startsWith("image/") ? (
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 5207852af0d7c214755f3bfa097344c951480761
         <div className="basis-[25%]">
           <img
           src={image}
           className="h-[3.75rem] w-full  rounded-xl object-contain"
-
         />
           </div>
         
       ) : file.type.includes("pdf") ? (
-
-        
-          <div className="h-[3.75rem] w-[24.1857rem] overflow-hidden object-contain">
-
-        <div className="relative">
-          <button
-            className="absolute z-20 aspect-square h-8 rounded-full bg-gray p-2 text-darkgray "
-            onClick={onRemove}
-          >
-            X
-          </button>
           <div className="h-[3.75rem] basis-[25%] overflow-hidden object-contain">
 
             <Document file={file} className="rounded-lg shadow-lg">
@@ -81,7 +70,6 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
             </Document>
           </div>
 
-        </div>
 
       ) : null}
       <p className=" w-24 truncate break-all text-xs ">{file.name}</p>

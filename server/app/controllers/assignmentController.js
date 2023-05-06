@@ -10,6 +10,8 @@ const mongoose = require('mongoose');
 
 
 
+const Notification = require('../models/Notification');
+const notificationRoute = require('../routes/notificationRoute');
 
 // GET all Assignments
 module.exports.getAllAssignments = async (req, res) => {
@@ -188,4 +190,5 @@ module.exports.updateAssignment = [
       res.status(500).json({ message: error.message });
     }
   };
+
   
