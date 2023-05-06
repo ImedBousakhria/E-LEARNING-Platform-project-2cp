@@ -24,8 +24,8 @@ module.exports.getCourse = async (req, res)=>{
         const course = await Course.findById({_id})
         .populate('quizzes') 
         .populate('lessons')
-        .populate('teachers')
-        .populate('students')
+        // .populate('teachers')
+        // .populate('students')
         .populate('announcements')
         .populate('assignments')
 
