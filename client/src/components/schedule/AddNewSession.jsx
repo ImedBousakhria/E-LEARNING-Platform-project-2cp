@@ -12,29 +12,28 @@ import { propsContext } from "../../content page/Mainapp";
 import axios from "axios";
 
 const AddNewSession = () => {
-
-  const {courses} = useContext(propsContext) ; 
+  const { courses } = useContext(propsContext);
 
   const { register, handleSubmit, reset } = useForm();
 
-    async function postData(data) {
-      console.log(data);
-      try {
-        const response = await axios.post(
-          `http://localhost:3000/schedules/create`,
-          data
-        );
-        console.log(response);
-        /* const result = await response.json();
+  async function postData(data) {
+    console.log(data);
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/schedules/create`,
+        data
+      );
+      console.log(response);
+      /* const result = await response.json();
       console.log("Success:", result); */
-      } catch (error) {
-        console.error("Error:", error);
-      }
+    } catch (error) {
+      console.error("Error:", error);
     }
+  }
 
   const { eventState, editMode, elementIndex } = useContext(scheduleContext);
-  const [cancel, setCancel] = useState(false) ; 
-  const {RenderTriger} = useContext(calendarContext) ; 
+  const [cancel, setCancel] = useState(false);
+  const { RenderTriger } = useContext(calendarContext);
 
   return (
     <div className="flex flex-col gap-4 rounded-[10px] bg-white p-4">
@@ -48,9 +47,6 @@ const AddNewSession = () => {
           obj.group = data.group
             ? data.group
             : eventState[0][elementIndex[0]].group;
-          obj.teacher = data.teacher
-            ? "644164aa82161f42040c7c4b"
-            : eventState[0][elementIndex[0]].teacher;
           obj.color = data.color
             ? data.color
             : eventState[0][elementIndex[0]].color;
@@ -115,20 +111,18 @@ const AddNewSession = () => {
                 }
               />
             </label>
-            <label htmlFor="teacher">
-              <input
-                name="teacher"
-                id="teacher"
-                type="text"
-                placeholder="teacher"
-                {...register("teacher")}
-                defaultValue={
-                  elementIndex[0] != null && editMode[0]
-                    ? eventState[0][elementIndex[0]].teacher
-                    : null
-                }
-              />
-            </label>
+            <select id="selectCourse" {...register("selectCourse")}>
+              <option disabled selected>
+                Choose a Course
+              </option>
+              {courses.map((element) => {
+                return (
+                  <option value={element.courseID._id}>
+                    {element.courseID.title}
+                  </option>
+                );
+              })}
+            </select>
             <label className="w-fit" htmlFor="pickColor">
               <input
                 type="color"
@@ -178,20 +172,7 @@ const AddNewSession = () => {
                 />
               </label>
             </div>
-            <select id="selectCourse" {...register("selectCourse")}>
-            <option disabled selected>
-              Choose a Course
-            </option>
-            {courses.map((element) => {
-              return (
-                <option value={element.courseID._id}>
-                  {element.courseID.title}
-                </option>
-              );
-            })}
-          </select>
           </div>
-          
         </div>
         <div className="flex justify-end gap-4">
           {editMode[0] ? <Cancel onClick={() => setCancel(true)} /> : null}
