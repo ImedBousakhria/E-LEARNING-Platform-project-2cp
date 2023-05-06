@@ -20,11 +20,11 @@ exports.addNotification = async (req, res, next) => {
 
 exports.getNotifications = async (req, res, next) => {
   try {
-    const userId = req.params;
-    const notifications = await Notification.find({}).sort({ createdAt: -1 }).populate('sender','');
-    notifications.forEach(notification => {
+    const userId = req.params.id;
+    const notifications = await Notification.find({user: userId}).sort({ createdAt: -1 });
+     notifications.forEach(notification => {
       notification.read = true
-    });
+    }); 
     res.status(200).json(notifications);
   } catch (error) {
     res.status(500).json({ message: error.message });
