@@ -86,32 +86,7 @@ const Addnewassignment = () => {
     }
   }
 
-  /* function handleFileUpload(event) {
-    const file = event.target.files[0];
-    console.log(file) ; 
-    const reader = new FileReader() ; 
-    reader.readAsArrayBuffer(file) ; 
-    reader.onload = async () => {
-      const pdfData = new Uint8Array(reader.result) ; 
-      const pdffile = await pdf.getDocument(pdfData).promise ; 
-
-      const page = await pdffile.getPage(1) ; 
-      const viewport = page.getViewport({scale:0.5}) ; 
-
-      const canvas = document.createElement('canvas') ; 
-      canvas.width = viewport.width ; 
-      canvas.height = viewport.height ; 
-      const context = canvas.getContext('2d') ; 
-
-      const rederContext = {
-        canvasContext : context, 
-        viewport: viewport , 
-      } ; 
-      await page.render(rederContext).promise ; 
-      const thumbnail = canvas.toDataURL('image/jpeg') ; 
-      setImgUrl(thumbnail) ; 
-    }
-  } */
+  
   return (
     <div className="flex flex-col gap-4 rounded-[10px] bg-white p-4">
       <div>
@@ -119,8 +94,9 @@ const Addnewassignment = () => {
       </div>
       <form
         onSubmit={handleSubmit((data) => {
+          console.log(data);
           let obj = new Object();
-          obj.course = courses[0].courseID;
+          obj.course = data.selectCourse;
           obj.title = data.title
             ? data.title
             : firstContent[0][elementIndex[0] - 1].name;
@@ -242,13 +218,18 @@ const Addnewassignment = () => {
                 />
               </div>
             </div>
-            
-            <select>
-              {
-                courses.map(()=> {
 
-                })
-              }
+            <select id="selectCourse" {...register("selectCourse")}>
+              <option disabled selected>
+                Choose a Course
+              </option>
+              {courses.map((element) => {
+                return (
+                  <option value={element.courseID._id}>
+                    {element.courseID.title}
+                  </option>
+                );
+              })}
             </select>
             <label htmlFor="deadline(Date and time input)">
               {/* <input
@@ -281,3 +262,32 @@ const Addnewassignment = () => {
 };
 
 export default Addnewassignment;
+
+
+
+/* function handleFileUpload(event) {
+    const file = event.target.files[0];
+    console.log(file) ; 
+    const reader = new FileReader() ; 
+    reader.readAsArrayBuffer(file) ; 
+    reader.onload = async () => {
+      const pdfData = new Uint8Array(reader.result) ; 
+      const pdffile = await pdf.getDocument(pdfData).promise ; 
+
+      const page = await pdffile.getPage(1) ; 
+      const viewport = page.getViewport({scale:0.5}) ; 
+
+      const canvas = document.createElement('canvas') ; 
+      canvas.width = viewport.width ; 
+      canvas.height = viewport.height ; 
+      const context = canvas.getContext('2d') ; 
+
+      const rederContext = {
+        canvasContext : context, 
+        viewport: viewport , 
+      } ; 
+      await page.render(rederContext).promise ; 
+      const thumbnail = canvas.toDataURL('image/jpeg') ; 
+      setImgUrl(thumbnail) ; 
+    }
+  } */

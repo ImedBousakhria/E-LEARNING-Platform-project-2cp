@@ -11,9 +11,9 @@ export const calendarContext = createContext();
 const Main = () => {
   const RenderTriger = useState(0) ; 
   const {searchMode} = useContext(propsContext) ; 
-  function handleClick() {
+  /* function handleClick() {
     searchMode[0] ? searchMode[1](false) : searchMode[1](true);
-  }
+  } */
   return (
     <calendarContext.Provider value={{ RenderTriger }}>
       <div className="relative flex basis-[60%] flex-col gap-4 bg-primary  p-8">

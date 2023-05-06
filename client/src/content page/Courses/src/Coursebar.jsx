@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import profile from "../../../assets/profile/profileholder.png";
 import Profile from "../../../components/reusable/Profile";
 import Notificaitonhandling from "../../../components/super/Notificaitonhandling";
@@ -10,46 +10,59 @@ import Studentelement from "../../../components/students/components/Studenteleme
 import arrow from "../../../assets/icons/Annouarrow.svg";
 import { propsContext } from "../../Mainapp";
 import Profilepage from "../../../components/super/Profilepage";
+import DiscussionForums from "../../../components/super/DiscussionForums";
+import profileholder  from '../../../assets/profile/profileholder.png' ; 
+import { assignmentteacher } from "../../Assignment/content/main";
 
 const Coursebar = () => {
   const { barContent, setBarContent, activeProgIndex } = useContext(CoursesContext);
   const user = "said";
   const {notificaiton} = useContext(propsContext)
+  const firstContent = useState(assignmentteacher) ; 
   return (
     <div className="sticky right-0 top-0 flex max-h-screen basis-[23%] flex-col gap-4 border-l border-gray bg-white p-4">
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <Notificaitonhandling isnotification={notificaiton} />
+        <DiscussionForums type={"lesson"} firstContent={firstContent} />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>
       {barContent === null ? (
         user === "said" && activeProgIndex !== null ? (
           <div className="flex flex-col gap-4">
             <div>
-              <div className="flex items-center justify-between pl-2 mb-2">
+              <div className="mb-2 flex items-center justify-between pl-2">
                 <h4>Teachers</h4>
                 <div className="flex gap-4">
-                  <img src={arrow} alt="" className=" rotate-180 -z-10" />
+                  <img src={arrow} alt="" className=" -z-10 rotate-180" />
                   <img src={arrow} alt="" />
                 </div>
               </div>
               <div className="mb-4 flex flex-col gap-2">
                 {programs[activeProgIndex].teachers.map((e, index) => (
-                  <Studentelement profilepicture={profile} person={e} user={'admin'}/>
+                  <Studentelement
+                    profilepicture={profile}
+                    person={e}
+                    user={"admin"}
+                  />
                 ))}
               </div>
             </div>
 
             <div>
-              <div className="flex items-center justify-between pl-2 mb-2">
+              <div className="mb-2 flex items-center justify-between pl-2">
                 <h4>Students</h4>
                 <div className="flex gap-4">
-                  <img src={arrow} alt="" className=" rotate-180 -z-10" />
+                  <img src={arrow} alt="" className=" -z-10 rotate-180" />
                   <img src={arrow} alt="" />
                 </div>
               </div>
               <div className="mb-4 flex flex-col gap-2">
                 {programs[activeProgIndex].students.map((e, index) => (
-                  <Studentelement profilepicture={profile} person={e} user={'admin'}/>
+                  <Studentelement
+                    profilepicture={profile}
+                    person={e}
+                    user={"admin"}
+                  />
                 ))}
               </div>
             </div>

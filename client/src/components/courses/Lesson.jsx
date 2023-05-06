@@ -6,6 +6,7 @@ import vid from "../../assets/icons/vid.svg";
 import Delete from "../reusable/Delete";
 import Edit from "../reusable/Edit";
 import { CoursesContext } from "../../content page/Courses/Teachercourses";
+import Message from "../reusable/Message";
 
 const Lesson = ({ id, name, type, course, date, onClick, isActive }) => {
   const {
@@ -14,6 +15,7 @@ const Lesson = ({ id, name, type, course, date, onClick, isActive }) => {
     setContent,
     content,
     setEditMode,
+    showDiscussion,
   } = useContext(CoursesContext);
   let icon;
   if (type == "file") {
@@ -24,6 +26,15 @@ const Lesson = ({ id, name, type, course, date, onClick, isActive }) => {
     icon = img;
   } else if (type == "video") {
     icon = vid;
+  }
+
+
+  function handleClick() {
+    if (showDiscussion[0] == "hidden") {
+      showDiscussion[1]("block");
+    } else {
+      showDiscussion[1]("hidden");
+    }
   }
 
   const handleCheckboxChange = (event) => {
@@ -54,11 +65,14 @@ const Lesson = ({ id, name, type, course, date, onClick, isActive }) => {
         </div>
 
         <p
-          className={`flex flex-shrink-0 items-center text-base text-gray basis-[30%] ${
+          className={`flex flex-shrink-0 basis-[30%] items-center text-base text-gray ${
             isActive ? " text-white opacity-70" : ""
           }`}
         >
+          <span className="max-w-[4ch] overflow-hidden">
+
           {course}
+          </span>
         </p>
 
         <p
@@ -70,6 +84,14 @@ const Lesson = ({ id, name, type, course, date, onClick, isActive }) => {
         </p>
 
         <div className="flex gap-1 ">
+          <div className="z-20 w-[2rem]">
+            <Message
+            handleClick={() => {
+              handleClick();
+            }}
+          />
+          </div>
+          
           <Delete />
           <div
             onClick={() => {
