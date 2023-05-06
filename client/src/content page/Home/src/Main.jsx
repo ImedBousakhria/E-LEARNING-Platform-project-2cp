@@ -16,9 +16,9 @@ import { authContext } from "../../../App";
 const Main = () => {
 
 
-  const { IndexHandle, searchMode, userType, data } = useContext(propsContext);
+  const { Indexhandle, searchMode, userType, data } = useContext(propsContext);
 
-  console.log(IndexHandle);
+  console.log(Indexhandle);
   /*   function handleClick() {
     searchMode[0] ? searchMode[1](false) : searchMode[1](true);
   } */

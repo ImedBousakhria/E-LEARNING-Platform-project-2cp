@@ -54,18 +54,18 @@ const AddNewSession = () => {
 
     let obj = new Object();
     obj.course = data.selectCourse;
-    obj.group = data.group ? data.group : schedules[elementIndex[0]].group;
-    obj.color = data.color ? data.color : schedules[elementIndex[0]].color;
+    obj.group = data.group ? data.group : dataElements[elementIndex[0]].group;
+    obj.color = data.color ? data.color : dataElements[elementIndex[0]].color;
     obj.day = document.getElementById("daypicker").value;
 
     var indexindex;
     var secondIndex;
     let startTime = data.startTime
       ? data.startTime
-      : schedules[elementIndex[0]].startTime;
+      : dataElements[elementIndex[0]].startTime;
     let endTime = data.endTime
       ? data.endTime
-      : schedules[elementIndex[0]].endTime;
+      : dataElements[elementIndex[0]].endTime;
     for (let ele of calendar) {
       if (ele == startTime) {
         indexindex = calendar.indexOf(ele);
@@ -79,13 +79,13 @@ const AddNewSession = () => {
     obj.startTime = startTime;
     obj.endTime = endTime;
     obj.index = indexindex;
-    obj.position = editMode[0]?schedules[elementIndex[0]].position: schedules.length;
+    obj.position = editMode[0]?dataElements[elementIndex[0]].position: dataElements.length;
     console.log(obj);
     if (!cancel) {
       if (editMode[0]) {
-        // update funciton schedules[elementIndex[0]] = obj;
+        // update funciton dataElements[elementIndex[0]] = obj;
         //eventState[1](eventState[0]);
-        updateData(obj, schedules[elementIndex[0]]._id);
+        updateData(obj, dataElements[elementIndex[0]]._id);
         location.reload() ; 
         //RenderTriger[1](RenderTriger[0]++);
       } else {
@@ -99,11 +99,11 @@ const AddNewSession = () => {
     if (editMode[0]) {
       editMode[1](false);
     }
-    console.log(schedules);
+    console.log(dataElements);
     reset();
   }
 
-  const { schedules, editMode, elementIndex, handleDelete } =
+  const { dataElements, editMode, elementIndex, handleDelete } =
     useContext(scheduleContext);
   const [cancel, setCancel] = useState(false);
   const { RenderTriger } = useContext(calendarContext);
@@ -125,7 +125,7 @@ const AddNewSession = () => {
                 {...register("group")}
                 defaultValue={
                   elementIndex[0] != null && editMode[0]
-                    ? schedules[elementIndex[0]].group
+                    ? dataElements[elementIndex[0]].group
                     : null
                 }
               />
@@ -151,7 +151,7 @@ const AddNewSession = () => {
                 {...register("color")}
                 defaultValue={
                   elementIndex[0] != null && editMode[0]
-                    ? schedules[elementIndex[0]].color
+                    ? dataElements[elementIndex[0]].color
                     : null
                 }
               />
@@ -171,7 +171,7 @@ const AddNewSession = () => {
                   {...register("startTime")}
                   defaultValue={
                     elementIndex[0] != null && editMode[0]
-                      ? schedules[elementIndex[0]].startTime
+                      ? dataElements[elementIndex[0]].startTime
                       : null
                   }
                 />
@@ -185,7 +185,7 @@ const AddNewSession = () => {
                   {...register("endTime")}
                   defaultValue={
                     elementIndex[0] != null && editMode[0]
-                      ? schedules[elementIndex[0]].endTime
+                      ? dataElements[elementIndex[0]].endTime
                       : null
                   }
                 />

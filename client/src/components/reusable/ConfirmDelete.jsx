@@ -6,10 +6,18 @@ import delet from "../../assets/icons/delete.svg";
 import close from "../../assets/icons/close.svg";
 import { scheduleContext } from "../../content page/Schedule/Schedule";
 import axios from "axios";
+import { IndexElementContext } from "../../content page/Assignment/Assignment";
 
-const ConfirmDelete = ({ confirmDelete, setConfirmDelete }) => {
-  const { handleDelete } = useContext(scheduleContext);
-  const { schedules, elementIndex } = useContext(scheduleContext);
+const ConfirmDelete = ({ confirmDelete, setConfirmDelete, type }) => {
+  let confirmDeleteContext ; 
+  if(type == "schedule") {
+    confirmDeleteContext = scheduleContext ; 
+  }else if(type == "assignment")  {
+    confirmDeleteContext = IndexElementContext ;
+  }
+  //const { handleDelete } = useContext(confirmDeleteContext);
+
+  //const { dataElements, elementIndex } = useContext(scheduleContext);
   async function deleteData(id) {
     try {
       const response = await axios.delete(
@@ -32,7 +40,7 @@ const ConfirmDelete = ({ confirmDelete, setConfirmDelete }) => {
         <button
           type="submit"
           onClick={() => {
-            deleteData(schedules[elementIndex[0]]._id);
+            deleteData(dataElements[elementIndex[0]]._id);
             location.reload() ; 
           }}
           className="flex w-auto min-w-max cursor-pointer items-center gap-2 rounded-[5px] border border-red p-1"

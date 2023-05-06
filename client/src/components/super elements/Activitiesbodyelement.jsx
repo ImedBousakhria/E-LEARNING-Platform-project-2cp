@@ -6,11 +6,13 @@ import { IndexElementContext } from "../../content page/Assignment/Assignment";
 import { IndexElementContextquiz } from "../../content page/Quizzes/Quizzes";
 import Message from "../reusable/Message";
 import { homeContext } from "../../content page/Home/Home";
+import { propsContext } from "../../content page/Mainapp";
+import { formatDate } from "../reusableFunc/formatDate";
 
 const Activitiesbodyelement = ({
-  name,
-  groupe,
-  date,
+  title,
+  cours,
+  deadline,
   checkall,
   index,
   type,
@@ -20,18 +22,33 @@ const Activitiesbodyelement = ({
     contextElement = IndexElementContext;
   } else if (type == "quiz") {
     contextElement = IndexElementContextquiz;
-  }else if(type =="students") {
-    contextElement = homeContext ; 
+  } else if (type == "students") {
+    contextElement = homeContext;
   }
-  const [check, setCheck] = useState(false);
-  const { elementIndex, showDiscussion } = useContext(contextElement);
 
-  function handleClick() {
-    if(showDiscussion[0] == "hidden") {
-      showDiscussion[1]("block")
-    }else {
-      showDiscussion[1]("hidden") ; 
+  const [couresTitle, setCourseTitle] = useState(null);
+
+  const { courses } = useContext(propsContext);
+
+  console.log(courses);
+  let course = courses.find((course) => course.courseID._id == cours);
+  //setCourseTitle(course.courseID.title);
+  console.log(course);
+
+  let deadlineFormated =   formatDate(deadline) ; 
+
+  const [check, setCheck] = useState(false);
+  const { elementIndex, editMode,  showDiscussion } = useContext(contextElement);
+
+  /* function handleClick() {
+    if (showDiscussion[0] == "hidden") {
+      showDiscussion[1]("block");
+    } else {
+      showDiscussion[1]("hidden");
     }
+  } */
+  function handleClick() {
+    editMode[1](true);
   }
 
   return (
@@ -59,25 +76,19 @@ const Activitiesbodyelement = ({
       <div className="grid-row-1 grid basis-[80%] grid-cols-3 gap-[2rem]">
         <div className="flex gap-2 ">
           <img src={submition} />
-          {name}
+          {title}
         </div>
-        {type != "students" ? <div className=" seperator">{groupe}</div> : null}
+        {type != "students" ? (
+          <div className=" seperator">{course?.courseID?.title}</div>
+        ) : null}
 
-        <div className="seperator">{date}</div>
+        <div className="seperator">{deadlineFormated}</div>
       </div>
       <div className="flex basis-[15%] items-center justify-center gap-2 ">
-        {type == "quiz" ? null : (
-          <Message
-            handleClick={() => {
-              handleClick();
-            }}
-          />
-        )}
-
         {type != "students" ? (
           <>
-            <Deleteactivitieselemnt text={null} />
-            <Editactivitieselement type={type} text={null} />
+            <Deleteactivitieselemnt type={type} text={null} />
+            <Editactivitieselement handleClick={()=>handleClick()} text={null} />
           </>
         ) : null}
       </div>

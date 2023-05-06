@@ -22,17 +22,18 @@ const Schedule = ({ index }) => {
   const [courseIndex, setCourseIndex] = useState(0);
 
   const elementIndex = useState(null);
-  const eventState = useState([]);
   const editMode = useState(false);
 
   if (index === 7 && status == "success") {
+
     let schedulesHolder = data.map((Element) => Element.schedules);
-    const schedules = schedulesHolder.flatMap((innerArray) => innerArray);
-    console.log(schedules);
-    schedules.sort((a, b) => a.position - b.position);
+    const dataElements = schedulesHolder.flatMap((innerArray) => innerArray);
+    console.log(dataElements);
+    dataElements.sort((a, b) => a.position - b.position);
+    
     return (
       <scheduleContext.Provider
-        value={{ elementIndex, schedules, editMode, handleDelete }}
+        value={{ elementIndex, dataElements, editMode, handleDelete }}
       >
         <Main />
         <Notificaiton />

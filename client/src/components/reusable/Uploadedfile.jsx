@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 import deletequestion from "../../assets/icons/deletequetion.svg";
 
-const Uploadedfile = ({ file, onRemove }) => {
-import example from "./example.pdf";
 const Uploadedfile = ({ fileName, file, onRemove }) => {
   const [image, setImage] = useState(null) ; 
 
@@ -14,9 +12,8 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       console.log(reader.result);
-
-      /* setImage(reader.result) ; 
-      console.log(reader.result) */
+      setImage(reader.result) ; 
+      console.log(reader.result)
     };
   } else if (file.type.includes("pdf")) {
     const reader = new FileReader();
@@ -44,16 +41,14 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
       </button>
       {file.type.startsWith("image/") ? (
 
-        <img
-          src={URL.createObjectURL(file)}
-          className="aspect-square w-24 cursor-pointer rounded-xl object-contain"
-
+        
 
         <div className="basis-[25%]">
           <img
           src={image}
           className="h-[3.75rem] w-full  rounded-xl object-contain"
         />
+        </div>
       ) : file.type.includes("pdf") ? (
 
         <div className="h-[3.75rem] overflow-hidden object-contain">
