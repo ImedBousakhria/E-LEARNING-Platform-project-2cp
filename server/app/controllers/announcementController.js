@@ -14,7 +14,7 @@ const Notification = require('../models/Notification');
 // GET all Announcements
 module.exports.getAllAnnouncements = async (req, res) => {
     try {
-      const announcements = await Announcement.find();
+      const announcements = await Announcement.find().populate('sender');
       res.json(announcements);
     } catch (err) {
       res.status(500).json({ error: err.message });
@@ -24,7 +24,7 @@ module.exports.getAllAnnouncements = async (req, res) => {
   // GET a single Announcement by id
   module.exports.getAnnouncementById = async (req, res) => {
     try {
-      const announcement = await Announcement.findById(req.params.id);
+      const announcement = await Announcement.findById(req.params.id).populate('sender');
       if (!announcement) {
         return res.status(404).json({ error: "Announcement not found" });
       }
@@ -128,7 +128,9 @@ module.exports.createAnnouncement = [
         title: req.body.title,
         description: req.body.description,
         gallery: gallery,
+        sender: "64406327b871d94ddb7bfd77",
         course: req.body.course || null // Set course to null if not provided
+        
       });
 
       // Add the new Announcement to the course if course is provided
