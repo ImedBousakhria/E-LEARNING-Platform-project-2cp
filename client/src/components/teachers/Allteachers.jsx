@@ -1,38 +1,38 @@
 import React from "react";
 import { useState, useEffect } from "react";
-/* import { students } from "./../../content page/Students/content/main";*/
-import Studentelement from "./components/Studentelement";
+/* import { Teachers } from "./../../content page/Teachers/content/main";*/
+import Teacherelement from "./components/Teacherelement";
 import "swiper/swiper-bundle.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import { useContext } from "react";
-import { StudentsContext } from "../../content page/Students/Teacherstudents";
+import { TeachersContext } from "../../content page/Teachers/Teachers";
 import darkarrow from "../../assets/icons/darkarrow.svg";
 import arrow from "../../assets/icons/annouarrow.svg";
 import axios from 'axios';
 
-const Allstudents = () => {
+const Allteachers = () => {
 
-  // GET students
-  const [students, setStudents] = useState([]);
+  // GET Teachers
+  const [teachers, setTeachers] = useState([]);
   useEffect(() => {
-    const getStudents = async () => {
+    const getTeachers = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/user/getStudents");
+        const response = await axios.get("http://localhost:3000/user/getTeachers");
         console.log(response.data);
-        setStudents(response.data);
+        setTeachers(response.data);
       } catch (error) {
         console.error(error);
       }
     };
 
-    getStudents();
+    getTeachers();
   }, []);
 
 
   const user = "said";
   const { barContent, setBarContent, activeCardIndex, setActiveCardIndex } =
-    useContext(StudentsContext);
+    useContext(TeachersContext);
   const [iconRotation, setIconRotation] = useState(0);
 
   const handleIconClick = () => {
@@ -45,9 +45,9 @@ const Allstudents = () => {
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
 
-  const currentPosts = students.slice(firstPostIndex, lastPostIndex);
+  const currentPosts = teachers.slice(firstPostIndex, lastPostIndex);
   const isPrevDisabled = currentPage === 1;
-  const isNextDisabled = lastPostIndex >= students.length;
+  const isNextDisabled = lastPostIndex >= teachers.length;
 
   const handleNextClick = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -61,7 +61,7 @@ const Allstudents = () => {
     <div className={`flex flex-col gap-4 rounded-[10px] bg-white py-6 px-8`}>
       <div className="flex items-center justify-between">
         <p className="mb-3 text-lg font-semibold text-nightblue">
-          Your students
+          Your teachers
         </p>
 
         <div className="flex items-center gap-4">
@@ -105,7 +105,7 @@ const Allstudents = () => {
         </header>
         {currentPosts.map((student, index) => {
           return (
-            <Studentelement
+            <Teacherelement
               person={student.firstName + ' ' + student.lastName}
               group={student.group}
               profilepicture={student.profilepicture}
@@ -122,4 +122,4 @@ const Allstudents = () => {
   );
 };
 
-export default Allstudents;
+export default Allteachers;

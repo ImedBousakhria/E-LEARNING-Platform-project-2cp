@@ -25,6 +25,47 @@ module.exports.getAllLessons = async (req, res) => {
     }
     };
 
+
+    module.exports.createLesson = async (req, res) =>{
+      try{
+         // Extract the files from the request and add them to the gallery array
+    if(req.files){
+       const gallery = req.files.gallery.map(file => ({
+      contentType: file.mimetype,
+      data: file.data,
+      created: Date.now(),
+      postedBy: req.user._id
+    }));
+
+    }else(
+      console.log("no files found")
+    )
+   
+    // Create the lesson object
+    const lesson = new Lesson({
+      title: req.body.title,
+      description: req.body.description,
+      if(gallery){
+         gallery: gallery
+      }
+     
+    })
+
+
+    const savedLesson = await lesson.save();
+
+          res.status(200).json(savedLesson);
+          console.log("lesson created sucessfully");
+  
+      }catch(err){
+  
+          console.log("Creation lesson failed");
+          res.status(500).json({message: err.message});
+      }
+  
+  };
+  
+
 // // POST create a new lesson with files
 // module.exports.createLesson = [
 //     upload.array('gallery'),
@@ -36,7 +77,8 @@ module.exports.getAllLessons = async (req, res) => {
 //           data: file.buffer,
 //           postedBy: req.user._id
 //         }));
-  
+
+
 //         // Create the lesson object
 //         const lesson = new Lesson({
 //           title: req.body.title,
@@ -44,12 +86,12 @@ module.exports.getAllLessons = async (req, res) => {
 //           gallery: gallery,
 //           course: req.body.course
 //         })
-        
+
 //         // Add the new lesson to the course
 //         const course = await Course.findById(req.body.courseId);
 //         course.lessons.push(lesson._id);
 //         await course.save();
-  
+
 //         const savedLesson = await lesson.save();
 //         res.json(savedLesson);
 //       } catch (err) {
@@ -57,6 +99,41 @@ module.exports.getAllLessons = async (req, res) => {
 //       }
 //     }
 //   ];
+
+
+  
+// // POST create a new lesson with files
+// exports.createLesson = async (req, res) => {
+//   try {
+//     // Extract the files from the request and add them to the gallery array
+//     const gallery = req.files.gallery.map(file => ({
+//       contentType: file.mimetype,
+//       data: file.data,
+//       created: Date.now(),
+//       postedBy: req.user._id
+//     }));
+
+//     // Create the lesson object
+//     const lesson = new Lesson({
+//       title: req.body.title,
+//       description: req.body.description,
+//       gallery: gallery,
+//       course: req.body.courseId,
+
+//     })
+
+//     // Add the new lesson to the course
+//     const course = await Course.findById(req.body.courseId);
+//     course.lessons.push(lesson._id);
+//     await course.save();
+
+//     const savedLesson = await lesson.save();
+//     res.json(savedLesson);
+//   } catch (err) {
+//     res.status(400).json({ error: err.message });
+//   }
+// };
+
   
 
 exports.createLesson = async (req, res, next) => {
@@ -129,4 +206,5 @@ exports.createLesson = async (req, res, next) => {
 //     }
 //   };
   
+
 

@@ -27,7 +27,7 @@ module.exports.getCourse = async (req, res)=>{
         .populate('teachers')
         .populate('students')
         // .populate('announcements')
-        // .populate('assignments')
+        //.populate('assignments')
 
         if(course){
             res.status(200).json(course);
@@ -59,14 +59,13 @@ module.exports.postCourse = async (req, res)=>{
         
         // add to teachers
         if(req.body.teachers){
-            req.body.teachers.forEach(async teacherID => {
-                const teacher = await User.findById(teacherID);
-                teacher.courses.push({courseID: course._id});
-                teacher.save();
-            })
-        }
-       
 
+             req.body.teachers.forEach(async teacherID => {
+            const teacher = await User.findById(teacherID);
+            teacher.courses.push({courseID: course._id});
+            teacher.save();
+        })
+        }
 
         //add to students
         if(req.body.students){
@@ -76,7 +75,7 @@ module.exports.postCourse = async (req, res)=>{
             student.save();
         })
         }
-        
+
         // //add to lessons
         // req.body.lessons.forEach(async lessonID => {
         //     const lesson = await Lesson.findById(lessonID);

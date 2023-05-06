@@ -36,63 +36,6 @@ module.exports.getAllAssignments = async (req, res) => {
     }
   };
 
-  
-// // POST create a new Assignment with files
-// module.exports.createAssignment = [
-//   async (req, res) => {
-//     try {
-//       // Check if the request body contains base64 encoded file data
-//       if (req.body.file) {
-//         // Decode the base64 data to a Buffer
-//         const fileData = Buffer.from(req.body.file, 'base64');
-
-//         // Create a temporary file to write the Buffer data
-//         const tempFileName = 'temp_' + Date.now();
-//         fs.writeFileSync(tempFileName, fileData);
-
-//         // Create the file object for multer upload
-//         const tempFile = {
-//           originalname: 'Assignment_file',
-//           mimetype: req.body.mimetype,
-//           buffer: fs.readFileSync(tempFileName)
-//         };
-
-//         // Add the file object to the request files array
-//         req.files = [tempFile];
-//       }
-
-//       // Extract the files from the request and add them to the gallery array
-//       if (req.body.file) {
-//       const gallery = req.files.map(file => ({
-//         contentType: file.mimetype,
-//         data: file.buffer,
-//         // postedBy: req.user._id
-//       }))};
-
-
-//       // Create the Assignment object
-//       const assignment = new Assignment({
-//         title: req.body.title,
-//         description: req.body.description,
-//         gallery: gallery,
-//         course: req.body.course
-//       });
-
-//        // Add the new Assignment to the course
-//        const course = await Course.findById(req.body.course);
-//        course.assignment.push(assignment._id);
-//        await course.save();
-
-
-//       // Save the Assignment object
-//       await assignment.save();
-
-//       res.json(assignment);
-//     } catch (err) {
-//       res.status(400).json({ error: err.message });
-//     }
-//   }
-// ];
 
 // POST create a new Assignment with files
 module.exports.createAssignment = [
@@ -118,20 +61,22 @@ module.exports.createAssignment = [
         req.files = [tempFile];
       }
 
-      // Extract the files from the request and add them to the gallery array
+      if(req.body.files){
+       // Extract the files from the request and add them to the gallery array
       const gallery = req.body.file ? req.files.map(file => ({
         contentType: file.mimetype,
         data: file.buffer,
         // postedBy: req.user._id
-      })) : [];
+      })) : []; 
+      }
+      
 
       // Create the Assignment object
       const assignment = new Assignment({
         title: req.body.title,
         description: req.body.description,
         deadline: req.body.deadline,
-        gallery: gallery,
-        course: req.body.course || null // Set course to null if not provided
+        course: req.body.course,
       });
 
       // Add the new Assignment to the course if course is provided

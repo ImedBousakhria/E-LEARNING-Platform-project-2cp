@@ -10,13 +10,14 @@ import Attachfile from "../reusable/Attachfile";
 import Uploadedfile from "../reusable/Uploadedfile";
 import { useQuery } from "@tanstack/react-query";
 import { propsContext } from "../../content page/Mainapp";
+import axios from "axios";
 
 const Addnewassignment = () => {
+  const { courses } = useContext(propsContext);
 
-  const [secodeFiles, setSecondFiles] = useState([]) ; 
+  const [secodeFiles, setSecondFiles] = useState([]);
 
-
-    const inputRef = useRef(null);
+  const inputRef = useRef(null);
 
   const { register, handleSubmit, reset } = useForm();
 
@@ -37,26 +38,25 @@ const Addnewassignment = () => {
 
   const handleFileSelected = (event) => {
     const selectedFiles = Array.from(event.target.files);
-    setSecondFiles([...secodeFiles, ...selectedFiles]) ;
-    console.log(event.target.files) ; 
+    setSecondFiles([...secodeFiles, ...selectedFiles]);
+    console.log(event.target.files);
 
     if (event.target.files[0].type.startsWith("image/")) {
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onloadend = () => {
-        //console.log(reader.result); 
-        setFiles([...files, reader.result]) ;
-        console.log(files) ;  
+        //console.log(reader.result);
+        setFiles([...files, reader.result]);
+        console.log(files);
       };
     } else if (event.target.files[0].type.includes("pdf")) {
       const reader = new FileReader();
       reader.readAsBinaryString(event.target.files[0]);
       reader.onloadend = () => {
         var base64String = window.btoa(reader.result);
-        setFiles([...files, base64String]) 
+        setFiles([...files, reader.result]);
         //console.log(base64String);
-        console.log(files);  
-
+        console.log(files);
       };
     }
 
@@ -68,6 +68,23 @@ const Addnewassignment = () => {
     });
     setFiles(newArray);
   };
+
+
+
+  async function postData(data) {
+    console.log(data);
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/assignment/create`,
+        data
+      );
+      console.log(response);
+      /* const result = await response.json();
+      console.log("Success:", result); */
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
 
   /* function handleFileUpload(event) {
     const file = event.target.files[0];
@@ -103,12 +120,13 @@ const Addnewassignment = () => {
       <form
         onSubmit={handleSubmit((data) => {
           let obj = new Object();
-          obj.name = data.name
-            ? data.name
+          obj.course = courses[0].courseID;
+          obj.title = data.title
+            ? data.title
             : firstContent[0][elementIndex[0] - 1].name;
-          obj.course = data.course
+          /* obj.course = data.course
             ? data.course
-            : firstContent[0][elementIndex[0] - 1].course;
+            : firstContent[0][elementIndex[0] - 1].course; */
           obj.description = data.description
             ? data.description
             : firstContent[0][elementIndex[0] - 1].description;
@@ -131,17 +149,15 @@ const Addnewassignment = () => {
           const formattedDate = `${day}/${month}/${year},${hour}:${minute}${ampm}`; // combine all parts into the desired format
           console.log(formattedDate); // output: e.g. 29/03/23,11:00PM
 
-          obj.date = formattedDate;
-          obj.submissions = firstContent[0][elementIndex[0] - 1]?.submissions
+          /* obj.date = formattedDate; */
+          /* obj.submissions = firstContent[0][elementIndex[0] - 1]?.submissions
             ? firstContent[0][elementIndex[0] - 1].submissions
-            : [];
-          obj.discussions = firstContent[0][elementIndex[0] - 1]?.discussions
+            : []; */
+          /*           obj.discussions = firstContent[0][elementIndex[0] - 1]?.discussions
             ? firstContent[0][elementIndex[0] - 1]?.discussions
-            : [];
-            console.log(files) ; 
-          obj.files = files
-            ? files
-            : firstContent[0][elementIndex[0] - 1].files;
+            : []; */
+          console.log(files);
+          obj.file = files ? files : firstContent[0][elementIndex[0] - 1].files;
           console.log(obj);
           console.log("no cancel");
           if (!cancel) {
@@ -155,20 +171,21 @@ const Addnewassignment = () => {
           if (editMode[0]) {
             editMode[1](false);
           }
+          postData(obj);
+
           reset();
           setFiles([]);
-          setSecondFiles([]); 
-
+          setSecondFiles([]);
         })}
         className="flex gap-[2%]"
       >
         <div className="flex basis-[49%] flex-col gap-4">
-          <label htmlFor="name">
+          <label htmlFor="title">
             <input
               type="text"
-              placeholder="name"
-              id="name"
-              {...register("name")}
+              placeholder="title"
+              id="title"
+              {...register("title")}
               defaultValue={
                 elementIndex[0] != null && editMode[0]
                   ? firstContent[0][elementIndex[0] - 1].name
@@ -191,7 +208,7 @@ const Addnewassignment = () => {
           </label>
           <label htmlFor="description">
             <input
-              placeholder="Description"
+              placeholder="description"
               id="description"
               {...register("description")}
               defaultValue={
@@ -206,7 +223,7 @@ const Addnewassignment = () => {
           <div className="flex flex-col gap-4">
             <div className="flex gap-2">
               <div className=" basis-[80%] pb-4">
-                <div className="flex flex-wrap w-full items-center gap-2">
+                <div className="flex w-full flex-wrap items-center gap-2">
                   {secodeFiles.map((file, index) => (
                     <Uploadedfile
                       fileName={"file.name"}
@@ -234,11 +251,11 @@ const Addnewassignment = () => {
               /> */}
             </div>
 
-            <label htmlFor="Deadline(Date and time input)">
+            <label htmlFor="deadline(Date and time input)">
               <input
                 type="text"
                 id="deadline"
-                placeholder="Deadline(Date and time input)"
+                placeholder="deadline(Date and time input)"
                 {...register("deadline")}
                 defaultValue={
                   elementIndex[0] != null && editMode[0]

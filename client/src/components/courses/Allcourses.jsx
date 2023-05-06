@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { lessons } from "../../content page/Courses/content/main";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation } from "swiper";
@@ -11,6 +11,8 @@ import arrow from "../../assets/icons/annouarrow.svg";
 import Lesson from "./Lesson";
 import Delete from "../reusable/Delete";
 import { CoursesContext } from "../../content page/Courses/Teachercourses";
+import axios from "axios";
+import { formatDate } from "../reusableFunc/formatDate";
 
 const Allcourses = ({ index }) => {
   const [iconRotation, setIconRotation] = useState(0);
@@ -23,6 +25,21 @@ const Allcourses = ({ index }) => {
     setCheckedLessons,
     editMode,
   } = useContext(CoursesContext);
+
+  // GET lessons
+  const [My, setLessons] = useState([]);
+  useEffect(() => {
+    const getLessons = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/lesson/getAll");
+        setLessons(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getLessons();
+  }, [My]);
 
   const handleCheckAll = (event) => {
     const { checked } = event.target;
@@ -40,7 +57,6 @@ const Allcourses = ({ index }) => {
     setCheckedLessons(newCheckedLessons);
   };
 
-  const isAllchecked = Object.values(checkedLessons).every(Boolean);
   const handleIconClick = () => {
     setIconRotation(iconRotation + 90);
   };
@@ -50,9 +66,9 @@ const Allcourses = ({ index }) => {
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
 
-  const currentPosts = lessons.slice(firstPostIndex, lastPostIndex);
+  const currentPosts = My.slice(firstPostIndex, lastPostIndex);
   const isPrevDisabled = currentPage === 1;
-  const isNextDisabled = lastPostIndex >= lessons.length;
+  const isNextDisabled = lastPostIndex >= My.length;
 
   const handleNextClick = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -139,10 +155,10 @@ const Allcourses = ({ index }) => {
           return (
             <Lesson
               id={index}
-              name={lesson.name}
+              name={lesson.title}
               type={lesson.type}
               course={lesson.course}
-              date={lesson.date}
+              date={formatDate(lesson.created)}
               onClick={() => {
                 setActiveCardIndex(index);
                 setBarContent(lesson);

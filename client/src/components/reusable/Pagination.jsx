@@ -1,34 +1,28 @@
 import React from "react";
+import { useState } from "react";
 
 const Pagination = ({
-  totalPosts,
+  array,
   postsPerPage,
   setCurrentPage,
   currentPage,
+  setCurrentPage
 }) => {
-  let pages = [];
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
 
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    pages.push(i);
-  }
+  const currentPosts = array.slice(firstPostIndex, lastPostIndex);
+  const isPrevDisabled = currentPage === 1;
+  const isNextDisabled = lastPostIndex >= items.length;
 
-  return (
-    <div className="">
-      {pages.map((page, index) => {
-        return (
-          <button
-            key={index}
-            onClick={() => setCurrentPage(page)}
-            className={page == currentPage ? "" : ""}
-          >
-            {page}
-          </button>
-        );
-      })}
-    </div>
-  );
+  const handleNextClick = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevClick = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
 };
-
 export default Pagination;
 
 /*const lastPostIndex = currentPage * postsPerPage;
