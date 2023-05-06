@@ -29,7 +29,7 @@ const lessonSchema = new mongoose.Schema({
 //     }
 // },
   course: { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },
-  discussionForum: { type: mongoose.Schema.Types.ObjectId, ref: 'DiscussionForum' },
+  discussion: { type: mongoose.Schema.Types.ObjectId, ref: 'Discussion' },
   created: {
     type: Date,
     default: Date.now

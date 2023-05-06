@@ -61,14 +61,14 @@ module.exports.createAssignment = [
         req.files = [tempFile];
       }
 
-      if(req.body.files){
+
        // Extract the files from the request and add them to the gallery array
       const gallery = req.body.file ? req.files.map(file => ({
         contentType: file.mimetype,
         data: file.buffer,
         // postedBy: req.user._id
       })) : []; 
-      }
+     
       
 
       // Create the Assignment object
@@ -77,6 +77,7 @@ module.exports.createAssignment = [
         description: req.body.description,
         deadline: req.body.deadline,
         course: req.body.course,
+        gallery: gallery,
       });
 
       // Add the new Assignment to the course if course is provided
