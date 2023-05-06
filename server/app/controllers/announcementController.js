@@ -7,6 +7,7 @@ const path = require('path');
 const Announcement = require('../models/Announcement');
 const Discussion = require('../models/Discussion');
 const mongoose = require('mongoose');
+const Notification = require('../models/Notification');
 
 
 
@@ -136,6 +137,32 @@ module.exports.createAnnouncement = [
         if (course) {
           course.announcements.push(announcement._id);
           await course.save();
+          
+          // Send notifications to teachers and students in the course
+          course.teachers.forEach(async teacherId => {
+            const teacher = await User.findById(teacherId);
+            const notification = new Notification({
+              user: teacher._id,
+              sender: "64406327b871d94ddb7bfd77",
+              message: `New announcement "${announcement.title}" created in "${course.title}"`,
+            });
+            await notification.save();
+            teacher.notifications.push(notification);
+            teacher.save();
+          });
+          
+          // send notification to students
+          course.students.forEach(async studentId => {
+            const student = await User.findById(studentId);
+            const notification = new Notification({
+              user: student._id,
+              sender: "64406327b871d94ddb7bfd77",
+              message: `New announcement "${announcement.title}" created in "${course.title}"`,
+            });
+            await notification.save();
+            student.notifications.push(notification);
+            student.save();
+          });
         }
       }
 

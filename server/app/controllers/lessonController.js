@@ -77,20 +77,30 @@ module.exports.createLesson = [
           course.lessons.push(lesson._id);
           await course.save();
   
-          const notification = new Notification({
-            message: `New lesson "${lesson.title}" created in ${course.title}`,
-          });
+          
   
           // send notification to teachers
           course.teachers.forEach(async teacher => {
+            const notification = new Notification({
+              user: teacher._id,
+              sender: "64406327b871d94ddb7bfd77",
+              message: `New lesson ${lesson.title} created in ${course.title}`,
+            });
+            await notification.save();
             teacher.notifications.push(notification);
-            await teacher.save();
+            teacher.save();
           });
   
           // send notification to students
           course.students.forEach(async student => {
+            const notification = new Notification({
+              user: student._id,
+              sender: "64406327b871d94ddb7bfd77",
+              message: `New lesson ${lesson.title} created in ${course.title}`,
+            });
+            await notification.save();
             student.notifications.push(notification);
-            await student.save();
+            student.save();
           });
         }
       }
