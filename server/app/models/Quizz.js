@@ -6,7 +6,13 @@ const quizSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
+    },
+    description: {
+      type: String
+    },
+    deadline : {
+      type: Date,
+      required: true
     },
     content: [{
       question: {

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import profile from "../../../assets/profile/profileholder.png";
 import Profile from "../../../components/reusable/Profile";
 import Notificaitonhandling from "../../../components/super/Notificaitonhandling";
@@ -10,16 +10,25 @@ import Studentelement from "../../../components/students/components/Studenteleme
 import arrow from "../../../assets/icons/Annouarrow.svg";
 import { propsContext } from "../../Mainapp";
 import Profilepage from "../../../components/super/Profilepage";
+import DiscussionForums from "../../../components/super/DiscussionForums";
+import profileholder  from '../../../assets/profile/profileholder.png' ; 
+import { assignmentteacher } from "../../Assignment/content/main";
 
 const Coursebar = () => {
   const { barContent, setBarContent, activeProgIndex } =
     useContext(CoursesContext);
   const user = "said";
+
   const { notificaiton, profileShown } = useContext(propsContext);
+
+  const {notificaiton} = useContext(propsContext)
+  const firstContent = useState(assignmentteacher) ; 
+
   return (
     <div className="sticky right-0 top-0 flex max-h-screen basis-[23%] flex-col gap-4 border-l border-gray bg-white p-4">
       <div className="mb-4 flex items-center justify-between">
         <Notificaitonhandling isnotification={notificaiton} />
+        <DiscussionForums type={"lesson"} firstContent={firstContent} />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>
       {profileShown ? (

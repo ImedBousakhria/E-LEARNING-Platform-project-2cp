@@ -39,6 +39,8 @@ module.exports.createQuizz = async (req, res) => {
     try {
         const newQuiz = new Quizz({
             name: req.body.name,
+            description: req.body.description,
+            deadline: req.body.deadline,
             course: req.body.course,
             content: req.body.content
             });

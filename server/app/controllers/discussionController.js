@@ -1,31 +1,26 @@
-const discussion = require('../models/Discussion');
+const Discussion = require('../models/Discussion');
 const Lesson = require('../models/Lesson');
 
-  exports.getMessages = async (req, res, next) => {
+exports.createDiscussion = async (req, res) => {
+  const newConversation = new Conversation({
+    members: [req.body.senderId, req.body.receiverId],
+  });
+
   try {
-    const { lessonId } = req.params;
-    const discussion = await Discussion.findOne({ lesson: lessonId }).populate('messages.user', 'name');
-    const io = req.app.get('io');
-    io.emit(`discussion-${lessonId}`, discussion);
-    res.status(200).json(discussion);
-  } catch (error) {
-    res.status(500).json({message: error.message});
+    const savedConversation = await newConversation.save();
+    res.status(200).json(savedConversation);
+  } catch (err) {
+    res.status(500).json(err);
   }
 };
-  
-  exports.postMessage = async (req, res, next) => {
+
+exports.getDiscussion = async (req, res, next) => {
   try {
-    const { lessonId } = req.params;
-    const { text, userId } = req.body;
-    const discussion = await Discussion.findOneAndUpdate(
-      { lesson: lessonId },
-      { $push: { messages: { text, userId } } },
-      { new: true, upsert: true }
-    ).populate('messages.user', 'name');
-    const io = req.app.get('io');
-    io.emit(`discussion-${lessonId}`, discussion); 
-    res.status(200).json(discussion);
-  } catch (error) {
-    res.status(500).json({message: error.message});
+    const conversation = await Conversation.find({
+      members: { $in: [req.params.userId] },
+    });
+    res.status(200).json(conversation);
+  } catch (err) {
+    res.status(500).json(err);
   }
 };

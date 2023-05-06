@@ -7,6 +7,7 @@ import { IndexElementContextquiz } from "../../content page/Quizzes/Quizzes";
 import profileHolder from "../../assets/profile/profileholder.png";
 import { useForm } from "react-hook-form";
 import { homeContext } from "../../content page/Home/Home";
+import { CoursesContext } from "../../content page/Courses/Teachercourses";
 
 const DiscussionForums = ({ type, firstContent }) => {
   const toScroll = useRef(null);
@@ -19,6 +20,8 @@ const DiscussionForums = ({ type, firstContent }) => {
     contextProvider = IndexElementContext;
   } else if(type == "announcement") {
     contextProvider = homeContext ; 
+  }else if(type =="lesson") {
+    contextProvider = CoursesContext ; 
   }
   const { showDiscussion, elementIndex } =
     useContext(contextProvider);

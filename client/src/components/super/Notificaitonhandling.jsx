@@ -7,16 +7,20 @@ import close from "../../assets/icons/close.svg";
 import { propsContext } from "../../content page/Mainapp";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import { fetchNotificationIetm, fetchNotificationItems } from "../../content page/dataFetch";
 
 
 
 const Notificaitonhandling = () => {
-  const { user} = useContext(propsContext) ; 
-  const notificaiton = [] ; 
-  
-  console.log(notificaiton, user) ; 
+  const { notificaiton} = useContext(propsContext) ; 
+  const { data, status, error } = useQuery(
+    ["notifications"],
+    () => fetchNotificationIetm("643fec0ca811facc77cea1e2"),
+  );
+
   const { notificationReaded } = useContext(propsContext);
-  if (notificaiton && !notificationReaded[0]) {
+
+  if (false && !notificationReaded[0]) {
     var notificationIcon = notificationrecievedicon;
   } else {
     var notificationIcon = notificationemptyicon;
@@ -26,9 +30,10 @@ const Notificaitonhandling = () => {
 
   const [showNotificationcontent, setShowNotificationcontent] =
     useState("hidden");
+  if(status == "success") {
 
-  console.log(notificaiton);
-  return (
+    console.log(data) ; 
+    return (
     <>
       <button
         className=""
@@ -60,17 +65,22 @@ const Notificaitonhandling = () => {
               <img src={close} />
             </button>
           </div>
-          <div className="flex flex-col gap-4">
-            {/* notificaiton.map((Element) => {
+          <div className="flex flex-col gap-4 overflow-scroll">
+            {data.map((Element) => {
+              console.log(Element.message);
               return (
                 <Notificationcontentelement notificationelement={Element} />
               );
-            }) */}
+            })}
           </div>
         </div>
       </div>
     </>
   );
+  }else if(status == "loading") {
+    return(<div>loading...</div>)
+  }
+  
 };
 
 export default Notificaitonhandling;

@@ -40,17 +40,17 @@ module.exports.getAllSchedulesForCourse = async (req, res) => {
 // POST create a new schedule
 module.exports.createSchedule = async (req, res) => {
     try {
-        const newSchedule = new Schedule({
-            day: req.body.day,
-            course: req.body.course,
-            teacher: req.body.teacher,
-            startTime: req.body.startTime,
-            endTime: req.body.endTime,
-            duration: req.body.duration,
-            group: req.body.group
-            });
-        const savedSchedule = await newSchedule.save();
-        res.status(201).json(savedSchedule);
+        const schedule = await Schedule.create(req.body);
+
+        if (req.body.course) {
+            const course = await Course.findById(req.body.course);
+            if (course) {
+                course.schedules.push(schedule._id);
+                await course.save();
+            }
+        }
+        res.status(201).json(schedule);
+        console.log("schedule created sucessfully");
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -71,19 +71,33 @@ module.exports.updateSchedule = async (req, res) => {
     }
     };
 
-// DELETE a schedule
-module.exports.deleteSchedule = async (req, res) => {
-    try {
-        const schedule = await Schedule.findById(req.params.id);
-        if (!schedule) {
-        return res.status(404).json({ error: "schedule not found" });
+
+    module.exports.deleteSchedule = async (req, res) => {
+        try {
+    
+          const _id = req.params.id;
+      
+          // Delete the Lesson and associated discussion forum
+        
+          const deletedSchedule = await Schedule.findByIdAndDelete(_id);
+        
+           // Remove the Lesson ID from the associated course
+        const course = await Course.findOneAndUpdate(
+          { schedules: _id }, // 
+          { $pull: { schedules: _id } }, 
+          { new: true }
+        );
+          
+          if (!deletedSchedule) {
+            return res.status(404).json({ message: 'Schedule not found' });
+          }
+      
+          res.status(200).json({ message: 'Schedule deleted successfully' });
+        } catch (error) {
+          res.status(500).json({ message: error.message });
         }
-        await schedule.deleteOne({ _id: req.params.id });
-        res.json({ message: "schedule deleted successfully" });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-    };
+      };
+      
 
 // DELETE all schedules for a course
 module.exports.deleteAllSchedulesForCourse = async (req, res) => {

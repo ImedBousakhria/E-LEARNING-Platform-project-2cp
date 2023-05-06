@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const { requireAuth } = require('../middleware/userMiddleware');
-const { requireAdmin } = require('../middleware/userMiddleware');
-const { requireGerant } = require('../middleware/adminMiddleware');
+const { requireAdmin } = require('../middleware/adminMiddleware');
 const adminController = require('../controllers/adminController');
 
 const router = Router();
@@ -22,7 +21,8 @@ const router = Router();
 router.get('/user/getAll', adminController.getAllUsers);
 router.get('/user/getStudents', adminController.getAllStudents);
 router.get('/user/getTeachers', adminController.getAllTeachers);
-router.post('/user/createStudent', adminController.insertStudent);
+router.post('/user/createStudent', requireAuth, requireAdmin, adminController.insertStudent);
+// router.post('/user/createStudent', adminController.insertStudent);
 router.post('/user/createTeacher', adminController.insertTeacher);
 router.post('/user/createAdmin', adminController.insertAdmin);
 router.post('/user/createUser', adminController.insertUser);

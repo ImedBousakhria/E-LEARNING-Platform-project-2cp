@@ -7,12 +7,11 @@ const scheduleSchema = new mongoose.Schema({
   },
   group: {
     type: String,
-    required: true,
+    // required: true,
   },
-  teacher: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
+  color: {
+    type: String,
+    // required: true,
   },
   startTime: {
     // type: Date,
@@ -23,6 +22,18 @@ const scheduleSchema = new mongoose.Schema({
     // type: Date, 
     type: String,
     required: true,
+  },
+  index: {
+    type: Number,
+    // required: true,
+  },
+  position: {
+    type: Number,
+    // required: true,
+  },
+  span: {
+    type: Number,
+    // required: true,
   },
   course: {
     type: mongoose.Schema.Types.ObjectId,

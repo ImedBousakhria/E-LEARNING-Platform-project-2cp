@@ -4,21 +4,14 @@ const jwt = require('jsonwebtoken');
 module.exports.requireAdmin = (req, res, next)=>{
     //this middleware expects the "user middleware" to be already executed
     
-    if(!res.locals.user.isAdmin){
-        // res.status(403).json({message: "Admin permission required"});
+    if(!res.locals.User.isAdmin){
+        res.status(403).json({message: "Admin permission required"});
         res.status(303).redirect('/user/login');
     }else{
         next();
     }
 }
 
-// module.exports.requireGerant = (req, res, next) => {
-//   if(res.locals.user.isGerant){
-//     next();
-//   }else{
-//     res.status(303).redirect('/user/login');
-//   }
-// };
 
 module.exports.requireTeacher = (req, res, next) => {
     if(res.locals.user.isTeacher){

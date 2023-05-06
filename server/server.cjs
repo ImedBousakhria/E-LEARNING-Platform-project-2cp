@@ -17,14 +17,13 @@ app.use(express.urlencoded({ limit: '1000mb', extended: true }));
 
 const userRoute = require('./app/routes/userRoute');
 const courseRoute = require('./app/routes/courseRoute');
-// const discussionRoute = require('./app/routes/discussionRoute');
-// const notificationRoute = require('./app/routes/notificationRoute');
+ const discussionRoute = require('./app/routes/discussionRoute');
+ const notificationRoute = require('./app/routes/notificationRoute');
 const assignmentRoute = require('./app/routes/assignmentRoute');
 const commentRoute = require('./app/routes/commentRoute');
 const quizzRoute = require('./app/routes/quizzRoute');
 const scheduleRoute = require('./app/routes/scheduleRoute');
 const lessonRoute = require('./app/routes/lessonRoute');
-
 
 const adminRoute = require('./app/routes/adminRoute.js');
 const announcementRoute = require('./app/routes/announcementRoute.js');
@@ -32,6 +31,18 @@ const submissionRoute = require('./app/routes/submissionRoute.js');
 
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+
+
+// const userMiddleware = require('./app/middleware/userMiddleware.js');
+// const adminMiddleware = require('./app/middleware/adminMiddleware.js');
+
+//middlware
+app.use(express.json());
+app.use(fileUpload({
+  useTempFiles: true,
+  limits: { fileSize: 50 * 1024 * 1024}
+
+}));
 
 io.on('connection', (socket) => {
   console.log('A user connected');
@@ -51,7 +62,7 @@ app.use(cookieParser());
 
 
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome e-khdem" });
+  res.json({ message: "Welcome ELITE" });
 });
 mongoose.set({strictQuery: true});
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
@@ -61,11 +72,13 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
   })
   .catch((err) => console.log(err));
 
+  // app.use(userMiddleware);
+  // app.use(adminMiddleware);
 
   app.use(userRoute);
   app.use(courseRoute);
-  // app.use(discussionRoute);
-  // app.use(notificationRoute);
+  app.use(discussionRoute);
+  app.use(notificationRoute);
   app.use(assignmentRoute);
   app.use(submissionRoute);
   app.use(commentRoute);
@@ -74,7 +87,6 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
   app.use(lessonRoute);
   app.use(adminRoute);
   app.use(announcementRoute);
-  
 
 
 

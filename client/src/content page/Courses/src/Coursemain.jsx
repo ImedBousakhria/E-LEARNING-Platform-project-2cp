@@ -6,10 +6,15 @@ import Newlesson from "../../../components/courses/Newlesson";
 import Courses from "../../../components/courses/Courses";
 import { CoursesContext } from "../Teachercourses";
 import StudentAssignment from "../../../components/courses/StudentAssignment";
+
 import StudentQuizzes from "../../../components/courses/StudentQuizzes";
+
+import { propsContext } from "../../Mainapp";
+
 
 const Coursemain = ({ index }) => {
   const { editMode } = useContext(CoursesContext);
+  const { userType } = useContext(propsContext);
   const onTimeout = () => <div>Time's up</div>;
 
   return (
@@ -24,6 +29,7 @@ const Coursemain = ({ index }) => {
           <Search />
         </div>
       </div>
+
       <Courses />
       <Newlesson />
       <Allcourses index={index} />
@@ -31,6 +37,17 @@ const Coursemain = ({ index }) => {
         <StudentAssignment />
         <StudentQuizzes />
       </div>
+
+      {userType.isStudent ? null : (
+        <>
+          <Courses />
+          <Newlesson />
+          <Allcourses index={index} />
+        </>
+      )}
+
+      {userType.isStudent ? <StudentAssignment /> : null}
+
     </div>
   );
 };

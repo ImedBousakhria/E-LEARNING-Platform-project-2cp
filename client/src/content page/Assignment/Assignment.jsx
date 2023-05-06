@@ -4,7 +4,20 @@ import Notification from "./src/Notification";
 import { assignmentteacher } from "./content/main";
 import { useQuery } from "@tanstack/react-query";
 import { propsContext } from "../Mainapp";
+import { fetchItems } from "../dataFetch";
 
+
+/* async function fetchItem(id) {
+  const response = await fetch(`http://localhost:3000/course/get/${id}`);
+  const data = await response.json();
+  return data;
+} */
+
+/* async function fetchItems(courses) {
+  const promises = courses.map((element) => fetchItem(element.courseID));
+  const responses = await Promise.all(promises);
+  return responses;
+} */
 
 export const IndexElementContext = createContext();
 const Assignment = ({ index }) => {
@@ -17,7 +30,7 @@ const Assignment = ({ index }) => {
 
   const [courseIndex, setCourseIndex] = useState(0);
 
-  const { data, status, error } = useQuery(
+ /*  const { data, status, error } = useQuery(
     [`course${courseIndex}`, courses[courseIndex]],
     async ({ queryKey }) => {
       let id = queryKey[1].courseID;
@@ -32,8 +45,11 @@ const Assignment = ({ index }) => {
       }
     },
     { enabled: index == 3 }
+  ); */
+  const { data, status, error } = useQuery(["items"], () =>
+    fetchItems(courses), {enabled:index == 3}
   );
-  
+
   if (index === 3 && status == "success") {
     console.log(data.assignments);
     return (
