@@ -27,7 +27,7 @@ const Quizzes = ({ index }) => {
     );
 
   if (index == 4 && status == "success") {
-    console.log(data.quizzes);
+    //console.log(data.quizzes);
     return (
       <IndexElementContextquiz.Provider
         value={{ elementIndex, editMode, firstContent, showDiscussion }}
