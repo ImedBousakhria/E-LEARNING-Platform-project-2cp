@@ -44,13 +44,12 @@ const AddNewSession = () => {
       <form
         onSubmit={handleSubmit((data) => {
           let obj = new Object();
-
           obj.course = data.selectCourse;
           obj.group = data.group
             ? data.group
             : eventState[0][elementIndex[0]].group;
           obj.teacher = data.teacher
-            ? data.teacher
+            ? "644164aa82161f42040c7c4b"
             : eventState[0][elementIndex[0]].teacher;
           obj.color = data.color
             ? data.color
@@ -95,7 +94,7 @@ const AddNewSession = () => {
             editMode[1](false);
           }
           console.log(eventState[0]);
-          postData(data);
+          postData(obj);
           reset();
         })}
         className="flex flex-col gap-2"
