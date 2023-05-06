@@ -57,3 +57,17 @@ export async function fetchItems(courses) {
   const responses = await Promise.all(promises);
   return responses;
 }
+
+async function fetchNotificationIetm(id) {
+  const response = await fetch(
+    `http://localhost:3000/notifications/get/${id}`
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function fetchNotificationItems(courses) {
+  const promises = courses.map((element) => fetchNotificationIetm(element.courseID));
+  const responses = await Promise.all(promises);
+  return responses;
+}
