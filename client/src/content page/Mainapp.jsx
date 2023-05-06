@@ -5,8 +5,8 @@ import Assignment from "./Assignment/Assignment";
 import Quizzes from "./Quizzes/Quizzes";
 import Teacherannounce from "./Announcements/Teacherannounce";
 import Teachercourses from "./Courses/Teachercourses";
-import Teachers from './Teachers/Teachers'
 import Teacherstudents from "./Students/Teacherstudents";
+import Teachers from "./Teachers/Teachers";
 import { notificaiton } from "./content/mainapp.";
 import Schedule from "./Schedule/Schedule";
 import { fetchUser } from "./dataFetch";
@@ -14,17 +14,16 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 export const propsContext = createContext();
+export const profileContext = createContext()
 
 const Mainapp = () => {
   const notificationReaded = useState(false);
   const Indexhandle = useState(0);
   const searchMode = useState(false);
 
-
-
   const userType = { isAdmin: true, isTeacher: false, isStudent: false };
   const [notificaiton, setNotification] = useState([]) ; 
-  
+  const [profileShown, setProfileShown] = useState(false);
   const [courses, setCourses] = useState([]);
 
   const { data, status } = useQuery(
@@ -56,12 +55,15 @@ const Mainapp = () => {
     return (
       <propsContext.Provider
         value={{
+          data,
           Indexhandle,
           notificationReaded,
           userType,
           searchMode,
           notificaiton,
           courses,
+          profileShown,
+          setProfileShown
         }}
       >
         <div className="flex w-full">
@@ -72,6 +74,7 @@ const Mainapp = () => {
           <Assignment index={Indexhandle[0]} />
           <Quizzes index={Indexhandle[0]} />
           <Teacherstudents index={Indexhandle[0]} />
+          <Teachers index={Indexhandle[0]}/>
           <Schedule index={Indexhandle[0]} />
         </div>
       </propsContext.Provider>
@@ -85,7 +88,6 @@ const Mainapp = () => {
   //notificaiton = data.notifications;
 
   
-
 };
 
 export default Mainapp;

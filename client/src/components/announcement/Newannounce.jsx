@@ -8,8 +8,33 @@ import { useContext } from "react";
 import { AnnouncementContext } from "../../content page/Announcements/Teacherannounce";
 import Save from "../reusable/Save";
 import Cancel from "./../reusable/Cancel";
+import axios from "axios";
 
 const Newannounce = ({ setActiveCardIndex }) => {
+  // post Announcement
+  const addAnnouncement = async (testAnnouncement) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/announcement/create",
+        testAnnouncement
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCreation = async () => {
+    const toAdd = {
+      title: Acontent.title,
+      description: Acontent.description,
+      gallery: files,
+    };
+
+    const newAnnouncement = await addAnnouncement(toAdd);
+    console.log(newAnnouncement);
+  };
+
   const inputRef = useRef(null);
   const [files, setFiles] = useState([]);
   const { editMode, Acontent, setContent, setItem, setEditMode } =
@@ -109,9 +134,10 @@ const Newannounce = ({ setActiveCardIndex }) => {
             {!editMode ? (
               <Publish
                 onClick={() => {
-                  setItem((prevItems) => [newItem, ...prevItems]);
-                  setActiveCardIndex((prev) => prev + 1);
-                  console.log("added Item");
+                  handleCreation(),
+                  setContent(null)
+                    /* setItem((prevItems) => [newItem, ...prevItems]); */
+                    setActiveCardIndex((prev) => prev + 1);
                 }}
               />
             ) : (
