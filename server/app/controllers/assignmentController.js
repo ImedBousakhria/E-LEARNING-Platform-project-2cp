@@ -85,6 +85,23 @@ module.exports.createAssignment = [
         if (course) {
           course.assignments.push(assignment._id);
           await course.save();
+          const notification = new Notification({
+            message: `New assignment "${assignment.title}" created in ${course.title}`,
+          });
+      
+          // send notification to teachers
+          const teachers = await User.find({ _id: { $in: course.teachers } });
+          teachers.forEach(async teacher => {
+            teacher.notifications.push(notification);
+            await teacher.save();
+          });
+      
+          // send notification to students
+          const students = await User.find({ _id: { $in: course.students } });
+          students.forEach(async student => {
+            student.notifications.push(notification);
+            await student.save();
+          });
         }
       }
 
