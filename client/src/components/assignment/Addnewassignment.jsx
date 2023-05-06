@@ -54,7 +54,7 @@ const Addnewassignment = () => {
       reader.readAsBinaryString(event.target.files[0]);
       reader.onloadend = () => {
         var base64String = window.btoa(reader.result);
-        setFiles([...files, reader.result]);
+        setFiles([...files, base64String]);
         //console.log(base64String);
         console.log(files);
       };
@@ -193,21 +193,21 @@ const Addnewassignment = () => {
               }
             />
           </label>
-          <label htmlFor="course">
+          <label htmlFor="deadline">
             <input
-              type="text"
-              placeholder="course"
-              id="course"
-              {...register("course")}
+              type="date"
+              placeholder="deadline"
+              id="deadline"
+              {...register("deadline")}
               defaultValue={
                 elementIndex[0] != null && editMode[0]
-                  ? firstContent[0][elementIndex[0] - 1].course
+                  ? firstContent[0][elementIndex[0] - 1].deadline
                   : null
               }
             />
           </label>
           <label htmlFor="description">
-            <input
+            <textarea
               placeholder="description"
               id="description"
               {...register("description")}
@@ -241,19 +241,18 @@ const Addnewassignment = () => {
                   onChange={handleFileSelected}
                 />
               </div>
-              {/* <Filesdisplays
-                files={
-                  editMode[0]
-                    ? firstContent[0][elementIndex[0] - 1].files
-                    : files
-                }
-                handleDeleteFile={setFiles}
-              /> */}
             </div>
+            
+            <select>
+              {
+                courses.map(()=> {
 
+                })
+              }
+            </select>
             <label htmlFor="deadline(Date and time input)">
-              <input
-                type="text"
+              {/* <input
+                type="date"
                 id="deadline"
                 placeholder="deadline(Date and time input)"
                 {...register("deadline")}
@@ -262,7 +261,7 @@ const Addnewassignment = () => {
                     ? firstContent[0][elementIndex[0] - 1].deadline
                     : null
                 }
-              />
+              /> */}
             </label>
           </div>
           <div className="flex justify-end gap-2 text-white">

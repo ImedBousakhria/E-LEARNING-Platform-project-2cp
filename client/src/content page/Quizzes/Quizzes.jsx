@@ -4,7 +4,7 @@ import Notification from "./src/Notification";
 import { teacherQuizzes } from "./content/main";
 import { propsContext } from "../Mainapp";
 import { useQuery } from "@tanstack/react-query";
-import { fetchCours, fetchQuizzes } from "../dataFetch";
+import { fetchCours, fetchItems, fetchQuizzes } from "../dataFetch";
 export const IndexElementContextquiz = createContext();
 
 const Quizzes = ({ index }) => {
@@ -18,7 +18,37 @@ const Quizzes = ({ index }) => {
   const [quizArray, setQuizArray] = useState([]);
 
   console.log(courses);
-  const { data, status, error } = useQuery(
+
+
+    const { data, status, error } = useQuery(
+      ["items"],
+      () => fetchItems(courses),
+      { enabled: index == 4 }
+    );
+
+  if (index == 4 && status == "success") {
+    console.log(data.quizzes);
+    return (
+      <IndexElementContextquiz.Provider
+        value={{ elementIndex, editMode, firstContent, showDiscussion }}
+      >
+        <Main />
+        <Notification />
+      </IndexElementContextquiz.Provider>
+    );
+  } else if (index == 4 && status == "loading") {
+    return <div>loading</div>;
+  } else {
+    return null;
+  }
+
+};
+
+export default Quizzes;
+
+/* console.log(courses);  */
+
+  /* const { data, status, error } = useQuery(
     [`course${courseIndex}`, courses[courseIndex]],
     async ({ queryKey }) => {
       let id = queryKey[1].courseID;
@@ -34,7 +64,7 @@ const Quizzes = ({ index }) => {
       }
     },
     { enabled: index == 4 }
-  );
+  ); */
 
   /* useEffect(()=> {
     if(status =="success") {
@@ -85,24 +115,3 @@ const Quizzes = ({ index }) => {
     );
     if(status =="success") {
     } */
-
-  if (index == 4 && status == "success") {
-    console.log(data.quizzes);
-    return (
-      <IndexElementContextquiz.Provider
-        value={{ elementIndex, editMode, firstContent, showDiscussion }}
-      >
-        <Main />
-        <Notification />
-      </IndexElementContextquiz.Provider>
-    );
-  } else if (index == 4 && status == "loading") {
-    return <div>loading</div>;
-  } else {
-    return null;
-  }
-
-  /* console.log(courses);  */
-};
-
-export default Quizzes;

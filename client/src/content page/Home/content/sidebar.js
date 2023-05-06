@@ -28,17 +28,17 @@ export const sections = [
   },
 
   {
-    name: "Assignments",
+    name: "Courses",
     icon: assignment,
     iconwhite: assignmentwhite,
   },
   {
-    name: "Quizzes",
+    name: "Assignments",
     icon: quizzes,
     iconwhite: quizzeswhite,
   },
   {
-    name: "Courses",
+    name: "Quizzes",
     icon: courses,
     iconwhite: courseswhite,
   },
