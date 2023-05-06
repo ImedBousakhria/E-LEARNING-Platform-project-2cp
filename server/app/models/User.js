@@ -55,15 +55,14 @@ const userSchema = new mongoose.Schema({
   courses: [{
     courseID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "courses"
+      ref: "Course"
     },
-    //am not sure about this
-    // name: {
-    //   type: String,
-    //   enum: ["general", "pro", "other"],
-    //   default: "general"
-    // }
   }],
+
+  // courses  : [{
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'courses'
+  // }],
 
   notifications: [{
      type: mongoose.Schema.Types.ObjectId,

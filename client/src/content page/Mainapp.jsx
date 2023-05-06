@@ -28,18 +28,20 @@ const Mainapp = () => {
   const [courses, setCourses] = useState([]);
 
   const { data, status } = useQuery(
-    ["userone", "644164aa82161f42040c7c4b"],
+    ["userone", "643fec0ca811facc77cea1e2"],
     async ({ queryKey }) => {
       const id = queryKey[1];
       try {
-        const res = await fetch(`http://localhost:3000/user/get/${id}`, {method:"GET"});
+        const res = await fetch(`http://localhost:3000/user/get/${id}`, {
+          method: "GET",
+        });
         const data = await res.json();
         console.log(data.firstName);
         console.log(data.notifications);
-        setCourses(data.courses) ; 
-        setNotification(data.notifications) ; 
+        setCourses(data.courses);
+        setNotification(data.notifications);
 
-        return data ; 
+        return data;
       } catch (e) {
         console.log(e);
       }
