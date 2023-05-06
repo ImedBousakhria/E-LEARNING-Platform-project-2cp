@@ -71,19 +71,33 @@ module.exports.updateSchedule = async (req, res) => {
     }
     };
 
-// DELETE a schedule
-module.exports.deleteSchedule = async (req, res) => {
-    try {
-        const schedule = await Schedule.findById(req.params.id);
-        if (!schedule) {
-        return res.status(404).json({ error: "schedule not found" });
+
+    module.exports.deleteSchedule = async (req, res) => {
+        try {
+    
+          const _id = req.params.id;
+      
+          // Delete the Lesson and associated discussion forum
+        
+          const deletedSchedule = await Schedule.findByIdAndDelete(_id);
+        
+           // Remove the Lesson ID from the associated course
+        const course = await Course.findOneAndUpdate(
+          { schedules: _id }, // 
+          { $pull: { schedules: _id } }, 
+          { new: true }
+        );
+          
+          if (!deletedSchedule) {
+            return res.status(404).json({ message: 'Schedule not found' });
+          }
+      
+          res.status(200).json({ message: 'Schedule deleted successfully' });
+        } catch (error) {
+          res.status(500).json({ message: error.message });
         }
-        await schedule.deleteOne({ _id: req.params.id });
-        res.json({ message: "schedule deleted successfully" });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-    };
+      };
+      
 
 // DELETE all schedules for a course
 module.exports.deleteAllSchedulesForCourse = async (req, res) => {
