@@ -10,8 +10,8 @@ const assignmentSchema = new mongoose.Schema({
     required: true
   },
   deadline: {
-    type: Date,
-    //type: String,
+    // type: Date,
+    type: String,
     required: true
   },
   submissions: 

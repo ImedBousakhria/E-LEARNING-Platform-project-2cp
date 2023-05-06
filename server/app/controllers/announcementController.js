@@ -34,63 +34,6 @@ module.exports.getAllAnnouncements = async (req, res) => {
     }
   };
 
-  
-// // POST create a new Announcement with files
-// module.exports.createAnnouncement = [
-//   async (req, res) => {
-//     try {
-//       // Check if the request body contains base64 encoded file data
-//       if (req.body.file) {
-//         // Decode the base64 data to a Buffer
-//         const fileData = Buffer.from(req.body.file, 'base64');
-
-//         // Create a temporary file to write the Buffer data
-//         const tempFileName = 'temp_' + Date.now();
-//         fs.writeFileSync(tempFileName, fileData);
-
-//         // Create the file object for multer upload
-//         const tempFile = {
-//           originalname: 'Announcement_file',
-//           mimetype: req.body.mimetype,
-//           buffer: fs.readFileSync(tempFileName)
-//         };
-
-//         // Add the file object to the request files array
-//         req.files = [tempFile];
-//       }
-
-//       // Extract the files from the request and add them to the gallery array
-//       if (req.body.file) {
-//       const gallery = req.files.map(file => ({
-//         contentType: file.mimetype,
-//         data: file.buffer,
-//         // postedBy: req.user._id
-//       }))};
-
-
-//       // Create the Announcement object
-//       const announcement = new Announcement({
-//         title: req.body.title,
-//         description: req.body.description,
-//         gallery: gallery,
-//         course: req.body.course
-//       });
-
-//        // Add the new Announcement to the course
-//        const course = await Course.findById(req.body.course);
-//        course.announcement.push(announcement._id);
-//        await course.save();
-
-
-//       // Save the Announcement object
-//       await announcement.save();
-
-//       res.json(announcement);
-//     } catch (err) {
-//       res.status(400).json({ error: err.message });
-//     }
-//   }
-// ];
 
 // POST create a new Announcement with files
 module.exports.createAnnouncement = [
@@ -128,9 +71,8 @@ module.exports.createAnnouncement = [
         title: req.body.title,
         description: req.body.description,
         gallery: gallery,
-        sender: "64406327b871d94ddb7bfd77",
+        sender: req.user._id,
         course: req.body.course || null // Set course to null if not provided
-        
       });
 
       // Add the new Announcement to the course if course is provided
@@ -268,3 +210,4 @@ module.exports.updateAnnouncement = [
     }
   };
   
+

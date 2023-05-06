@@ -49,8 +49,7 @@ module.exports.postCourse = async (req, res)=>{
         //create the course document
         const course = await Course.create(req.body);
  
-        
-       
+
         
         // add to teachers
         if (req.body.teachers) {
@@ -90,10 +89,8 @@ module.exports.postCourse = async (req, res)=>{
         console.log("creation failed ");
         res.status(500).json({message: err.message});
 
-    }}
 
-  
-
+    }};
 
 
 module.exports.putCourse = async (req, res) => {
