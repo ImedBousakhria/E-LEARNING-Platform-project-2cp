@@ -13,11 +13,6 @@ const scheduleSchema = new mongoose.Schema({
     type: String,
     // required: true,
   },
-  teacher: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
   startTime: {
     // type: Date,
     type: String,
