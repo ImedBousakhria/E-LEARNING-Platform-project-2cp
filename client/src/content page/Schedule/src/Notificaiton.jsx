@@ -9,23 +9,20 @@ import { scheduleContext } from "../Schedule";
 import Profilepage from "../../../components/super/Profilepage";
 
 const Notificaiton = () => {
-  const { notificaiton } = useContext(propsContext);
-  const { schedules } = useContext(scheduleContext); ; 
-  const {elementIndex} = useContext(scheduleContext) ; 
+  const { notificaiton, profileShown } = useContext(propsContext);
+  const { elementIndex, dataElements } = useContext(scheduleContext); ; 
 
   return (
     <div className="sticky right-0 top-0 flex max-h-[100vh] basis-[23%] flex-col gap-8 bg-white p-4">
       <div className="flex justify-between">
-        <Notificaitonhandling isnotification={notificaiton} />
+        <Notificaitonhandling />
         <Profile person={"said nousria"} profilepicture={profile} />
       </div>
-
 
       {profileShown ? (
         <Profilepage name={"imed"} />
       ) : elementIndex[0] != null ? (
-        <CaledarNotificationElement element={schedules[elementIndex[0]]} />
-
+        <CaledarNotificationElement element={dataElements[elementIndex[0]]} />
       ) : (
         <div className="flex h-full items-center justify-center">
           <Selectactivities type={"calendar"} />

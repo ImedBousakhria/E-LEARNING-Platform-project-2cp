@@ -21,7 +21,6 @@ const Coursebar = () => {
 
   const { notificaiton, profileShown } = useContext(propsContext);
 
-  const {notificaiton} = useContext(propsContext)
   const firstContent = useState(assignmentteacher) ; 
 
   return (

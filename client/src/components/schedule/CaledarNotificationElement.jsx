@@ -17,7 +17,7 @@ const CaledarNotificationElement = ({ element }) => {
         <h2 className="text-[1rem]  font-semibold ">session name</h2>
         <div className="flex gap-1">
           <Editactivitieselement handleClick={()=>handleClick()} text={"Edit"} />
-          <Deleteactivitieselemnt text={"Delete"} />
+          <Deleteactivitieselemnt type={"schedule"} text={"Delete"} />
         </div>
       </div>
       <div className="flex">

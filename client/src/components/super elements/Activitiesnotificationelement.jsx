@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import Deleteactivitieselemnt from "../reusable/Deleteactivitieselemnt";
 import Editactivitieselement from "../reusable/Editactivitieselement";
 import Submissionelement from "./Submissionelement";
 import profileholder from "../../assets/profile/profileholder.png";
 import Filesdisplays from "../reusable/Filesdisplays";
+import { IndexElementContext } from "../../content page/Assignment/Assignment";
 
 const Activitiesnotificationelement = ({ element }) => {
+
+const {editMode} = useContext(IndexElementContext)
+
+ function handleClick() {
+    editMode[1](true);
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
-          <h2 className="text-[1rem]  font-semibold ">{element.name}</h2>
+          <h2 className="text-[1rem]  font-semibold ">{element.title}</h2>
           <div className="flex gap-1">
-            <Editactivitieselement type={"assignment"} text={"Edit"} />
+            <Editactivitieselement handleClick={()=>handleClick()} text={"Edit"} />
             <Deleteactivitieselemnt text={"Delete"} />
           </div>
         </div>
@@ -30,7 +38,7 @@ const Activitiesnotificationelement = ({ element }) => {
               </p>
             </div>
             <div className="flex basis-[70%] gap-[2%]">
-              <Filesdisplays files={element.files} />
+              {/* <Filesdisplays files={element.gallery} /> */}
             </div>
           </div>
         </div>
@@ -40,14 +48,14 @@ const Activitiesnotificationelement = ({ element }) => {
           <h2 className="text-[1rem]  font-semibold ">Submissions</h2>
         </div>
         <div className="flex flex-col gap-3">
-          {element.submissions.map((Element) => {
+          {/* element.submissions.map((Element) => {
             return (
               <Submissionelement
                 profilepicture={profileholder}
                 person={Element.name}
               />
             );
-          })}
+          }) */}
         </div>
       </div>
     </div>

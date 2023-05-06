@@ -6,7 +6,7 @@ export const headers = [
     title: "Name",
   },
   {
-    title: "Group",
+    title: "course",
   },
   {
     title: "Date modified",

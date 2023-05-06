@@ -6,6 +6,7 @@ const {requireAdmin} = require('../middleware/adminMiddleware');
 const router = Router();
 
 
+
 router.get('/user/getAll',requireAuth, adminController.getAllUsers);
 router.get('/user/getStudents',requireAuth, adminController.getAllStudents);
 router.get('/user/getTeachers',requireAuth, adminController.getAllTeachers);
@@ -18,6 +19,5 @@ router.put('/user/update-user/:id',requireAuth, adminController.updateUser); //e
 router.delete('/user/delete/:id', requireAuth,adminController.deleteUser);
 router.put('/user/promoteAdmin/:id', requireAuth,adminController.promoteAdminUser);
 router.put('/user/demoteAdmin/:id',requireAuth,adminController.demoteAdminUser);
-
 
 module.exports = router;

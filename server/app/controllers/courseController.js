@@ -49,7 +49,7 @@ module.exports.postCourse = async (req, res)=>{
         //create the course document
         const course = await Course.create(req.body);
  
-        
+
         
         // add to teachers
         if (req.body.teachers) {
@@ -80,7 +80,8 @@ module.exports.postCourse = async (req, res)=>{
               student.notifications.push(notification._id);
               student.save();
             });
-            }
+          }
+
        
 
         res.status(200).json(course);
@@ -88,8 +89,8 @@ module.exports.postCourse = async (req, res)=>{
         console.log("creation failed ");
         res.status(500).json({message: err.message});
 
-    }};
 
+    }};
 
 
 module.exports.putCourse = async (req, res) => {
@@ -141,4 +142,4 @@ module.exports.deleteCourse = async (req, res) => {
     console.log("suppression failed");
     res.status(500).json({ message: err.message });
   }
-};
+} ; 
