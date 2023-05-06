@@ -98,7 +98,7 @@ app.use(cookieParser());
 
 
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome e-khdem" });
+  res.json({ message: "Welcome ELITE" });
 });
 mongoose.set({strictQuery: true});
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
