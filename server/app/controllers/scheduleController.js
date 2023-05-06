@@ -113,4 +113,14 @@ module.exports.deleteAllSchedulesForCourse = async (req, res) => {
     }
     };
 
+// DELETE all schedules
+module.exports.deleteAllSchedules = async (req, res) => {
+    try {
+        await Schedule.deleteMany();
+        res.json({ message: "all schedules deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+    }
+    
 
