@@ -29,7 +29,7 @@ const Addnewassignment = () => {
 
   const handleAddedFile = (e) => {
     setFiles([...files, e.target.files[0]]);
-    console.log(e.target.files[0]);
+    //console.log(e.target.files[0]);
   };
 
   const handleFileUpload = () => {
@@ -39,7 +39,7 @@ const Addnewassignment = () => {
   const handleFileSelected = (event) => {
     const selectedFiles = Array.from(event.target.files);
     setSecondFiles([...secodeFiles, ...selectedFiles]);
-    console.log(event.target.files);
+    //console.log(event.target.files);
 
     if (event.target.files[0].type.startsWith("image/")) {
       const reader = new FileReader();
@@ -48,7 +48,7 @@ const Addnewassignment = () => {
         //console.log(reader.result);
         
         setFiles([...files, reader.result]);
-        console.log(files);
+        //console.log(files);
       };
     } else if (event.target.files[0].type.includes("pdf")) {
       const reader = new FileReader();
@@ -61,7 +61,7 @@ const Addnewassignment = () => {
       };
     }
 
-    console.log(files);
+    //console.log(files);
   };
   const handleRemoveFile = (index) => {
     const newArray = secodeFiles.filter((Element, i) => {
@@ -112,7 +112,7 @@ const Addnewassignment = () => {
       </div>
       <form
         onSubmit={handleSubmit((data) => {
-          console.log(data);
+          //console.log(data);
           let obj = new Object();
           
           obj.course = data.selectCourse;
@@ -142,7 +142,7 @@ const Addnewassignment = () => {
           const minute = currentDate.getMinutes().toString().padStart(2, "0"); // get minute and add leading zero if necessary
           const ampm = currentDate.getHours() >= 12 ? "PM" : "AM"; // get AM/PM
           const formattedDate = `${day}/${month}/${year},${hour}:${minute}${ampm}`; // combine all parts into the desired format
-          console.log(formattedDate); // output: e.g. 29/03/23,11:00PM
+          //console.log(formattedDate); // output: e.g. 29/03/23,11:00PM
 
           /* obj.date = formattedDate; */
           /* obj.submissions = firstContent[0][elementIndex[0] - 1]?.submissions
@@ -151,15 +151,14 @@ const Addnewassignment = () => {
           /*           obj.discussions = firstContent[0][elementIndex[0] - 1]?.discussions
             ? firstContent[0][elementIndex[0] - 1]?.discussions
             : []; */
-          console.log(files);
+          //console.log(files);
           obj.file = files
             ? files
             : dataElements[elementIndex[0] - 1].gallery;
-          console.log(obj);
-          console.log("no cancel");
+          //console.log(obj);
+          //console.log("no cancel");
           if (!cancel) {
             if (editMode[0]) {
-              
               console.log(dataElements[elementIndex[0]-1]._id) ; 
               let id = dataElements[elementIndex[0] - 1]._id; 
               updateData(obj, id);
@@ -168,7 +167,7 @@ const Addnewassignment = () => {
               console.log("ssave");
             } else {
               //dataElements([...firstContent[0], obj]);
-              console.log(obj) ; 
+              //console.log(obj) ; 
               postData(obj);
               location.reload();
             }

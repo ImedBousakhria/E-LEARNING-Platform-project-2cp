@@ -30,10 +30,10 @@ const Activitiesbodyelement = ({
 
   const { courses } = useContext(propsContext);
 
-  console.log(courses);
+  //console.log(courses);
   let course = courses.find((course) => course.courseID._id == cours);
   //setCourseTitle(course.courseID.title);
-  console.log(course);
+  //console.log(course);
 
   let deadlineFormated =   formatDate(deadline) ; 
 

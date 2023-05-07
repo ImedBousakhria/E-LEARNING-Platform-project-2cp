@@ -132,7 +132,7 @@ module.exports.createAssignment = [
 module.exports.updateAssignment = [
   async (req, res) => {
     try {
-
+      console.log(req);
       // Check if the request body contains base64 encoded file data
       if (req.body.file) {
         // Decode the base64 data to a Buffer
