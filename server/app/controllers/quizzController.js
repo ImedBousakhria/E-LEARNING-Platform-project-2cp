@@ -48,6 +48,19 @@ module.exports.createQuizz = async (req, res) => {
           const course = await Course.findById(req.body.course);
           course.quizzes.push(newQuiz._id);
           await course.save();
+          
+          // send notification to students
+          course.students.forEach(async studentId => {
+            const student = await User.findById(studentId);
+            const notification = new Notification({
+              user: student._id,
+              message: `New quizz"${newQuiz.title}" created in "${course.title}"`,
+            });
+            await notification.save();
+            student.notifications.push(notification._id);
+            student.save();
+          });
+      
      
         const savedQuiz = await newQuiz.save();
         res.status(201).json(savedQuiz);
@@ -68,25 +81,24 @@ module.exports.updateQuizz = async (req, res) => {
       req.body,
       { new: true }
     );
+
+    const course = await Course.findById(updatedQuizz.course);
+    course.students.forEach(async studentId => {
+      const student = await User.findById(studentId);
+      const notification = new Notification({
+        user: student._id,
+        message: `This quizzc"${updatedQuizz.title}" is updated in "${course.title}"`,
+      });
+      await notification.save();
+      student.notifications.push(notification._id);
+      student.save();
+    });
     res.json(updatedQuizz);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
 
-// // DELETE a quiz
-// module.exports.deleteQuizz = async (req, res) => {
-//   try {
-//     const quizz = await Quizz.findById(req.params.id);
-//     if (!quizz) {
-//       return res.status(404).json({ error: "quiz not found" });
-//     }
-//     await quizz.remove();
-//     res.json({ message: "quiz deleted successfully" });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
 
 
 

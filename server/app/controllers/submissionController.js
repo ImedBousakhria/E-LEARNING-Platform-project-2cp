@@ -1,6 +1,8 @@
 const Course = require('../models/Course') ;
 const fs = require('fs');
 const Submission = require('../models/Submission');
+const Assignment = require('../models/Assignment');
+const User= require('../models/User');
 
 
 
@@ -70,7 +72,7 @@ module.exports.createSubmission = [
 
       // Add the new Submission to the course if course is provided
       if (req.body.assignment) {
-        const assignment = await Course.findById(req.body.assignment);
+        const assignment = await Assignment.findById(req.body.assignment);
         if (assignment) {
           assignment.submissions.push(submission._id);
           await assignment.save();
