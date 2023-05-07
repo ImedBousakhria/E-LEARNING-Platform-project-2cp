@@ -15,8 +15,8 @@ const Activitiesheaderelement = ({ title, type }) => {
   } else if (type == "students") {
     activitiesContext = homeContext;
   }
-  const { firstContent } = useContext(activitiesContext);
-  const handleSorting = () => {
+  //const { firstContent } = useContext(activitiesContext);
+  /* const handleSorting = () => {
     if(rotate) {
       if (title == "Date modified") {
       firstContent[1](
@@ -57,10 +57,10 @@ const Activitiesheaderelement = ({ title, type }) => {
     }
     }
     
-  };
-  console.log(firstContent);
+  }; */
+  //console.log(firstContent);
   return (
-    <button
+    <div
       onClick={(e) => {
         rotate ? setRotate(false) : setRotate(true);
         handleSorting(e);
@@ -70,7 +70,7 @@ const Activitiesheaderelement = ({ title, type }) => {
       <img className={` rotate-${rotate ? "180" : "0"}`} src={drop} />
 
       {title}
-    </button>
+    </div>
   );
 };
 

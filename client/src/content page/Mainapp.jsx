@@ -20,14 +20,18 @@ const Mainapp = () => {
   const notificationReaded = useState(false);
   const Indexhandle = useState(0);
   const searchMode = useState(false);
+  const [userType, setUserTyper] = useState({});
 
-  const userType = { isAdmin: true, isTeacher: false, isStudent: false };
   const [notificaiton, setNotification] = useState([]);
   const [profileShown, setProfileShown] = useState(false);
   const [courses, setCourses] = useState([]);
 
+  // student : 64578cb4a234039c43371bf1
+  // admin : 645793ffff441f996d86dc0b
+  // teacher : 64578ad50ff5d69cbe16415a
+
   const { data, status } = useQuery(
-    ["userone", "644164aa82161f42040c7c4b"],
+    ["userone", "645793ffff441f996d86dc0b"],
     async ({ queryKey }) => {
       const id = queryKey[1];
       try {
@@ -39,7 +43,13 @@ const Mainapp = () => {
         //console.log(data.notifications);
         setCourses(data.courses);
         setNotification(data.notifications);
-
+        let userTypeHoler = {
+          isAdmin: data.isAdmin,
+          isTeacher: data.isTeacher,
+          isStudent: data.isStudent,
+        };
+        setUserTyper(userTypeHoler);
+        console.log(userTypeHoler, userType);
         return data;
       } catch (e) {
         console.log(e);

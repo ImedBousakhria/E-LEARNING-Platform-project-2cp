@@ -4,9 +4,11 @@ import Newannounce from "../../../components/announcement/Newannounce";
 import Allannouncements from "../../../components/announcement/Allannouncements";
 import { useState, useContext, useRef } from "react";
 import { AnnouncementContext } from "../Teacherannounce";
+import { propsContext } from "../../Mainapp";
 
 const Announcemain = () => {
   const [activeCardIndex, setActiveCardIndex] = useState();
+  const {userType} = useContext(propsContext)
 
   const { editMode } = useContext(AnnouncementContext);
   return (
@@ -21,9 +23,14 @@ const Announcemain = () => {
           <Search />
         </div>
       </div>
-      <div className="">
+      {
+        userType.isStudent?(null):(
+          <div className="">
         <Newannounce setActiveCardIndex={setActiveCardIndex} />
       </div>
+        )
+      }
+      
       <div>
         <Allannouncements
           activeCardIndex={activeCardIndex}

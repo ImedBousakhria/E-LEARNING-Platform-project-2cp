@@ -57,8 +57,8 @@ const Main = () => {
           </div>
 
           <div className="flex flex-col gap-4">
-            <Activitiesheader type={"students"} />
-            <Activitiesbody type={"students"} />
+            <Activitiesheader type={"studentshome"} />
+            <Activitiesbody type={"studentshome"} />
           </div>
         </div>
       ) : null}

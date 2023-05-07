@@ -5,8 +5,11 @@ import Lastsubmisstionselement from "./homeelements/Lastsubmisstionselement";
 import Mark from "../reusable/Mark";
 import View from "../reusable/View";
 import GiveMark from "../reusable/GiveMark";
+import { homeContext } from "../../content page/Home/Home";
 
 const Lastsubmisstions = () => {
+
+  const {submissions} = useContext(homeContext) ; 
 
 
   return (
@@ -16,8 +19,9 @@ const Lastsubmisstions = () => {
         <Seemore index={3} />
       </div>
       <div className="flex flex-col gap-2">
-        {assignment.map((Element) => {
-          return (
+        {submissions.map((Element, index) => {
+          if(index <=2) {
+            return (
             <div className="flex items-center justify-between rounded-[10px] bg-assignmentbg p-2 ">
               <Lastsubmisstionselement
                 profilepicture={Element.profilepicture}
@@ -27,11 +31,13 @@ const Lastsubmisstions = () => {
                 assignmentname={Element.assignmentname}
               />
               <div className="flex gap-2">
-                <Mark />
                 <View />
               </div>
             </div>
           );
+          }else {
+            return null ; 
+          }
         })}
       </div>
     </div>

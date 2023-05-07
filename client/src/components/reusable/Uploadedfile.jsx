@@ -36,9 +36,9 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
 
   return (
     <div className="relative">
-      <button onClick={onRemove}>
+      <div onClick={onRemove}>
         <img src={deletequestion} />
-      </button>
+      </div>
       {file.type.startsWith("image/") ? (
 
         
