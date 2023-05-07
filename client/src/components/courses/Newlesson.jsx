@@ -72,9 +72,11 @@ const Newlesson = () => {
       const course = await axios.get(
         `http://localhost:3000/course/get/644d87aefea6c9ca5de10703`
       );
+      console.log(student.data[0]._id)
+      console.log(course)
       const updatedCourse = {
         ...course,
-        students: [student.data._id],
+        students: [student.data[0]._id],
       };
       await axios.put(
         `http://localhost:3000/course/update/644d87aefea6c9ca5de10703`,
