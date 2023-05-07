@@ -9,9 +9,12 @@ import Save from "../reusable/Save";
 import Cancel from "../reusable/Cancel";
 import publish from "../../assets/icons/publish.svg";
 import axios from "axios";
+import { propsContext } from "../../content page/Mainapp";
 
 const Newlesson = () => {
-  const { lessons, setLessons } = useContext(CoursesContext);
+  const { lessons, setLessons, courses, setCourses } =
+    useContext(CoursesContext);
+  const { data } = useContext(propsContext);
   // post lesson
   const addLesson = async (testCourse) => {
     axios
@@ -35,24 +38,82 @@ const Newlesson = () => {
     console.log(newLesson);
   };
 
+  // post Course
+  const addCourse = async (testCourse) => {
+    axios
+      .post("http://localhost:3000/course/create", testCourse)
+      .then((response) => {
+        setCourses([testCourse, ...courses]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleCourseCreation = async () => {
+    const toAdd = {
+      title: Acontent.title,
+    };
+    try {
+      const newCourse = await addCourse(toAdd);
+      console.log(newCourse);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addStudentToCourse = async (fullName) => {
+    const [firstName, lastName] = fullName.split(" ");
+
+    try {
+      const student = await axios.get(
+        `http://localhost:3000/user/getStudents?firstName=${firstName}&lastName=${lastName}`
+      );
+      const course = await axios.get(
+        `http://localhost:3000/course/get/644d87aefea6c9ca5de10703`
+      );
+      const updatedCourse = {
+        ...course,
+        students: [student.data._id],
+      };
+      await axios.put(
+        `http://localhost:3000/course/update/644d87aefea6c9ca5de10703`,
+        updatedCourse
+      );
+      /* setCourses(updatedCourse); */
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const inputRef = useRef(null);
   const [files, setFiles] = useState([]);
-
   const [students, setStudents] = useState([]);
   const [newStudent, setNewStudent] = useState("");
+  const [teachers, setTeachers] = useState([]);
+  const [newTeacher, setNewTeacher] = useState("");
 
   const handleAddStudent = () => {
+    console.log(students);
     setStudents([...students, newStudent]);
-    setNewStudent("");
+  };
+
+  const handleAddTeacher = () => {
+    console.log(teachers);
+    setTeachers([...teachers, newTeacher]);
   };
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       handleAddStudent();
+      handleAddTeacher();
     }
   };
 
-  const { editMode, setEditMode, Acontent, setContent, type, setType } = useContext(CoursesContext);
+  // writing course id : 64415e0c5290472b31ac4d0c
+
+  const { editMode, setEditMode, Acontent, setContent, type, setType } =
+    useContext(CoursesContext);
 
   const newItem = {
     //person: "said",
@@ -66,6 +127,7 @@ const Newlesson = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    console.log(Acontent);
     setContent((prevContent) => ({ ...prevContent, [name]: value }));
   };
 
@@ -143,7 +205,9 @@ const Newlesson = () => {
               </div>
               <div className="flex gap-4 place-self-end">
                 {
-                  editMode ? <Cancel text={Cancel} onClick={() => setEditMode(false)} /> : null
+                  editMode ? (
+                    <Cancel text={Cancel} onClick={() => setEditMode(false)} />
+                  ) : null
                   // no change on the content, Restore old data
                 }
                 <Attachfile onClick={handleFileUpload} />
@@ -177,7 +241,9 @@ const Newlesson = () => {
                 type="text"
                 name="teachers"
                 placeholder="Add teachers"
-                onChange={handleChange}
+                onChange={
+                  handleChange /* (event) => setNewTeacher(event.target.value) */
+                }
                 className=" rounded-[10px] border border-darkgray px-3 py-3.5 outline-none"
               />
             </div>
@@ -186,19 +252,36 @@ const Newlesson = () => {
                 type="text"
                 name="students"
                 placeholder="Add students"
-                onChange={(event) => setNewStudent(event.target.value)}
+                onChange={
+                  handleChange /* (event) => setNewStudent(event.target.value) */
+                }
                 onKeyDown={handleKeyDown}
                 className=" rounded-[10px] border border-darkgray px-3 py-3.5 outline-none"
               />
 
               <div className="place-self-end">
-                <button
-                  className="flex w-max items-center gap-2 place-self-end rounded-md bg-accent p-2 "
-                  type="submit"
-                >
-                  <p className=" text-sm font-semibold text-white">Done</p>
-                  <img src={publish} alt="" />
-                </button>
+                {
+                  editMode ? (
+                    <button
+                      className="flex flex-shrink-0 w-max items-center gap-2 place-self-end rounded-md bg-accent p-2 "
+                      type="submit"
+                      onClick={() => {addStudentToCourse(Acontent.students)}}
+                    >
+                      <p className=" text-sm font-semibold text-white min-w-max">Save Edit</p>
+                      <img src={publish} alt="" />
+                    </button>
+                  ) : (
+                    <button
+                      className="flex w-max items-center gap-2 place-self-end rounded-md bg-accent p-2 "
+                      type="submit"
+                      onClick={handleCourseCreation}
+                    >
+                      <p className=" text-sm font-semibold text-white">Done</p>
+                      <img src={publish} alt="" />
+                    </button>
+                  )
+                  // no change on the content, Restore old data
+                }
               </div>
             </div>
           </div>

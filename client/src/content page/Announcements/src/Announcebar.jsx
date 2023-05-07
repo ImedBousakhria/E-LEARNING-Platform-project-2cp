@@ -33,7 +33,7 @@ const Announcebar = () => {
           <Announcemento
             /* self={user === barContent.person} */
             /* profilepicture={barContent.profilepicture} */
-            /* person={barContent.person} */
+            person={barContent.firstName + ' ' + barContent.lastName}
             title={barContent.title}
             content={barContent.description}
             /* image={barContent.image} */

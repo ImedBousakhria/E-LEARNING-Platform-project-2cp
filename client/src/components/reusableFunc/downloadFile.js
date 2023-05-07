@@ -1,5 +1,5 @@
 import axios from "axios";
-export const downloadFile = async ({setFileUrl}) => {
+export const downloadFile = async ({file, setFileUrl}) => {
     try {
       const response = await axios.get(`http://example.com/download/${file.name}`, {
         responseType: 'blob'

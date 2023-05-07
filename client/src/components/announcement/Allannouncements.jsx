@@ -29,7 +29,7 @@ const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
 
 
   const [currentId, setCurrentId] = useState(null)
-  // get by id
+  /* // get by id
   const handleUpdateAnnouncement = (id, updatedAnnouncement) => {
     axios
       .put(`http://localhost:3000/announcement/${id}`, updatedAnnouncement)
@@ -39,7 +39,7 @@ const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
       .catch((error) => {
         // handle error
       });
-  };
+  }; */
 
   const { setContentToEdit, editMode, setBarContent, barContent, announcements, setAnnouncements } =
     useContext(AnnouncementContext);
@@ -55,7 +55,7 @@ const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
   const isPrevDisabled = currentPage === 1;
   const isNextDisabled = lastPostIndex >= announcements.length;
 
-  const lastElement = announcements.slice(-2);
+  const lastElement = announcements.slice(-4);
 
   const handleNextClick = () => {
     setCurrentPage((prevPage) => prevPage + 1);

@@ -1,7 +1,7 @@
 import React from "react";
 import Publish from "../reusable/Publish";
 import Attachfile from "./../reusable/Attachfile";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Uploadedfile from "../../components/reusable/Uploadedfile";
 import pfp from "../../assets/profile/profileholder.png";
 import { useContext } from "react";
@@ -12,6 +12,7 @@ import axios from "axios";
 
 const Newannounce = ({ setActiveCardIndex }) => {
   const { announcements, setAnnouncements } = useContext(AnnouncementContext);
+
 
   // post Announcement
   const addAnnouncement = async (testAnnouncement) => {
@@ -24,6 +25,21 @@ const Newannounce = ({ setActiveCardIndex }) => {
         console.log(error);
       });
   };
+  /* 6457623b332ae4a3a6dc004b */
+  const handleUpdateAnnouncement = (updatedAnnouncement) => {
+    updatedAnnouncement = { title: updatedAnnouncement.title, description: updatedAnnouncement.description}
+    id = '6457623b332ae4a3a6dc004b'
+    axios
+      .put(`http://localhost:3000/announcement/update/6457623b332ae4a3a6dc004b`, updatedAnnouncement)
+      .then((response) => {
+        // handle success, update state or trigger a re-fetch of the data
+        /* getAnnouncements() */
+      })
+      .catch((error) => {
+        // handle error
+      });
+  };
+  
 
   const handleCreation = async () => {
     const toAdd = {
@@ -38,7 +54,7 @@ const Newannounce = ({ setActiveCardIndex }) => {
 
   const inputRef = useRef(null);
   const [files, setFiles] = useState([]);
-  const { editMode, Acontent, setContent, setEditMode } =
+  const { editMode, Acontent, setContent, setEditMode} =
     useContext(AnnouncementContext);
   // editMode ? focusRef.current.focus() : null;
 
@@ -144,7 +160,7 @@ const Newannounce = ({ setActiveCardIndex }) => {
                 }}
               />
             ) : (
-              <Save setEditMode={setEditMode} /> // set the content to the edited one;
+              <Save onClick={() => {setEditMode(false) , handleUpdateAnnouncement(Acontent)}} /> // set the content to the edited one;
             )}
           </div>
         </div>

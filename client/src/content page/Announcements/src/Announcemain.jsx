@@ -2,11 +2,14 @@ import React from "react";
 import Search from "../../../components/reusable/Search";
 import Newannounce from "../../../components/announcement/Newannounce";
 import Allannouncements from "../../../components/announcement/Allannouncements";
-import { useState, useContext, useRef } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import { AnnouncementContext } from "../Teacherannounce";
 import { propsContext } from "../../Mainapp";
 
 const Announcemain = () => {
+   
+
+
   const [activeCardIndex, setActiveCardIndex] = useState();
   const { data, userType } = useContext(propsContext);
   const { editMode } = useContext(AnnouncementContext);

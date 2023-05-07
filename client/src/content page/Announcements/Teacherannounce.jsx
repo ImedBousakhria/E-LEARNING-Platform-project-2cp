@@ -20,6 +20,8 @@ const Teacherannounce = ({index}) => {
   fetchItems(courses), {enabled:index == 1}
 ); */
 
+
+
   if(index == 1 /* && status === 'success' */) {
     /* console.log(data); */
     return (

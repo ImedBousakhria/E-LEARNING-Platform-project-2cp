@@ -7,7 +7,7 @@ const Download = ({file}) => {
     const [fileUrl, setFileUrl] = useState(null);
 
     const handleClick = () => {
-        downloadFile(setFileUrl);
+        downloadFile(file ,setFileUrl);
       };
   return (
     <div>
