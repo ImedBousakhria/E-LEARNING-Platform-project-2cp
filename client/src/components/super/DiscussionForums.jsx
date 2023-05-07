@@ -29,7 +29,7 @@ const DiscussionForums = ({ type, firstContent }) => {
     console.log(data);
     let obj = new Object();
     obj = { text: data.comment, name: "said", profile: profileHolder };
-    firstContent[0][elementIndex[0] - 1].discussions.push(obj);
+    firstContent[elementIndex[0] - 1].discussions.push(obj);
     toScroll.current.scrollIntoView({ behavior: "smooth" });
     reset();
   }
@@ -51,11 +51,11 @@ const DiscussionForums = ({ type, firstContent }) => {
             </button>
           </div>
           <div onLoad={()=>toScroll.current.scrollIntoView()} className="flex max-h-[85%] hideScrollBar flex-col gap-4 overflow-y-auto">
-            {firstContent[0][elementIndex[0] - 1]?.discussions.map(
+            {/* {firstContent[elementIndex[0] - 1]?.discussions.map(
               (Element) => {
                 return <DiscusstionElement type={type} element={Element} />;
               }
-            )}
+            )} */}
             <div ref={toScroll}></div>
           </div>
           <form

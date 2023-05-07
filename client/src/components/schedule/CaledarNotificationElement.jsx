@@ -5,7 +5,7 @@ import { scheduleContext } from "../../content page/Schedule/Schedule";
 
 const CaledarNotificationElement = ({ element }) => {
   console.log(element);
-  const {editMode} = useContext(scheduleContext)
+  const { editMode, dataElements, elementIndex } = useContext(scheduleContext);
 
   function handleClick() {
     editMode[1](true);
@@ -17,7 +17,7 @@ const CaledarNotificationElement = ({ element }) => {
         <h2 className="text-[1rem]  font-semibold ">session name</h2>
         <div className="flex gap-1">
           <Editactivitieselement handleClick={()=>handleClick()} text={"Edit"} />
-          <Deleteactivitieselemnt text={"Delete"} />
+          <Deleteactivitieselemnt dataElements={dataElements} elementIndex={elementIndex} type={"schedule"} text={"Delete"} />
         </div>
       </div>
       <div className="flex">

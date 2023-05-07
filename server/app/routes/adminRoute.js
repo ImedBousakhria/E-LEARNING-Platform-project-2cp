@@ -13,11 +13,10 @@ router.post('/user/createStudent',  adminController.insertStudent);
 router.post('/user/createStudent', adminController.insertStudent);
 router.post('/user/createTeacher', adminController.insertTeacher);
 router.post('/user/createAdmin', adminController.insertAdmin);
-router.post('/user/createUser',adminController.insertUser);
-router.put('/user/update-user/:id',adminController.updateUser); //email || password for users
+router.post('/user/createUser', adminController.insertUser);
+router.put('/user/update-user/:id', adminController.updateUser); //email || password for users
 router.delete('/user/delete/:id', adminController.deleteUser);
 router.put('/user/promoteAdmin/:id', adminController.promoteAdminUser);
 router.put('/user/demoteAdmin/:id',adminController.demoteAdminUser);
-
 
 module.exports = router;

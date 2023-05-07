@@ -2,6 +2,7 @@ const Course = require('../models/Course') ;
 const User = require("../models/User");
 const Schedule = require('../models/Schedule');
 const mongoose = require('mongoose');
+const Notification = require('../models/Notification');
 
 // GET all schedules
 module.exports.getAllSchedules = async (req, res) => {
@@ -83,6 +84,7 @@ module.exports.createSchedule = async (req, res) => {
 
 // PATCH update a schedule
 module.exports.updateSchedule = async (req, res) => {
+
     try {
         const _id = req.params.id;
         const schedule = await Schedule.findOneAndUpdate({_id}, req.body, {new: true});
@@ -120,6 +122,18 @@ module.exports.updateSchedule = async (req, res) => {
     }
     };
 
+
+    });
+
+    if (!schedule) {
+      return res.status(404).json({ error: "schedule not found" });
+    } else {
+      res.status(200).json(schedule);
+    }
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
 
     module.exports.deleteSchedule = async (req, res) => {
         try {

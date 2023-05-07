@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import file from "../../assets/icons/fileassignment.svg";
 import arrow from "../../assets/icons/annouarrow.svg";
 import { studentAssignment } from "../../content page/Courses/content/main";
 import { element } from "prop-types";
 import StudentAssignmentElement from "./components/StudentAssignmentElement";
+import { CoursesContext } from "../../content page/Courses/Teachercourses";
 
 const StudentAssignment = () => {
+
+  const { assignments } = useContext(CoursesContext); ; 
+  console.log(assignments) ; 
   /* const postsPerPage = 4;
   const [currentPage, setCurrentPage] = useState(1);
   const lastPostIndex = currentPage * postsPerPage;
@@ -51,14 +55,15 @@ const StudentAssignment = () => {
           </button>
         </div>
       </div>
-      <div className="flex justify-between gap-y-2 flex-wrap">
-        {studentAssignment.map((element, index) => {
+      <div className="flex flex-wrap justify-between gap-y-2">
+        {assignments?.map((element, index) => {
           return (
             <StudentAssignmentElement
-              assignmentName={element.assignmentName}
+              index = {index+1}
+              assignmentName={element.title}
               deadline={element.deadline}
-              missed={element.missed}
-              mark={element.mark}
+              /* missed={element.missed}
+              mark={element.mark} */
             />
           );
         })}
