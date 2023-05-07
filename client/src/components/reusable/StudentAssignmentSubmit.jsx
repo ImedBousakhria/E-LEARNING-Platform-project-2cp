@@ -7,14 +7,36 @@ import Attachfile from "./Attachfile";
 import Uploadedfile from "./Uploadedfile";
 import Publish from "./Publish";
 import { CoursesContext } from "../../content page/Courses/Teachercourses";
+import { propsContext } from "../../content page/Mainapp";
+import axios from "axios";
 
 const StudentAssignmentSubmit = () => {
 
 
-  const { register } = useForm();
+  async function updateData(data, id) {
+    console.log(data, id);
+
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/assignment/update/${id}`,
+        data
+      );
+      console.log(response);
+      /* const result = await response.json();
+      console.log("Success:", result); */
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+
+
+
+  const { register, handleSubmit, reset } = useForm();
   const inputRef = useRef(null);
 
   const { assignments, elementIndex } = useContext(CoursesContext); ; 
+  const {courses} = useContext(propsContext) ; 
 
   const handleFileUpload = () => {
     inputRef.current.click();
@@ -66,7 +88,6 @@ const StudentAssignmentSubmit = () => {
         </div>
         <div className="flex gap-2">
           <Download />
-          <Message />
           {/* <Close /> */}
         </div>
       </div>
@@ -76,7 +97,20 @@ const StudentAssignmentSubmit = () => {
           <span>{assignments[elementIndex[0] - 1].description}</span>
         </div>
         <div>{/* files */}</div>
-        <form className="flex flex-col gap-2">
+        <form onSubmit={handleSubmit((data)=> {
+          let obj = new Object() ; 
+          obj.description = data.links
+          obj.submittedBy = "64578cb4a234039c43371bf1";
+          obj.assignment = assignments[elementIndex[0] - 1]._id;
+          obj.gallery = files ; 
+          console.log(obj) ; 
+          reset()  ; 
+          location.reload() ; 
+          
+
+          updateData(obj, assignments[elementIndex[0]-1]._id)
+
+        })} className="flex flex-col gap-2">
           <label htmlFor="likns">
             <input
               type="text"

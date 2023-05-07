@@ -22,7 +22,7 @@ const Activitiesbody = ({ checkall, setSelected, type }) => {
   console.log(dataElements) ; 
   return (
     <div className="flex flex-col gap-2">
-      {dataElements?.map((Element, index) => {
+      {dataElements.map((Element, index) => {
         return (
           <Activitiesbodyelement
             type={type}

@@ -51,11 +51,11 @@ const DiscussionForums = ({ type, firstContent }) => {
             </button>
           </div>
           <div onLoad={()=>toScroll.current.scrollIntoView()} className="flex max-h-[85%] hideScrollBar flex-col gap-4 overflow-y-auto">
-            {firstContent[elementIndex[0] - 1]?.discussions.map(
+            {/* {firstContent[elementIndex[0] - 1]?.discussions.map(
               (Element) => {
                 return <DiscusstionElement type={type} element={Element} />;
               }
-            )}
+            )} */}
             <div ref={toScroll}></div>
           </div>
           <form

@@ -71,7 +71,7 @@ const Schedule = () => {
         </div>
 
         <div className="flex flex-col gap-4">
-          {schedules[index].map((Element) => {
+          {schedules[index]?.map((Element) => {
             return (
               <Course
                 group={Element.group}

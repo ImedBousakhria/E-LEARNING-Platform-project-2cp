@@ -170,7 +170,7 @@ const Addnewassignment = () => {
               //dataElements([...firstContent[0], obj]);
               //console.log(obj) ; 
               postData(obj);
-              //location.reload();
+              location.reload();
             }
           }
           if (editMode[0]) {

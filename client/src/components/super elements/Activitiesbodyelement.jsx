@@ -8,6 +8,7 @@ import Message from "../reusable/Message";
 import { homeContext } from "../../content page/Home/Home";
 import { propsContext } from "../../content page/Mainapp";
 import { formatDate } from "../reusableFunc/formatDate";
+import { CoursesContext } from "../../content page/Courses/Teachercourses";
 
 const Activitiesbodyelement = ({
   title,
@@ -23,6 +24,8 @@ const Activitiesbodyelement = ({
   } else if (type == "quiz") {
     contextElement = IndexElementContextquiz;
   } else if (type == "students") {
+    contextElement = CoursesContext;
+  } else if (type == "studentshome") {
     contextElement = homeContext;
   }
 

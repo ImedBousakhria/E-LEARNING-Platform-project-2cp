@@ -26,7 +26,7 @@ const Schedule = ({ index }) => {
 
   if (index === 7 /* && status == "success" */) {
 
-    let schedulesHolder = courses.map((Element) => Element.courseID.schedules);
+    let schedulesHolder = courses?.map((Element) => Element.courseID?.schedules);
     const dataElements = schedulesHolder.flatMap((innerArray) => innerArray);
     console.log(dataElements);
     dataElements.sort((a, b) => a.position - b.position);
