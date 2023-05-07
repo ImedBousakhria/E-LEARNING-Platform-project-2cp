@@ -1,26 +1,29 @@
-const Discussion = require('../models/Discussion');
-const Lesson = require('../models/Lesson');
+// we dont use this anymore, we use the one in the chat controller
 
-exports.createDiscussion = async (req, res) => {
-  const newDiscussion = new Discussion({
-    members: [req.body.senderId, req.body.receiverId],
-  });
 
-  try {
-    const savedDiscussion = await newDiscussion.save();
-    res.status(200).json(savedDiscussion);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
+// const Discussion = require('../models/Discussion');
+// const Lesson = require('../models/Lesson');
 
-exports.getDiscussion = async (req, res, next) => {
-  try {
-    const discussion = await Discussion.find({
-      members: { $in: [req.params.userId] },
-    });
-    res.status(200).json(discussion);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
+// exports.createDiscussion = async (req, res) => {
+//   const newDiscussion = new Discussion({
+//     members: [req.body.senderId, req.body.receiverId],
+//   });
+
+//   try {
+//     const savedDiscussion = await newDiscussion.save();
+//     res.status(200).json(savedDiscussion);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// };
+
+// exports.getDiscussion = async (req, res, next) => {
+//   try {
+//     const discussion = await Discussion.find({
+//       members: { $in: [req.params.userId] },
+//     });
+//     res.status(200).json(discussion);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// };
