@@ -159,17 +159,18 @@ const Addnewassignment = () => {
           //console.log("no cancel");
           if (!cancel) {
             if (editMode[0]) {
-              console.log(dataElements[elementIndex[0]-1]._id) ; 
-              let id = dataElements[elementIndex[0] - 1]._id; 
+              //console.log(elementIndex[0])
+              //console.log(dataElements[elementIndex[0]-1]._id) ; 
+              let id = dataElements[elementIndex[0]-1]._id; 
               updateData(obj, id);
-              //location.reload()
+              location.reload()
               //dataElements[elementIndex[0] - 1] = obj;
               console.log("ssave");
             } else {
               //dataElements([...firstContent[0], obj]);
               //console.log(obj) ; 
               postData(obj);
-              location.reload();
+              //location.reload();
             }
           }
           if (editMode[0]) {

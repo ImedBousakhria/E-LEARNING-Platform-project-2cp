@@ -12,7 +12,7 @@ import DiscussionForums from "../../../components/super/DiscussionForums";
 import Profilepage from "../../../components/super/Profilepage";
 
 const Notification = () => {
-  const { elementIndex, firstContent } = useContext(IndexElementContextquiz);
+  const { elementIndex, dataElements } = useContext(IndexElementContextquiz);
   const { notificaiton, profileShown } = useContext(propsContext);
 
   return (
@@ -23,15 +23,13 @@ const Notification = () => {
       </div>
       {profileShown ? (
         <Profilepage name={"imed"} />
-      ) : (elementIndex[0] ? (
-        <QuizNotificationElement
-          element={firstContent[0][elementIndex[0] - 1]}
-        />
+      ) : elementIndex[0] ? (
+        <QuizNotificationElement element={dataElements[elementIndex[0] - 1]} />
       ) : (
         <div className="flex h-full items-center justify-center">
           <Selectactivities type={"quiz"} />
         </div>
-      ))}
+      )}
     </div>
   );
 };

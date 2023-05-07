@@ -54,7 +54,7 @@ module.exports.createQuizz = async (req, res) => {
             const teacher = await User.findById(teacherId);
             const notification = new Notification({
               user: teacher._id,
-              sender: req.user._id,
+              //sender: req.user._id,
               message: `New quiz "${newQuiz.name}" created in "${course.Title}"`,
             });
             await notification.save();
@@ -67,7 +67,7 @@ module.exports.createQuizz = async (req, res) => {
             const student = await User.findById(studentId);
             const notification = new Notification({
               user: student._id,
-              sender: req.user._id,
+              //sender: req.user._id,
               message: `New quiz "${newQuiz.name}" created in "${course.Title}"`,
             });
             await notification.save();
