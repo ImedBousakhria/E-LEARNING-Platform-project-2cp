@@ -6,6 +6,7 @@ import { propsContext } from "../../content page/Mainapp";
 const Activities = ({ type }) => {
   const [checkall, setCheckall] = useState(false);
 
+  console.log(type) ; 
   const {userType} = useContext(propsContext) ; 
 
   return (

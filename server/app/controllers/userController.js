@@ -52,6 +52,7 @@ module.exports.getUser = async (req, res) =>{
         const user = await User.findById(_id)
         .populate({path:'courses.courseID',populate:[{path:'assignments'}, {path:'quizzes'}, {path:'schedules'}, {path:'announcements'}]}).populate('notifications')
 
+
         if(user){
             res.status(200).send(user);
         

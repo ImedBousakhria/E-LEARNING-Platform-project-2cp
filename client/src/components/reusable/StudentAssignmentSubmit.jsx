@@ -17,8 +17,8 @@ const StudentAssignmentSubmit = () => {
     console.log(data, id);
 
     try {
-      const response = await axios.put(
-        `http://localhost:3000/assignment/update/${id}`,
+      const response = await axios.post(
+        `http://localhost:3000/submission/create`,
         data
       );
       console.log(response);
@@ -105,7 +105,7 @@ const StudentAssignmentSubmit = () => {
           obj.gallery = files ; 
           console.log(obj) ; 
           reset()  ; 
-          location.reload() ; 
+          //location.reload() ; 
           
 
           updateData(obj, assignments[elementIndex[0]-1]._id)
