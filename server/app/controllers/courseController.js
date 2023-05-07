@@ -119,37 +119,8 @@ module.exports.postCourse = async (req, res)=>{
         res.status(500).json({message: err.message});
 
     }
-
-    // //add to lessons
-    // req.body.lessons.forEach(async lessonID => {
-    //     const lesson = await Lesson.findById(lessonID);
-    //     lesson.course.push({lessonID: lesson._id});
-    //     lesson.save();
-
-    // })
-
-    // //add to assignments
-    // req.body.assignments.forEach(async assignmentID => {
-    //     const assigment = await Assignment.findById(assignmentID);
-    //     assigment.course.push({assigmentID: assigment._id});
-    //     assigment.save();
-
-    // })
-
-    // //add to annoucements
-    // req.body.announcements.forEach(async annoucementID => {
-    //     const annoucement = await Announcement.findById(annoucementID);
-    //     annoucement.course.push({annoucementID: annoucement._id});
-    //     annoucement.save();
-
-    // })
-
-    res.status(200).json(course);
-  } catch (err) {
-    console.log("creation failed ");
-    res.status(500).json({ message: err.message });
-  }
-};
+  };
+   
 
 module.exports.putCourse = async (req, res) => {
   const _id = req.params.id;

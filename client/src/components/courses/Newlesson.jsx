@@ -11,38 +11,32 @@ import publish from "../../assets/icons/publish.svg";
 import axios from "axios";
 
 const Newlesson = () => {
-
+  const { lessons, setLessons } = useContext(CoursesContext);
   // post lesson
   const addLesson = async (testCourse) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/lesson/create",
-        testCourse
-      );
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
+    axios
+      .post("http://localhost:3000/lesson/create", testCourse)
+      .then((response) => {
+        setLessons([testCourse, ...lessons]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleCreation = async () => {
     const toAdd = {
-      title : Acontent.title,
-      description : Acontent.description,
-      gallery : files
-    }
+      title: Acontent.title,
+      description: Acontent.description,
+      gallery: files,
+    };
 
     const newLesson = await addLesson(toAdd);
     console.log(newLesson);
   };
 
-
-
-
-
   const inputRef = useRef(null);
   const [files, setFiles] = useState([]);
-  const [type, setType] = useState("course");
 
   const [students, setStudents] = useState([]);
   const [newStudent, setNewStudent] = useState("");
@@ -58,7 +52,7 @@ const Newlesson = () => {
     }
   };
 
-  const { editMode, Acontent, setContent } = useContext(CoursesContext);
+  const { editMode, setEditMode, Acontent, setContent, type, setType } = useContext(CoursesContext);
 
   const newItem = {
     //person: "said",
@@ -127,7 +121,7 @@ const Newlesson = () => {
                 name="description"
                 placeholder="Description"
                 onChange={handleChange}
-                className=" resize-none rounded-[10px] border border-darkgray px-3 pt-3.5 pb-24 outline-none"
+                className=" resize-none rounded-[10px] border border-darkgray px-3 pb-24 pt-3.5 outline-none"
               />
             </div>
 
@@ -149,14 +143,18 @@ const Newlesson = () => {
               </div>
               <div className="flex gap-4 place-self-end">
                 {
-                  editMode ? <Cancel /> : null
+                  editMode ? <Cancel text={Cancel} onClick={() => setEditMode(false)} /> : null
                   // no change on the content, Restore old data
                 }
                 <Attachfile onClick={handleFileUpload} />
                 {!editMode ? (
-                  <Publish onClick={() => {handleCreation() , console.log(files)}} />
+                  <Publish
+                    onClick={() => {
+                      handleCreation(), console.log(files);
+                    }}
+                  />
                 ) : (
-                  <Save /> // set the content to the edited one;
+                  <Save onClick={() => setEditMode(false)} /> // set the content to the edited one;
                 )}
               </div>
             </div>

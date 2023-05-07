@@ -13,6 +13,7 @@ import Profilepage from "../../../components/super/Profilepage";
 import DiscussionForums from "../../../components/super/DiscussionForums";
 import profileholder  from '../../../assets/profile/profileholder.png' ; 
 import { assignmentteacher } from "../../Assignment/content/main";
+import Quizzcontainer from "../../../components/quizzes/Quizzcontainer";
 
 const Coursebar = () => {
   const { barContent, setBarContent, activeProgIndex } =
@@ -21,8 +22,9 @@ const Coursebar = () => {
 
   const { notificaiton, profileShown } = useContext(propsContext);
 
-  const {notificaiton} = useContext(propsContext)
   const firstContent = useState(assignmentteacher) ; 
+  const { showQuizzContainer,
+    setShowQuizzContainer } = useContext(CoursesContext)
 
   return (
     <div className="sticky right-0 top-0 flex max-h-screen basis-[23%] flex-col gap-4 border-l border-gray bg-white p-4">
@@ -33,7 +35,7 @@ const Coursebar = () => {
       </div>
       {profileShown ? (
         <Profilepage name={"imed"} />
-      ) : barContent === null ? (
+      ) : showQuizzContainer ? <Quizzcontainer/> :  barContent === null ? (
         user === "said" && activeProgIndex !== null ? (
           <div className="flex flex-col gap-4">
             <div>

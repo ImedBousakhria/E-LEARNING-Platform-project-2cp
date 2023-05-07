@@ -11,17 +11,18 @@ import Cancel from "./../reusable/Cancel";
 import axios from "axios";
 
 const Newannounce = ({ setActiveCardIndex }) => {
+  const { announcements, setAnnouncements } = useContext(AnnouncementContext);
+
   // post Announcement
   const addAnnouncement = async (testAnnouncement) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/announcement/create",
-        testAnnouncement
-      );
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
+    axios
+      .post("http://localhost:3000/announcement/create", testAnnouncement)
+      .then((response) => {
+        setAnnouncements([testAnnouncement, ...announcements]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleCreation = async () => {
@@ -37,7 +38,7 @@ const Newannounce = ({ setActiveCardIndex }) => {
 
   const inputRef = useRef(null);
   const [files, setFiles] = useState([]);
-  const { editMode, Acontent, setContent, setItem, setEditMode } =
+  const { editMode, Acontent, setContent, setEditMode } =
     useContext(AnnouncementContext);
   // editMode ? focusRef.current.focus() : null;
 
@@ -95,7 +96,7 @@ const Newannounce = ({ setActiveCardIndex }) => {
             name="description"
             placeholder="Description"
             onChange={handleChange}
-            className=" resize-none rounded-[10px] border border-darkgray px-3 pt-3.5 pb-24 outline-none"
+            className=" resize-none rounded-[10px] border border-darkgray px-3 pb-24 pt-3.5 outline-none"
           />
         </div>
 
@@ -123,8 +124,10 @@ const Newannounce = ({ setActiveCardIndex }) => {
             {
               editMode ? (
                 <Cancel
-                  setEditMode={setEditMode}
-                  setContent={setContent}
+                  onClick={() => {
+                    setEditMode(false),
+                    setContent('')
+                  }}
                   text={Cancel}
                 />
               ) : null
@@ -135,7 +138,7 @@ const Newannounce = ({ setActiveCardIndex }) => {
               <Publish
                 onClick={() => {
                   handleCreation(),
-                  setContent(null)
+                    /* setContent(null) */
                     /* setItem((prevItems) => [newItem, ...prevItems]); */
                     setActiveCardIndex((prev) => prev + 1);
                 }}

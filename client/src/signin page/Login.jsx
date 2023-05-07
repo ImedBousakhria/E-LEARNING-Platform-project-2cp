@@ -38,7 +38,7 @@ const Login = ({ setToken, setUser }) => {
               <img
                 src={loginfigure}
                 alt=""
-                className=" absolute bottom-20 left-[10%]"
+                className=" absolute bottom-24 left-[10%]"
               />
 
               {/* <img

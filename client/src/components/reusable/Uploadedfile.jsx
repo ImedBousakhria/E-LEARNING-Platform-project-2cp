@@ -5,9 +5,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 import deletequestion from "../../assets/icons/deletequetion.svg";
 
 const Uploadedfile = ({ file, onRemove }) => {
-import example from "./example.pdf";
-const Uploadedfile = ({ fileName, file, onRemove }) => {
-  const [image, setImage] = useState(null) ; 
+  const [image, setImage] = useState(null);
 
   if (file.type.startsWith("image/")) {
     const reader = new FileReader();
@@ -43,25 +41,16 @@ const Uploadedfile = ({ fileName, file, onRemove }) => {
         <img src={deletequestion} />
       </button>
       {file.type.startsWith("image/") ? (
-
         <img
           src={URL.createObjectURL(file)}
           className="aspect-square w-24 cursor-pointer rounded-xl object-contain"
-
-
-        <div className="basis-[25%]">
-          <img
-          src={image}
-          className="h-[3.75rem] w-full  rounded-xl object-contain"
         />
       ) : file.type.includes("pdf") ? (
-
         <div className="h-[3.75rem] overflow-hidden object-contain">
           <Document file={file} className="rounded-lg shadow-lg">
             <Page pageNumber={1} scale={1} width={100} />
           </Document>
         </div>
-
       ) : null}
       <p className=" w-24 truncate break-all text-xs ">{file.name}</p>
     </div>

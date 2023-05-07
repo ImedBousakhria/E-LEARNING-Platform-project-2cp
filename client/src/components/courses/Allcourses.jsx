@@ -1,8 +1,7 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { lessons } from "../../content page/Courses/content/main";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation } from "swiper";
+import { createContext } from "react";
 import "swiper/swiper-bundle.css";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -14,7 +13,7 @@ import { CoursesContext } from "../../content page/Courses/Teachercourses";
 import axios from "axios";
 import { formatDate } from "../reusableFunc/formatDate";
 
-const Allcourses = ({ index }) => {
+const Allcourses = ({ index, admin }) => {
   const [iconRotation, setIconRotation] = useState(0);
   const {
     activeCardIndex,
@@ -147,7 +146,7 @@ const Allcourses = ({ index }) => {
               <small>Date modified</small>
             </div>
             <div className=" ">
-              <Delete text="Delete" />
+              {admin ? <Delete text="Delete" /> : null}
             </div>
           </div>
         </header>
@@ -155,6 +154,7 @@ const Allcourses = ({ index }) => {
         {currentPosts.map((lesson, index) => {
           return (
             <Lesson
+              admin={true}
               id={index}
               name={lesson.title}
               type={lesson.type}

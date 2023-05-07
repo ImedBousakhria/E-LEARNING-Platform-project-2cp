@@ -7,6 +7,7 @@ import Announcementelement from "../../../components/super elements/Announcement
 import { AnnouncementContext } from "../Teacherannounce";
 import { propsContext } from "../../Mainapp";
 import Profilepage from "../../../components/super/Profilepage";
+import Announcemento from "../../../components/super elements/Announcemento";
 
 const Announcebar = () => {
   const { notificaiton, profileShown } = useContext(propsContext);
@@ -29,14 +30,15 @@ const Announcebar = () => {
         </div>
       ) : (
         <div className="mt-4">
-          <Announcementelement
-            self={user === barContent.person}
-            profilepicture={barContent.profilepicture}
-            person={barContent.person}
-            content={barContent.content}
-            image={barContent.image}
+          <Announcemento
+            /* self={user === barContent.person} */
+            /* profilepicture={barContent.profilepicture} */
+            /* person={barContent.person} */
+            title={barContent.title}
+            content={barContent.description}
+            /* image={barContent.image} */
             isDisplayed={true}
-            setBarContent={setBarContent}
+            /* setBarContent={setBarContent} */
           />
         </div>
       )}

@@ -77,7 +77,7 @@ const Allstudents = () => {
             <img src={arrow} alt="" />
           </button>
 
-          <span className=" text-lg font-semibold text-accent">2CP</span>
+          <span className=" text-lg font-semibold text-accent"></span>
 
           <button
             className={`${isNextDisabled ? "opacity-50" : ""} cursor-pointer`}
@@ -99,9 +99,9 @@ const Allstudents = () => {
             {" "}
             <img src={darkarrow} alt="" /> Name
           </div>
-          <div className="flex cursor-pointer gap-1 basis-[50%]" onClick={handleIconClick}>
+          {/* <div className="flex cursor-pointer gap-1 basis-[50%]" onClick={handleIconClick}>
             <img src={darkarrow} alt="" /> Group
-          </div>
+          </div> */}
         </header>
         {currentPosts.map((student, index) => {
           return (

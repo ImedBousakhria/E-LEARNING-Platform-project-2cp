@@ -8,14 +8,12 @@ import { CoursesContext } from "../Teachercourses";
 import StudentAssignment from "../../../components/courses/StudentAssignment";
 
 import StudentQuizzes from "../../../components/courses/StudentQuizzes";
-
 import { propsContext } from "../../Mainapp";
-
 
 const Coursemain = ({ index }) => {
   const { editMode } = useContext(CoursesContext);
   const { userType } = useContext(propsContext);
-  const onTimeout = () => <div>Time's up</div>;
+
 
   return (
     <div className="flex flex-shrink-0 basis-[60%] flex-col gap-6 bg-primary px-12 py-8">
@@ -30,24 +28,25 @@ const Coursemain = ({ index }) => {
         </div>
       </div>
 
-      <Courses />
-      <Newlesson />
-      <Allcourses index={index} />
-      <div className="flex gap-[5%]">
-        <StudentAssignment />
-        <StudentQuizzes />
-      </div>
-
       {userType.isStudent ? null : (
         <>
           <Courses />
           <Newlesson />
-          <Allcourses index={index} />
+          <Allcourses />
         </>
       )}
 
-      {userType.isStudent ? <StudentAssignment /> : null}
-
+      {userType.isStudent ? (
+        <div className=" flex flex-col gap-3">
+          <div>
+            <Allcourses admin={userType.isAdmin}/>
+          </div>
+          <div className="flex gap-[5%]">
+            <StudentAssignment />
+            <StudentQuizzes />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };
