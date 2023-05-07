@@ -123,17 +123,8 @@ module.exports.updateSchedule = async (req, res) => {
     };
 
 
-    });
 
-    if (!schedule) {
-      return res.status(404).json({ error: "schedule not found" });
-    } else {
-      res.status(200).json(schedule);
-    }
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
+
 
     module.exports.deleteSchedule = async (req, res) => {
         try {
