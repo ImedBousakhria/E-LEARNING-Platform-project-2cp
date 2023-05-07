@@ -7,17 +7,20 @@ import { TeachersContext } from "../Teachers";
 import Displayedstudent from "../../../components/students/Displayedstudent";
 import { propsContext } from "../../Mainapp";
 import User from "../../../components/reusable/User";
+import Profilepage from "../../../components/super/Profilepage";
 
 const Rightbar = () => {
-  const { barContent } = useContext(TeachersContext)
-  const {notificaiton} = useContext(propsContext)
+  const { barContent } = useContext(TeachersContext);
+  const { notificaiton, profileShown } = useContext(propsContext);
   return (
     <div className="sticky right-0 top-0 flex max-h-screen basis-[23%] flex-col gap-4 border-l border-gray bg-white p-4">
-      <div className="flex  justify-between items-center">
-       <Notificaitonhandling isnotification={notificaiton} />
+      <div className="flex  items-center justify-between">
+        <Notificaitonhandling isnotification={notificaiton} />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>
-      {barContent === null ? (
+      {profileShown ? (
+        <Profilepage name={"imed"} />
+      ) : barContent === null ? (
         <div className=" m-auto">
           <img src={grad} />
           <p className=" text-md mt-2 text-center font-semibold text-gray ">

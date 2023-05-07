@@ -13,18 +13,18 @@ const Activitiesbody = ({ checkall, setSelected, type }) => {
   }else if(type == "students") {
     activitiesContext = homeContext ; 
   }
-  const {firstContent} = useContext(activitiesContext)  ; 
+  const {dataElements} = useContext(activitiesContext)  ; 
   return (
     <div className="flex flex-col gap-2">
-      {firstContent[0].map((Element, index) => {
+      {dataElements.map((Element, index) => {
         return (
           <Activitiesbodyelement
             type={type}
             index={index + 1}
             checkall={checkall}
-            name={Element.name}
-            groupe={Element.groupe}
-            date={Element.date}
+            title={Element.title}
+            cours={Element.course}
+            deadline={Element.deadline}
           />
         );
       })}

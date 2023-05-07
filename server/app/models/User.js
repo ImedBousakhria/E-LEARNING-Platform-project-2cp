@@ -42,27 +42,12 @@ const userSchema = new mongoose.Schema({
     // required: true,
     default: false,
   },
-  // isGerant: {
-  //   type: Boolean,
-  //   // required: true,
-  //   default: true,
-  // },
-  // isVerified: {
-  //   type: Boolean,
-  //   // required: true,
-  //   default: false,
-  // },
   courses: [{
     courseID: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Course"
     },
   }],
-
-  // courses  : [{
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'courses'
-  // }],
 
   notifications: [{
      type: mongoose.Schema.Types.ObjectId,

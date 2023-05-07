@@ -6,7 +6,11 @@ import Newlesson from "../../../components/courses/Newlesson";
 import Courses from "../../../components/courses/Courses";
 import { CoursesContext } from "../Teachercourses";
 import StudentAssignment from "../../../components/courses/StudentAssignment";
+
+import StudentQuizzes from "../../../components/courses/StudentQuizzes";
+
 import { propsContext } from "../../Mainapp";
+
 
 const Coursemain = ({ index }) => {
   const { editMode } = useContext(CoursesContext);
@@ -25,6 +29,15 @@ const Coursemain = ({ index }) => {
           <Search />
         </div>
       </div>
+
+      <Courses />
+      <Newlesson />
+      <Allcourses index={index} />
+      <div className="flex gap-[5%]">
+        <StudentAssignment />
+        <StudentQuizzes />
+      </div>
+
       {userType.isStudent ? null : (
         <>
           <Courses />
@@ -34,6 +47,7 @@ const Coursemain = ({ index }) => {
       )}
 
       {userType.isStudent ? <StudentAssignment /> : null}
+
     </div>
   );
 };

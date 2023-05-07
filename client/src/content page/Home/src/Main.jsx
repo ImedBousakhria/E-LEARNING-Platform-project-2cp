@@ -11,13 +11,14 @@ import Activitiesbody from "../../../components/super/Activitiesbody";
 import Bluredbg from "../../../components/reusable/Bluredbg";
 import SearchForm from "../../../components/super/SearchForm";
 import PopUp from "../../../components/super/PopUp";
+import { authContext } from "../../../App";
 
 const Main = () => {
-  let user = "said";
 
-  const { IndexHandle, searchMode, userType } = useContext(propsContext);
 
-  console.log(IndexHandle);
+  const { Indexhandle, searchMode, userType, data } = useContext(propsContext);
+
+  console.log(Indexhandle);
   /*   function handleClick() {
     searchMode[0] ? searchMode[1](false) : searchMode[1](true);
   } */
@@ -34,7 +35,7 @@ const Main = () => {
         <div>
           <h1 className="text-[25px]">Elites School E-learning platform</h1>
           <p className="text-darkgray">
-            Hello <span>{user}</span> , welcome back !
+            Hello <span>{data.firstName}</span> , welcome back !
           </p>
         </div>
         <div>

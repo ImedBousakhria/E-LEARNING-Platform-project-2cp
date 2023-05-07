@@ -72,10 +72,15 @@ module.exports.createSubmission = [
       });
 
 
-      const assignment = await Assignment.findById(req.body.assignment);
-      if (assignment) {
-        assignment.submissions.push(submission._id);
-        await assignment.save();
+     
+      // Add the new Submission to the course if course is provided
+      if (req.body.assignment) {
+        const assignment = await Course.findById(req.body.assignment);
+        if (assignment) {
+          assignment.submissions.push(submission._id);
+          await assignment.save();
+          
+        }
       }
 
         // send notification to the sender of the assignment

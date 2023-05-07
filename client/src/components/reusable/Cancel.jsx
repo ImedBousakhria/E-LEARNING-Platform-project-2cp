@@ -7,7 +7,7 @@ const Cancel = ({ onClick, text }) => {
     <button
       type="submit"
       onClick={onClick}
-      className="flex items-center gap-2 rounded-[5px]  border border-darkgray p-2 text-darkgray"
+      className="flex items-center gap-2 rounded-[5px] border border-darkgray p-1.5 text-darkgray"
     >
       {text ? <span>Cancel</span> : null}
       <img src={quit} />

@@ -1,5 +1,7 @@
 import Form from "./src/Form";
 import logo from "../assets/logos/logo.svg";
+import loginfigure from "../assets/images/loginfigure.png";
+import { useState } from "react";
 import schoolboy from "../assets/images/Student.svg";
 import buildings from "../assets/elements/buildings.png";
 import bling from "../assets/elements/bling.png";
@@ -11,8 +13,14 @@ import cloud from "../assets/elements/cloud.png";
 import bird from "../assets/elements/bird.png";
 import Navbar from "../landing page/src/Navbar";
 import axios from "axios";
+import { authContext } from "../App";
+import { useContext } from "react";
+import { createContext } from "react";
+import Resetpassword from "../components/login/Resetpassword";
 
-const Login = () => {
+export const loginContext = createContext();
+const Login = ({ setToken, setUser }) => {
+  const [showLoginForm, setShowLoginForm] = useState(true);
   return (
     <div className="flex flex-col">
       {/* <Navbar /> */}
@@ -26,8 +34,14 @@ const Login = () => {
               </h2>
             </header>
 
-            <div className="relative h-[660px]">
+            <div className=" relative h-screen">
               <img
+                src={loginfigure}
+                alt=""
+                className=" absolute bottom-20 left-[10%]"
+              />
+
+              {/* <img
                 src={schoolboy}
                 className="absolute bottom-0 left-52 z-20 w-60"
               />
@@ -66,12 +80,16 @@ const Login = () => {
               <img
                 src={bird}
                 className="absolute bottom-[6%] left-[24%] z-30"
-              />
+              /> */}
             </div>
           </div>
 
           <div className=" mx-auto">
-            <Form />
+            <loginContext.Provider value={{ setShowLoginForm }}>
+              {showLoginForm ? (
+                <Form setToken={setToken} setUser={setUser} />
+              ) : <Resetpassword/>}
+            </loginContext.Provider>
           </div>
         </div>
       </div>

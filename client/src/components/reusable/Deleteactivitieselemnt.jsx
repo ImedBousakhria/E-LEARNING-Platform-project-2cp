@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import delet from '../../assets/icons/delete.svg' ;  
 import ConfirmDelete from './ConfirmDelete';
 
-const Deleteactivitieselemnt = ({ text }) => {
+const Deleteactivitieselemnt = ({ text, type }) => {
   const [confirmDelete, setConfirmDelete] = useState("hidden") ; 
   return (
     <div className='relative'>
-      <button
+      <div
         onClick={() => {
           confirmDelete == "hidden"
             ? setConfirmDelete("block")
@@ -16,9 +16,9 @@ const Deleteactivitieselemnt = ({ text }) => {
       >
         {text}
         <img src={delet} />
-      </button>
-      <ConfirmDelete confirmDelete={confirmDelete} setConfirmDelete={setConfirmDelete}/>
-    </div>
+      </div>
+{/*       <ConfirmDelete type={type}  confirmDelete={confirmDelete} setConfirmDelete={setConfirmDelete}/>
+ */}    </div>
   );
 };
 
