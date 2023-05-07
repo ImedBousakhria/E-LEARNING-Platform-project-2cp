@@ -68,7 +68,7 @@ module.exports.updateSchedule = async (req, res) => {
         const teacher = await User.findById(teacherId);
         const notification = new Notification({
         user: teacher._id,
-        sender: "64406327b871d94ddb7bfd77",
+        sender: req.user._id,
         message: `Schedule was updated in ${course.title}`,
       });
       await notification.save();
@@ -80,7 +80,7 @@ module.exports.updateSchedule = async (req, res) => {
         const student = await User.findById(studentId);
         const notification = new Notification({
         user: student._id,
-        sender: "64406327b871d94ddb7bfd77",
+        sender: req.user._id,
         message: `Schedule was updated in ${course.title}`,
       });
       await notification.save();
