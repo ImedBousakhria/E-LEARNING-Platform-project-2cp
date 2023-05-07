@@ -9,7 +9,10 @@ const Teachercourses = ({ index }) => {
   const [lessons, setLessons] = useState([]);
   const [courses, setCourses] = useState([]);
 
+  const [courseId, setCourseId] = useState();
   const [showQuizzContainer, setShowQuizzContainer] = useState(false);
+
+
 
   const [type, setType] = useState("course");
   const [barContent, setBarContent] = useState(null);
@@ -49,6 +52,8 @@ const Teachercourses = ({ index }) => {
           setType,
           showQuizzContainer,
           setShowQuizzContainer,
+          courseId, 
+          setCourseId
         }}
       >
         <>

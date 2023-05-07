@@ -9,10 +9,11 @@ import { AnnouncementContext } from "../../content page/Announcements/Teacherann
 import Save from "../reusable/Save";
 import Cancel from "./../reusable/Cancel";
 import axios from "axios";
+import { authContext } from "../../App";
 
 const Newannounce = ({ setActiveCardIndex }) => {
   const { announcements, setAnnouncements } = useContext(AnnouncementContext);
-
+  const { userID } = useContext(authContext);
 
   // post Announcement
   const addAnnouncement = async (testAnnouncement) => {
@@ -25,12 +26,20 @@ const Newannounce = ({ setActiveCardIndex }) => {
         console.log(error);
       });
   };
+
   /* 6457623b332ae4a3a6dc004b */
+
   const handleUpdateAnnouncement = (updatedAnnouncement) => {
-    updatedAnnouncement = { title: updatedAnnouncement.title, description: updatedAnnouncement.description}
-    id = '6457623b332ae4a3a6dc004b'
+    updatedAnnouncement = {
+      title: updatedAnnouncement.title,
+      description: updatedAnnouncement.description,
+    };
+    id = userID;
     axios
-      .put(`http://localhost:3000/announcement/update/6457623b332ae4a3a6dc004b`, updatedAnnouncement)
+      .put(
+        `http://localhost:3000/announcement/update/${id}`,
+        updatedAnnouncement
+      )
       .then((response) => {
         // handle success, update state or trigger a re-fetch of the data
         /* getAnnouncements() */
@@ -39,7 +48,6 @@ const Newannounce = ({ setActiveCardIndex }) => {
         // handle error
       });
   };
-  
 
   const handleCreation = async () => {
     const toAdd = {
@@ -54,7 +62,7 @@ const Newannounce = ({ setActiveCardIndex }) => {
 
   const inputRef = useRef(null);
   const [files, setFiles] = useState([]);
-  const { editMode, Acontent, setContent, setEditMode} =
+  const { editMode, Acontent, setContent, setEditMode } =
     useContext(AnnouncementContext);
   // editMode ? focusRef.current.focus() : null;
 
@@ -141,8 +149,7 @@ const Newannounce = ({ setActiveCardIndex }) => {
               editMode ? (
                 <Cancel
                   onClick={() => {
-                    setEditMode(false),
-                    setContent('')
+                    setEditMode(false), setContent("");
                   }}
                   text={Cancel}
                 />
@@ -160,7 +167,11 @@ const Newannounce = ({ setActiveCardIndex }) => {
                 }}
               />
             ) : (
-              <Save onClick={() => {setEditMode(false) , handleUpdateAnnouncement(Acontent)}} /> // set the content to the edited one;
+              <Save
+                onClick={() => {
+                  setEditMode(false), handleUpdateAnnouncement(Acontent);
+                }}
+              /> // set the content to the edited one;
             )}
           </div>
         </div>

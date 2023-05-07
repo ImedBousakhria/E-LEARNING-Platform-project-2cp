@@ -12,11 +12,13 @@ import Schedule from "./Schedule/Schedule";
 import { fetchUser } from "./dataFetch";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { authContext } from "../App";
 
 export const propsContext = createContext();
 export const profileContext = createContext()
 
 const Mainapp = () => {
+  const { userID } = useContext(authContext)
   const notificationReaded = useState(false);
   const Indexhandle = useState(0);
   const searchMode = useState(false);
@@ -27,7 +29,7 @@ const Mainapp = () => {
   const [courses, setCourses] = useState([]);
 
   const { data, status } = useQuery(
-    ["userone", "64564f7140fdcaacef369fe3"],
+    ["userone", userID/* "645793ffff441f996d86dc0b" */],
     async ({ queryKey }) => {
       const id = queryKey[1];
       try {

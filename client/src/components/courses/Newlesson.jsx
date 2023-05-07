@@ -12,7 +12,7 @@ import axios from "axios";
 import { propsContext } from "../../content page/Mainapp";
 
 const Newlesson = () => {
-  const { lessons, setLessons, courses, setCourses } =
+  const { lessons, setLessons, courses, setCourses, courseId, setCourseId } =
     useContext(CoursesContext);
   const { data } = useContext(propsContext);
   // post lesson
@@ -62,7 +62,7 @@ const Newlesson = () => {
     }
   };
 
-  const addStudentToCourse = async (fullName) => {
+  const addStudentToCourse = async (id, fullName) => {
     const [firstName, lastName] = fullName.split(" ");
 
     try {
@@ -70,7 +70,7 @@ const Newlesson = () => {
         `http://localhost:3000/user/getStudents?firstName=${firstName}&lastName=${lastName}`
       );
       const course = await axios.get(
-        `http://localhost:3000/course/get/644d87aefea6c9ca5de10703`
+        `http://localhost:3000/course/get/${id}`
       );
       console.log(student.data[0]._id)
       console.log(course)
@@ -79,7 +79,7 @@ const Newlesson = () => {
         students: [student.data[0]._id],
       };
       await axios.put(
-        `http://localhost:3000/course/update/644d87aefea6c9ca5de10703`,
+        `http://localhost:3000/course/update/${id}`,
         updatedCourse
       );
       /* setCourses(updatedCourse); */
@@ -267,7 +267,7 @@ const Newlesson = () => {
                     <button
                       className="flex flex-shrink-0 w-max items-center gap-2 place-self-end rounded-md bg-accent p-2 "
                       type="submit"
-                      onClick={() => {addStudentToCourse(Acontent.students)}}
+                      onClick={() => {addStudentToCourse(courseId, Acontent.students)}}
                     >
                       <p className=" text-sm font-semibold text-white min-w-max">Save Edit</p>
                       <img src={publish} alt="" />

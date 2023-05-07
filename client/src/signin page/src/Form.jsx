@@ -8,9 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { loginContext } from "../Login";
 
 const Form = ({ setToken, setUser }) => {
-  const {setShowLoginForm} = useContext(loginContext)
-
-
+  const { setShowLoginForm } = useContext(loginContext);
+/*   const { setToken, setUser } = useContext(authContext);
+ */
   const initValues = { email: "", password: "", user: "" };
   const [values, setValues] = useState(initValues);
   const [errors, setErrors] = useState({});
@@ -21,16 +21,17 @@ const Form = ({ setToken, setUser }) => {
   const [userPicked, setUserPicked] = useState();
   const navigate = useNavigate();
 
-  
   const loginUser = async (email, password) => {
     try {
       const response = await axios.post("http://localhost:3000/user/login", {
         email: email,
         password: password,
       });
+      console.log(response.data)
       const { token, user } = response.data;
       setToken(token);
-      setUser(user)
+      setUser(user);
+      
       localStorage.setItem("token", token);
       navigate("/Home");
       // store token and user in local storage or state
@@ -65,6 +66,7 @@ const Form = ({ setToken, setUser }) => {
   const handleChange = (e) => {
     const { name } = e.target;
     setValues({ ...values, [name]: e.target.value });
+    console.log(values)
   };
 
   const handleSubmit = async (e) => {
@@ -142,7 +144,7 @@ const Form = ({ setToken, setUser }) => {
             <input
               id="email"
               placeholder="Elitesstudent@gmail.com"
-              className=" w-full border-0 p-0 pr-1 placeholder-gray outline-none rounded-none"
+              className=" w-full rounded-none border-0 p-0 pr-1 placeholder-gray outline-none"
               type="text"
               name="email"
               value={values.email}
@@ -172,7 +174,7 @@ const Form = ({ setToken, setUser }) => {
               type="password"
               name="password"
               value={values.password}
-              className="w-full border-0 p-0 pr-1 placeholder-gray outline-none rounded-none"
+              className="w-full rounded-none border-0 p-0 pr-1 placeholder-gray outline-none"
               onChange={handleChange}
             />
             <img src={showpwd} alt="info" className="w-5" />
@@ -243,7 +245,11 @@ const Form = ({ setToken, setUser }) => {
         >
           Sign in
         </button>
-        <a href="#" className=" mt-3 cursor-pointer text-blue" onClick={() => setShowLoginForm(false) }>
+        <a
+          href="#"
+          className=" mt-3 cursor-pointer text-blue"
+          onClick={() => setShowLoginForm(false)}
+        >
           Forgot your password?
         </a>
       </div>

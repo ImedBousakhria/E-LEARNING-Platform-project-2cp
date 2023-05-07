@@ -8,6 +8,7 @@ import { useContext, useState, useEffect } from "react";
 import { AnnouncementContext } from "../../content page/Announcements/Teacherannounce";
 import axios from "axios";
 import { propsContext } from "../../content page/Mainapp";
+import { authContext } from "../../App";
 
 const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
   // GET announcements
@@ -44,6 +45,7 @@ const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
   const { setContentToEdit, editMode, setBarContent, barContent, announcements, setAnnouncements } =
     useContext(AnnouncementContext);
     const { data } = useContext(propsContext)
+    const { userID } = useContext(authContext)
   const user = "said";
   const postsPerPage = 4;
   const [currentPage, setCurrentPage] = useState(1);
@@ -102,7 +104,7 @@ const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
           console.log(Element)
           return (
             <Announcementelement
-              self = { '64406327b871d94ddb7bfd77' === Element.sender._id }
+              /* self = { userID === Element.sender._id } */
               title={Element.title}
               isDisplayed={false}
               onClick={() => {
@@ -112,7 +114,7 @@ const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
               }}
               isActive={activeCardIndex === index && barContent !== null}
               /* profilepicture={Element.profilepicture} */
-              person={Element.sender.firstName + ' ' + Element.sender.lastName}
+              /* person={Element.sender.firstName + ' ' + Element.sender.lastName} */
               content={Element.description}
               /* image={Element.image} */
             />
