@@ -20,15 +20,15 @@ const Assignment = ({ index }) => {
 
   const [courseIndex, setCourseIndex] = useState(0);
 
-  const { data, status, error } = useQuery(
+  /* const { data, status, error } = useQuery(
     ["items"],
     () => fetchItems(courses),
     { enabled: index == 3 }
-  );
+  ); */
 
 
-  if (index === 3 && status == "success") {
-    let dataElements = data.map((Element) => Element.assignments)
+  if (index === 3 /* && status == "success" */) {
+    let dataElements = courses.map((Element) => Element.courseID.assignments)
     dataElements = dataElements.flatMap((Element) =>Element) ; 
 
     console.log(dataElements);
@@ -47,9 +47,9 @@ const Assignment = ({ index }) => {
         <Notification />
       </IndexElementContext.Provider>
     );
-  } else if (index == 4 && status == "loading") {
+  } /* else if (index == 4 && status == "loading") {
     return <div>loading...</div>;
-  } else {
+  } */ else {
     return null;
   }
 };

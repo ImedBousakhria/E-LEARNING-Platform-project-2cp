@@ -1,14 +1,12 @@
 import React from "react";
 
-function Course({ groupe, description, time, module }) {
+function Course({ group, startTime, endTime }) {
   return (
-    <div className=" rounded-[10px] flex flex-col gap-1 bg-assignmentbg p-2 ">
+    <div className=" flex flex-col gap-1 rounded-[10px] bg-assignmentbg p-2 ">
       <div className="flex gap-[1ch]">
-        <p>{module}</p>
-        <p>{groupe}</p>
+        <p>{group}</p>
       </div>
-      <p className="text-darkgray">{description}</p>
-      <p className="text-blue ">{time}</p>
+      <p className="text-blue ">{startTime+" - "+endTime}</p>
     </div>
   );
 }

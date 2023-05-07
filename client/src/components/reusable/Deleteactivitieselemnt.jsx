@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import delet from '../../assets/icons/delete.svg' ;  
 import ConfirmDelete from './ConfirmDelete';
 
-const Deleteactivitieselemnt = ({ text, type }) => {
+const Deleteactivitieselemnt = ({ text, type, dataElements, elementIndex }) => {
   const [confirmDelete, setConfirmDelete] = useState("hidden") ; 
   return (
     <div className='relative'>
@@ -17,8 +17,8 @@ const Deleteactivitieselemnt = ({ text, type }) => {
         {text}
         <img src={delet} />
       </div>
-{/*       <ConfirmDelete type={type}  confirmDelete={confirmDelete} setConfirmDelete={setConfirmDelete}/>
- */}    </div>
+{      <ConfirmDelete dataElements={dataElements} elementIndex={elementIndex} type={type}  confirmDelete={confirmDelete} setConfirmDelete={setConfirmDelete}/>
+}    </div>
   );
 };
 

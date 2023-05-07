@@ -8,7 +8,8 @@ import { IndexElementContext } from "../../content page/Assignment/Assignment";
 
 const Activitiesnotificationelement = ({ element }) => {
 
-const {editMode} = useContext(IndexElementContext)
+const { editMode, elementIndex, dataElements } =
+  useContext(IndexElementContext);
 
  function handleClick() {
     editMode[1](true);
@@ -20,8 +21,11 @@ const {editMode} = useContext(IndexElementContext)
         <div className="flex items-center justify-between">
           <h2 className="text-[1rem]  font-semibold ">{element.title}</h2>
           <div className="flex gap-1">
-            <Editactivitieselement handleClick={()=>handleClick()} text={"Edit"} />
-            <Deleteactivitieselemnt text={"Delete"} />
+            <Editactivitieselement
+              handleClick={() => handleClick()}
+              text={"Edit"}
+            />
+            <Deleteactivitieselemnt elementIndex={elementIndex} dataElements={dataElements} type={"assignment"} text={"Delete"} />
           </div>
         </div>
         <div>

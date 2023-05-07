@@ -38,7 +38,7 @@ const Activitiesbodyelement = ({
   let deadlineFormated =   formatDate(deadline) ; 
 
   const [check, setCheck] = useState(false);
-  const { elementIndex, editMode,  showDiscussion } = useContext(contextElement);
+  const { elementIndex, editMode,dataElements,  showDiscussion } = useContext(contextElement);
 
   /* function handleClick() {
     if (showDiscussion[0] == "hidden") {
@@ -87,8 +87,8 @@ const Activitiesbodyelement = ({
       <div className="flex basis-[15%] items-center justify-center gap-2 ">
         {type != "students" ? (
           <>
-            <Deleteactivitieselemnt type={type} text={null} />
-            <Editactivitieselement handleClick={()=>handleClick()} text={null} />
+{            <Deleteactivitieselemnt dataElements={dataElements} elementIndex={elementIndex} type={type} text={null} />
+}            <Editactivitieselement handleClick={()=>handleClick()} text={null} />
           </>
         ) : null}
       </div>

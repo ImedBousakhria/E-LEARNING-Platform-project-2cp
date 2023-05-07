@@ -12,11 +12,11 @@ const Schedule = ({ index }) => {
 
   const handleDelete = useState(false) ; 
 
-    const { data, status, error } = useQuery(
+    /* const { data, status, error } = useQuery(
       ["items"],
       () => fetchItems(courses),
       { enabled: index == 7 }
-    );
+    ); */
   
 
   const [courseIndex, setCourseIndex] = useState(0);
@@ -24,9 +24,9 @@ const Schedule = ({ index }) => {
   const elementIndex = useState(null);
   const editMode = useState(false);
 
-  if (index === 7 && status == "success") {
+  if (index === 7 /* && status == "success" */) {
 
-    let schedulesHolder = data.map((Element) => Element.schedules);
+    let schedulesHolder = courses.map((Element) => Element.courseID.schedules);
     const dataElements = schedulesHolder.flatMap((innerArray) => innerArray);
     console.log(dataElements);
     dataElements.sort((a, b) => a.position - b.position);
@@ -39,9 +39,9 @@ const Schedule = ({ index }) => {
         <Notificaiton />
       </scheduleContext.Provider>
     );
-  } else if (index == 7 && status == "loading") {
+  } /* else if (index == 7 && status == "loading") {
     return <div>loading</div>;
-  } else {
+  } */ else {
     return null;
   }
 };
