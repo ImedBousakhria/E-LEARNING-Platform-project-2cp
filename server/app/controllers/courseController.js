@@ -31,7 +31,6 @@ module.exports.getCourse = async (req, res)=>{
         .populate('schedules')
         .populate('announcements');
 
-
         if(course){
             res.status(200).json(course);
             console.log("Course found");
