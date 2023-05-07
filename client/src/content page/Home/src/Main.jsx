@@ -18,7 +18,7 @@ const Main = () => {
 
   const { Indexhandle, searchMode, userType, data } = useContext(propsContext);
 
-  console.log(Indexhandle);
+  //console.log(Indexhandle);
   /*   function handleClick() {
     searchMode[0] ? searchMode[1](false) : searchMode[1](true);
   } */
