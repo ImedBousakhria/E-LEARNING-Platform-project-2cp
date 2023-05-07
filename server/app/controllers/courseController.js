@@ -11,7 +11,9 @@ const Notification = require('../models/Notification');
 
 module.exports.getAllCourses = async (req, res)=>{
     try{
-        const courses = await Course.find().populate('announcements');
+
+        const courses = await Course.find().populate('announcements').populate('quizzes').populate('lessons').populate('teachers').populate('students').populate('assignments').populate('schedules');
+
         res.status(200).json(courses);
     }catch(err){
         res.status(500).json({message: err.message});
@@ -29,6 +31,8 @@ module.exports.getCourse = async (req, res)=>{
         .populate('announcements')
         .populate('assignments')
         .populate('schedules')
+        .populate('announcements');
+
 
         if(course){
             res.status(200).json(course);
@@ -54,13 +58,7 @@ module.exports.postCourse = async (req, res)=>{
             req.body.teachers.forEach(async (teacherID) => {
               const teacher = await User.findById(teacherID);
               teacher.courses.push({ courseID: course._id });
-              const notification = new Notification({
-                user: teacher._id,
-                sender: req.user._id,
-                message: `New ${course.title} created`
-              });
-              await notification.save();
-              teacher.notifications.push(notification._id);
+
               teacher.save();
             });
           }
@@ -69,13 +67,6 @@ module.exports.postCourse = async (req, res)=>{
             req.body.students.forEach(async (studentID) => {
               const student = await User.findById(studentID);
               student.courses.push({ courseID: course._id });
-              const notification = new Notification({
-                user: student._id,
-                sender: req.user._id,
-                message: `New ${course.title} created`
-              });
-              await notification.save();
-              student.notifications.push(notification._id);
               student.save();
             });
           }

@@ -49,7 +49,32 @@ module.exports.createSchedule = async (req, res) => {
                 course.schedules.push(schedule._id);
                 await course.save();
             }
+              // Send notifications to teachers and students in the course
+      course.teachers.forEach(async teacherId => {
+        const teacher = await User.findById(teacherId);
+        const notification = new Notification({
+          user: teacher._id,
+          message: `New schedule "${schedule.title}" created in "${course.title}"`,
+        });
+  
+        await notification.save();
+        teacher.notifications.push(notification._id);
+        teacher.save();
+        });
+        
+        // send notification to students
+        course.students.forEach(async studentId => {
+          const student = await User.findById(studentId);
+          const notification = new Notification({
+            user: student._id,
+            message: `New schedule "${schedule.title}" created in "${course.title}"`,
+          });
+          await notification.save();
+          student.notifications.push(notification._id);
+          student.save();
+        });
         }
+
         res.status(201).json(schedule);
         console.log("schedule created sucessfully");
     } catch (err) {
@@ -59,45 +84,47 @@ module.exports.createSchedule = async (req, res) => {
 
 // PATCH update a schedule
 module.exports.updateSchedule = async (req, res) => {
-  try {
-    const _id = req.params.id;
-    const schedule = await Schedule.findOneAndUpdate({ _id }, req.body, { new: true });
-    const course = await Course.findById(schedule.course);
-    // send notification to teachers
-    course.teachers.forEach(async teacherId => {
-        const teacher = await User.findById(teacherId);
-        const notification = new Notification({
-        user: teacher._id,
-        sender: "64406327b871d94ddb7bfd77",
-        message: `Schedule was updated in ${course.title}`,
-      });
-      await notification.save();
-      teacher.notifications.push(notification);
-      await teacher.save();
-    });
-    // send notification to students
-    course.students.forEach(async studentId => {
-        const student = await User.findById(studentId);
-        const notification = new Notification({
-        user: student._id,
-        sender: "64406327b871d94ddb7bfd77",
-        message: `Schedule was updated in ${course.title}`,
-      });
-      await notification.save();
-      student.notifications.push(notification);
-      await student.save();
 
-    });
-
-    if (!schedule) {
-      return res.status(404).json({ error: "schedule not found" });
-    } else {
-      res.status(200).json(schedule);
+    try {
+        const _id = req.params.id;
+        const schedule = await Schedule.findOneAndUpdate({_id}, req.body, {new: true});
+        course = await Course.findById(req.body.course);
+        course.teachers.forEach(async teacherId => {
+            const teacher = await User.findById(teacherId);
+            const notification = new Notification({
+              user: teacher._id,
+              message: `This schedule "${schedule.title}" is updated in "${course.title}"`,
+            });
+      
+            await notification.save();
+            teacher.notifications.push(notification._id);
+            teacher.save();
+            });
+            
+            // send notification to students
+            course.students.forEach(async studentId => {
+              const student = await User.findById(studentId);
+              const notification = new Notification({
+                user: student._id,
+                message: `This schedule "${schedule.title}" updated in "${course.title}"`,
+              });
+              await notification.save();
+              student.notifications.push(notification._id);
+              student.save();
+            });
+        if (!schedule) {
+            return res.status(404).json({ error: "schedule not found" });
+        }else{
+            res.status(200).json(schedule);
+        }
+    } catch (err) {
+        res.status(400).json({ error: err.message });
     }
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
+    };
+
+
+
+
 
     module.exports.deleteSchedule = async (req, res) => {
         try {
@@ -148,6 +175,6 @@ module.exports.deleteAllSchedules = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-    }
+    };
     
 

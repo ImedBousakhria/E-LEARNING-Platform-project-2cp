@@ -3,8 +3,8 @@ const User = require('../models/User');
 
 exports.addNotification = async (req, res, next) => {
   try {
-    const { user, sender, message } = req.body;
-    const notification = new Notification({ user, sender, message });
+    const { user, message } = req.body;
+    const notification = new Notification({ user, message });
     await notification.save();
     // Find the user and update their notifications array
     const updatedUser = await User.findOneAndUpdate(
