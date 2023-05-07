@@ -79,44 +79,41 @@ module.exports.createAnnouncement = [
         title: req.body.title,
         description: req.body.description,
         gallery: gallery,
-        sender: req.user._id,
         course: req.body.course || null // Set course to null if not provided
       });
 
       // Add the new Announcement to the course if course is provided
-      if (req.body.course) {
+  
         const course = await Course.findById(req.body.course);
         if (course) {
           course.announcements.push(announcement._id);
           await course.save();
-          
-          // Send notifications to teachers and students in the course
-          course.teachers.forEach(async teacherId => {
-            const teacher = await User.findById(teacherId);
-            const notification = new Notification({
-              user: teacher._id,
-              sender: req.user._id,
-              message: `New announcement "${announcement.title}" created in "${course.title}"`,
-            });
-            await notification.save();
-            teacher.notifications.push(notification);
-            teacher.save();
-          });
-          
-          // send notification to students
-          course.students.forEach(async studentId => {
-            const student = await User.findById(studentId);
-            const notification = new Notification({
-              user: student._id,
-              sender: req.user._id,
-              message: `New announcement "${announcement.title}" created in "${course.title}"`,
-            });
-            await notification.save();
-            student.notifications.push(notification);
-            student.save();
-          });
         }
-      }
+
+      // Send notifications to teachers and students in the course
+      course.teachers.forEach(async teacherId => {
+      const teacher = await User.findById(teacherId);
+      const notification = new Notification({
+        user: teacher._id,
+        message: `New announcement "${announcement.title}" created in "${course.title}"`,
+      });
+
+      await notification.save();
+      teacher.notifications.push(notification._id);
+      teacher.save();
+      });
+      
+      // send notification to students
+      course.students.forEach(async studentId => {
+        const student = await User.findById(studentId);
+        const notification = new Notification({
+          user: student._id,
+          message: `New announcement "${announcement.title}" created in "${course.title}"`,
+        });
+        await notification.save();
+        student.notifications.push(notification._id);
+        student.save();
+      });
 
       // Save the Announcement object
       await announcement.save();
@@ -178,6 +175,34 @@ module.exports.updateAnnouncement = [
         announcement.description = req.body.description;
       }
       
+      
+     const course = await Course.findById(req.body.course);
+
+    // Send notifications to teachers and students in the course
+    course.teachers.forEach(async teacherId => {
+    const teacher = await User.findById(teacherId);
+    const notification = new Notification({
+      user: teacher._id,
+      message: `this announcement "${announcement.title}" is updated in "${course.title}"`,
+    });
+
+    await notification.save();
+    teacher.notifications.push(notification._id);
+    teacher.save();
+    });
+    
+    // send notification to students
+    course.students.forEach(async studentId => {
+      const student = await User.findById(studentId);
+      const notification = new Notification({
+        user: student._id,
+        message: `This announcement "${announcement.title}" is updated in "${course.title}"`,
+      });
+      await notification.save();
+      student.notifications.push(notification._id);
+      student.save();
+    });
+
     
       await announcement.save();
 

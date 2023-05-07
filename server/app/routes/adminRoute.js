@@ -6,7 +6,6 @@ const {requireAdmin} = require('../middleware/adminMiddleware');
 const router = Router();
 
 
-
 router.get('/user/getAll', adminController.getAllUsers);
 router.get('/user/getStudents', adminController.getAllStudents);
 router.get('/user/getTeachers', adminController.getAllTeachers);
