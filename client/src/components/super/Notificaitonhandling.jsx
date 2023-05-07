@@ -12,11 +12,7 @@ import { fetchNotificationIetm, fetchNotificationItems } from "../../content pag
 
 
 const Notificaitonhandling = () => {
-  const { notificaiton} = useContext(propsContext) ; 
-  const { data, status, error } = useQuery(
-    ["notifications"],
-    () => fetchNotificationIetm("643fec0ca811facc77cea1e2"),
-  );
+  const { notification} = useContext(propsContext) ; 
 
   const { notificationReaded } = useContext(propsContext);
 
@@ -30,9 +26,7 @@ const Notificaitonhandling = () => {
 
   const [showNotificationcontent, setShowNotificationcontent] =
     useState("hidden");
-  if(status == "success") {
-
-    console.log(data) ; 
+  console.log(notification) ; 
     return (
     <>
       <div
@@ -66,7 +60,7 @@ const Notificaitonhandling = () => {
             </div>
           </div>
           <div className="flex flex-col gap-4 overflow-scroll">
-            {data.map((Element) => {
+            {notification.map((Element) => {
               console.log(Element.message);
               return (
                 <Notificationcontentelement notificationelement={Element} />
@@ -77,10 +71,6 @@ const Notificaitonhandling = () => {
       </div>
     </>
   );
-  }else if(status == "loading") {
-    return(<div>loading...</div>)
   }
-  
-};
 
 export default Notificaitonhandling;

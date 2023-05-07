@@ -67,7 +67,7 @@ module.exports.createSubmission = [
         description: req.body.description,
         gallery: gallery,
         submittedBy: req.body.submittedBy,
-        assignment: req.body.assignment || null // Set assignment to null if not provided
+        assignment: req.body.assignment 
       });
 
 
@@ -83,7 +83,7 @@ module.exports.createSubmission = [
       }
 
         // send notification to the sender of the assignment
-        const postedBy = await User.findById(assignment.postedBy);
+        /* const postedBy = await User.findById(assignment.postedBy);
         console.log(postedBy)
         const notification = new Notification({
           user: postedBy._id,
@@ -93,7 +93,7 @@ module.exports.createSubmission = [
       
         await notification.save();
         postedBy.notifications.push(notification);
-        await postedBy.save();
+        await postedBy.save(); */
     
 
       // Save the Submission object
