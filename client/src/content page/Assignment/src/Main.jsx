@@ -10,9 +10,13 @@ import SearchForm from "../../../components/super/SearchForm";
 const Main = () => {
   const { editMode } = useContext(IndexElementContext);
   const {searchMode} = useContext(propsContext)
-  function handleClick() {
+
+
+  /* function handleClick() {
     searchMode[0] ? searchMode[1](false) : searchMode[1](true);
-  }
+  } */
+  
+
   return (
     <div className="relative flex basis-[60%] flex-col gap-4 bg-primary  p-8">
       {editMode[0] ? <Bluredbg /> : null}

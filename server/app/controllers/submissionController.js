@@ -1,6 +1,8 @@
 const Course = require('../models/Course') ;
 const fs = require('fs');
 const Submission = require('../models/Submission');
+const Assignment = require('../models/Assignment');
+const User= require('../models/User');
 
 
 
@@ -65,17 +67,34 @@ module.exports.createSubmission = [
         description: req.body.description,
         gallery: gallery,
         submittedBy: req.body.submittedBy,
-        assignment: req.body.assignment || null // Set assignment to null if not provided
+        assignment: req.body.assignment 
       });
 
+
+     
       // Add the new Submission to the course if course is provided
       if (req.body.assignment) {
-        const assignment = await Course.findById(req.body.assignment);
+        const assignment = await Assignment.findById(req.body.assignment);
         if (assignment) {
           assignment.submissions.push(submission._id);
           await assignment.save();
+          
         }
       }
+
+        // send notification to the sender of the assignment
+        /* const postedBy = await User.findById(assignment.postedBy);
+        console.log(postedBy)
+        const notification = new Notification({
+          user: postedBy._id,
+          sender: "64406327b871d94ddb7bfd77",
+          message: `New submission "${submission.title}" created for your assignment "${assignment.title}" in "${assignment.course}"`,
+        });
+      
+        await notification.save();
+        postedBy.notifications.push(notification);
+        await postedBy.save(); */
+    
 
       // Save the Submission object
       await submission.save();
@@ -170,7 +189,7 @@ module.exports.createSubmission = [
       if (!deletedSubmission) {
         return res.status(404).json({ message: 'Submission not found' });
       }
-  
+
       res.status(200).json({ message: 'Submission deleted successfully' });
     } catch (error) {
       res.status(500).json({ message: error.message });

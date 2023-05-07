@@ -6,14 +6,18 @@ import { studentHeader } from "../../content page/Home/content/main";
 
 const Activitiesheader = ({ setCheckall, type }) => {
   var header;
-  if (type == "students") {
+  console.log(type) 
+  if (type == ("students"|| "studentshome")) {
     header = studentHeader;
+    console.log(header); 
+
   } else {
     header = headers;
+    console.log(header) ; 
   }
   return (
     <div className="flex justify-between gap-4 px-[15px]">
-      {type != "students" ? (
+      {type != "students" || "studentshome" ? (
         <button>
           <input
             type="checkbox"
@@ -29,7 +33,7 @@ const Activitiesheader = ({ setCheckall, type }) => {
         })}
       </div>
       <div className="flex basis-[15%] justify-center">
-        {type != "students" ? <Deleteassignment text={"Delete"} /> : null}
+        {type != "students"||"studentshome" ? <Deleteassignment text={"Delete"} /> : null}
       </div>
     </div>
   );

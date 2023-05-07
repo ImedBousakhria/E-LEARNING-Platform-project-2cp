@@ -7,7 +7,9 @@ import { AnnouncementContext } from "../Teacherannounce";
 import { propsContext } from "../../Mainapp";
 
 const Announcemain = () => {
-   
+
+  const [activeCardIndex, setActiveCardIndex] = useState();
+  const {userType} = useContext(propsContext)
 
 
   const [activeCardIndex, setActiveCardIndex] = useState();
@@ -30,6 +32,7 @@ const Announcemain = () => {
           <Search />
         </div>
       </div>
+
       {userType.isAdmin || userType.isTeacher ? (
         <Newannounce setActiveCardIndex={setActiveCardIndex} />
       ) : null}
@@ -38,6 +41,22 @@ const Announcemain = () => {
         activeCardIndex={activeCardIndex}
         setActiveCardIndex={setActiveCardIndex}
       />
+
+     /* {
+        userType.isStudent?(null):(
+          <div className="">
+        <Newannounce setActiveCardIndex={setActiveCardIndex} />
+      </div>
+        )
+      }
+      
+      <div>
+        <Allannouncements
+          activeCardIndex={activeCardIndex}
+          setActiveCardIndex={setActiveCardIndex}
+        />
+      </div> * /
+
     </div>
   );
 };

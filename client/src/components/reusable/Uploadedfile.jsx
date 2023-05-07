@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -12,9 +12,8 @@ const Uploadedfile = ({ file, onRemove }) => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       console.log(reader.result);
-
-      /* setImage(reader.result) ; 
-      console.log(reader.result) */
+      setImage(reader.result) ; 
+      console.log(reader.result)
     };
   } else if (file.type.includes("pdf")) {
     const reader = new FileReader();
@@ -37,14 +36,16 @@ const Uploadedfile = ({ file, onRemove }) => {
 
   return (
     <div className="relative">
-      <button onClick={onRemove}>
+      <div onClick={onRemove}>
         <img src={deletequestion} />
-      </button>
+      </div>
       {file.type.startsWith("image/") ? (
+
         <img
           src={URL.createObjectURL(file)}
           className="aspect-square w-24 cursor-pointer rounded-xl object-contain"
         />
+        </div>
       ) : file.type.includes("pdf") ? (
         <div className="h-[3.75rem] overflow-hidden object-contain">
           <Document file={file} className="rounded-lg shadow-lg">

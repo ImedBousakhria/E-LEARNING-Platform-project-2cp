@@ -4,12 +4,12 @@ import { handleQuesitons } from "./Addnewquiz";
 import { IndexElementContextquiz } from "../../content page/Quizzes/Quizzes";
 
 const Questions = ({ questionIndex, setQuestionIndex }) => {
-  const { editMode, firstContent, elementIndex } = useContext(
+  const { editMode, dataElements, elementIndex } = useContext(
     IndexElementContextquiz
   );
   const { questions, setQuestions } = useContext(handleQuesitons);
   if(editMode[0]) {
-    setQuestions(firstContent[0][elementIndex[0]-1].quiz) ; 
+    setQuestions(dataElements[elementIndex[0]-1].content) ; 
   }
   console.log(questions);
   return (
@@ -24,7 +24,7 @@ const Questions = ({ questionIndex, setQuestionIndex }) => {
             className="flex w-fit gap-1 rounded-[17px] bg-lightgray p-1 font-thin text-black"
           >
             <span>Question{index + 1}</span>
-            <button
+            <div
               onClick={(e) => {
                 e.preventDefault();
                 console.log(index);
@@ -32,11 +32,12 @@ const Questions = ({ questionIndex, setQuestionIndex }) => {
                   questions.filter((Element, i) => {
                     return index != i;
                   })
-                );
+                  );
+                  console.log(questions)
               }}
             >
               <img src={deletequetion} />
-            </button>
+            </div>
           </div>
         );
       })}

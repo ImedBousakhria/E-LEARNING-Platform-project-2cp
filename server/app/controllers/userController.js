@@ -38,11 +38,11 @@ const handleErrors = (err) => {
 // create json web token
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
-  let jwt_secret = process.env.JWT_SECRET || 'elite secret';
-  return jwt.sign({ id }, jwt_secret, {
+  return jwt.sign({ id }, 'elite', {
     expiresIn: maxAge
   });
 };
+
 
 // controller actions
 
@@ -50,7 +50,9 @@ module.exports.getUser = async (req, res) =>{
     _id = req.params.id;
     try{
         const user = await User.findById(_id)
-        .populate('courses.courseID')
+        .populate({path:'courses.courseID',populate:[{path:'assignments'}, {path:'quizzes'}, {path:'schedules'}, {path:'announcements'}]}).populate('notifications')
+
+
         if(user){
             res.status(200).send(user);
         
@@ -91,10 +93,10 @@ module.exports.login_post = async (req, res) => {
     // const maxAge = 1000 * 60 * 60 * 24;  
     try {
       const user = await User.login(email, password);
-    //   const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin, role: user.role }, "GDG for once, GDG forever!", {expiresIn: maxAge});
       const token = createToken(user._id);
       res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
       res.status(200).json({user: user._id,
+                            isAdmin: user.isAdmin,
                             message : "login successfull",
                             token: token });
     } 

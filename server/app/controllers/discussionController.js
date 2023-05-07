@@ -2,13 +2,13 @@ const Discussion = require('../models/Discussion');
 const Lesson = require('../models/Lesson');
 
 exports.createDiscussion = async (req, res) => {
-  const newConversation = new Conversation({
+  const newDiscussion = new Discussion({
     members: [req.body.senderId, req.body.receiverId],
   });
 
   try {
-    const savedConversation = await newConversation.save();
-    res.status(200).json(savedConversation);
+    const savedDiscussion = await newDiscussion.save();
+    res.status(200).json(savedDiscussion);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -16,10 +16,10 @@ exports.createDiscussion = async (req, res) => {
 
 exports.getDiscussion = async (req, res, next) => {
   try {
-    const conversation = await Conversation.find({
+    const discussion = await Discussion.find({
       members: { $in: [req.params.userId] },
     });
-    res.status(200).json(conversation);
+    res.status(200).json(discussion);
   } catch (err) {
     res.status(500).json(err);
   }

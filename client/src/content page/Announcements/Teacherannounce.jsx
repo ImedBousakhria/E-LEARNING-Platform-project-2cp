@@ -52,7 +52,6 @@ const Teacherannounce = ({index}) => {
   } */else {
     return null ; 
   }
-  
 };
 
 export default Teacherannounce;
