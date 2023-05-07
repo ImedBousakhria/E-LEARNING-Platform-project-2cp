@@ -9,6 +9,7 @@ import { AnnouncementContext } from "../../content page/Announcements/Teacherann
 
 const Announcemento = ({
   self,
+  title,
   profilepicture,
   person,
   content,
@@ -49,6 +50,7 @@ const Announcemento = ({
           ) : null}
         </div>
       </div>
+      <div className=" text-nightblue font-bold">{title}</div>
       <div className="flex w-full items-end">
         <div style={{ flexBasis: image ? "70%" : "100%" }}>
           <p className=" text-base">{content}</p>
@@ -63,7 +65,7 @@ const Announcemento = ({
         <img className="w-full basis-[30%] object-cover" src={image} />
       ) : null}
 
-      {self && isDisplayed ? (
+      {/* self && */ isDisplayed ? (
         <div className="mt-6 flex justify-end gap-1">
           <div
             onClick={() => {

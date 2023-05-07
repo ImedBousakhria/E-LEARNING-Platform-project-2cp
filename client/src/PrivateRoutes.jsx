@@ -4,8 +4,8 @@ import { authContext } from './App'
 
 const PrivateRoutes = ({children, token}) => {
   let alwaysAllowed = 'come in'
-  return true  ? <Outlet/> : <Navigate to="/login" />
-  
+
+  return token ? <Outlet/> : <Navigate to="/login" />
 }
 
 export default PrivateRoutes

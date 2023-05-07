@@ -106,6 +106,7 @@ const Mainapp = () => {
 
   /* const { data, status } = useQuery(
     ["userone", "64578ad50ff5d69cbe16415a"],
+
     async ({ queryKey }) => {
       const id = queryKey[1];
       try {

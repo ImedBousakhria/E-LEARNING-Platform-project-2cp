@@ -5,9 +5,14 @@ import Coursemain from "./src/Coursemain";
 import Coursebar from "./src/Coursebar";
 import { propsContext } from "../Mainapp";
 
-
 export const CoursesContext = createContext();
 const Teachercourses = ({ index }) => {
+  const [lessons, setLessons] = useState([]);
+  const [courses, setCourses] = useState([]);
+
+  const [showQuizzContainer, setShowQuizzContainer] = useState(false);
+
+  const [type, setType] = useState("course");
   const [barContent, setBarContent] = useState(null);
   const [items, setItem] = useState(); // courses
   const [activeCardIndex, setActiveCardIndex] = useState();
@@ -53,6 +58,14 @@ const Teachercourses = ({ index }) => {
           setEditMode,
           showDiscussion,
           elementIndex,
+          lessons,
+          setLessons,
+          courses,
+          setCourses,
+          type,
+          setType,
+          showQuizzContainer,
+          setShowQuizzContainer,
         }}
       >
         <>

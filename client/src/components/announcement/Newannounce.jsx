@@ -1,7 +1,7 @@
 import React from "react";
 import Publish from "../reusable/Publish";
 import Attachfile from "./../reusable/Attachfile";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Uploadedfile from "../../components/reusable/Uploadedfile";
 import pfp from "../../assets/profile/profileholder.png";
 import { useContext } from "react";
@@ -11,18 +11,35 @@ import Cancel from "./../reusable/Cancel";
 import axios from "axios";
 
 const Newannounce = ({ setActiveCardIndex }) => {
+  const { announcements, setAnnouncements } = useContext(AnnouncementContext);
+
+
   // post Announcement
   const addAnnouncement = async (testAnnouncement) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/announcement/create",
-        testAnnouncement
-      );
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
+    axios
+      .post("http://localhost:3000/announcement/create", testAnnouncement)
+      .then((response) => {
+        setAnnouncements([testAnnouncement, ...announcements]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+  /* 6457623b332ae4a3a6dc004b */
+  const handleUpdateAnnouncement = (updatedAnnouncement) => {
+    updatedAnnouncement = { title: updatedAnnouncement.title, description: updatedAnnouncement.description}
+    id = '6457623b332ae4a3a6dc004b'
+    axios
+      .put(`http://localhost:3000/announcement/update/6457623b332ae4a3a6dc004b`, updatedAnnouncement)
+      .then((response) => {
+        // handle success, update state or trigger a re-fetch of the data
+        /* getAnnouncements() */
+      })
+      .catch((error) => {
+        // handle error
+      });
+  };
+  
 
   const handleCreation = async () => {
     const toAdd = {
@@ -37,7 +54,7 @@ const Newannounce = ({ setActiveCardIndex }) => {
 
   const inputRef = useRef(null);
   const [files, setFiles] = useState([]);
-  const { editMode, Acontent, setContent, setItem, setEditMode } =
+  const { editMode, Acontent, setContent, setEditMode} =
     useContext(AnnouncementContext);
   // editMode ? focusRef.current.focus() : null;
 
@@ -95,7 +112,7 @@ const Newannounce = ({ setActiveCardIndex }) => {
             name="description"
             placeholder="Description"
             onChange={handleChange}
-            className=" resize-none rounded-[10px] border border-darkgray px-3 pt-3.5 pb-24 outline-none"
+            className=" resize-none rounded-[10px] border border-darkgray px-3 pb-24 pt-3.5 outline-none"
           />
         </div>
 
@@ -123,8 +140,10 @@ const Newannounce = ({ setActiveCardIndex }) => {
             {
               editMode ? (
                 <Cancel
-                  setEditMode={setEditMode}
-                  setContent={setContent}
+                  onClick={() => {
+                    setEditMode(false),
+                    setContent('')
+                  }}
                   text={Cancel}
                 />
               ) : null
@@ -135,13 +154,13 @@ const Newannounce = ({ setActiveCardIndex }) => {
               <Publish
                 onClick={() => {
                   handleCreation(),
-                  setContent(null)
+                    /* setContent(null) */
                     /* setItem((prevItems) => [newItem, ...prevItems]); */
                     setActiveCardIndex((prev) => prev + 1);
                 }}
               />
             ) : (
-              <Save setEditMode={setEditMode} /> // set the content to the edited one;
+              <Save onClick={() => {setEditMode(false) , handleUpdateAnnouncement(Acontent)}} /> // set the content to the edited one;
             )}
           </div>
         </div>

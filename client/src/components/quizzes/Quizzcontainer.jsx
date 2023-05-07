@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Cancel from "../reusable/Cancel";
 import Quizzprogress from "./components/Quizzprogress";
 import CountdownCircle from "./components/CountdownCircle";
@@ -9,15 +9,17 @@ import B from "../../assets/scores/B.png";
 import C from "../../assets/scores/C.png";
 import D from "../../assets/scores/D.png";
 import F from "../../assets/scores/F.png";
+import { CoursesContext } from "../../content page/Courses/Teachercourses";
 
 const Quizzcontainer = ({ name }) => {
-  const [showQuizzContainer, setShowQuizzContainer] = useState(true);
   const [selectedAnswers, setSelected] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [timeUp, setTimeUp] = useState(false);
   const [state, setState] = useState(null); // modified with score increase or not
+  const { showQuizzContainer, setShowQuizzContainer } =
+    useContext(CoursesContext);
 
   const OptionsSelected = () => {
     // all selected are correct and all correct are selected

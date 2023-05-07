@@ -9,6 +9,8 @@ const Teacherstudents = ({index}) => {
   const [barContent, setBarContent] = useState(null);
   const [items, setItem] = useState(); // students
   const [activeCardIndex, setActiveCardIndex] = useState();
+  const [students, setStudents] = useState([]);
+
   if(index == 5) {
     return (
     <StudentsContext.Provider
@@ -19,6 +21,8 @@ const Teacherstudents = ({index}) => {
         setItem,
         activeCardIndex,
         setActiveCardIndex,
+        students, 
+        setStudents
       }}
     >
       <>

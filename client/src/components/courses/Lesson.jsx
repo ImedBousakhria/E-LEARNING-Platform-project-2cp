@@ -8,7 +8,7 @@ import Edit from "../reusable/Edit";
 import { CoursesContext } from "../../content page/Courses/Teachercourses";
 import Message from "../reusable/Message";
 
-const Lesson = ({ id, name, type, course, date, onClick, isActive }) => {
+const Lesson = ({ id, name, type, course, date, onClick, isActive, admin }) => {
   const {
     checkedLessons,
     setCheckedLessons,
@@ -16,6 +16,8 @@ const Lesson = ({ id, name, type, course, date, onClick, isActive }) => {
     content,
     setEditMode,
     showDiscussion,
+    setType
+
   } = useContext(CoursesContext);
   let icon;
   if (type == "file") {
@@ -83,8 +85,8 @@ const Lesson = ({ id, name, type, course, date, onClick, isActive }) => {
           {date}
         </p>
 
-        <div className="flex gap-1 ">
-          <div className="z-20 w-[2rem]">
+        <div className="flex gap-1 items-center">
+          <div className="z-20">
             <Message
             handleClick={() => {
               handleClick();
@@ -92,20 +94,24 @@ const Lesson = ({ id, name, type, course, date, onClick, isActive }) => {
           />
           </div>
           
-          <Delete />
+          {
+            admin ? <><Delete />
           <div
             onClick={() => {
               // setType to lesson
+              setType('lesson')
               setEditMode(true);
               setContent((prevContent) => ({
                 ...prevContent,
-                description: "hahaha",
+                description: 'desc',
               }));
               console.log(content);
             }}
           >
             <Edit />
-          </div>
+          </div></> : null
+          }
+          
         </div>
       </div>
     </div>

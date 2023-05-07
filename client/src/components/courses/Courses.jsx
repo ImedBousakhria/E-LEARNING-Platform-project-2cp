@@ -3,9 +3,9 @@ import { CoursesContext } from "../../content page/Courses/Teachercourses";
 import axios from "axios";
 
 const Courses = () => {
-  const { activeProgIndex, setActiveProgIndex } = useContext(CoursesContext);
+  const { activeProgIndex, setActiveProgIndex, courses, setCourses} = useContext(CoursesContext);
+  
   // GET courses
-  const [courses, setCourses] = useState([]);
   useEffect(() => {
     const getCourses = async () => {
       try {

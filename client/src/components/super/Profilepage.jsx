@@ -7,8 +7,30 @@ import Done from "../reusable/Done";
 import { authContext } from "../../App";
 import changepfp from "../../assets/icons/changepfp.svg";
 import { propsContext } from "../../content page/Mainapp";
+import axios from "axios";
 
 const Profilepage = ({ name }) => {
+  // update profile page
+  const handleProfileUpdate = (id, updatedProfile) => {
+    updatedProfile = {
+      firstName : updatedProfile.firstName,
+      lastName : updatedProfile.lastName,
+      email : updatedProfile.email,
+      phoneNumber : updatedProfile.phoneNumber
+    }
+    axios
+      .put(`http://localhost:3000/user/updateProfile/${id}`, updatedProfile)
+      .then((response) => {
+        console.log("Profile updated successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+
+
+
   const [editMode, setEditMode] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const handleChange = (event) => {
@@ -20,14 +42,14 @@ const Profilepage = ({ name }) => {
   const handleEditMode = () => {
     setEditMode(true);
   };
-  const { profileShown, setProfileShown } = useContext(propsContext)
+  const { profileShown, setProfileShown, data } = useContext(propsContext)
     const { setToken } = useContext(authContext); 
   return (
     profileShown && (
       <div className="flex flex-col justify-between gap-[3rem] rounded-[10px] bg-assignmentbg px-4 py-2">
         <div className="flex flex-col gap-2.5 ">
           <div className=" flex items-center justify-between">
-            <h4>{name}</h4>
+            <h4>{data.firstName + ' ' + data.lastName}</h4>
             <Cancel onClick={() => setProfileShown(false)} />
           </div>
           <div className="w-[80%] place-self-center border-t border-darkgray "></div>
@@ -37,10 +59,10 @@ const Profilepage = ({ name }) => {
           <div className="flex flex-col justify-between gap-[3rem] ">
             <img src={bigSaid} alt="" className="place-self-center" />
             <div className=" flex flex-col gap-3">
-              <div className="profile-info">First name</div>
-              <div className="profile-info">Last name</div>
-              <div className="profile-info">Phone number</div>
-              <div className="profile-info">Email</div>
+              <div className="profile-info">{data.firstName}</div>
+              <div className="profile-info">{data.lastName}</div>
+              <div className="profile-info">{data.phoneNumber}</div>
+              <div className="profile-info">{data.email}</div>
               <div className="profile-info">Password</div>
             </div>
 
@@ -104,7 +126,7 @@ const Profilepage = ({ name }) => {
               />
             </form>
             <div className="place-self-end">
-              <Done onClick={() => setEditMode(false)} />
+              <Done onClick={() => {setEditMode(false), handleProfileUpdate(data._id, userInfo)}} />
             </div>
           </div>
         )}

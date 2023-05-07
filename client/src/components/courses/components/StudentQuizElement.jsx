@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import quizzes from "../../../assets/icons/quizzes.svg";
 import publish from "../../../assets/icons/publish.svg";
 import Result from "../../reusable/Result";
+import { CoursesContext } from "../../../content page/Courses/Teachercourses";
 
 const StudentQuizElement = ({ quizName, played, score }) => {
+  const { showQuizzContainer,
+    setShowQuizzContainer, } = useContext(CoursesContext)
   return (
     <div className="flex w-[49%] flex-col gap-2 rounded-[10px] bg-primary p-2 ">
       <div className="flex gap-1 font-semibold w-4">
@@ -33,7 +36,7 @@ const StudentQuizElement = ({ quizName, played, score }) => {
             className=" flex w-full min-w-max
              items-center justify-center gap-1.5 rounded-[5px] bg-accent p-2 text-center text-[0.875rem] font-semibold text-white"
           >
-            <span className=" flex-shrink-0">Play quizz</span>{" "}
+            <span className="flex-shrink-0" onClick={() => setShowQuizzContainer(true)}>Play quizz</span>{" "}
             <img src={publish} alt="" />
           </button>
         )}

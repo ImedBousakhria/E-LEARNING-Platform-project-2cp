@@ -8,16 +8,14 @@ import { CoursesContext } from "../Teachercourses";
 import StudentAssignment from "../../../components/courses/StudentAssignment";
 
 import StudentQuizzes from "../../../components/courses/StudentQuizzes";
-
 import { propsContext } from "../../Mainapp";
 import Activitiesheader from "../../../components/super/Activitiesheader";
 import Activitiesbody from "../../../components/super/Activitiesbody";
 
-
 const Coursemain = ({ index }) => {
   const { editMode } = useContext(CoursesContext);
   const { userType } = useContext(propsContext);
-  const onTimeout = () => <div>Time's up</div>;
+
 
   return (
     <div className="flex flex-shrink-0 basis-[60%] flex-col gap-6 bg-primary px-12 py-8">
@@ -31,15 +29,21 @@ const Coursemain = ({ index }) => {
           <Search />
         </div>
       </div>
+
       {userType.isStudent ? null : (
         <>
           <Courses />
           <Newlesson />
-          <Allcourses index={index} />
+          <Allcourses />
         </>
       )}
 
       {userType.isStudent ? (
+/ * <<<<<<< imed
+        <div className=" flex flex-col gap-3">
+          <div>
+            <Allcourses admin={userType.isAdmin}/>
+=======  */
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-4 rounded-[10px] bg-white p-4">
             <div>
