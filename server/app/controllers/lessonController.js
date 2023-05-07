@@ -83,7 +83,7 @@ module.exports.createLesson = [
           course.teachers.forEach(async teacher => {
             const notification = new Notification({
               user: teacher._id,
-              sender: "64406327b871d94ddb7bfd77",
+              sender: req.user._id,
               message: `New lesson ${lesson.title} created in ${course.title}`,
             });
             await notification.save();
@@ -95,7 +95,7 @@ module.exports.createLesson = [
           course.students.forEach(async student => {
             const notification = new Notification({
               user: student._id,
-              sender: "64406327b871d94ddb7bfd77",
+              sender: req.user._id,
               message: `New lesson ${lesson.title} created in ${course.title}`,
             });
             await notification.save();
@@ -109,7 +109,7 @@ module.exports.createLesson = [
         // Create discussion forum associated with the lesson
          const discussion = new Discussion({
         lesson: lesson._id,
-        messages: []
+        members: [course.students , course.teachers]
        });
        await discussion.save(); 
        

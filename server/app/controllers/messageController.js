@@ -3,7 +3,7 @@ const Message = require("../models/Message");
 exports.getMessages = async (req, res) => {
 try {
     const messages = await Message.find({
-      conversationId: req.params.conversationId,
+        discussionId: req.params.discussionId,
     });
     res.status(200).json(messages);
   } catch (err) {

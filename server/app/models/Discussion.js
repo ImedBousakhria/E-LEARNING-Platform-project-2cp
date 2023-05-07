@@ -17,15 +17,11 @@ const messageSchema = new mongoose.Schema({
 });
 
 const discussionSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
+  lessonId: { 
+    type: mongoose.Schema.Types.ObjectId, ref: 'Lesson'
   },
-  messages: [messageSchema],
-  lesson: { type: mongoose.Schema.Types.ObjectId, ref: 'Lesson' },
-  createdAt: {
-    type: Date,
-    default: Date.now,
+  members: {
+    type: Array,
   },
 });
 

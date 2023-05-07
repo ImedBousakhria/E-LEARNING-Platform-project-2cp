@@ -49,8 +49,6 @@ module.exports.postCourse = async (req, res)=>{
         //create the course document
         const course = await Course.create(req.body);
  
-
-        
         // add to teachers
         if (req.body.teachers) {
             req.body.teachers.forEach(async (teacherID) => {
@@ -58,7 +56,7 @@ module.exports.postCourse = async (req, res)=>{
               teacher.courses.push({ courseID: course._id });
               const notification = new Notification({
                 user: teacher._id,
-                sender: "64406327b871d94ddb7bfd77",
+                sender: req.user._id,
                 message: `New ${course.title} created`
               });
               await notification.save();
@@ -73,7 +71,7 @@ module.exports.postCourse = async (req, res)=>{
               student.courses.push({ courseID: course._id });
               const notification = new Notification({
                 user: student._id,
-                sender: "64406327b871d94ddb7bfd77",
+                sender: req.user._id,
                 message: `New ${course.title} created`
               });
               await notification.save();
@@ -82,7 +80,7 @@ module.exports.postCourse = async (req, res)=>{
             });
           }
 
-       
+
 
         res.status(200).json(course);
     }catch(err){
