@@ -14,8 +14,12 @@ const Notification = require('../models/Notification');
 // GET all Announcements
 module.exports.getAllAnnouncements = async (req, res) => {
     try {
-      const announcements = await Announcement.find().populate('sender');
-      res.json(announcements);
+      const announcements = await Announcement.find()
+      .populate({
+        path: 'sender',
+        select: 'firstName lastName'
+      });
+            res.json(announcements);
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -24,7 +28,11 @@ module.exports.getAllAnnouncements = async (req, res) => {
   // GET a single Announcement by id
   module.exports.getAnnouncementById = async (req, res) => {
     try {
-      const announcement = await Announcement.findById(req.params.id).populate('sender');
+      const announcement = await Announcement.findById(req.params.id)
+      .populate({
+        path: 'sender',
+        select: 'firstName lastName'
+      });
       if (!announcement) {
         return res.status(404).json({ error: "Announcement not found" });
       }
@@ -128,7 +136,7 @@ module.exports.createAnnouncement = [
         title: req.body.title,
         description: req.body.description,
         gallery: gallery,
-        sender: "64406327b871d94ddb7bfd77",
+        sender: req.user._id,
         course: req.body.course || null // Set course to null if not provided
         
       });
@@ -145,7 +153,7 @@ module.exports.createAnnouncement = [
             const teacher = await User.findById(teacherId);
             const notification = new Notification({
               user: teacher._id,
-              sender: "64406327b871d94ddb7bfd77",
+              sender: req.user._id,
               message: `New announcement "${announcement.title}" created in "${course.title}"`,
             });
             await notification.save();
@@ -158,7 +166,7 @@ module.exports.createAnnouncement = [
             const student = await User.findById(studentId);
             const notification = new Notification({
               user: student._id,
-              sender: "64406327b871d94ddb7bfd77",
+              sender: req.user._id,
               message: `New announcement "${announcement.title}" created in "${course.title}"`,
             });
             await notification.save();

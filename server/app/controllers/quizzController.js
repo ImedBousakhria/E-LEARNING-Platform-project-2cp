@@ -1,5 +1,7 @@
 const Quizz = require('../models/Quizz');
 const Course = require('../models/Course');
+const User = require('../models/User');
+const Notification = require('../models/Notification');
 
 // GET all quizzes
 module.exports.getAllQuizzes = async (req, res) => {
@@ -48,6 +50,30 @@ module.exports.createQuizz = async (req, res) => {
           const course = await Course.findById(req.body.course);
           course.quizzes.push(newQuiz._id);
           await course.save();
+          course.teachers.forEach(async teacherId => {
+            const teacher = await User.findById(teacherId);
+            const notification = new Notification({
+              user: teacher._id,
+              sender: req.user._id,
+              message: `New quiz "${newQuiz.name}" created in "${course.Title}"`,
+            });
+            await notification.save();
+            teacher.notifications.push(notification);
+            teacher.save();
+          });
+          
+          // send notification to students
+          course.students.forEach(async studentId => {
+            const student = await User.findById(studentId);
+            const notification = new Notification({
+              user: student._id,
+              sender: req.user._id,
+              message: `New quiz "${newQuiz.name}" created in "${course.Title}"`,
+            });
+            await notification.save();
+            student.notifications.push(notification);
+            student.save();
+          });
      
         const savedQuiz = await newQuiz.save();
         res.status(201).json(savedQuiz);

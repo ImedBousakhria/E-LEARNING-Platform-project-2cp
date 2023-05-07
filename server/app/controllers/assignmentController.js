@@ -76,6 +76,7 @@ module.exports.createAssignment = [
         title: req.body.title,
         description: req.body.description,
         deadline: req.body.deadline,
+        postedBy: req.user._id,
         course: req.body.course,
       });
 
@@ -92,7 +93,7 @@ module.exports.createAssignment = [
           teachers.forEach(async teacher => {
             const notification = new Notification({
               user: teacher._id,
-              sender: "64406327b871d94ddb7bfd77",
+              sender: req.user._id,
               message: `New assignment ${assignment.title} created in ${course.title}`,
             });
             await notification.save();
@@ -105,7 +106,7 @@ module.exports.createAssignment = [
           students.forEach(async student => {
             const notification = new Notification({
               user: student._id,
-              sender: "64406327b871d94ddb7bfd77",
+              sender: req.user._id,
               message: `New assignment ${assignment.title} created in ${course.title}`,
             });
             await notification.save();
