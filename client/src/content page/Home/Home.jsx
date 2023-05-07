@@ -12,16 +12,15 @@ const Home = ({ index }) => {
   const {courses} = useContext(propsContext) ; 
 
   
-
   const firstContent = useState(recentLesson); 
   const elementIndex = useState(null) ; 
   const showDiscussion = useState("hidden") ;
-  const announcementState = useState(announcement)
   if(index === 0) {
-    let schedulesHoler = courses.map((Element)=>Element.courseID.schedules) ; 
+
+    let schedulesHoler = courses.map((Element)=>Element.courseID?.schedules) ; 
     const schedulesholdertwo = schedulesHoler.flatMap((Element)=> Element)
     const schedulesthree = schedulesholdertwo.reduce((acc, item) => {
-      const key = item.day;
+      const key = item?.day;
       console.log(key)
       if (!acc[key]) {
         acc[key] = [];
@@ -37,8 +36,29 @@ const Home = ({ index }) => {
     //schedules.sort((a, b) => days.indexOf(a.date) - days.indexOf(b.date));
     console.log(schedules) ; 
 
+
+    let submissionsone = courses.map((Element)=> Element.courseID?.assignments) ; 
+    console.log(submissionsone) ; 
+    let submissionsthree = submissionsone.flatMap((Element)=>Element)
+    console.log(submissionsthree) ; 
+    let submissionstwo = submissionsthree.map((Element) => Element?.submissions); ; 
+    console.log(submissionstwo) ; 
+    let submissions = submissionstwo.flatMap((Element)=>Element) ; 
+
+    let dataElementsone = courses.map((Element) => Element.courseID?.lessons);
+    let dataElements = dataElementsone.flatMap((Element) => Element); ; 
+    console.log(dataElements) ; 
+
+
+    let announcementone = courses.map(
+      (Element) => Element.courseID?.announcements
+    ); ; 
+    let announcements = announcementone.flatMap((Element)=>Element) ; 
+
+    console.log(announcements) ; 
+
     return (
-      <homeContext.Provider value={{ firstContent,schedules,  elementIndex, showDiscussion, announcementState }}>
+      <homeContext.Provider value={{ firstContent,dataElements,announcements,schedules, submissions , elementIndex, showDiscussion }}>
         <Main />
         <Notification />
       </homeContext.Provider>

@@ -10,8 +10,9 @@ import axios from "axios";
 
 const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
 // GET announcements
-const [announcements, setAnnouncements] = useState([]);
-useEffect(() => {
+//const [announcements, setAnnouncements] = useState([]);
+const { announcements } = useContext(AnnouncementContext);
+/* useEffect(() => {
   const getAnnouncements = async () => {
     try {
       const response = await axios.get("http://localhost:3000/announcement/getAll");
@@ -24,7 +25,7 @@ useEffect(() => {
 
   getAnnouncements();
 }, []);
-
+ */
 
 
 
@@ -39,7 +40,7 @@ useEffect(() => {
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
 
-  const currentPosts = announcements.slice(firstPostIndex, lastPostIndex);
+  //const currentPosts = announcements.slice(firstPostIndex, lastPostIndex);
   const isPrevDisabled = currentPage === 1;
   const isNextDisabled = lastPostIndex >= announcements.length;
 
@@ -83,25 +84,25 @@ useEffect(() => {
         </div>
       </div>
 
-        <section className="grid grid-cols-2 grid-rows-2 gap-4">
-          {currentPosts.map((Element, index) => {
-            return (
-                <Announcementelement
-                  isDisplayed={false}
-                  onClick={() => {
-                    setActiveCardIndex(index);
-                    setBarContent(Element);
-                    setContentToEdit(Element);
-                  }}
-                  isActive={activeCardIndex === index && barContent !== null}
-                  profilepicture={Element.profilepicture}
-                  person={Element.user.firstName + ' ' + Element.user.lastName}
-                  content={Element.description}
-                  /* image={Element.image} */
-                />
-            );
-          })}
-        </section>
+      <section className="grid grid-cols-2 grid-rows-2 gap-4">
+        {announcements.map((Element, index) => {
+          return (
+            <Announcementelement
+              isDisplayed={false}
+              onClick={() => {
+                setActiveCardIndex(index);
+                setBarContent(Element);
+                setContentToEdit(Element);
+              }}
+              isActive={activeCardIndex === index && barContent !== null}
+              profilepicture={Element.profilepicture}
+              person={Element.user.firstName + " " + Element.user.lastName}
+              content={Element.description}
+              /* image={Element.image} */
+            />
+          );
+        })}
+      </section>
     </div>
   );
 };

@@ -13,6 +13,7 @@ import Profilepage from "../../../components/super/Profilepage";
 import DiscussionForums from "../../../components/super/DiscussionForums";
 import profileholder  from '../../../assets/profile/profileholder.png' ; 
 import { assignmentteacher } from "../../Assignment/content/main";
+import StudentAssignmentSubmit from "../../../components/reusable/StudentAssignmentSubmit";
 
 const Coursebar = () => {
   const { barContent, setBarContent, activeProgIndex } =
@@ -20,19 +21,19 @@ const Coursebar = () => {
   const user = "said";
 
   const { notificaiton, profileShown } = useContext(propsContext);
-
+  const { dataElements, elementIndex } = useContext(CoursesContext); ; 
   const firstContent = useState(assignmentteacher) ; 
 
   return (
     <div className="sticky right-0 top-0 flex max-h-screen basis-[23%] flex-col gap-4 border-l border-gray bg-white p-4">
       <div className="mb-4 flex items-center justify-between">
-        <Notificaitonhandling isnotification={notificaiton} />
-        <DiscussionForums type={"lesson"} firstContent={firstContent} />
+        <Notificaitonhandling />
+        <DiscussionForums type={"lesson"} firstContent={dataElements} />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>
       {profileShown ? (
         <Profilepage name={"imed"} />
-      ) : barContent === null ? (
+      ) : elementIndex[0]?(<StudentAssignmentSubmit/>) :  barContent === null ? (
         user === "said" && activeProgIndex !== null ? (
           <div className="flex flex-col gap-4">
             <div>
