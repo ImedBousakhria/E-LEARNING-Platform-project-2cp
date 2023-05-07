@@ -16,17 +16,18 @@ app.use(express.urlencoded({ limit: '1000mb', extended: true }));
 
 const userRoute = require('./app/routes/userRoute');
 const courseRoute = require('./app/routes/courseRoute');
- const discussionRoute = require('./app/routes/discussionRoute');
+//  const discussionRoute = require('./app/routes/discussionRoute');
+const discussionRoute = require('./app/routes/chatRoute');
  const notificationRoute = require('./app/routes/notificationRoute');
 const assignmentRoute = require('./app/routes/assignmentRoute');
 const commentRoute = require('./app/routes/commentRoute');
 const quizzRoute = require('./app/routes/quizzRoute');
 const scheduleRoute = require('./app/routes/scheduleRoute');
 const lessonRoute = require('./app/routes/lessonRoute');
-
 const adminRoute = require('./app/routes/adminRoute.js');
 const announcementRoute = require('./app/routes/announcementRoute.js');
 const submissionRoute = require('./app/routes/submissionRoute.js');
+
 
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);

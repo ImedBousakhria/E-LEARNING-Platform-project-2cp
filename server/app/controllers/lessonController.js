@@ -3,6 +3,7 @@ const fs = require('fs');
 const Lesson = require('../models/Lesson');
 const Discussion = require('../models/Discussion');
 const Notification = require('../models/Notification');
+const User = require('../models/User');
 
 
 
@@ -109,15 +110,12 @@ module.exports.createLesson = [
 
       // Save the Lesson object
         // Create discussion forum associated with the lesson
-         const discussion = new Discussion({
+        const discussion = new Discussion({
         lesson: lesson._id,
-        members: [course.students , course.teachers]
+        messages: [],
        });
        await discussion.save(); 
        
-      
-       
-
 
       // Save the lesson object
       await lesson.save();

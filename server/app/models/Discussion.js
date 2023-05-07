@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 const messageSchema = new mongoose.Schema({
@@ -17,12 +18,12 @@ const messageSchema = new mongoose.Schema({
 });
 
 const discussionSchema = new mongoose.Schema({
-  lessonId: { 
-    type: mongoose.Schema.Types.ObjectId, ref: 'Lesson'
-  },
-  members: {
-    type: Array,
-  },
+  lesson: {type: mongoose.Schema.Types.ObjectId, ref: 'Lesson'},
+  messages: [messageSchema],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  }
 });
 
 const Discussion = mongoose.model('Discussion', discussionSchema);
