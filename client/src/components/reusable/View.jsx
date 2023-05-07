@@ -1,12 +1,15 @@
 import React from 'react'
 import eye from '../../assets/icons/eye.svg' ; 
 
-const View = () => {
+const View = ({ handleClickView }) => {
   return (
-    <button className='p-1 border border-accent rounded-[5px] min-h-full text-accent'>
+    <div
+      onClick={handleClickView}
+      className="min-h-full rounded-[5px] border border-accent p-1 text-accent"
+    >
       <img src={eye} />
-    </button>
-  )
-}
+    </div>
+  );
+};
 
 export default View

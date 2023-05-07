@@ -1,13 +1,14 @@
 import React from "react";
 import Seemore from "../reusable/Seemore";
-import { announcement } from "../../content page/Home/content/main";
+//import { announcement } from "../../content page/Home/content/main";
 import Announcementelement from "../super elements/Announcementelement";
 import { useContext } from "react";
 import { homeContext } from "../../content page/Home/Home";
 
 
 const Announcement = () => {
-  const { announcements } = useContext(homeContext); ; 
+  const { announcements } = useContext(homeContext); 
+  console.log(announcements); 
   return (
     <div className="flex basis-[58%] flex-col gap-4 rounded-[10px] bg-white p-4">
       <div className="flex justify-between">
