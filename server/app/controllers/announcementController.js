@@ -79,6 +79,7 @@ module.exports.createAnnouncement = [
         title: req.body.title,
         description: req.body.description,
         gallery: gallery,
+        sender: req.body.sender,
         course: req.body.course || null // Set course to null if not provided
       });
 
