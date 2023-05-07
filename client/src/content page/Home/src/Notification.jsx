@@ -11,15 +11,12 @@ import Profilepage from "../../../components/super/Profilepage";
 
 const Notification = () => {
   const { notificaiton, profileShown } = useContext(propsContext);
-  const { announcementState } = useContext(homeContext);
+  const { announcements } = useContext(homeContext);
   return (
     <div className="sticky right-0 top-0 flex h-[100vh] basis-[23%] flex-col gap-8 border-l border-gray bg-white p-4">
       <div className="flex justify-between">
         <Notificaitonhandling />
-        <DiscussionForums
-          type={"announcement"}
-          firstContent={announcementState}
-        />
+        <DiscussionForums type={"announcement"} firstContent={announcements} />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>
       {profileShown ? (

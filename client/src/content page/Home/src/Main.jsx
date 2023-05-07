@@ -16,9 +16,9 @@ import { authContext } from "../../../App";
 const Main = () => {
 
 
-  const { IndexHandle, searchMode, userType, data } = useContext(propsContext);
+  const { Indexhandle, searchMode, userType, data } = useContext(propsContext);
 
-  console.log(IndexHandle);
+  //console.log(Indexhandle);
   /*   function handleClick() {
     searchMode[0] ? searchMode[1](false) : searchMode[1](true);
   } */
@@ -57,8 +57,8 @@ const Main = () => {
           </div>
 
           <div className="flex flex-col gap-4">
-            <Activitiesheader type={"students"} />
-            <Activitiesbody type={"students"} />
+            <Activitiesheader type={"studentshome"} />
+            <Activitiesbody type={"studentshome"} />
           </div>
         </div>
       ) : null}

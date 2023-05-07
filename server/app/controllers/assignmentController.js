@@ -76,6 +76,7 @@ module.exports.createAssignment = [
         title: req.body.title,
         description: req.body.description,
         deadline: req.body.deadline,
+        //postedBy: req.user._id,
         course: req.body.course,
         gallery: gallery,
       });
@@ -87,13 +88,14 @@ module.exports.createAssignment = [
           course.assignments.push(assignment._id);
           await course.save();
           
-      
+
         // send notification to students
         course.students.forEach(async studentId => {
           const student = await User.findById(studentId);
           const notification = new Notification({
             user: student._id,
             message: `New assignment "${assignment.title}" created in "${course.title}"`,
+
           });
           await notification.save();
           student.notifications.push(notification._id);
@@ -119,7 +121,7 @@ module.exports.createAssignment = [
 module.exports.updateAssignment = [
   async (req, res) => {
     try {
-
+      console.log(req);
       // Check if the request body contains base64 encoded file data
       if (req.body.file) {
         // Decode the base64 data to a Buffer
@@ -148,6 +150,7 @@ module.exports.updateAssignment = [
           contentType: file.mimetype,
           data: file.buffer,
           // postedBy: req.user.postedBy
+
         }));
 
         assignment.gallery = gallery;

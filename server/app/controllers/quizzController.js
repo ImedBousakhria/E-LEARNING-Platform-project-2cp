@@ -1,5 +1,7 @@
 const Quizz = require('../models/Quizz');
 const Course = require('../models/Course');
+const User = require('../models/User');
+const Notification = require('../models/Notification');
 
 // GET all quizzes
 module.exports.getAllQuizzes = async (req, res) => {
@@ -54,6 +56,7 @@ module.exports.createQuizz = async (req, res) => {
             const student = await User.findById(studentId);
             const notification = new Notification({
               user: student._id,
+
               message: `New quizz"${newQuiz.title}" created in "${course.title}"`,
             });
             await notification.save();
@@ -61,7 +64,7 @@ module.exports.createQuizz = async (req, res) => {
             student.save();
           });
       
-     
+
         const savedQuiz = await newQuiz.save();
         res.status(201).json(savedQuiz);
     } catch (err) {

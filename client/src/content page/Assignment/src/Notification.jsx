@@ -11,14 +11,14 @@ import DiscussionForums from "../../../components/super/DiscussionForums";
 import Profilepage from "../../../components/super/Profilepage";
 
 const Notification = () => {
-  const { elementIndex, firstContent } = useContext(IndexElementContext);
+
+  const { elementIndex, dataElements } = useContext(IndexElementContext);
   const { notificaiton, profileShown } = useContext(propsContext);
 
   return (
     <div className="sticky right-0 top-0 flex max-h-[100vh] basis-[23%] flex-col gap-8 border-l border-gray bg-white p-4">
       <div className="flex justify-between">
-        <Notificaitonhandling isnotification={notificaiton} />
-        <DiscussionForums type={"assignment"} firstContent={firstContent} />
+        <Notificaitonhandling />
         <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>
 
@@ -26,7 +26,7 @@ const Notification = () => {
         <Profilepage name={"imed"} />
       ) : elementIndex[0] ? (
         <Activitiesnotificationelement
-          element={firstContent[0][elementIndex[0] - 1]}
+          element={dataElements[elementIndex[0] - 1]}
         />
       ) : (
         <div className="flex h-full items-center justify-center">

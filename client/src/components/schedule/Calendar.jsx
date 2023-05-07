@@ -8,13 +8,13 @@ import { propsContext } from "../../content page/Mainapp";
 
 const Calendar = () => {
   const {courses} = useContext(propsContext) ; 
-  const { schedules } = useContext(scheduleContext); ; 
+  const { dataElements } = useContext(scheduleContext); ; 
   const {elementIndex} = useContext(scheduleContext) ;
   const {RenderTriger} = useContext(calendarContext)
 
 
   useEffect(() => {
-    renderEvents(schedules);
+    renderEvents(dataElements);
     console.log("hello");
   }, [courses, RenderTriger[0]]);  
 

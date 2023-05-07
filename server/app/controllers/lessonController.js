@@ -83,6 +83,7 @@ module.exports.createLesson = [
           const notification = new Notification({
             user: teacher._id,
             message: `new lesson "${lesson.title}" created in "${course.title}"`,
+
           });
       
           await notification.save();
@@ -96,6 +97,7 @@ module.exports.createLesson = [
             const notification = new Notification({
               user: student._id,
               message: `New lesson "${lesson.title}" created in "${course.title}"`,
+
             });
             await notification.save();
             student.notifications.push(notification._id);
@@ -109,7 +111,7 @@ module.exports.createLesson = [
         // Create discussion forum associated with the lesson
          const discussion = new Discussion({
         lesson: lesson._id,
-        messages: []
+        members: [course.students , course.teachers]
        });
        await discussion.save(); 
        
