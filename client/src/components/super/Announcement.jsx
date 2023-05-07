@@ -1,5 +1,6 @@
 import React from "react";
 import Seemore from "../reusable/Seemore";
+import profile from '../../assets/profile/profileholder.png'
 //import { announcement } from "../../content page/Home/content/main";
 import Announcementelement from "../super elements/Announcementelement";
 import { useContext } from "react";
@@ -16,17 +17,17 @@ const Announcement = () => {
         <Seemore index={1} />
       </div>
       <div className="flex flex-col gap-2">
-        {announcements?.map((Element, index) => {
+        {/* {announcements?.map((Element, index) => {
           return (
             <Announcementelement
-              profilepicture={Element.profilepicture}
+              profilepicture={profile}
               person={Element.person}
               content={Element.content}
               image={Element.image}
               index={index}
             />
           );
-        })}
+        })} */}
       </div>
     </div>
   );

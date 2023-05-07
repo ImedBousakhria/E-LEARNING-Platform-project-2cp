@@ -84,7 +84,7 @@ const Mainapp = () => {
             `http://localhost:3000/course/getAll`
           );
           setOtherData(otherResponse.data);
-          //console.log(otherResponse.data) ;
+          console.log(otherResponse.data) ;
         }
       } catch (error) {
         console.error(error);
@@ -135,10 +135,17 @@ const Mainapp = () => {
     return <div>loading...</div>;
   }
 
-  let courses = data ? data.courses : otherData;
+  let coursesHolder ; 
+  if(data.courses.length>0) {
+    coursesHolder = data.courses.map((Element) => Element.courseID)
+
+  }
+
+  let courses = otherData ? otherData : coursesHolder;
   //coursesHolder =
   /* setCourses() ; 
    ;  */
+  console.log(coursesHolder)
   let userType = {
     isAdmin: data.isAdmin,
     isTeacher: data.isTeacher,

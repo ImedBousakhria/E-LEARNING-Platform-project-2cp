@@ -11,13 +11,14 @@ const Home = ({ index }) => {
 
   const {courses} = useContext(propsContext) ; 
 
+  console.log(courses) ; 
   
   const firstContent = useState(recentLesson); 
   const elementIndex = useState(null) ; 
   const showDiscussion = useState("hidden") ;
   if(index === 0) {
 
-    let schedulesHoler = courses.map((Element)=>Element.courseID?.schedules) ; 
+    let schedulesHoler = courses.map((Element)=>Element?.schedules) ; 
     const schedulesholdertwo = schedulesHoler.flatMap((Element)=> Element)
     const schedulesthree = schedulesholdertwo.reduce((acc, item) => {
       const key = item?.day;
@@ -37,7 +38,7 @@ const Home = ({ index }) => {
     console.log(schedules) ; 
 
 
-    let submissionsone = courses.map((Element)=> Element.courseID?.assignments) ; 
+    let submissionsone = courses.map((Element)=> Element?.assignments) ; 
     console.log(submissionsone) ; 
     let submissionsthree = submissionsone.flatMap((Element)=>Element)
     console.log(submissionsthree) ; 
@@ -45,13 +46,13 @@ const Home = ({ index }) => {
     console.log(submissionstwo) ; 
     let submissions = submissionstwo.flatMap((Element)=>Element) ; 
 
-    let dataElementsone = courses.map((Element) => Element.courseID?.lessons);
+    let dataElementsone = courses.map((Element) => Element?.lessons);
     let dataElements = dataElementsone.flatMap((Element) => Element); ; 
     console.log(dataElements) ; 
 
-
+    
     let announcementone = courses.map(
-      (Element) => Element.courseID?.announcements
+      (Element) => Element?.announcements
     ); ; 
     let announcements = announcementone.flatMap((Element)=>Element) ; 
 
