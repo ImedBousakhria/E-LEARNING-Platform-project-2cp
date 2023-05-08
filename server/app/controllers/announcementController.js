@@ -175,6 +175,9 @@ module.exports.updateAnnouncement = [
       if(req.body.description){
         announcement.description = req.body.description;
       }
+      if(req.body.sender){
+        announcement.sender = req.body.sender;
+      }
       
       
      const course = await Course.findById(req.body.course);
