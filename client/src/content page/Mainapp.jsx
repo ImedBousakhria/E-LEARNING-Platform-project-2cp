@@ -34,8 +34,6 @@ const Mainapp = () => {
   // teacher : 64578ad50ff5d69cbe16415a
   let id = userID;
 
-  console.log(id) ; 
-
   const [data, setData] = useState(null);
   const [otherData, setOtherData] = useState(null);
 
@@ -79,6 +77,7 @@ const Mainapp = () => {
   let coursesHolder;
   if (data.courses.length > 0) {
     coursesHolder = data.courses.map((Element) => Element.courseID);
+
   }
 
   let courses = otherData ? otherData : coursesHolder;

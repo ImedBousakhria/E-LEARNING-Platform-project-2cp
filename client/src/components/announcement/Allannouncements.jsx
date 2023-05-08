@@ -77,7 +77,7 @@ const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
 
-  //const currentPosts = announcements.slice(firstPostIndex, lastPostIndex);
+  const currentPosts = announcements.slice(firstPostIndex, lastPostIndex);
   const isPrevDisabled = currentPage === 1;
   const isNextDisabled = lastPostIndex >= announcements.length;
 
@@ -124,7 +124,7 @@ const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
       </div>
 
       <section className="grid grid-cols-2 grid-rows-2 gap-4">
-        {lastElement.map((Element, index) => {
+        {currentPosts.map((Element, index) => {
           console.log(Element);
           return (
             <Announcementelement

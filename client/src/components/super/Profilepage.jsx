@@ -91,6 +91,7 @@ const Profilepage = ({ name }) => {
             <form className="flex flex-col justify-between gap-y-3" action="">
               <input
                 type="text"
+                value={data.firstName}
                 name="firstName"
                 placeholder="First name"
                 className="student-input"
@@ -99,12 +100,14 @@ const Profilepage = ({ name }) => {
               <input
                 name="lastName"
                 type="text"
+                value={data.lastName}
                 placeholder="Last name"
                 className="student-input"
                 onChange={handleChange}
               />
               <input
                 type="email"
+                value={data.email}
                 name="email"
                 placeholder="Email"
                 className="student-input"
@@ -113,12 +116,14 @@ const Profilepage = ({ name }) => {
               <input
                 name="password"
                 type="password"
+                value={data.password}
                 placeholder="Password"
                 className="student-input"
                 onChange={handleChange}
               />
               <input
                 type="tel"
+                value={data.phoneNumber}
                 name="phoneNumber"
                 placeholder="Phone number"
                 className="student-input"

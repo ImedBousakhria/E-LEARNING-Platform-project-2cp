@@ -12,9 +12,17 @@ import axios from "axios";
 import { propsContext } from "../../content page/Mainapp";
 
 const Newlesson = () => {
-  const { lessons, setLessons, courses, setCourses, courseId, setCourseId } =
-    useContext(CoursesContext);
+  const {
+    lessons,
+    setLessons,
+    courses,
+    setCourses,
+    courseId,
+    setCourseId,
+    courseName,
+  } = useContext(CoursesContext);
   const { data } = useContext(propsContext);
+
   // post lesson
   const addLesson = async (testCourse) => {
     axios
@@ -57,10 +65,43 @@ const Newlesson = () => {
     try {
       const newCourse = await addCourse(toAdd);
       console.log(newCourse);
+      setContent({});
     } catch (error) {
       console.log(error);
     }
   };
+
+  /* const addStudentToCourse = async (id, fullName) => {
+    const [firstName, lastName] = fullName.split(" ");
+    console.log(firstName, lastName);
+
+    try {
+      const student = await axios.get(
+        `http://localhost:3000/user/getStudents?firstName=${firstName}&lastName=${lastName}`
+      );
+      const course = await axios.get(`http://localhost:3000/course/get/${id}`);
+      console.log(student.data[0]._id);
+
+      const updatedCourse = {
+        ...course,
+        students: [student.data[0]._id],
+      };
+      console.log(updatedCourse);
+      await axios.put(
+        `http://localhost:3000/course/update/${id}`,
+        updatedCourse
+      );
+      setCourses(updatedCourse);
+      // setContent(prev => ({
+       // ...prev,
+        //title: '',
+       // students: '',
+       // teachers : ''
+      //})); 
+    } catch (error) {
+      console.log(error);
+    }
+  }; */
 
   const addStudentToCourse = async (id, fullName) => {
     const [firstName, lastName] = fullName.split(" ");
@@ -72,17 +113,57 @@ const Newlesson = () => {
       const course = await axios.get(
         `http://localhost:3000/course/get/${id}`
       );
-      console.log(student.data[0]._id)
+      console.log(student.data[student.data.length - 1]._id)
       console.log(course)
+
+      const studentsArray = Array.isArray(course.students) ? course.students : [course.students];
       const updatedCourse = {
         ...course,
-        students: [student.data[0]._id],
+        students: [student.data[student.data.length - 1]._id],
+        /* students: [...studentsArray, student.data[student.data.length - 1]._id], */
       };
       await axios.put(
         `http://localhost:3000/course/update/${id}`,
         updatedCourse
       );
       /* setCourses(updatedCourse); */
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addLessonToCourse = async (id, newLesson) => {
+    try {
+      // Create a new lesson object to add
+      const toAddLesson = {
+        title: newLesson.title,
+        description: newLesson.description,
+        gallery: newLesson.files,
+      };
+
+      // POST the new lesson to allLessons
+      const addedLesson = await axios.post(
+        "http://localhost:3000/lesson/create",
+        toAddLesson
+      );
+      console.log("New lesson added to allLessons!");
+
+      // Get the course to update
+      const course = await axios.get(`http://localhost:3000/course/get/${id}`);
+
+      // Update the course with the new lesson
+      const updatedCourse = {
+        ...course.data,
+        lessons: [...course.data.lessons, addedLesson.data._id],
+      };
+
+      // Send a PUT request to update the course with the new lesson
+      await axios.put(
+        `http://localhost:3000/course/update/${id}`,
+        updatedCourse
+      );
+
+      console.log("New lesson added to course!");
     } catch (error) {
       console.log(error);
     }
@@ -216,7 +297,10 @@ const Newlesson = () => {
                 {!editMode ? (
                   <Publish
                     onClick={() => {
-                      handleCreation(), console.log(files);
+                      /* handleCreation() */ addLessonToCourse(
+                        courseId,
+                        Acontent
+                      );
                     }}
                   />
                 ) : (
@@ -235,6 +319,7 @@ const Newlesson = () => {
               <input
                 type="text"
                 name="title"
+                /* value={ `${editMode ? courseName : Acontent.title} `} */
                 placeholder="Title"
                 onChange={handleChange}
                 className=" rounded-[10px] border border-darkgray px-3 py-3.5 outline-none"
@@ -242,6 +327,8 @@ const Newlesson = () => {
               <input
                 type="text"
                 name="teachers"
+                /* value={teachers[0]} */
+                value={Acontent.teachers}
                 placeholder="Add teachers"
                 onChange={
                   handleChange /* (event) => setNewTeacher(event.target.value) */
@@ -253,6 +340,8 @@ const Newlesson = () => {
               <input
                 type="text"
                 name="students"
+                /* value={students[0]} */
+                value={Acontent.students}
                 placeholder="Add students"
                 onChange={
                   handleChange /* (event) => setNewStudent(event.target.value) */
@@ -265,11 +354,15 @@ const Newlesson = () => {
                 {
                   editMode ? (
                     <button
-                      className="flex flex-shrink-0 w-max items-center gap-2 place-self-end rounded-md bg-accent p-2 "
+                      className="flex w-max flex-shrink-0 items-center gap-2 place-self-end rounded-md bg-accent p-2 "
                       type="submit"
-                      onClick={() => {addStudentToCourse(courseId, Acontent.students)}}
+                      onClick={() => {
+                        addStudentToCourse(courseId, Acontent.students);
+                      }}
                     >
-                      <p className=" text-sm font-semibold text-white min-w-max">Save Edit</p>
+                      <p className=" min-w-max text-sm font-semibold text-white">
+                        Save Edit
+                      </p>
                       <img src={publish} alt="" />
                     </button>
                   ) : (

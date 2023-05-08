@@ -38,20 +38,20 @@ const Announcemain = () => {
         setActiveCardIndex={setActiveCardIndex}
       />
 
-     /* {
+     { /*
         userType.isStudent?(null):(
           <div className="">
         <Newannounce setActiveCardIndex={setActiveCardIndex} />
       </div>
         )
-      }
+      
       
       <div>
         <Allannouncements
           activeCardIndex={activeCardIndex}
           setActiveCardIndex={setActiveCardIndex}
         />
-      </div> * /
+      </div> */}
 
     </div>
   );

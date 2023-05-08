@@ -3,7 +3,7 @@ import { CoursesContext } from "../../content page/Courses/Teachercourses";
 import axios from "axios";
 
 const Courses = () => {
-  const { activeProgIndex, setActiveProgIndex, courses, setCourses, courseId, setCourseId} = useContext(CoursesContext);
+  const { activeProgIndex, setActiveProgIndex, courses, setCourses, courseId, setCourseId, setCourseName} = useContext(CoursesContext);
   
   // GET courses
   useEffect(() => {
@@ -23,6 +23,7 @@ const Courses = () => {
       const response = await axios.get(`http://localhost:3000/course/getAll?name=${courseName}`);
       const selectedCourse = response.data.find((course) => course.title === courseName);
       /* const courseId = selectedCourse.id; */
+      setCourseName(selectedCourse.title)
       
       setCourseId(selectedCourse._id)
       console.log(selectedCourse._id);
