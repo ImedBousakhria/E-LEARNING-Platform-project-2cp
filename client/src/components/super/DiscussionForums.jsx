@@ -8,10 +8,11 @@ import profileHolder from "../../assets/profile/profileholder.png";
 import { useForm } from "react-hook-form";
 import { homeContext } from "../../content page/Home/Home";
 import { CoursesContext } from "../../content page/Courses/Teachercourses";
+import axios from "axios";
 
 const DiscussionForums = ({ type, firstContent }) => {
   const toScroll = useRef(null);
-
+  console.log(firstContent)
   const { register, handleSubmit, formState, reset } = useForm();
   var contextProvider;
   if (type == "quiz") {
@@ -23,15 +24,37 @@ const DiscussionForums = ({ type, firstContent }) => {
   }else if(type =="lesson") {
     contextProvider = CoursesContext ; 
   }
-  const { showDiscussion, elementIndex } =
+  const { showDiscussion } =
     useContext(contextProvider);
+  const { announcements, elementIndex } = useContext(homeContext);
+
+  async function postData(data) {
+    console.log(data);
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/comments/create`,
+        data
+      );
+      console.log(response);
+      /* const result = await response.json();
+      console.log("Success:", result); */
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   function onSubmit(data) {
+
     console.log(data);
     let obj = new Object();
-    obj = { text: data.comment, name: "said", profile: profileHolder };
-    firstContent[elementIndex[0] - 1].discussions.push(obj);
+    obj.announcement = announcements[elementIndex[0]-1]._id ; 
+    obj.user = "645793ffff441f996d86dc0b";
+    obj.content = data.comment ; 
+    postData(obj) ; 
+    location.reload() ; 
+    /* firstContent[elementIndex[0] - 1].discussions.push(obj);
     toScroll.current.scrollIntoView({ behavior: "smooth" });
-    reset();
+    reset(); */
   }
 
   return (
@@ -51,7 +74,7 @@ const DiscussionForums = ({ type, firstContent }) => {
             </button>
           </div>
           <div onLoad={()=>toScroll.current.scrollIntoView()} className="flex max-h-[85%] hideScrollBar flex-col gap-4 overflow-y-auto">
-            {/* {firstContent[elementIndex[0] - 1]?.discussions.map(
+            {/* {firstContent[elementIndex[0] - 1]?.comments.map(
               (Element) => {
                 return <DiscusstionElement type={type} element={Element} />;
               }
