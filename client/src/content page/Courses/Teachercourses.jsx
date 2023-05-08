@@ -10,10 +10,9 @@ const Teachercourses = ({ index }) => {
   const [lessons, setLessons] = useState([]);
   const [courses, setCourses] = useState([]);
 
+  const [courseName, setCourseName] = useState();
   const [courseId, setCourseId] = useState();
   const [showQuizzContainer, setShowQuizzContainer] = useState(false);
-
-
 
   const [type, setType] = useState("course");
   const [barContent, setBarContent] = useState(null);
@@ -26,18 +25,13 @@ const Teachercourses = ({ index }) => {
   const elementIndex = useState(null);
   const showDiscussion = useState("hidden");
   if (index == 2) {
-
-
-    let dataElementsone = courses.map((Element) => Element.courseID.lessons);
+    let dataElementsone = courses.map((Element) => Element.lessons);
     let dataElements = dataElementsone.flatMap((Element) => Element);
-    console.log(dataElements); 
+    console.log(dataElements);
 
-    let assignmentsone = courses.map((Element) => Element.courseID.assignments);
+    let assignmentsone = courses.map((Element) => Element.assignments);
     console.log(assignmentsone);
     let assignments = assignmentsone.flatMap((Element) => Element);
-
-
-
 
     return (
       <CoursesContext.Provider
@@ -68,8 +62,10 @@ const Teachercourses = ({ index }) => {
           setType,
           showQuizzContainer,
           setShowQuizzContainer,
-          courseId, 
-          setCourseId
+          courseId,
+          setCourseId,
+          courseName,
+          setCourseName,
         }}
       >
         <>

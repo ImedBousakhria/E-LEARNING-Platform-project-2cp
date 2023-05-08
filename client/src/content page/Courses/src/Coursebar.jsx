@@ -18,7 +18,7 @@ import axios from "axios";
 import StudentAssignmentSubmit from "../../../components/reusable/StudentAssignmentSubmit";
 
 const Coursebar = () => {
-  const { barContent, setBarContent, activeProgIndex } =
+  const { barContent, setBarContent, activeProgIndex, courses } =
     useContext(CoursesContext);
 
   const { userID } = useContext(authContext);
@@ -81,10 +81,10 @@ const Coursebar = () => {
                 </div>
               </div>
               <div className="mb-4 flex flex-col gap-2">
-                {programs[activeProgIndex].teachers.map((e, index) => (
+                {courses[activeProgIndex].teachers.map((e, index) => (
                   <Studentelement
                     profilepicture={profile}
-                    person={e}
+                    person={e.firstName + ' ' + e.lastName}
                     user={"admin"}
                   />
                 ))}
@@ -100,10 +100,10 @@ const Coursebar = () => {
                 </div>
               </div>
               <div className="mb-4 flex flex-col gap-2">
-                {programs[activeProgIndex].students.map((e, index) => (
+                {courses[activeProgIndex].students.map((e, index) => (
                   <Studentelement
                     profilepicture={profile}
-                    person={e}
+                    person={e.firstName + ' ' + e.lastName}
                     user={"admin"}
                   />
                 ))}

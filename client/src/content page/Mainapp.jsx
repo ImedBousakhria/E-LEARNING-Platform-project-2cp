@@ -32,7 +32,7 @@ const Mainapp = () => {
   // student : 64578cb4a234039c43371bf1
   // admin : 645793ffff441f996d86dc0b
   // teacher : 64578ad50ff5d69cbe16415a
-  let id = "645793ffff441f996d86dc0b";
+  let id = userID;
 
   /* useEffect(async ()=> {
     try {
@@ -111,7 +111,7 @@ const Mainapp = () => {
 
   const { data, status } = useQuery(
     ["userone", userID/* "645793ffff441f996d86dc0b" ],*/
-    async ({ queryKey }) => {
+    /* async ({ queryKey }) => {
       const id = queryKey[1];
       try {
         const res = await fetch(`http://localhost:3000/user/get/${id}`, {
@@ -133,17 +133,17 @@ const Mainapp = () => {
       } catch (e) {
         console.log(e);
       }
-    }
+    } */
   
 
   if (!data || !otherData) {
     return <div>loading...</div>;
   }
 
+  console.log(data, otherData);
   let coursesHolder ; 
   if(data.courses.length>0) {
     coursesHolder = data.courses.map((Element) => Element.courseID)
-
   }
 
   let courses = otherData ? otherData : coursesHolder;

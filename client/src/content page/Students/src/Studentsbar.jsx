@@ -58,7 +58,7 @@ const Studentsbar = () => {
       ) : (
         <div className="mt-8 w-full">
           <Displayedstudent
-            person={barContent.person}
+            person={barContent.firstName + ' ' + barContent.lastName}
             group={barContent.group}
             profilepicture={barContent.profilepicture}
           />

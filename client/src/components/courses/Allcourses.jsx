@@ -12,8 +12,10 @@ import Delete from "../reusable/Delete";
 import { CoursesContext } from "../../content page/Courses/Teachercourses";
 import axios from "axios";
 import { formatDate } from "../reusableFunc/formatDate";
+import { propsContext } from "../../content page/Mainapp";
 
 const Allcourses = ({ index, admin }) => {
+  const { userType } = useContext(propsContext)
   const [iconRotation, setIconRotation] = useState(0);
   const {
     activeCardIndex,
@@ -23,10 +25,12 @@ const Allcourses = ({ index, admin }) => {
     checkedLessons,
     setCheckedLessons,
     editMode,
+    courseId
   } = useContext(CoursesContext);
 
   // GET lessons
   const [My, setLessons] = useState([]);
+  userType.isAdmin ? 
   useEffect(() => {
     const getLessons = async () => {
       try {
@@ -39,7 +43,20 @@ const Allcourses = ({ index, admin }) => {
     };
 
     getLessons();
-  }, []);
+  }, []) : 
+  // get by course ID
+  useEffect(() => {
+    const fetchLessons = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/lesson/get/${courseId}`);
+        setLessons(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchLessons();
+  }, [courseId]);
 
   const handleCheckAll = (event) => {
     const { checked } = event.target;
