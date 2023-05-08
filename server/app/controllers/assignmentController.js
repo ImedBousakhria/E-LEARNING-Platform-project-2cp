@@ -26,7 +26,8 @@ module.exports.getAllAssignments = async (req, res) => {
   // GET a single Assignment by id
   module.exports.getAssignmentById = async (req, res) => {
     try {
-      const assignment = await Assignment.findById(req.params.id);
+      const assignment = await Assignment.findById(req.params.id)
+      .populate("submissions");
       if (!assignment) {
         return res.status(404).json({ error: "Assignment not found" });
       }

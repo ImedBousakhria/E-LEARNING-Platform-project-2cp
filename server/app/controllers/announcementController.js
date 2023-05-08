@@ -29,6 +29,7 @@ module.exports.getAllAnnouncements = async (req, res) => {
   module.exports.getAnnouncementById = async (req, res) => {
     try {
       const announcement = await Announcement.findById(req.params.id)
+      .populate("comments")
       .populate({
         path: 'sender',
         select: 'firstName lastName'
