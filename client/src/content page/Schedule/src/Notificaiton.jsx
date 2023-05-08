@@ -15,10 +15,10 @@ const Notificaiton = () => {
   const { eventState } = useContext(scheduleContext);
   const { elementIndex } = useContext(scheduleContext);
 
-  const { userID } = useContext(authContext);
+  //const { userID } = useContext(authContext);
   const [connectedUser, setConnetedUser] = useState();
 
-  useEffect(() => {
+  /* useEffect(() => {
     const getUserById = async (id) => {
       try {
         const response = await axios.get(
@@ -35,7 +35,7 @@ const Notificaiton = () => {
 
     getUserById(userID);
     console.log(connectedUser)
-  }, [userID]);
+  }, [userID]); */
   return (
     <div className="sticky right-0 top-0 flex max-h-[100vh] basis-[23%] flex-col gap-8 bg-white p-4">
       <div className="flex justify-between">

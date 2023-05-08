@@ -28,7 +28,7 @@ const Activitiesbody = ({ checkall, setSelected, type }) => {
             type={type}
             index={index + 1}
             checkall={checkall}
-            title={Element.name}
+            title={Element.title}
             cours={Element.course}
             deadline={Element.deadline}
           />
