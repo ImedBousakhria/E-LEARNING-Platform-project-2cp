@@ -52,6 +52,12 @@
 
 
 
+/* viewFile */
+.react-pdf__Page__textContent {
+  @apply hidden !important ; 
+}
+
+
 /* navbar style */
 
 @layer components {
