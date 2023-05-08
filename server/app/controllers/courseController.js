@@ -70,6 +70,11 @@ module.exports.postCourse = async (req, res)=>{
             });
           }
 
+          const admins = await User.find({isAdmin: true});
+          admins.forEach(async (admin) => {
+          admin.courses.push({ courseID: course._id });
+          admin.save();
+        });
 
 
         res.status(200).json(course);
