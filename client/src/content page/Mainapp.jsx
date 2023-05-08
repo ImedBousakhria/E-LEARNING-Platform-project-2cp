@@ -12,12 +12,14 @@ import Schedule from "./Schedule/Schedule";
 import { fetchItems, fetchUser } from "./dataFetch";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { authContext } from "../App";
 import axios from "axios";
 
 export const propsContext = createContext();
 export const profileContext = createContext();
 
 const Mainapp = () => {
+  const { userID } = useContext(authContext)
   const notificationReaded = useState(false);
   const Indexhandle = useState(0);
   const searchMode = useState(false);
@@ -107,6 +109,8 @@ const Mainapp = () => {
   /* const { data, status } = useQuery(
     ["userone", "64578ad50ff5d69cbe16415a"],
 
+  const { data, status } = useQuery(
+    ["userone", userID/* "645793ffff441f996d86dc0b" ],*/
     async ({ queryKey }) => {
       const id = queryKey[1];
       try {
@@ -130,7 +134,7 @@ const Mainapp = () => {
         console.log(e);
       }
     }
-  ); */
+  
 
   if (!data || !otherData) {
     return <div>loading...</div>;
@@ -189,8 +193,8 @@ const Mainapp = () => {
   /* setNotification(data.notifications);
     
     setCourses(data.courses) ; */
-};
 
+    }
 //notificaiton = data.notifications;
 
 export default Mainapp;

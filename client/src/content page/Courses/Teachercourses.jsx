@@ -10,7 +10,10 @@ const Teachercourses = ({ index }) => {
   const [lessons, setLessons] = useState([]);
   const [courses, setCourses] = useState([]);
 
+  const [courseId, setCourseId] = useState();
   const [showQuizzContainer, setShowQuizzContainer] = useState(false);
+
+
 
   const [type, setType] = useState("course");
   const [barContent, setBarContent] = useState(null);
@@ -22,7 +25,6 @@ const Teachercourses = ({ index }) => {
   const [activeProgIndex, setActiveProgIndex] = useState(null);
   const elementIndex = useState(null);
   const showDiscussion = useState("hidden");
-  const {courses} = useContext(propsContext) ; 
   if (index == 2) {
 
 
@@ -66,6 +68,8 @@ const Teachercourses = ({ index }) => {
           setType,
           showQuizzContainer,
           setShowQuizzContainer,
+          courseId, 
+          setCourseId
         }}
       >
         <>

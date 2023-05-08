@@ -7,11 +7,7 @@ import { AnnouncementContext } from "../Teacherannounce";
 import { propsContext } from "../../Mainapp";
 
 const Announcemain = () => {
-
-  const [activeCardIndex, setActiveCardIndex] = useState();
-  const {userType} = useContext(propsContext)
-
-
+  
   const [activeCardIndex, setActiveCardIndex] = useState();
   const { data, userType } = useContext(propsContext);
   const { editMode } = useContext(AnnouncementContext);

@@ -3,7 +3,7 @@ import { CoursesContext } from "../../content page/Courses/Teachercourses";
 import axios from "axios";
 
 const Courses = () => {
-  const { activeProgIndex, setActiveProgIndex, courses, setCourses} = useContext(CoursesContext);
+  const { activeProgIndex, setActiveProgIndex, courses, setCourses, courseId, setCourseId} = useContext(CoursesContext);
   
   // GET courses
   useEffect(() => {
@@ -18,12 +18,25 @@ const Courses = () => {
     getCourses();    
   }, []);
 
+  const handleCourseClick = async (courseName) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/course/getAll?name=${courseName}`);
+      const selectedCourse = response.data.find((course) => course.title === courseName);
+      /* const courseId = selectedCourse.id; */
+      
+      setCourseId(selectedCourse._id)
+      console.log(selectedCourse._id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="grid grid-flow-row grid-cols-4 grid-rows-2 gap-x-4 gap-y-2">
       {
       courses.map((element, index) => (
         <div
-          onClick={() => setActiveProgIndex(index)}
+          onClick={() => {setActiveProgIndex(index), handleCourseClick(element.title)}}
           className={`${
             activeProgIndex === index ? "bg-blue" : "bg-accent"
           } cursor-pointer rounded-lg px-2 py-3.5 text-center font-semibold text-white `}

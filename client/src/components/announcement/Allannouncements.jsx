@@ -8,9 +8,9 @@ import { useContext, useState, useEffect } from "react";
 import { AnnouncementContext } from "../../content page/Announcements/Teacherannounce";
 import axios from "axios";
 import { propsContext } from "../../content page/Mainapp";
+import { authContext } from "../../App";
 
 const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
-
   // GET announcements
   useEffect(() => {
     const getAnnouncements = async () => {
@@ -28,8 +28,7 @@ const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
     getAnnouncements();
   }, []);
 
-
-  const [currentId, setCurrentId] = useState(null)
+  const [currentId, setCurrentId] = useState(null);
   /* // get by id
   const handleUpdateAnnouncement = (id, updatedAnnouncement) => {
     axios
@@ -42,12 +41,19 @@ const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
       });
   }; */
 
-  const { setContentToEdit, editMode, setBarContent, barContent, announcements, setAnnouncements } =
+  const {
+    setContentToEdit,
+    editMode,
+    setBarContent,
+    barContent,
+    announcements,
+    setAnnouncements,
+  } = useContext(AnnouncementContext);
 
-// GET announcements
-//const [announcements, setAnnouncements] = useState([]);
-const { announcements } = useContext(AnnouncementContext);
-/* useEffect(() => {
+  // GET announcements
+  //const [announcements, setAnnouncements] = useState([]);
+
+  /* useEffect(() => {
   const getAnnouncements = async () => {
     try {
       const response = await axios.get("http://localhost:3000/announcement/getAll");
@@ -62,8 +68,8 @@ const { announcements } = useContext(AnnouncementContext);
 }, []);
  */
 
-    useContext(AnnouncementContext);
-    const { data } = useContext(propsContext)
+  const { data } = useContext(propsContext);
+  const { userID } = useContext(authContext);
   const user = "said";
   const postsPerPage = 4;
   const [currentPage, setCurrentPage] = useState(1);
@@ -118,12 +124,11 @@ const { announcements } = useContext(AnnouncementContext);
       </div>
 
       <section className="grid grid-cols-2 grid-rows-2 gap-4">
-
         {lastElement.map((Element, index) => {
-          console.log(Element)
+          console.log(Element);
           return (
             <Announcementelement
-              self = { '64406327b871d94ddb7bfd77' === Element.sender._id }
+              /* self = { userID === Element.sender._id } */
               title={Element.title}
               isDisplayed={false}
               onClick={() => {
