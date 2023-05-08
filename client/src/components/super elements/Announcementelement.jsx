@@ -3,6 +3,8 @@ import Profile from "../reusable/Profile";
 import Message from "../reusable/Message";
 import { homeContext } from "../../content page/Home/Home";
 import { Page, Document } from "react-pdf";
+import PdfViewer from "../super/PdfViewer";
+import { mainContext } from "../../content page/Home/src/Main";
 
 const Announcementelement = ({
   profilepicture,
@@ -11,14 +13,21 @@ const Announcementelement = ({
   index,
   gallery,
 }) => {
-  const { showDiscussion, elementIndex } = useContext(homeContext);
-  
-  const [numPages, setNumPages] = useState(null);
+
+  const {
+    showDiscussion,
+    elementIndex,
+    file,
+    numPages,
+  } = useContext(homeContext);
+
+  const {showFile} = useContext(mainContext)
+  const [numPagesholder, setNumPages] = useState(null);
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
-  
+
   function handleClick() {
     if (showDiscussion[0] == "hidden") {
       showDiscussion[1]("block");
@@ -27,7 +36,7 @@ const Announcementelement = ({
     }
   }
 
-  const  [file, setFile] = useState(null) ; 
+  const [fileholder, setFile] = useState(null);
   function handleView(data) {
     console.log(data);
     const base64Data = window.btoa(
@@ -36,7 +45,7 @@ const Announcementelement = ({
     console.log(base64Data);
     const dataUrl = `data:application/pdf;base64,${base64Data}`;
     console.log(dataUrl);
-    
+
     //setFile(dataUrl);
     return dataUrl;
     console.log(file);
@@ -65,28 +74,26 @@ const Announcementelement = ({
         </div>
         <div className="flex w-full gap-1">
           {gallery.map((Element) => {
-            let file = handleView(Element.data.data);
+            let fileholder = handleView(Element.data.data);
             return (
               <div
-                onClick={() => {setFile(file)}}
+                onClick={() => { 
+                  showFile[1]('block') ;  
+                  file[1](fileholder); onDocumentLoadSuccess(); numPages[1](numPagesholder) ; ;}}
                 className="h-[4.25rem] overflow-hidden rounded-[5px] object-contain"
               >
-                <Document file={file} className="rounded-lg shadow-lg">
+                <Document file={fileholder} className="rounded-lg shadow-lg">
                   <Page pageNumber={1} scale={1} width={100} />
                 </Document>
               </div>
             );
           })}
 
-          <div className="w-full ">
-            {
-              <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
-                {Array.from(new Array(numPages), (el, index) => (
-                  <Page key={`page_${index + 1}`} pageNumber={index + 1} />
-                ))}
-              </Document>
+          {/* <div className="w-full ">
+            { file?
+              <PdfViewer file={file} onDocumentLoadSuccess={onDocumentLoadSuccess} numPages={numPages} />:null
             }
-          </div>
+          </div> */}
         </div>
 
         {/* <div style={{ flexBasis: image ? "70%" : "100%" }}>

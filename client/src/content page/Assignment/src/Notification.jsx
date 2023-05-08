@@ -16,10 +16,10 @@ const Notification = () => {
   const { elementIndex, dataElements } = useContext(IndexElementContext);
   const { notificaiton, profileShown } = useContext(propsContext);
 
-  const { userID } = useContext(authContext);
+  //const { userID } = useContext(authContext);
   const [connectedUser, setConnetedUser] = useState();
 
-  useEffect(() => {
+  /* useEffect(() => {
     const getUserById = async (id) => {
       try {
         const response = await axios.get(
@@ -36,7 +36,7 @@ const Notification = () => {
 
     getUserById(userID);
     console.log(connectedUser)
-  }, [userID]);
+  }, [userID]); */
 
 
   return (

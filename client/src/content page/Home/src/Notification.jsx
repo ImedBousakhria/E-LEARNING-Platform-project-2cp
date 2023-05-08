@@ -14,12 +14,14 @@ import axios from "axios";
 
 const Notification = () => {
   const { notificaiton, profileShown } = useContext(propsContext);
-  const { announcementState } = useContext(homeContext);
+  const { announcements } = useContext(homeContext);
+  console.log(announcements) ;
+  const {elementIndex} = useContext(homeContext) ;  
 
-  const { userID } = useContext(authContext);
+  //const { userID } = useContext(authContext);
   const [connectedUser, setConnetedUser] = useState();
 
-  useEffect(() => {
+  /* useEffect(() => {
     const getUserById = async (id) => {
       try {
         const response = await axios.get(
@@ -36,20 +38,24 @@ const Notification = () => {
 
     getUserById(userID);
     console.log(connectedUser)
-  }, [userID]);
+  }, [userID]); */
   return (
     <div className="sticky right-0 top-0 flex h-[100vh] basis-[23%] flex-col gap-8 border-l border-gray bg-white p-4">
       <div className="flex justify-between">
         <Notificaitonhandling />
-        {/* <DiscussionForums
-          type={"announcement"}
-          firstContent={announcementState}
-        /> */}
-        { connectedUser && <Profile
-          profilepicture={profile}
-          person={connectedUser.firstName + " " + connectedUser.lastName}
-          order={3}
-        />}
+        {
+          <DiscussionForums
+            type={"announcement"}
+            firstContent={announcements[elementIndex[0]-1]?.comments}
+          />
+        }
+        {connectedUser && (
+          <Profile
+            profilepicture={profile}
+            person={connectedUser.firstName + " " + connectedUser.lastName}
+            order={3}
+          />
+        )}
       </div>
       {profileShown ? (
         <Profilepage name={"imed"} />
