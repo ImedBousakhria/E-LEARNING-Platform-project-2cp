@@ -19,7 +19,7 @@ export const propsContext = createContext();
 export const profileContext = createContext();
 
 const Mainapp = () => {
-  //const { userID } = useContext(authContext);
+  const { userID } = useContext(authContext);
   const notificationReaded = useState(false);
   const Indexhandle = useState(0);
   const searchMode = useState(false);

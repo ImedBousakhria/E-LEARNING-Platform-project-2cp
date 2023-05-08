@@ -40,6 +40,16 @@ const Form = ({ setToken, setUser }) => {
       setErrors((prev) => {
         return { ...prev, password: "incorrect password" };
       });
+      /* if (error.message === 'incorrect email') {
+        setErrors((prev) => {
+          return { ...prev, email: "That email is not registered" };
+        });
+      } else if (error.message === 'incorrect password') {
+        setErrors((prev) => {
+        return { ...prev, password: "incorrect password" };
+      });
+      } */
+      console.log(error)
       console.log(error.response);
       return { error: error.response.data };
     }
