@@ -17,10 +17,10 @@ const Notification = () => {
   const { elementIndex, dataElements } = useContext(IndexElementContextquiz);
   const { notificaiton, profileShown } = useContext(propsContext);
 
-  const { userID } = useContext(authContext);
+  //const { userID } = useContext(authContext);
   const [connectedUser, setConnetedUser] = useState();
 
-  useEffect(() => {
+  /* useEffect(() => {
     const getUserById = async (id) => {
       try {
         const response = await axios.get(
@@ -37,7 +37,7 @@ const Notification = () => {
 
     getUserById(userID);
     console.log(connectedUser)
-  }, [userID]);
+  }, [userID]); */
 
   return (
     <div className="sticky right-0 top-0 flex max-h-[100vh] basis-[23%] flex-col gap-8 border-l border-gray bg-white p-4">

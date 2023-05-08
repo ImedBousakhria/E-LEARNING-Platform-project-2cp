@@ -10,6 +10,7 @@ import { Page, Document } from "react-pdf";
 const Activitiesnotificationelement = ({ element }) => {
   const [numPages, setNumPages] = useState(null);
 
+  
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
@@ -18,20 +19,21 @@ const Activitiesnotificationelement = ({ element }) => {
     console.log(data);
     const base64Data = window.btoa(
       String.fromCharCode(...new Uint8Array(data))
-    );
-    console.log(base64Data);
-    const dataUrl = `data:application/pdf;base64,${base64Data}`;
-    console.log(dataUrl);
-
-    //setFile(dataUrl);
-    return dataUrl;
-    console.log(file);
-  }
-
-  const { editMode, elementIndex, dataElements } =
+      );
+      console.log(base64Data);
+      const dataUrl = `data:application/pdf;base64,${base64Data}`;
+      console.log(dataUrl);
+      
+      //setFile(dataUrl);
+      return dataUrl;
+      console.log(file);
+    }
+    
+    const { editMode, elementIndex, dataElements } =
     useContext(IndexElementContext);
-
-  //console.log(dataElements[elementIndex[0] - 1].gallery.data.data);
+    
+    console.log(dataElements[elementIndex[0]-1].gallery) ; 
+  console.log(dataElements[elementIndex[0] - 1]);
 
   function handleClick() {
     editMode[1](true);
@@ -71,6 +73,7 @@ const Activitiesnotificationelement = ({ element }) => {
             <div className="flex basis-[70%] gap-[2%]">
               {dataElements[elementIndex[0] - 1].gallery.map((Element) => {
                 let file = handleView(Element.data.data);
+                console.log(file) ; 
                 return (
                   <div
                     onClick={() => {

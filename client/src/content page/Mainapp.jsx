@@ -19,7 +19,7 @@ export const propsContext = createContext();
 export const profileContext = createContext();
 
 const Mainapp = () => {
-  //const { userID } = useContext(authContext);
+  const { userID } = useContext(authContext);
   const notificationReaded = useState(false);
   const Indexhandle = useState(0);
   const searchMode = useState(false);
@@ -57,63 +57,26 @@ const Mainapp = () => {
           setOtherData(otherResponse.data);
           console.log(otherResponse.data);
         }
+        
       } catch (error) {
         console.error(error);
       }
+      
     }
 
     fetchData();
   }, []);
+  console.log("here one") ; 
 
-
-  /* useEffect(() => {
-    if (data.isAdmin) {
-      // Use initial data to fetch other data
-      axios
-        .get(``)
-        .then((response) => setOtherData(response.data))
-        .catch((error) => console.error(error));
-    }
-  }, [data]); */
-
-  /* const { data, status } = useQuery(
-    ["userone", "64578ad50ff5d69cbe16415a"],
-
-  const { data, status } = useQuery(
-    ["userone", userID/* "645793ffff441f996d86dc0b" ],*/
-    /* async ({ queryKey }) => {
-      const id = queryKey[1];
-      try {
-        const res = await fetch(`http://localhost:3000/user/get/${id}`, {
-          method: "GET",
-        });
-        const data = await res.json();
-        //console.log(data.firstName);
-        //console.log(data.notifications);
-        setCourses(data.courses);
-        setNotification(data.notifications);
-        let userTypeHoler = {
-          isAdmin: data.isAdmin,
-          isTeacher: data.isTeacher,
-          isStudent: data.isStudent,
-        };
-        setUserTyper(userTypeHoler);
-        console.log(userTypeHoler, userType);
-        return data;
-      } catch (e) {
-        console.log(e);
-      }
-    } */
-  
-  if (!data || !otherData) {
+  if (!data && !otherData) {
     return <div>loading...</div>;
   }
 
+  console.log("here") ; 
 
-  console.log(data, otherData);
-  let coursesHolder ; 
-  if(data.courses.length>0) {
-    coursesHolder = data.courses.map((Element) => Element.courseID)
+  let coursesHolder;
+  if (data.courses.length > 0) {
+    coursesHolder = data.courses.map((Element) => Element.courseID);
 
   }
 

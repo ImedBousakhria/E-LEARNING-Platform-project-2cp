@@ -9,7 +9,9 @@ import { days } from "../../components/schedule/content/days";
 
 const Home = ({ index }) => {
 
+
   const {courses} = useContext(propsContext) ; 
+  console.log(courses) ; 
   const file = useState(null)
   const onDocumentLoadSuccess = useState(null) ; 
   const numPages = useState(null)
