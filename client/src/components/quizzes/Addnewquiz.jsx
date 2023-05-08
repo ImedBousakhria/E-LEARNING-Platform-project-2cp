@@ -173,8 +173,8 @@ const Addnewquiz = () => {
               </option>
               {courses.map((element) => {
                 return (
-                  <option value={element.courseID._id}>
-                    {element.courseID.title}
+                  <option value={element._id}>
+                    {element.title}
                   </option>
                 );
               })}

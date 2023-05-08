@@ -45,7 +45,7 @@ const Uploadedfile = ({ file, onRemove }) => {
           src={URL.createObjectURL(file)}
           className="aspect-square w-24 cursor-pointer rounded-xl object-contain"
         />
-        </div>
+       
       ) : file.type.includes("pdf") ? (
         <div className="h-[3.75rem] overflow-hidden object-contain">
           <Document file={file} className="rounded-lg shadow-lg">
@@ -56,5 +56,5 @@ const Uploadedfile = ({ file, onRemove }) => {
       <p className=" w-24 truncate break-all text-xs ">{file.name}</p>
     </div>
   );
-};
+}
 export default Uploadedfile;

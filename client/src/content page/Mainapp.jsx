@@ -110,7 +110,7 @@ const Mainapp = () => {
     ["userone", "64578ad50ff5d69cbe16415a"],
 
   const { data, status } = useQuery(
-    ["userone", userID/* "645793ffff441f996d86dc0b" */],
+    ["userone", userID/* "645793ffff441f996d86dc0b" ],*/
     async ({ queryKey }) => {
       const id = queryKey[1];
       try {
@@ -134,7 +134,7 @@ const Mainapp = () => {
         console.log(e);
       }
     }
-  ); */
+  
 
   if (!data || !otherData) {
     return <div>loading...</div>;
@@ -193,8 +193,8 @@ const Mainapp = () => {
   /* setNotification(data.notifications);
     
     setCourses(data.courses) ; */
-};
 
+    }
 //notificaiton = data.notifications;
 
 export default Mainapp;

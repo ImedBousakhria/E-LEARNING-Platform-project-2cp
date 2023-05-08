@@ -33,20 +33,18 @@ const Notification = () => {
         console.error(error);
       }
     };
-    
+
     getUserById(userID);
     console.log(connectedUser)
   }, [userID]);
- 
-
   return (
     <div className="sticky right-0 top-0 flex h-[100vh] basis-[23%] flex-col gap-8 border-l border-gray bg-white p-4">
       <div className="flex justify-between">
         <Notificaitonhandling />
-        <DiscussionForums
+        {/* <DiscussionForums
           type={"announcement"}
           firstContent={announcementState}
-        />
+        /> */}
         { connectedUser && <Profile
           profilepicture={profile}
           person={connectedUser.firstName + " " + connectedUser.lastName}

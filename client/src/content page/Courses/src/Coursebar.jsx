@@ -54,7 +54,7 @@ const Coursebar = () => {
     <div className="sticky right-0 top-0 flex max-h-screen basis-[23%] flex-col gap-4 border-l border-gray bg-white p-4">
       <div className="mb-4 flex items-center justify-between">
         <Notificaitonhandling isnotification={notificaiton} />
-        <DiscussionForums type={"lesson"} firstContent={firstContent} />
+        {/* <DiscussionForums type={"lesson"} firstContent={firstContent} /> */}
         {connectedUser && (
           <Profile
             profilepicture={profile}
@@ -62,9 +62,6 @@ const Coursebar = () => {
             order={3}
           />
         )}
-        <Notificaitonhandling />
-        <DiscussionForums type={"lesson"} firstContent={dataElements} />
-        <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>
 
       { profileShown ? (
@@ -72,11 +69,8 @@ const Coursebar = () => {
 
       ) : showQuizzContainer ? (
         <Quizzcontainer />
-      ) : barContent === null ? (
-
-      ) : elementIndex[0]?(<StudentAssignmentSubmit/>) :  barContent === null ? (
-
-        user === "said" && activeProgIndex !== null ? (
+      ) : elementIndex[0]?(<StudentAssignmentSubmit/>) : barContent === null ? (
+        userType.isAdmin && activeProgIndex !== null ?  (
           <div className="flex flex-col gap-4">
             <div>
               <div className="mb-2 flex items-center justify-between pl-2">

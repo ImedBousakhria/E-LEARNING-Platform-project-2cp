@@ -25,7 +25,6 @@ const Teachercourses = ({ index }) => {
   const [activeProgIndex, setActiveProgIndex] = useState(null);
   const elementIndex = useState(null);
   const showDiscussion = useState("hidden");
-  const {courses} = useContext(propsContext) ; 
   if (index == 2) {
 
 

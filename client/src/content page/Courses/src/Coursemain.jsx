@@ -39,11 +39,11 @@ const Coursemain = ({ index }) => {
       )}
 
       {userType.isStudent ? (
-/ * <<<<<<< imed
+/* / * <<<<<<< imed
         <div className=" flex flex-col gap-3">
           <div>
             <Allcourses admin={userType.isAdmin}/>
-=======  */
+=======  */ 
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-4 rounded-[10px] bg-white p-4">
             <div>

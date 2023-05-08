@@ -28,7 +28,7 @@ const Quizzes = ({ index }) => {
 
   if (index == 4 /* && status == "success" */) {
     //console.log(data.quizzes);
-    let dataElements = courses.map((Element) => Element.courseID.quizzes);
+    let dataElements = courses.map((Element) => Element.quizzes);
     dataElements = dataElements.flatMap((Element) => Element);
     console.log(dataElements);
     return (
@@ -54,7 +54,7 @@ export default Quizzes;
   /* const { data, status, error } = useQuery(
     [`course${courseIndex}`, courses[courseIndex]],
     async ({ queryKey }) => {
-      let id = queryKey[1].courseID;
+      let id = queryKey[1];
       try {
         const res = await fetch(`http://localhost:3000/course/get/${id}`);
         const data = await res.json();

@@ -28,7 +28,7 @@ const Assignment = ({ index }) => {
 
 
   if (index === 3 /* && status == "success" */) {
-    let dataElements = courses.map((Element) => Element.courseID.assignments)
+    let dataElements = courses.map((Element) => Element.assignments)
     dataElements = dataElements.flatMap((Element) =>Element) ; 
 
     console.log(dataElements);
