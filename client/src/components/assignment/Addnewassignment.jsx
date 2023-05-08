@@ -41,7 +41,7 @@ const Addnewassignment = () => {
     setSecondFiles([...secodeFiles, ...selectedFiles]);
     //console.log(event.target.files);
 
-    if (event.target.files[0].type.startsWith("image/")) {
+    /* if (event.target.files[0].type.startsWith("image/")) {
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onloadend = () => {
@@ -50,11 +50,12 @@ const Addnewassignment = () => {
         setFiles([...files, reader.result]);
         //console.log(files);
       };
-    } else if (event.target.files[0].type.includes("pdf")) {
+    } else */ if (event.target.files[0].type.includes("pdf")) {
       const reader = new FileReader();
       reader.readAsBinaryString(event.target.files[0]);
       reader.onloadend = () => {
         var base64String = window.btoa(reader.result);
+        console.log(base64String) ; 
         setFiles([...files, base64String]);
         //console.log(base64String);
         console.log(files);
@@ -67,7 +68,11 @@ const Addnewassignment = () => {
     const newArray = secodeFiles.filter((Element, i) => {
       return index != i;
     });
-    setFiles(newArray);
+    setSecondFiles(newArray);
+    const newArraytwo = files.filter((Element, i) => {
+      return index != i ; 
+    })
+    setFiles(newArraytwo) ; 
   };
 
 
@@ -152,6 +157,7 @@ const Addnewassignment = () => {
             ? firstContent[0][elementIndex[0] - 1]?.discussions
             : []; */
           //console.log(files);
+          obj.postedBy = "645793ffff441f996d86dc0b" ; 
           obj.file = files
             ? files
             : dataElements[elementIndex[0] - 1].gallery;
@@ -170,7 +176,7 @@ const Addnewassignment = () => {
               //dataElements([...firstContent[0], obj]);
               //console.log(obj) ; 
               postData(obj);
-              location.reload();
+              //location.reload();
             }
           }
           if (editMode[0]) {

@@ -19,7 +19,7 @@ export const propsContext = createContext();
 export const profileContext = createContext();
 
 const Mainapp = () => {
-  //const { userID } = useContext(authContext);
+  const { userID } = useContext(authContext);
   const notificationReaded = useState(false);
   const Indexhandle = useState(0);
   const searchMode = useState(false);
@@ -32,7 +32,9 @@ const Mainapp = () => {
   // student : 64578cb4a234039c43371bf1
   // admin : 645793ffff441f996d86dc0b
   // teacher : 64578ad50ff5d69cbe16415a
-  let id = "645793ffff441f996d86dc0b";
+  let id = userID;
+
+  console.log(id) ; 
 
   const [data, setData] = useState(null);
   const [otherData, setOtherData] = useState(null);
@@ -57,17 +59,22 @@ const Mainapp = () => {
           setOtherData(otherResponse.data);
           console.log(otherResponse.data);
         }
+        
       } catch (error) {
         console.error(error);
       }
+      
     }
 
     fetchData();
   }, []);
+  console.log("here one") ; 
 
-  if (!data || !otherData) {
+  if (!data && !otherData) {
     return <div>loading...</div>;
   }
+
+  console.log("here") ; 
 
   let coursesHolder;
   if (data.courses.length > 0) {
