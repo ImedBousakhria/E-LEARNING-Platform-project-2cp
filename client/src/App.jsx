@@ -53,9 +53,8 @@ const App = () => {
         <Routes>
           <Route path={"/"} element={<Main />}></Route>
           <Route path={"/login"} element={<Login setToken={setToken} setUser={setUser}/>}></Route>
-          <Route element={<PrivateRoutes token={token}/>}>
-            <Route path={"/Home"} element={<Mainapp />}></Route>
-            
+          <Route element={<PrivateRoutes token={token}></PrivateRoutes>}>
+            <Route path={"/Home"} element={<Mainapp />}></Route>     
           </Route>
         </Routes>        
       </authContext.Provider>
