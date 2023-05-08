@@ -9,9 +9,13 @@ const assignmentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  postedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   deadline: {
-    type: Date,
-    //type: String,
+    // type: Date,
+    type: String,
     required: true
   },
   submissions: 

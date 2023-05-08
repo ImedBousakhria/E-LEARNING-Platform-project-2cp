@@ -9,6 +9,8 @@ import StudentAssignment from "../../../components/courses/StudentAssignment";
 
 import StudentQuizzes from "../../../components/courses/StudentQuizzes";
 import { propsContext } from "../../Mainapp";
+import Activitiesheader from "../../../components/super/Activitiesheader";
+import Activitiesbody from "../../../components/super/Activitiesbody";
 
 const Coursemain = ({ index }) => {
   const { editMode } = useContext(CoursesContext);
@@ -37,9 +39,21 @@ const Coursemain = ({ index }) => {
       )}
 
       {userType.isStudent ? (
+/ * <<<<<<< imed
         <div className=" flex flex-col gap-3">
           <div>
             <Allcourses admin={userType.isAdmin}/>
+=======  */
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 rounded-[10px] bg-white p-4">
+            <div>
+              <h2 className="text-[1.25rem]">Recent Lessons</h2>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <Activitiesheader type={"students"} />
+              <Activitiesbody type={"students"} />
+            </div>
           </div>
           <div className="flex gap-[5%]">
             <StudentAssignment />

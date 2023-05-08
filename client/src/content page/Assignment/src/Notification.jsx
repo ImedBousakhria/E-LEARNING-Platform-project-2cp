@@ -12,7 +12,8 @@ import { authContext } from "../../../App";
 import axios from "axios";
 
 const Notification = () => {
-  const { elementIndex, firstContent } = useContext(IndexElementContext);
+
+  const { elementIndex, dataElements } = useContext(IndexElementContext);
   const { notificaiton, profileShown } = useContext(propsContext);
 
   const { userID } = useContext(authContext);
@@ -54,7 +55,7 @@ const Notification = () => {
         <Profilepage name={"imed"} />
       ) : elementIndex[0] ? (
         <Activitiesnotificationelement
-          element={firstContent[0][elementIndex[0] - 1]}
+          element={dataElements[elementIndex[0] - 1]}
         />
       ) : (
         <div className="flex h-full items-center justify-center">

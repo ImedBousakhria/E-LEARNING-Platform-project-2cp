@@ -15,6 +15,7 @@ import { assignmentteacher } from "../../Assignment/content/main";
 import Quizzcontainer from "../../../components/quizzes/Quizzcontainer";
 import { authContext } from "../../../App";
 import axios from "axios";
+import StudentAssignmentSubmit from "../../../components/reusable/StudentAssignmentSubmit";
 
 const Coursebar = () => {
   const { barContent, setBarContent, activeProgIndex } =
@@ -47,6 +48,8 @@ const Coursebar = () => {
   const { showQuizzContainer, setShowQuizzContainer } =
     useContext(CoursesContext);
 
+  const { dataElements, elementIndex } = useContext(CoursesContext); ; 
+
   return (
     <div className="sticky right-0 top-0 flex max-h-screen basis-[23%] flex-col gap-4 border-l border-gray bg-white p-4">
       <div className="mb-4 flex items-center justify-between">
@@ -59,13 +62,21 @@ const Coursebar = () => {
             order={3}
           />
         )}
+        <Notificaitonhandling />
+        <DiscussionForums type={"lesson"} firstContent={dataElements} />
+        <Profile profilepicture={profile} person={"said nouasria"} order={3} />
       </div>
-      {profileShown ? (
+
+      { profileShown ? (
         <Profilepage name={"imed"} />
+
       ) : showQuizzContainer ? (
         <Quizzcontainer />
       ) : barContent === null ? (
-        userType.isAdmin && activeProgIndex !== null ? (
+
+      ) : elementIndex[0]?(<StudentAssignmentSubmit/>) :  barContent === null ? (
+
+        user === "said" && activeProgIndex !== null ? (
           <div className="flex flex-col gap-4">
             <div>
               <div className="mb-2 flex items-center justify-between pl-2">

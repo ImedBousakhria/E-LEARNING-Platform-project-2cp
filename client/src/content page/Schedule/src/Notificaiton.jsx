@@ -50,7 +50,7 @@ const Notificaiton = () => {
       {profileShown ? (
         <Profilepage name={"imed"} />
       ) : elementIndex[0] != null ? (
-        <CaledarNotificationElement element={eventState[0][elementIndex[0]]} />
+        <CaledarNotificationElement element={dataElements[elementIndex[0]]} />
       ) : (
         <div className="flex h-full items-center justify-center">
           <Selectactivities type={"calendar"} />

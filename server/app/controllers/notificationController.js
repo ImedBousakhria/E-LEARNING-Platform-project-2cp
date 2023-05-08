@@ -3,8 +3,8 @@ const User = require('../models/User');
 
 exports.addNotification = async (req, res, next) => {
   try {
-    const { user, sender, message } = req.body;
-    const notification = new Notification({ user, sender, message });
+    const { user, message } = req.body;
+    const notification = new Notification({ user, message });
     await notification.save();
     // Find the user and update their notifications array
     const updatedUser = await User.findOneAndUpdate(
@@ -22,9 +22,9 @@ exports.getNotifications = async (req, res, next) => {
   try {
     const userId = req.params.id;
     const notifications = await Notification.find({user: userId}).sort({ createdAt: -1 });//.populate('sender')
-    // notifications.forEach(notification => {
-      // notification.read = true
-      // }); 
+     notifications.forEach(notification => {
+       notification.read = true
+       }); 
     res.status(200).json(notifications);
   } catch (error) {
     res.status(500).json({ message: error.message });

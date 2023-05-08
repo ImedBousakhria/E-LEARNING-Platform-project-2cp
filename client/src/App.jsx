@@ -8,14 +8,6 @@ import Login from "./signin page/Login";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import PrivateRoutes from "./PrivateRoutes";
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: Infinity,
-      cacheTime: Infinity,
-    },
-  },
-});
 
 export const authContext = createContext()
 
@@ -54,8 +46,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-     <authContext.Provider value={{ setToken, token, userID, setUser/* , userObj, setUserObj */ }}>
-      <QueryClientProvider client={queryClient}>
+     <authContext.Provider value={{ setToken, userID, setUser, userObj, setUserObj }}>
         <Routes>
           <Route path={"/"} element={<Main />}></Route>
           <Route path={"/login"} element={<Login setToken={setToken} setUser={setUser}/>}></Route>
@@ -63,11 +54,7 @@ const App = () => {
             <Route path={"/Home"} element={<Mainapp />}></Route>
             
           </Route>
-        </Routes>
-
-        <ReactQueryDevtools />
-        
-      </QueryClientProvider>
+        </Routes>        
       </authContext.Provider>
     </BrowserRouter>
   );

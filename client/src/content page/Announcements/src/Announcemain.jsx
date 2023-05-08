@@ -28,6 +28,7 @@ const Announcemain = () => {
           <Search />
         </div>
       </div>
+
       {userType.isAdmin || userType.isTeacher ? (
         <Newannounce setActiveCardIndex={setActiveCardIndex} />
       ) : null}
@@ -36,6 +37,22 @@ const Announcemain = () => {
         activeCardIndex={activeCardIndex}
         setActiveCardIndex={setActiveCardIndex}
       />
+
+     /* {
+        userType.isStudent?(null):(
+          <div className="">
+        <Newannounce setActiveCardIndex={setActiveCardIndex} />
+      </div>
+        )
+      }
+      
+      <div>
+        <Allannouncements
+          activeCardIndex={activeCardIndex}
+          setActiveCardIndex={setActiveCardIndex}
+        />
+      </div> * /
+
     </div>
   );
 };

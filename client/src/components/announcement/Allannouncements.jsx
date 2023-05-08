@@ -11,6 +11,7 @@ import { propsContext } from "../../content page/Mainapp";
 import { authContext } from "../../App";
 
 const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
+
   // GET announcements
   useEffect(() => {
     const getAnnouncements = async () => {
@@ -43,6 +44,25 @@ const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
   }; */
 
   const { setContentToEdit, editMode, setBarContent, barContent, announcements, setAnnouncements } =
+
+// GET announcements
+//const [announcements, setAnnouncements] = useState([]);
+const { announcements } = useContext(AnnouncementContext);
+/* useEffect(() => {
+  const getAnnouncements = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/announcement/getAll");
+      setAnnouncements(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  getAnnouncements();
+}, []);
+ */
+
     useContext(AnnouncementContext);
     const { data } = useContext(propsContext)
     const { userID } = useContext(authContext)
@@ -53,7 +73,7 @@ const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
 
-  const currentPosts = announcements.slice(firstPostIndex, lastPostIndex);
+  //const currentPosts = announcements.slice(firstPostIndex, lastPostIndex);
   const isPrevDisabled = currentPage === 1;
   const isNextDisabled = lastPostIndex >= announcements.length;
 
@@ -100,6 +120,7 @@ const Allannouncements = ({ activeCardIndex, setActiveCardIndex }) => {
       </div>
 
       <section className="grid grid-cols-2 grid-rows-2 gap-4">
+
         {lastElement.map((Element, index) => {
           console.log(Element)
           return (

@@ -2,6 +2,7 @@ const Course = require('../models/Course') ;
 const User = require("../models/User");
 const Schedule = require('../models/Schedule');
 const mongoose = require('mongoose');
+const Notification = require('../models/Notification');
 
 // GET all schedules
 module.exports.getAllSchedules = async (req, res) => {
@@ -48,7 +49,32 @@ module.exports.createSchedule = async (req, res) => {
                 course.schedules.push(schedule._id);
                 await course.save();
             }
+              // Send notifications to teachers and students in the course
+      course.teachers.forEach(async teacherId => {
+        const teacher = await User.findById(teacherId);
+        const notification = new Notification({
+          user: teacher._id,
+          message: `New schedule "${schedule.title}" created in "${course.title}"`,
+        });
+  
+        await notification.save();
+        teacher.notifications.push(notification._id);
+        teacher.save();
+        });
+        
+        // send notification to students
+        course.students.forEach(async studentId => {
+          const student = await User.findById(studentId);
+          const notification = new Notification({
+            user: student._id,
+            message: `New schedule "${schedule.title}" created in "${course.title}"`,
+          });
+          await notification.save();
+          student.notifications.push(notification._id);
+          student.save();
+        });
         }
+
         res.status(201).json(schedule);
         console.log("schedule created sucessfully");
     } catch (err) {
@@ -58,9 +84,34 @@ module.exports.createSchedule = async (req, res) => {
 
 // PATCH update a schedule
 module.exports.updateSchedule = async (req, res) => {
+
     try {
         const _id = req.params.id;
         const schedule = await Schedule.findOneAndUpdate({_id}, req.body, {new: true});
+        course = await Course.findById(req.body.course);
+        course.teachers.forEach(async teacherId => {
+            const teacher = await User.findById(teacherId);
+            const notification = new Notification({
+              user: teacher._id,
+              message: `This schedule "${schedule.title}" is updated in "${course.title}"`,
+            });
+      
+            await notification.save();
+            teacher.notifications.push(notification._id);
+            teacher.save();
+            });
+            
+            // send notification to students
+            course.students.forEach(async studentId => {
+              const student = await User.findById(studentId);
+              const notification = new Notification({
+                user: student._id,
+                message: `This schedule "${schedule.title}" updated in "${course.title}"`,
+              });
+              await notification.save();
+              student.notifications.push(notification._id);
+              student.save();
+            });
         if (!schedule) {
             return res.status(404).json({ error: "schedule not found" });
         }else{
@@ -70,6 +121,9 @@ module.exports.updateSchedule = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
     };
+
+
+
 
 
     module.exports.deleteSchedule = async (req, res) => {
@@ -113,4 +167,14 @@ module.exports.deleteAllSchedulesForCourse = async (req, res) => {
     }
     };
 
+// DELETE all schedules
+module.exports.deleteAllSchedules = async (req, res) => {
+    try {
+        await Schedule.deleteMany();
+        res.json({ message: "all schedules deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+    };
+    
 

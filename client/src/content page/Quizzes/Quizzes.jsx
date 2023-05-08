@@ -20,25 +20,28 @@ const Quizzes = ({ index }) => {
   console.log(courses);
 
 
-    const { data, status, error } = useQuery(
+    /* const { data, status, error } = useQuery(
       ["items"],
       () => fetchItems(courses),
       { enabled: index == 4 }
-    );
+    ); */
 
-  if (index == 4 && status == "success") {
+  if (index == 4 /* && status == "success" */) {
     //console.log(data.quizzes);
+    let dataElements = courses.map((Element) => Element.courseID.quizzes);
+    dataElements = dataElements.flatMap((Element) => Element);
+    console.log(dataElements);
     return (
       <IndexElementContextquiz.Provider
-        value={{ elementIndex, editMode, firstContent, showDiscussion }}
+        value={{ elementIndex, editMode, dataElements, showDiscussion }}
       >
         <Main />
         <Notification />
       </IndexElementContextquiz.Provider>
     );
-  } else if (index == 4 && status == "loading") {
+  } /* else if (index == 4 && status == "loading") {
     return <div>loading</div>;
-  } else {
+  }  */else {
     return null;
   }
 
