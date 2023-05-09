@@ -150,8 +150,11 @@ module.exports.updateAssignment = [
         const gallery = req.files.map(file => ({
           contentType: file.mimetype,
           data: file.buffer,
+<<<<<<< HEAD
+=======
           // postedBy: req.user.postedBy
 
+>>>>>>> ab6ff38bd999d1afae72dcd51f5739dee5886aa8
         }));
 
         assignment.gallery = gallery;

@@ -84,6 +84,36 @@ module.exports.createSchedule = async (req, res) => {
 
 // PATCH update a schedule
 module.exports.updateSchedule = async (req, res) => {
+<<<<<<< HEAD
+  try {
+    const _id = req.params.id;
+    const schedule = await Schedule.findOneAndUpdate({ _id }, req.body, { new: true });
+    const course = await Course.findById(schedule.course);
+    // send notification to teachers
+    course.teachers.forEach(async teacherId => {
+        const teacher = await User.findById(teacherId);
+        const notification = new Notification({
+        user: teacher._id,
+        sender: req.user._id,
+        message: `Schedule was updated in ${course.title}`,
+      });
+      await notification.save();
+      teacher.notifications.push(notification);
+      await teacher.save();
+    });
+    // send notification to students
+    course.students.forEach(async studentId => {
+        const student = await User.findById(studentId);
+        const notification = new Notification({
+        user: student._id,
+        sender: req.user._id,
+        message: `Schedule was updated in ${course.title}`,
+      });
+      await notification.save();
+      student.notifications.push(notification);
+      await student.save();
+=======
+>>>>>>> ab6ff38bd999d1afae72dcd51f5739dee5886aa8
 
     try {
         const _id = req.params.id;

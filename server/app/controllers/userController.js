@@ -49,11 +49,26 @@ const createToken = (id) => {
 module.exports.getUser = async (req, res) =>{
     _id = req.params.id;
     try{
+<<<<<<< HEAD
+      const user = await User.findById(_id)
+    .populate({
+        path: 'courses.courseID',
+        populate: [
+            { path: 'assignments' },
+            { path: 'schedules' },
+            { path: 'quizzes' }
+        ]
+    }).populate({
+      path: 'notifications',
+    });
+      ;if(user){
+=======
         const user = await User.findById(_id)
         .populate({path:'courses.courseID',populate:[{path:'assignments',populate:[{path:'course'}]}, {path:'quizzes'}, {path:'schedules'}, {path:'announcements'}]}).populate('notifications')
 
 
         if(user){
+>>>>>>> ab6ff38bd999d1afae72dcd51f5739dee5886aa8
             res.status(200).send(user);
         
         }else{
