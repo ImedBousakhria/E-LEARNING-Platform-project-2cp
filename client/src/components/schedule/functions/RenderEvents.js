@@ -3,7 +3,7 @@ import { deleteUselessTd } from "./DeleteUselessTd";
 var i = 0;
 export function renderEvents(eventState) {
   eventState.map((element, index) => {
-    let content = `${element.group} ${element.teacher}`;
+    let content = `${element.group}`;
     let container = document.getElementById(element.day + element.index);
     container.children[0].textContent = content || " ";
     container.rowSpan = element.span ;

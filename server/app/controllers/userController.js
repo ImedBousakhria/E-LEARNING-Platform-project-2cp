@@ -38,17 +38,18 @@ const handleErrors = (err) => {
 // create json web token
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
-  let jwt_secret = process.env.JWT_SECRET || 'elite secret';
-  return jwt.sign({ id }, jwt_secret, {
+  return jwt.sign({ id }, 'elite', {
     expiresIn: maxAge
   });
 };
+
 
 // controller actions
 
 module.exports.getUser = async (req, res) =>{
     _id = req.params.id;
     try{
+<<<<<<< HEAD
       const user = await User.findById(_id)
     .populate({
         path: 'courses.courseID',
@@ -61,6 +62,13 @@ module.exports.getUser = async (req, res) =>{
       path: 'notifications',
     });
       ;if(user){
+=======
+        const user = await User.findById(_id)
+        .populate({path:'courses.courseID',populate:[{path:'assignments',populate:[{path:'course'}]}, {path:'quizzes'}, {path:'schedules'}, {path:'announcements'}]}).populate('notifications')
+
+
+        if(user){
+>>>>>>> ab6ff38bd999d1afae72dcd51f5739dee5886aa8
             res.status(200).send(user);
         
         }else{
@@ -100,10 +108,10 @@ module.exports.login_post = async (req, res) => {
     // const maxAge = 1000 * 60 * 60 * 24;  
     try {
       const user = await User.login(email, password);
-    //   const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin, role: user.role }, "GDG for once, GDG forever!", {expiresIn: maxAge});
       const token = createToken(user._id);
       res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
       res.status(200).json({user: user._id,
+                            isAdmin: user.isAdmin,
                             message : "login successfull",
                             token: token });
     } 

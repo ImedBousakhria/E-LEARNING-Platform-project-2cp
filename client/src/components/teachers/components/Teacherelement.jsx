@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import Profile from "../../reusable/Profile";
 import Delete from "../../reusable/Delete";
 import Edit from "../../reusable/Edit";
+import { propsContext } from "../../../content page/Mainapp";
 
 const Teacherelement = ({
   user,
@@ -11,6 +12,7 @@ const Teacherelement = ({
   onClick,
   isActive,
 }) => {
+  const { userType, data } = useContext(propsContext);
   return (
     <div
       className={`
@@ -29,9 +31,9 @@ const Teacherelement = ({
       >
         {group}
       </p>
-      {user === "admin" && (
+      {userType.isAdmin && (
         <div className="flex gap-1 ">
-          <Delete />
+          <Delete onClick={() => {}} />
           <Edit />
         </div>
       )}

@@ -26,7 +26,8 @@ module.exports.getAllAssignments = async (req, res) => {
   // GET a single Assignment by id
   module.exports.getAssignmentById = async (req, res) => {
     try {
-      const assignment = await Assignment.findById(req.params.id);
+      const assignment = await Assignment.findById(req.params.id)
+      .populate("submissions");
       if (!assignment) {
         return res.status(404).json({ error: "Assignment not found" });
       }
@@ -61,14 +62,14 @@ module.exports.createAssignment = [
         req.files = [tempFile];
       }
 
-      if(req.body.files){
+
        // Extract the files from the request and add them to the gallery array
       const gallery = req.body.file ? req.files.map(file => ({
         contentType: file.mimetype,
         data: file.buffer,
         // postedBy: req.user._id
       })) : []; 
-      }
+     
       
 
       // Create the Assignment object
@@ -76,8 +77,9 @@ module.exports.createAssignment = [
         title: req.body.title,
         description: req.body.description,
         deadline: req.body.deadline,
-        postedBy: req.user._id,
+        //postedBy: req.user._id,
         course: req.body.course,
+        gallery: gallery,
       });
 
       // Add the new Assignment to the course if course is provided
@@ -87,32 +89,20 @@ module.exports.createAssignment = [
           course.assignments.push(assignment._id);
           await course.save();
           
-      
-          // send notification to teachers
-          const teachers = await User.find({ _id: { $in: course.teachers } });
-          teachers.forEach(async teacher => {
-            const notification = new Notification({
-              user: teacher._id,
-              sender: req.user._id,
-              message: `New assignment ${assignment.title} created in ${course.title}`,
-            });
-            await notification.save();
-            teacher.notifications.push(notification);
-            teacher.save();
+
+        // send notification to students
+        course.students.forEach(async studentId => {
+          const student = await User.findById(studentId);
+          const notification = new Notification({
+            user: student._id,
+            message: `New assignment "${assignment.title}" created in "${course.title}"`,
+
           });
-      
-          // send notification to students
-          const students = await User.find({ _id: { $in: course.students } });
-          students.forEach(async student => {
-            const notification = new Notification({
-              user: student._id,
-              sender: req.user._id,
-              message: `New assignment ${assignment.title} created in ${course.title}`,
-            });
-            await notification.save();
-            student.notifications.push(notification);
-            student.save();
-          });
+          await notification.save();
+          student.notifications.push(notification._id);
+          student.save();
+        });
+  
         }
       }
 
@@ -126,13 +116,13 @@ module.exports.createAssignment = [
   }
 ];
 
-  
+ 
 
 // PUT update a Assignment with files
 module.exports.updateAssignment = [
   async (req, res) => {
     try {
-
+      console.log(req);
       // Check if the request body contains base64 encoded file data
       if (req.body.file) {
         // Decode the base64 data to a Buffer
@@ -160,6 +150,11 @@ module.exports.updateAssignment = [
         const gallery = req.files.map(file => ({
           contentType: file.mimetype,
           data: file.buffer,
+<<<<<<< HEAD
+=======
+          // postedBy: req.user.postedBy
+
+>>>>>>> ab6ff38bd999d1afae72dcd51f5739dee5886aa8
         }));
 
         assignment.gallery = gallery;
@@ -177,10 +172,21 @@ module.exports.updateAssignment = [
       if(req.body.deadline){
         assignment.deadline = req.body.deadline;
       }
-      
     
-      await assignment.save();
 
+      const course = await Course.findById(req.body.course);
+      course.students.forEach(async studentId => {
+        const student = await User.findById(studentId);
+        const notification = new Notification({
+          user: student._id,
+          message: `New assignment "${assignment.title}" created in "${course.title}"`,
+        });
+        await notification.save();
+        student.notifications.push(notification._id);
+        student.save();
+      });
+
+      await assignment.save();
       res.json(assignment);
     } catch (err) {
       res.status(400).json({ error: err.message });
@@ -189,7 +195,7 @@ module.exports.updateAssignment = [
 ];
 
 
-  // DELETE a Assignment by id
+// DELETE a Assignment by id
  
   
   module.exports.deleteAssignment = async (req, res) => {
@@ -218,4 +224,3 @@ module.exports.updateAssignment = [
     }
   };
 
-  

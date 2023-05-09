@@ -3,6 +3,7 @@ const fs = require('fs');
 const Lesson = require('../models/Lesson');
 const Discussion = require('../models/Discussion');
 const Notification = require('../models/Notification');
+const User = require('../models/User');
 
 
 
@@ -76,51 +77,45 @@ module.exports.createLesson = [
         if (course) {
           course.lessons.push(lesson._id);
           await course.save();
-  
-          
-  
-          // send notification to teachers
-          course.teachers.forEach(async teacher => {
-            const notification = new Notification({
-              user: teacher._id,
-              sender: req.user._id,
-              message: `New lesson ${lesson.title} created in ${course.title}`,
-            });
-            await notification.save();
-            teacher.notifications.push(notification);
-            teacher.save();
+
+          // Send notifications to teachers and students in the course
+          course.teachers.forEach(async teacherId => {
+          const teacher = await User.findById(teacherId);
+          const notification = new Notification({
+            user: teacher._id,
+            message: `new lesson "${lesson.title}" created in "${course.title}"`,
+
           });
-  
+      
+          await notification.save();
+          teacher.notifications.push(notification._id);
+          teacher.save();
+          });
+          
           // send notification to students
-          course.students.forEach(async student => {
+          course.students.forEach(async studentId => {
+            const student = await User.findById(studentId);
             const notification = new Notification({
               user: student._id,
-              sender: req.user._id,
-              message: `New lesson ${lesson.title} created in ${course.title}`,
+              message: `New lesson "${lesson.title}" created in "${course.title}"`,
+
             });
             await notification.save();
-            student.notifications.push(notification);
+            student.notifications.push(notification._id);
             student.save();
           });
+      
         }
       }
 
       // Save the Lesson object
         // Create discussion forum associated with the lesson
-         const discussion = new Discussion({
+        const discussion = new Discussion({
         lesson: lesson._id,
-        members: [course.students , course.teachers]
+        messages: [],
        });
        await discussion.save(); 
        
-       //const users = [course.students, course.teachers];
-
-       ////for (const user of users) {
-          
-      //}
-      
-       
-
 
       // Save the lesson object
       await lesson.save();
@@ -181,7 +176,34 @@ module.exports.updateLesson = [
       if(req.body.description){
         lesson.description = req.body.description;
       }
-      
+      if(req.body.course){
+        const course = await Course.findById(req.body.course);
+
+        // Send notifications to teachers and students in the course
+        course.teachers.forEach(async teacherId => {
+        const teacher = await User.findById(teacherId);
+        const notification = new Notification({
+          user: teacher._id,
+          message: `new lesson "${lesson.title}" creted in "${course.title}"`,
+        });
+    
+        await notification.save();
+        teacher.notifications.push(notification._id);
+        teacher.save();
+        });
+        
+        // send notification to students
+        course.students.forEach(async studentId => {
+          const student = await User.findById(studentId);
+          const notification = new Notification({
+            user: student._id,
+            message: `new lesson "${lesson.title}" created in "${course.title}"`,
+          });
+          await notification.save();
+          student.notifications.push(notification._id);
+          student.save();
+        });
+      }    
     
       await lesson.save();
 

@@ -52,6 +52,12 @@
 
 
 
+/* viewFile */
+.react-pdf__Page__textContent {
+  @apply hidden !important ; 
+}
+
+
 /* navbar style */
 
 @layer components {
@@ -153,7 +159,7 @@
 
 /* profile */
 .profile-info {
-  @apply bg-white py-2 px-4 text-darkgray border border-darkgray rounded-md;
+  @apply bg-white text-darkgray border text-sm p-3 border-darkgray rounded-md;
 }
 /* home */
 

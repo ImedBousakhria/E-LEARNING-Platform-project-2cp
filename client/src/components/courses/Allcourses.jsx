@@ -1,8 +1,7 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { lessons } from "../../content page/Courses/content/main";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation } from "swiper";
+import { createContext } from "react";
 import "swiper/swiper-bundle.css";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -13,8 +12,10 @@ import Delete from "../reusable/Delete";
 import { CoursesContext } from "../../content page/Courses/Teachercourses";
 import axios from "axios";
 import { formatDate } from "../reusableFunc/formatDate";
+import { propsContext } from "../../content page/Mainapp";
 
-const Allcourses = ({ index }) => {
+const Allcourses = ({ index, admin }) => {
+  const { userType } = useContext(propsContext)
   const [iconRotation, setIconRotation] = useState(0);
   const {
     activeCardIndex,
@@ -24,22 +25,38 @@ const Allcourses = ({ index }) => {
     checkedLessons,
     setCheckedLessons,
     editMode,
+    courseId
   } = useContext(CoursesContext);
 
   // GET lessons
   const [My, setLessons] = useState([]);
+  userType.isAdmin ? 
   useEffect(() => {
     const getLessons = async () => {
       try {
         const response = await axios.get("http://localhost:3000/lesson/getAll");
         setLessons(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error(error);
       }
     };
 
     getLessons();
-  }, [My]);
+  }, []) : 
+  // get by course ID
+  useEffect(() => {
+    const fetchLessons = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/lesson/get/${courseId}`);
+        setLessons(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchLessons();
+  }, [courseId]);
 
   const handleCheckAll = (event) => {
     const { checked } = event.target;
@@ -146,7 +163,7 @@ const Allcourses = ({ index }) => {
               <small>Date modified</small>
             </div>
             <div className=" ">
-              <Delete text="Delete" />
+              {admin ? <Delete text="Delete" /> : null}
             </div>
           </div>
         </header>
@@ -154,6 +171,7 @@ const Allcourses = ({ index }) => {
         {currentPosts.map((lesson, index) => {
           return (
             <Lesson
+              admin={true}
               id={index}
               name={lesson.title}
               type={lesson.type}

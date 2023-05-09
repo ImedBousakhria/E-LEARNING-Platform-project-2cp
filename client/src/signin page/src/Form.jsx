@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import info from "../../assets/icons/info.svg";
 import showpwd from "../../assets/icons/showpwd.svg";
 import dropdown from "../../assets/icons/dropdown.svg";
 import axios from "axios";
+import { authContext } from "../../App";
+import { useNavigate } from "react-router-dom";
+import { loginContext } from "../Login";
 
-const Form = () => {
+const Form = ({ setToken, setUser }) => {
+  const { setShowLoginForm } = useContext(loginContext);
+/*   const { setToken, setUser } = useContext(authContext);
+ */
   const initValues = { email: "", password: "", user: "" };
   const [values, setValues] = useState(initValues);
   const [errors, setErrors] = useState({});
@@ -13,6 +19,7 @@ const Form = () => {
   const [infoMsg, setInfoMsg] = useState("");
   const [isShown, setIsshown] = useState(false);
   const [userPicked, setUserPicked] = useState();
+  const navigate = useNavigate();
 
   const loginUser = async (email, password) => {
     try {
@@ -20,14 +27,31 @@ const Form = () => {
         email: email,
         password: password,
       });
+      console.log(response.data)
       const { token, user } = response.data;
+      setToken(token);
+      setUser(user);
+      
+      localStorage.setItem("token", token);
+      navigate("/Home");
       // store token and user in local storage or state
       return { token, user };
     } catch (error) {
-      setErrors((prev) => {
+      /* setErrors((prev) => {
+        return { ...prev, password: "incorrect password" };
+      }); */
+      if (error.response.data.errors.email === 'That email is not registered') {
+        console.log('hey')
+        setErrors((prev) => {
+          return { ...prev, email: "That email is not registered" };
+        });
+      } else if (error.response.data.errors.password === 'That password is incorrect') {
+        setErrors((prev) => {
         return { ...prev, password: "incorrect password" };
       });
-      console.log(error.response);
+      }
+      
+      console.log(error.response.data.errors.email);
       return { error: error.response.data };
     }
   };
@@ -53,6 +77,7 @@ const Form = () => {
   const handleChange = (e) => {
     const { name } = e.target;
     setValues({ ...values, [name]: e.target.value });
+    console.log(values)
   };
 
   const handleSubmit = async (e) => {
@@ -70,6 +95,17 @@ const Form = () => {
       console.log("Login success:", user, token);
       // redirect to dashboard or some other page
     }
+    if (error.email === 'incorrect email') {
+      console.log('hey')
+      setErrors((prev) => {
+        return { ...prev, email: "That email is not registered" };
+      });
+    } else if (error.password === 'incorrect password') {
+      setErrors((prev) => {
+      return { ...prev, password: "incorrect password" };
+    });
+    }
+   
   };
 
   // check front validation
@@ -130,7 +166,7 @@ const Form = () => {
             <input
               id="email"
               placeholder="Elitesstudent@gmail.com"
-              className=" w-full border-0 p-0 pr-1 placeholder-gray outline-none"
+              className=" w-full rounded-none border-0 p-0 pr-1 placeholder-gray outline-none"
               type="text"
               name="email"
               value={values.email}
@@ -160,7 +196,7 @@ const Form = () => {
               type="password"
               name="password"
               value={values.password}
-              className="w-full border-0 p-0 pr-1 placeholder-gray outline-none"
+              className="w-full rounded-none border-0 p-0 pr-1 placeholder-gray outline-none"
               onChange={handleChange}
             />
             <img src={showpwd} alt="info" className="w-5" />
@@ -231,7 +267,11 @@ const Form = () => {
         >
           Sign in
         </button>
-        <a href="#" className=" mt-3 cursor-pointer text-blue">
+        <a
+          href="#"
+          className=" mt-3 cursor-pointer text-blue"
+          onClick={() => setShowLoginForm(false)}
+        >
           Forgot your password?
         </a>
       </div>

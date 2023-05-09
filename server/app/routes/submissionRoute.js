@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const submissionController = require('../controllers/submissionController');
+const { requireAuth, checkUser } = require('../middleware/userMiddleware');
 
 router.get('/submission/getAll', submissionController.getAllSubmissions);
 router.get('/submission/get/:id', submissionController.getSubmissionById);

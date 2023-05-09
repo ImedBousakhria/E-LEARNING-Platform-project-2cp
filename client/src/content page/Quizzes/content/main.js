@@ -178,4 +178,180 @@ export const quizz = [
       },
     ],
   },
+  {
+    question: "What's the capital of Algeria?",
+    options: [
+      {
+        text: "option1",
+        state: false,
+      },
+      {
+        text: "Algiers",
+        state: true,
+      },
+      {
+        text: "option3",
+        state: false,
+      },
+      {
+        text: "option4",
+        state: false,
+      },
+    ],
+  },
+
+  {
+    question: "What's the capital of Algeria?",
+    options: [
+      {
+        text: "option1",
+        state: false,
+      },
+      {
+        text: "Algiers",
+        state: true,
+      },
+      {
+        text: "option3",
+        state: false,
+      },
+      {
+        text: "option4",
+        state: false,
+      },
+    ],
+  },
+
+  {
+    question: "What's the capital of Algeria?",
+    options: [
+      {
+        text: "option1",
+        state: false,
+      },
+      {
+        text: "Algiers",
+        state: true,
+      },
+      {
+        text: "option3",
+        state: false,
+      },
+      {
+        text: "option4",
+        state: false,
+      },
+    ],
+  },
+
+  {
+    question: "What's the capital of Algeria?",
+    options: [
+      {
+        text: "option1",
+        state: false,
+      },
+      {
+        text: "Algiers",
+        state: true,
+      },
+      {
+        text: "option3",
+        state: false,
+      },
+      {
+        text: "option4",
+        state: false,
+      },
+    ],
+  },
+
+  {
+    question: "What's the capital of Algeria?",
+    options: [
+      {
+        text: "option1",
+        state: false,
+      },
+      {
+        text: "Algiers",
+        state: true,
+      },
+      {
+        text: "option3",
+        state: false,
+      },
+      {
+        text: "option4",
+        state: false,
+      },
+    ],
+  },
+
+  {
+    question: "What's the capital of Algeria?",
+    options: [
+      {
+        text: "option1",
+        state: false,
+      },
+      {
+        text: "Algiers",
+        state: true,
+      },
+      {
+        text: "option3",
+        state: false,
+      },
+      {
+        text: "option4",
+        state: false,
+      },
+    ],
+  },
+
+  {
+    question: "What's the capital of Algeria?",
+    options: [
+      {
+        text: "option1",
+        state: false,
+      },
+      {
+        text: "Algiers",
+        state: true,
+      },
+      {
+        text: "option3",
+        state: false,
+      },
+      {
+        text: "option4",
+        state: false,
+      },
+    ],
+  },
+
+  {
+    question: "What's the capital of Algeria?",
+    options: [
+      {
+        text: "option1",
+        state: false,
+      },
+      {
+        text: "Algiers",
+        state: true,
+      },
+      {
+        text: "option3",
+        state: false,
+      },
+      {
+        text: "option4",
+        state: false,
+      },
+    ],
+  },
+
 ];

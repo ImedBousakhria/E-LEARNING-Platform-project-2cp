@@ -76,7 +76,7 @@ const Newteacher = () => {
           onChange={handleChange}
         />
 
-        {ready ? (
+        {/* ready ? */ (
           <button
             className=" mt-4 flex w-max items-center gap-2 place-self-end rounded-md bg-accent p-2 "
             type="submit"
@@ -84,7 +84,7 @@ const Newteacher = () => {
             <p className=" text-sm font-semibold text-white">Done</p>
             <img src={publish} alt="" />
           </button>
-        ) : null}
+        ) /* : null */}
       </form>
     </div>
   );

@@ -21,7 +21,7 @@ const Addnewassignment = () => {
 
   const { register, handleSubmit, reset } = useForm();
 
-  const { elementIndex, editMode, firstContent } =
+  const { elementIndex, editMode, dataElements } =
     useContext(IndexElementContext);
   const [files, setFiles] = useState([]);
 
@@ -29,7 +29,7 @@ const Addnewassignment = () => {
 
   const handleAddedFile = (e) => {
     setFiles([...files, e.target.files[0]]);
-    console.log(e.target.files[0]);
+    //console.log(e.target.files[0]);
   };
 
   const handleFileUpload = () => {
@@ -39,34 +39,40 @@ const Addnewassignment = () => {
   const handleFileSelected = (event) => {
     const selectedFiles = Array.from(event.target.files);
     setSecondFiles([...secodeFiles, ...selectedFiles]);
-    console.log(event.target.files);
+    //console.log(event.target.files);
 
-    if (event.target.files[0].type.startsWith("image/")) {
+    /* if (event.target.files[0].type.startsWith("image/")) {
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onloadend = () => {
         //console.log(reader.result);
+        
         setFiles([...files, reader.result]);
-        console.log(files);
+        //console.log(files);
       };
-    } else if (event.target.files[0].type.includes("pdf")) {
+    } else */ if (event.target.files[0].type.includes("pdf")) {
       const reader = new FileReader();
       reader.readAsBinaryString(event.target.files[0]);
       reader.onloadend = () => {
         var base64String = window.btoa(reader.result);
+        console.log(base64String) ; 
         setFiles([...files, base64String]);
         //console.log(base64String);
         console.log(files);
       };
     }
 
-    console.log(files);
+    //console.log(files);
   };
   const handleRemoveFile = (index) => {
     const newArray = secodeFiles.filter((Element, i) => {
       return index != i;
     });
-    setFiles(newArray);
+    setSecondFiles(newArray);
+    const newArraytwo = files.filter((Element, i) => {
+      return index != i ; 
+    })
+    setFiles(newArraytwo) ; 
   };
 
 
@@ -86,6 +92,23 @@ const Addnewassignment = () => {
     }
   }
 
+
+  async function updateData(data, id) {
+    console.log(data, id);
+    
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/assignment/update/${id}`,
+        data
+      );
+      console.log(response);
+      /* const result = await response.json();
+      console.log("Success:", result); */
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   
   return (
     <div className="flex flex-col gap-4 rounded-[10px] bg-white p-4">
@@ -94,22 +117,23 @@ const Addnewassignment = () => {
       </div>
       <form
         onSubmit={handleSubmit((data) => {
-          console.log(data);
+          //console.log(data);
           let obj = new Object();
+          
           obj.course = data.selectCourse;
           obj.title = data.title
             ? data.title
-            : firstContent[0][elementIndex[0] - 1].name;
+            : dataElements[elementIndex[0] - 1].title;
           /* obj.course = data.course
             ? data.course
             : firstContent[0][elementIndex[0] - 1].course; */
           obj.description = data.description
             ? data.description
-            : firstContent[0][elementIndex[0] - 1].description;
+            : dataElements[elementIndex[0] - 1].description;
           obj.deadline = data.deadline
-            ? data.deadline
-            : firstContent[0][elementIndex[0] - 1].deadline;
-
+            /* ? data.deadline
+            : dataElements[elementIndex[0] - 1].deadline;
+ */
           const currentDate = new Date(); // get current date and time
           const day = currentDate.getDate().toString().padStart(2, "0"); // get day of the month and add leading zero if necessary
           const month = (currentDate.getMonth() + 1)
@@ -123,7 +147,7 @@ const Addnewassignment = () => {
           const minute = currentDate.getMinutes().toString().padStart(2, "0"); // get minute and add leading zero if necessary
           const ampm = currentDate.getHours() >= 12 ? "PM" : "AM"; // get AM/PM
           const formattedDate = `${day}/${month}/${year},${hour}:${minute}${ampm}`; // combine all parts into the desired format
-          console.log(formattedDate); // output: e.g. 29/03/23,11:00PM
+          //console.log(formattedDate); // output: e.g. 29/03/23,11:00PM
 
           /* obj.date = formattedDate; */
           /* obj.submissions = firstContent[0][elementIndex[0] - 1]?.submissions
@@ -132,22 +156,32 @@ const Addnewassignment = () => {
           /*           obj.discussions = firstContent[0][elementIndex[0] - 1]?.discussions
             ? firstContent[0][elementIndex[0] - 1]?.discussions
             : []; */
-          console.log(files);
-          obj.file = files ? files : firstContent[0][elementIndex[0] - 1].files;
-          console.log(obj);
-          console.log("no cancel");
+          //console.log(files);
+          obj.postedBy = "645793ffff441f996d86dc0b" ; 
+          obj.file = files
+            ? files
+            : dataElements[elementIndex[0] - 1].gallery;
+          //console.log(obj);
+          //console.log("no cancel");
           if (!cancel) {
             if (editMode[0]) {
-              firstContent[0][elementIndex[0] - 1] = obj;
+              //console.log(elementIndex[0])
+              //console.log(dataElements[elementIndex[0]-1]._id) ; 
+              let id = dataElements[elementIndex[0]-1]._id; 
+              updateData(obj, id);
+              location.reload()
+              //dataElements[elementIndex[0] - 1] = obj;
               console.log("ssave");
             } else {
-              firstContent[1]([...firstContent[0], obj]);
+              //dataElements([...firstContent[0], obj]);
+              //console.log(obj) ; 
+              postData(obj);
+              //location.reload();
             }
           }
           if (editMode[0]) {
             editMode[1](false);
           }
-          postData(obj);
 
           reset();
           setFiles([]);
@@ -164,7 +198,7 @@ const Addnewassignment = () => {
               {...register("title")}
               defaultValue={
                 elementIndex[0] != null && editMode[0]
-                  ? firstContent[0][elementIndex[0] - 1].name
+                  ? dataElements[elementIndex[0] - 1].title
                   : null
               }
             />
@@ -177,7 +211,7 @@ const Addnewassignment = () => {
               {...register("deadline")}
               defaultValue={
                 elementIndex[0] != null && editMode[0]
-                  ? firstContent[0][elementIndex[0] - 1].deadline
+                  ? dataElements[elementIndex[0] - 1].deadline
                   : null
               }
             />
@@ -189,7 +223,7 @@ const Addnewassignment = () => {
               {...register("description")}
               defaultValue={
                 elementIndex[0] != null && editMode[0]
-                  ? firstContent[0][elementIndex[0] - 1].description
+                  ? dataElements[elementIndex[0] - 1].description
                   : null
               }
             />
@@ -200,7 +234,13 @@ const Addnewassignment = () => {
             <div className="flex gap-2">
               <div className=" basis-[80%] pb-4">
                 <div className="flex w-full flex-wrap items-center gap-2">
-                  {secodeFiles.map((file, index) => (
+                  {secodeFiles?secodeFiles.map((file, index) => (
+                    <Uploadedfile
+                      fileName={"file.name"}
+                      file={file}
+                      onRemove={() => handleRemoveFile(index)}
+                    />
+                  )):dataElements[elementIndex[0]-1].gallery.map((file, index) => (
                     <Uploadedfile
                       fileName={"file.name"}
                       file={file}
@@ -225,8 +265,8 @@ const Addnewassignment = () => {
               </option>
               {courses.map((element) => {
                 return (
-                  <option value={element.courseID._id}>
-                    {element.courseID.title}
+                  <option value={element._id}>
+                    {element.title}
                   </option>
                 );
               })}

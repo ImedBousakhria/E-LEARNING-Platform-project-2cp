@@ -1,18 +1,68 @@
 import React from "react";
 import Publish from "../reusable/Publish";
 import Attachfile from "./../reusable/Attachfile";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Uploadedfile from "../../components/reusable/Uploadedfile";
 import pfp from "../../assets/profile/profileholder.png";
 import { useContext } from "react";
 import { AnnouncementContext } from "../../content page/Announcements/Teacherannounce";
 import Save from "../reusable/Save";
 import Cancel from "./../reusable/Cancel";
+import axios from "axios";
+import { authContext } from "../../App";
 
 const Newannounce = ({ setActiveCardIndex }) => {
+  const { announcements, setAnnouncements } = useContext(AnnouncementContext);
+  const { userID } = useContext(authContext);
+
+  // post Announcement
+  const addAnnouncement = async (testAnnouncement) => {
+    axios
+      .post("http://localhost:3000/announcement/create", testAnnouncement)
+      .then((response) => {
+        setAnnouncements([testAnnouncement, ...announcements]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  /* 6457623b332ae4a3a6dc004b */
+
+  const handleUpdateAnnouncement = (updatedAnnouncement) => {
+    updatedAnnouncement = {
+      title: updatedAnnouncement.title,
+      description: updatedAnnouncement.description,
+    };
+    id = userID;
+    axios
+      .put(
+        `http://localhost:3000/announcement/update/${id}`,
+        updatedAnnouncement
+      )
+      .then((response) => {
+        // handle success, update state or trigger a re-fetch of the data
+        /* getAnnouncements() */
+      })
+      .catch((error) => {
+        // handle error
+      });
+  };
+
+  const handleCreation = async () => {
+    const toAdd = {
+      title: Acontent.title,
+      description: Acontent.description,
+      gallery: files,
+    };
+
+    const newAnnouncement = await addAnnouncement(toAdd);
+    console.log(newAnnouncement);
+  };
+
   const inputRef = useRef(null);
   const [files, setFiles] = useState([]);
-  const { editMode, Acontent, setContent, setItem, setEditMode } =
+  const { editMode, Acontent, setContent, setEditMode } =
     useContext(AnnouncementContext);
   // editMode ? focusRef.current.focus() : null;
 
@@ -70,7 +120,7 @@ const Newannounce = ({ setActiveCardIndex }) => {
             name="description"
             placeholder="Description"
             onChange={handleChange}
-            className=" resize-none rounded-[10px] border border-darkgray px-3 pt-3.5 pb-24 outline-none"
+            className=" resize-none rounded-[10px] border border-darkgray px-3 pb-24 pt-3.5 outline-none"
           />
         </div>
 
@@ -98,8 +148,9 @@ const Newannounce = ({ setActiveCardIndex }) => {
             {
               editMode ? (
                 <Cancel
-                  setEditMode={setEditMode}
-                  setContent={setContent}
+                  onClick={() => {
+                    setEditMode(false), setContent("");
+                  }}
                   text={Cancel}
                 />
               ) : null
@@ -109,13 +160,18 @@ const Newannounce = ({ setActiveCardIndex }) => {
             {!editMode ? (
               <Publish
                 onClick={() => {
-                  setItem((prevItems) => [newItem, ...prevItems]);
-                  setActiveCardIndex((prev) => prev + 1);
-                  console.log("added Item");
+                  handleCreation(),
+                    /* setContent(null) */
+                    /* setItem((prevItems) => [newItem, ...prevItems]); */
+                    setActiveCardIndex((prev) => prev + 1);
                 }}
               />
             ) : (
-              <Save setEditMode={setEditMode} /> // set the content to the edited one;
+              <Save
+                onClick={() => {
+                  setEditMode(false), handleUpdateAnnouncement(Acontent);
+                }}
+              /> // set the content to the edited one;
             )}
           </div>
         </div>

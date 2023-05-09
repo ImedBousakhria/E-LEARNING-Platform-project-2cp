@@ -14,8 +14,8 @@ const assignmentSchema = new mongoose.Schema({
     ref: 'User'
   },
   deadline: {
-    type: Date,
-    //type: String,
+    // type: Date,
+    type: String,
     required: true
   },
   submissions: 

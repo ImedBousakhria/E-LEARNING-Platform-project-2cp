@@ -5,8 +5,8 @@ const Notificationcontentelement = ({ notificationelement }) => {
     <div className="flex flex-col gap-1">
       <div className="before:m-auto before:block before:h-[1px] before:w-[90%]  before:bg-darkgray before:content-[''] ">
         <p className="text-center text-[1rem] text-darkgray">
-          {notificationelement.sender.firstName +
-            notificationelement.sender.lastName}
+          {/* notificationelement.sender.firstName +
+            notificationelement.sender.lastName */}
         </p>
       </div>
       <div className="gridlayout gap-x-2 ">

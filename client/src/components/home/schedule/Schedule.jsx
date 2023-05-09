@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { teacherschedule } from "../../../content page/Home/content/schedule";
 import Day from "./Day";
 import Course from "./Course";
@@ -10,11 +10,14 @@ import { register } from "swiper/element/bundle";
 register();
 import "swiper/css";
 import "swiper/css/navigation";
+import { homeContext } from "../../../content page/Home/Home";
 
 const Schedule = () => {
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState(0);
   const swiperRef = useRef(null);
+
+  const {schedules} = useContext(homeContext) ; 
 
   return (
     <div className="flex basis-[40%]  flex-col gap-4 rounded-[10px] bg-white p-4">
@@ -68,16 +71,16 @@ const Schedule = () => {
         </div>
 
         <div className="flex flex-col gap-4">
-          {teacherschedule[index].modules.map((Element) => {
+          {schedules[index]?.map((Element) => {
             return (
               <Course
-                groupe={Element.groupe}
-                module={Element.module}
-                time={Element.time}
-                description={Element.description}
+                group={Element.group}
+                //module={Element.module}
+                startTime={Element.startTime}
+                endTime={Element.endTime}
               />
-            );
-          })}
+             );
+          })} 
         </div>
       </div>
     </div>

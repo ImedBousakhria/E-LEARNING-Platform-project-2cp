@@ -19,7 +19,7 @@ const Addnewquiz = () => {
 
   const { register, handleSubmit, reset } = useForm();
 
-  const { elementIndex, editMode, firstContent } = useContext(
+  const { elementIndex, editMode, dataElements } = useContext(
     IndexElementContextquiz
   );
 
@@ -43,6 +43,22 @@ const Addnewquiz = () => {
     }
   }
 
+  async function updateData(data, id) {
+    console.log(data, id);
+
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/quizz/update/${id}`,
+        data
+      );
+      console.log(response);
+      /* const result = await response.json();
+      console.log("Success:", result); */
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   return (
     <handleQuesitons.Provider value={{ questions, setQuestions }}>
       <div className="flex flex-col gap-4 rounded-[10px] bg-white p-4">
@@ -54,10 +70,10 @@ const Addnewquiz = () => {
             console.log(data);
             let obj = new Object();
             obj.content = questions;
-            obj.course = data.selectCourse ; 
+            obj.course = data.selectCourse;
             obj.name = data.name
               ? data.name
-              : firstContent[0][elementIndex[0] - 1].name;
+              : dataElements[elementIndex[0] - 1].name;
 
             /* obj.groupe = data.groupe
               ? data.groupe
@@ -66,10 +82,10 @@ const Addnewquiz = () => {
             //obj.date = getCurrentTime();
             obj.deadline = data.deadline
               ? data.deadline
-              : firstContent[0][elementIndex[0] - 1].deadline;
+              : dataElements[elementIndex[0] - 1].deadline;
             obj.description = data.description
               ? data.description
-              : firstContent[0][elementIndex[0] - 1].description;
+              : dataElements[elementIndex[0] - 1].description;
 
             /* obj.submissions = firstContent[0][elementIndex[0] - 1]?.submissions
               ? firstContent[0][elementIndex[0] - 1].submissions
@@ -78,10 +94,14 @@ const Addnewquiz = () => {
             console.log(obj);
             if (!cancel) {
               if (editMode[0]) {
-                firstContent[0][elementIndex[0] - 1] = obj;
+                let id = dataElements[elementIndex[0] - 1]._id;
+                updateData(obj, id);
+
+                //firstContent[0][elementIndex[0] - 1] = obj;
                 console.log("ssave");
               } else {
-                firstContent[1]([...firstContent[0], obj]);
+                postData(obj);
+                //firstContent[1]([...firstContent[0], obj]);
               }
             }
             if (editMode[0]) {
@@ -90,7 +110,6 @@ const Addnewquiz = () => {
             /*             document.querySelectorAll(".questionState").forEach((Element) => {
               Element.value = null ; 
             }); */
-            postData(obj);
             setQuestions([]);
             reset();
           })}
@@ -105,7 +124,7 @@ const Addnewquiz = () => {
                 {...register("name")}
                 defaultValue={
                   elementIndex[0] != null && editMode[0]
-                    ? firstContent[0][elementIndex[0] - 1].name
+                    ? dataElements[elementIndex[0] - 1].name
                     : null
                 }
               />
@@ -130,7 +149,7 @@ const Addnewquiz = () => {
                 {...register("description")}
                 defaultValue={
                   elementIndex[0] != null && editMode[0]
-                    ? firstContent[0][elementIndex[0] - 1].description
+                    ? dataElements[elementIndex[0] - 1].description
                     : null
                 }
               />
@@ -143,7 +162,7 @@ const Addnewquiz = () => {
                 {...register("deadline")}
                 defaultValue={
                   elementIndex[0] != null && editMode[0]
-                    ? firstContent[0][elementIndex[0] - 1].deadline
+                    ? dataElements[elementIndex[0] - 1].deadline
                     : null
                 }
               />
@@ -154,8 +173,8 @@ const Addnewquiz = () => {
               </option>
               {courses.map((element) => {
                 return (
-                  <option value={element.courseID._id}>
-                    {element.courseID.title}
+                  <option value={element._id}>
+                    {element.title}
                   </option>
                 );
               })}
@@ -175,7 +194,7 @@ const Addnewquiz = () => {
                       {...register("question")}
                       defaultValue={
                         elementIndex[0] != null && editMode[0]
-                          ? firstContent[0][elementIndex[0] - 1].quiz[
+                          ? dataElements[elementIndex[0] - 1].content[
                               questionIndex
                             ].question
                           : null
@@ -194,9 +213,9 @@ const Addnewquiz = () => {
                       {...register("choiceone")}
                       defaultValue={
                         elementIndex[0] != null && editMode[0]
-                          ? firstContent[0][elementIndex[0] - 1].quiz[
+                          ? dataElements[elementIndex[0] - 1].content[
                               questionIndex
-                            ].answaer1[0]
+                            ].options[0].text
                           : null
                       }
                     />
@@ -214,9 +233,9 @@ const Addnewquiz = () => {
                       {...register("choicetwo")}
                       defaultValue={
                         elementIndex[0] != null && editMode[0]
-                          ? firstContent[0][elementIndex[0] - 1].quiz[
+                          ? dataElements[elementIndex[0] - 1].content[
                               questionIndex
-                            ].answaer2[0]
+                            ].options[1].text
                           : null
                       }
                     />
@@ -234,9 +253,9 @@ const Addnewquiz = () => {
                       {...register("choicethree")}
                       defaultValue={
                         elementIndex[0] != null && editMode[0]
-                          ? firstContent[0][elementIndex[0] - 1].quiz[
+                          ? dataElements[elementIndex[0] - 1].content[
                               questionIndex
-                            ].answaer3[0]
+                            ].options[2].text
                           : null
                       }
                     />
@@ -254,9 +273,9 @@ const Addnewquiz = () => {
                       {...register("choicefour")}
                       defaultValue={
                         elementIndex[0] != null && editMode[0]
-                          ? firstContent[0][elementIndex[0] - 1].quiz[
+                          ? dataElements[elementIndex[0] - 1].content[
                               questionIndex
-                            ].answaer4[0]
+                            ].options[3].text
                           : null
                       }
                     />
